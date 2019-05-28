@@ -24,3 +24,7 @@
   // loading progress bar
   @include ngx-pace-theme();
 };
+// change color of header
+.nb-theme-corporate nb-layout .layout nb-layout-header nav {
+  background: #0088cc !important;
+}
