@@ -4,17 +4,17 @@
     <nb-card>
       <nb-card-header>Logon</nb-card-header>
       <nb-card-body>
-        <form>
+        <form [formGroup]='form' (ngSubmit)='onSubmit()'>
           <div class="form-group row">
-            <label for="inputEmail1" class="col-sm-3 col-form-label">Email</label>
+            <label for="inputUsername1" class="col-sm-3 col-form-label">Username</label>
             <div class="col-sm-9">
-              <input type="email" class="form-control" id="inputEmail1" placeholder="Email">
+              <input type="text" class="form-control" id="inputUsername1" formControlName='username' placeholder="Username" required>
             </div>
           </div>
           <div class="form-group row">
             <label for="inputPassword2" class="col-sm-3 col-form-label">Password</label>
             <div class="col-sm-9">
-              <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+              <input type="password" class="form-control" id="inputPassword2" formControlName='password' placeholder="Password" required>
             </div>
           </div>
           <div class="form-group row">
