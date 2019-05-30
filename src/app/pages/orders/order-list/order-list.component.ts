@@ -17,7 +17,6 @@ export class OrderListComponent implements OnInit {
   ) {
     this.ordersService.getOrders()
       .subscribe(orders => {
-        console.log(orders.orders);
         this.source = [...orders.orders];
       });
   }

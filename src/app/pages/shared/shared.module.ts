@@ -9,12 +9,14 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TablesComponent } from '../tables/tables.component';
 import { MiscellaneousModule } from '../miscellaneous/miscellaneous.module';
+import { OrderListComponent } from '../orders/order-list/order-list.component';
 
 
 @NgModule({
   declarations: [
     TablesComponent,
     SmartTableComponent,
+    OrderListComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,7 @@ import { MiscellaneousModule } from '../miscellaneous/miscellaneous.module';
     DashboardModule,
     ECommerceModule,
     MiscellaneousModule,
+    OrderListComponent
   ]
 })
 export class SharedModule { }
