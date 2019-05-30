@@ -1,6 +1,18 @@
 .login-form {
   margin-top: 60px;
 }
+form {
+  padding: 20px;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+
+// nb styles
 input.ng-touched.ng-invalid {border:solid red 2px;}
 
 @import '../../../@theme/styles/themes';
