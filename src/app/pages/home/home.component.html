@@ -1,20 +1,37 @@
-<nb-card size="medium">
+<nb-card size="small">
   <nb-card-header>
     Store information
   </nb-card-header>
   <nb-card-body>
 
-    <p>WoodTreasures</p>
-    <p>1234 Street address</p>
-    <p>My city, QC, H2H-2H2</p>
-    <p>Canada</p>
-    <p>888-888-8888</p>
-    <br/>
-    <p>
-      <i class="nb-person"></i>
-      admin
-    </p>
-    <p>Last access: May 28, 2019 6:40:53 AM</p>
+    <div class="info-block">
+      <span>{{user?.merchantName}}</span>
+      <span>{{user?.address}}</span>
+      <span>{{user?.city}}, {{user?.stateProvince}}, {{user?.postalCode}}</span>
+      <span>{{user?.country}}</span>
+      <span>{{user?.phone}}</span>
+    </div>
+
+    <div class="info-block">
+      <span>
+        <i class="fa fa-user"></i>
+        {{user?.userName}}
+      </span>
+      <span>
+      <i class="fa fa-calendar-alt"></i>
+      Last access: {{user?.lastAccess | date : 'medium'}}
+      </span>
+    </div>
+
+
+  </nb-card-body>
+</nb-card>
+
+<nb-card size="small">
+  <nb-card-header>
+    Recent orders
+  </nb-card-header>
+  <nb-card-body>
 
   </nb-card-body>
 </nb-card>
