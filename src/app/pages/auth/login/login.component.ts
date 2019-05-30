@@ -10,6 +10,8 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
+  errorMessage = '';
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -26,12 +28,15 @@ export class LoginComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+    this.errorMessage = '';
     const formData = this.form.value;
 
     this.authService.logon(formData.username, formData.password)
       .subscribe(res => {
         localStorage.setItem('token', res.token);
         this.router.navigate([ 'pages' ]);
+      }, err => {
+        this.errorMessage = 'Invalid username or password';
       });
   }
 
