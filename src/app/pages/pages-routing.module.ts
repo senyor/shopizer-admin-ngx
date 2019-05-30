@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
-import { OrdersComponent } from './orders/orders.component';
 
 const routes: Routes = [{
   path: '',
@@ -12,11 +11,11 @@ const routes: Routes = [{
   children: [
     {
       path: 'home',
-      component: HomeComponent
+      component: HomeComponent,
     },
     {
       path: 'orders',
-      component: OrdersComponent
+      loadChildren: 'app/pages/orders/orders.module#OrdersModule'
     },
     {
       path: '',
