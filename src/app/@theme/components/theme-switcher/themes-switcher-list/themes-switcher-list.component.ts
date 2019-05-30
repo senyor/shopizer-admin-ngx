@@ -29,10 +29,6 @@ export class ThemeSwitcherListComponent {
       key: 'default',
     },
     {
-      title: 'Cosmic',
-      key: 'cosmic',
-    },
-    {
       title: 'Corporate',
       key: 'corporate',
     },
