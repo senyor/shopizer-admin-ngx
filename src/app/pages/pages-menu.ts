@@ -11,5 +11,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Orders',
     icon: 'fas fa-shopping-cart',
     link: '/pages/orders',
+    pathMatch: 'prefix'
   },
 ];

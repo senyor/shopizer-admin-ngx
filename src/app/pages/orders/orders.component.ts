@@ -9,7 +9,7 @@ export class OrdersComponent implements OnInit {
   tabs: any[] = [
     {
       title: 'List of orders',
-      route: '/pages/orders/order-list',
+      route: ['order-list'],
       responsive: true,
     }
   ];

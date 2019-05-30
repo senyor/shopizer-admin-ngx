@@ -9,6 +9,11 @@ const routes: Routes = [
   {
     path: '', component: OrdersComponent, children: [
       {
+        path: '',
+        redirectTo: 'order-list',
+        pathMatch: 'full',
+      },
+      {
         path: 'order-list',
         component: OrderListComponent,
       }
