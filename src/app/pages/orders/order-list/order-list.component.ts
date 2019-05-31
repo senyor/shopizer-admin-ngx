@@ -34,6 +34,7 @@ export class OrderListComponent implements OnInit {
       edit: false,
       delete: false,
       position: 'right',
+      sort: true,
       custom: [
         {
           name: 'activate',

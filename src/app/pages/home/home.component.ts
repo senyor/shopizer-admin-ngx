@@ -9,7 +9,7 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  loading = false;
   user = {
     userName: '',
     lastAccess: '',
@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     forkJoin(this.userService.getUser(), this.userService.getMerchant())
       .subscribe(([user, merchant]) => {
         this.user.userName = user.userName;
@@ -39,6 +40,8 @@ export class HomeComponent implements OnInit {
         this.user.postalCode = merchant.address.postalCode;
         this.user.country = merchant.address.country;
         this.user.phone = merchant.phone;
+
+        this.loading = false;
       });
   }
 
