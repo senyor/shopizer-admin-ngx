@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../../environments/environment';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,10 @@ export class AuthService {
     'Content-Type': 'application/json'
   });
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private tokenService: TokenService
+  ) {
   }
 
   logon(username: string, password: string): Observable<any> {
@@ -22,7 +26,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    this.tokenService.destroyToken();
   }
 
 }

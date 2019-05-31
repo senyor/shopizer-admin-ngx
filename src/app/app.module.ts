@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ApiInterceptor } from './pages/shared/api.interceptor';
+import { AuthInterceptor } from './pages/shared/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,7 +33,7 @@ import { ApiInterceptor } from './pages/shared/api.interceptor';
     { provide: APP_BASE_HREF, useValue: '/' },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ApiInterceptor,
+      useClass: AuthInterceptor,
       multi: true,
     }
   ],
