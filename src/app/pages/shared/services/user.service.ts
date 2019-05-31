@@ -24,13 +24,13 @@ export class UserService {
 
   // check roles for access to order page
   checkForAccess (array) {
-    // roles.forEach(role => {
-    //   array.forEach(elem => {
-    //     if (role.name === elem.name) {
-    //       this.canAccessToOrder = true;
-    //     }
-    //   });
-    // });
+    roles.forEach(role => {
+      array.forEach(elem => {
+        if (role.name === elem.name) {
+          this.canAccessToOrder = true;
+        }
+      });
+    });
   }
 
 }
