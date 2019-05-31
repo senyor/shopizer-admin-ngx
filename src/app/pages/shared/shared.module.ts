@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { TablesRoutingModule } from '../tables/tables-routing.module';
 import { SmartTableComponent } from '../tables/smart-table/smart-table.component';
-import { ECommerceModule } from '../e-commerce/e-commerce.module';
 import { DashboardModule } from '../dashboard/dashboard.module';
 import { ThemeModule } from '../../@theme/theme.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
@@ -25,7 +24,6 @@ import { OrderListComponent } from '../orders/order-list/order-list.component';
     Ng2SmartTableModule,
     ThemeModule,
     DashboardModule,
-    ECommerceModule,
     MiscellaneousModule,
   ],
   exports: [
@@ -33,7 +31,6 @@ import { OrderListComponent } from '../orders/order-list/order-list.component';
     Ng2SmartTableModule,
     ThemeModule,
     DashboardModule,
-    ECommerceModule,
     MiscellaneousModule,
     OrderListComponent
   ]

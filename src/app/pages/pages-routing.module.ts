@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
+import { OrdersGuard } from './shared/guards/orders.guard';
 
 const routes: Routes = [{
   path: '',
@@ -15,6 +16,7 @@ const routes: Routes = [{
     },
     {
       path: 'orders',
+      canActivate: [OrdersGuard],
       loadChildren: 'app/pages/orders/orders.module#OrdersModule'
     },
     {

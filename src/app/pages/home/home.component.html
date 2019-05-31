@@ -27,7 +27,7 @@
   </nb-card-body>
 </nb-card>
 
-<nb-card size="small">
+<nb-card size="small" *ngIf="userService.canAccessToOrder">
   <nb-card-header>
     Recent orders
   </nb-card-header>

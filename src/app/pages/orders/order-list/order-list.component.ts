@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { OrdersService } from '../services/orders.service';
+import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
   selector: 'ngx-order-list',
@@ -9,15 +10,17 @@ import { OrdersService } from '../services/orders.service';
   styleUrls: ['./order-list.component.scss']
 })
 export class OrderListComponent implements OnInit {
-
-  source = [];
+  @ViewChild('item') accordion;
+  source: LocalDataSource = new LocalDataSource();
 
   constructor(
     private ordersService: OrdersService
   ) {
     this.ordersService.getOrders()
       .subscribe(orders => {
-        this.source = [...orders.orders];
+        this.source.load(orders.orders);
+        // open accordion tab
+        this.accordion.toggle();
       });
   }
 
@@ -78,7 +81,7 @@ export class OrderListComponent implements OnInit {
   };
 
   route(ev) {
-    // todo route ro detail page
+    // todo route to detail page
     console.log(ev);
   }
 
