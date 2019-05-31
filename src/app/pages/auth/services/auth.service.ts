@@ -29,4 +29,8 @@ export class AuthService {
     this.tokenService.destroyToken();
   }
 
+  refresh(): Observable<any>  {
+    return this.http.get(`${environment.apiUrl}/v1/auth/refresh`);
+  }
+
 }
