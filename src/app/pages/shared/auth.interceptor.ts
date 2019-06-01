@@ -1,9 +1,8 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { BehaviorSubject, from, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TokenService } from '../auth/services/token.service';
 import { Injectable } from '@angular/core';
-import { _throw } from 'rxjs-compat/observable/throw';
-import { catchError, filter, finalize, switchMap, take } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { AuthService } from '../auth/services/auth.service';
 
 @Injectable()
@@ -40,6 +39,9 @@ export class AuthInterceptor implements HttpInterceptor {
                   }));
                 });
             }
+            if ((<HttpErrorResponse>err).status === 400) {
+              this.authService.logout();
+            }
           }
 
           return next.handle(req.clone({
@@ -49,9 +51,6 @@ export class AuthInterceptor implements HttpInterceptor {
           }));
         })
       );
-
-
-
   }
 
 }
