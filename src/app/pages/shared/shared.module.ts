@@ -3,30 +3,30 @@ import { CommonModule } from '@angular/common';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { MiscellaneousModule } from '../miscellaneous/miscellaneous.module';
 import { OrderListComponent } from '../orders/order-list/order-list.component';
 import { NbSpinnerModule } from '@nebular/theme';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 @NgModule({
   declarations: [
-    OrderListComponent
+    OrderListComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,
 
     Ng2SmartTableModule,
     ThemeModule,
-    MiscellaneousModule,
     NbSpinnerModule
   ],
   exports: [
     Ng2SmartTableModule,
     ThemeModule,
-    MiscellaneousModule,
     NbSpinnerModule,
 
     OrderListComponent,
+    NotFoundComponent
   ]
 })
 export class SharedModule { }
