@@ -6,6 +6,7 @@ import { AnalyticsService } from '../../../@core/utils';
 import { LayoutService } from '../../../@core/utils';
 import { AuthService } from '../../../pages/auth/services/auth.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../../pages/shared/services/user.service';
 
 @Component({
   selector: 'ngx-header',
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   @Input() position = 'normal';
 
-  user: any;
+  user: string;
 
   userMenu = [
     { title: 'Profile' },
@@ -25,7 +26,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
-              private userService: UserData,
+              private userService: UserService,
               private analyticsService: AnalyticsService,
               private layoutService: LayoutService,
               private authService: AuthService,
@@ -39,8 +40,10 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUsers()
-      .subscribe((users: any) => this.user = users.nick);
+    this.userService.getUser()
+      .subscribe((user: any) => {
+        this.user = user.firstName + ' ' + user.lastName;
+      });
   }
 
   toggleSidebar(): boolean {
