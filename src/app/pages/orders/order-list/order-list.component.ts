@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 
 import { OrdersService } from '../services/orders.service';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-order-list',
@@ -14,7 +15,8 @@ export class OrderListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
 
   constructor(
-    private ordersService: OrdersService
+    private ordersService: OrdersService,
+    private router: Router,
   ) {
     this.ordersService.getOrders()
       .subscribe(orders => {
@@ -81,9 +83,10 @@ export class OrderListComponent implements OnInit {
     },
   };
 
-  route(ev) {
-    // todo route to detail page
-    console.log(ev);
+  route(e) {
+    console.log(e.data.id);
+
+    this.router.navigate(['pages/orders/order-details']);
   }
 
 }

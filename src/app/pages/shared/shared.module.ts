@@ -6,11 +6,14 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { OrderListComponent } from '../orders/order-list/order-list.component';
 import { NbSpinnerModule } from '@nebular/theme';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { OrderDetailsComponent } from '../orders/order-details/order-details.component';
 
 
 @NgModule({
   declarations: [
     OrderListComponent,
+    OrderDetailsComponent,
+
     NotFoundComponent
   ],
   imports: [
@@ -26,6 +29,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     NbSpinnerModule,
 
     OrderListComponent,
+    OrderDetailsComponent,
     NotFoundComponent
   ]
 })
