@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ThemeModule } from '../../@theme/theme.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { OrderListComponent } from '../orders/order-list/order-list.component';
-import { NbSpinnerModule } from '@nebular/theme';
+import { NbInputModule, NbSpinnerModule } from '@nebular/theme';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { OrderDetailsComponent } from '../orders/order-details/order-details.component';
 
