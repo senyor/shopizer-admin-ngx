@@ -1,0 +1,15 @@
+{
+  "header": {
+    "languages": "Languages fr"
+  },
+  "sideNav": {
+    "home": "Home fr",
+
+    "user" : "User fr",
+    "myProfile": "My profile fr",
+    "changePassword": "Password change fr",
+    "createUser": "My profile fr",
+    "userList": "Create user fr",
+    "orders": "Orders fr"
+  }
+}

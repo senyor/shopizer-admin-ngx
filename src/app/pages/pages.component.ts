@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 
 import { MENU_ITEMS } from './pages-menu';
 import { UserService } from './shared/services/user.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-pages',
   styleUrls: ['pages.component.scss'],
   template: `
     <ngx-sample-layout>
-      <nb-menu [items]="menu"></nb-menu>
+      <nb-menu [items]="localedMenu"></nb-menu>
       <router-outlet></router-outlet>
     </ngx-sample-layout>
   `,
@@ -16,7 +17,19 @@ import { UserService } from './shared/services/user.service';
 export class PagesComponent {
 
   menu = MENU_ITEMS;
-  constructor(private userService: UserService) {
+  localedMenu = [...this.menu];
+
+  constructor(
+    private userService: UserService,
+    private translate: TranslateService
+  ) {
+
+    this.localedMenu = this.translateMenu(this.localedMenu);
+
+    this.translate.onLangChange.subscribe((lang) => {
+      this.localedMenu = this.translateMenu(this.localedMenu);
+    });
+
     // check access to order page
     this.userService.getUser()
       .subscribe(user => {
@@ -27,6 +40,17 @@ export class PagesComponent {
         }
       });
 
+  }
+
+  translateMenu(array) {
+    return array.map((el, index) => ({
+      ...el,
+      title: this.translate.instant(this.menu[index].title),
+      children: !el.children ? null : el.children.map((child, childIndex) => ({
+        ...child,
+        title: this.translate.instant(this.menu[index].children[childIndex].title)
+      }))
+    }))
   }
 
 }

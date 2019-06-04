@@ -10,5 +10,14 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://35.183.44.129:8080/api'
+  apiUrl: 'http://35.183.44.129:8080/api',
+  client: {
+    language: {
+      default: 'en',
+      array: [
+        'en',
+        'fr'
+      ],
+    },
+  }
 };

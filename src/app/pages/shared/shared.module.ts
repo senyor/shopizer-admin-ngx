@@ -6,6 +6,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { OrderListComponent } from '../orders/order-list/order-list.component';
 import { NbSpinnerModule } from '@nebular/theme';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -18,12 +19,14 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 
     Ng2SmartTableModule,
     ThemeModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    TranslateModule
   ],
   exports: [
     Ng2SmartTableModule,
     ThemeModule,
     NbSpinnerModule,
+    TranslateModule,
 
     OrderListComponent,
     NotFoundComponent

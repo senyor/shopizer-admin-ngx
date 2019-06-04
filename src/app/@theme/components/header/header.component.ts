@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
-import { UserData } from '../../../@core/data/users';
 import { AnalyticsService } from '../../../@core/utils';
 import { LayoutService } from '../../../@core/utils';
 import { AuthService } from '../../../pages/auth/services/auth.service';
-import { Router } from '@angular/router';
 import { UserService } from '../../../pages/shared/services/user.service';
+import { environment } from '../../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-header',
@@ -24,17 +25,26 @@ export class HeaderComponent implements OnInit {
     { title: 'Log out' }
     ];
 
+  languages = [];
+
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private userService: UserService,
               private analyticsService: AnalyticsService,
               private layoutService: LayoutService,
               private authService: AuthService,
-              private router: Router) {
+              private router: Router,
+              private translate: TranslateService) {
+
+    this.getLanguageArray();
     menuService.onItemClick().subscribe((el) => {
       if (el.item.title === 'Log out') {
         this.authService.logout();
         this.router.navigate(['auth']);
+      }
+      // language events
+      if(el.tag === 'language') {
+        this.setLanguage(el.item.title);
       }
     });
   }
@@ -46,6 +56,17 @@ export class HeaderComponent implements OnInit {
       });
   }
 
+  getLanguageArray () {
+    environment.client.language.array.forEach(lg => {
+      this.languages = [...this.languages, {title: lg}]
+    });
+  }
+
+  setLanguage (lang) {
+    this.translate.setDefaultLang(lang);
+    this.translate.use(lang);
+  }
+
   toggleSidebar(): boolean {
     this.sidebarService.toggle(true, 'menu-sidebar');
     this.layoutService.changeLayoutSize();
@@ -55,9 +76,5 @@ export class HeaderComponent implements OnInit {
 
   goToHome() {
     this.menuService.navigateHome();
-  }
-
-  startSearch() {
-    this.analyticsService.trackEvent('startSearch');
   }
 }

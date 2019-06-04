@@ -1,0 +1,15 @@
+{
+  "header": {
+    "languages": "Languages"
+  },
+  "sideNav": {
+    "home": "Home",
+
+    "user" : "User",
+    "myProfile": "My profile",
+    "changePassword": "Password change",
+    "createUser": "My profile",
+    "userList": "Create user",
+    "orders": "Orders"
+  }
+}
