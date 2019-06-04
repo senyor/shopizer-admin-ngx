@@ -1,27 +1,24 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
+import { CrudService } from '../../shared/services/crud.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private crudService: CrudService
+  ) {
   }
 
   getOrders(): Observable<any> {
-    // const params = new HttpParams();
-    const params = new HttpParams();
-    params.set('count', '25');
-    params.set('start', '0');
-    // const params = {
-    //   count: 25,
-    //   start: 0
-    // };
-    return this.http.get(`${environment.apiUrl}/v1/admin/orders`,
-      {responseType: 'json', params});
+    const params = {
+      'count': '25',
+      'start': '0'
+    };
+    return this.crudService.get('/v1/admin/orders', params);
   }
 
 }

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { roles } from '../models/access-roles';
-import { environment } from '../../../../environments/environment';
+import { CrudService } from './crud.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +11,16 @@ import { environment } from '../../../../environments/environment';
 export class UserService {
   canAccessToOrder = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private crudService: CrudService
+  ) { }
 
   getUser(): Observable<any>  {
-    return this.http.get(`${environment.apiUrl}/v1/private/users/admin`);
+    return this.crudService.get('/v1/private/users/admin');
   }
 
   getMerchant (): Observable<any>  {
-    return this.http.get(`${environment.apiUrl}/v1/store/DEFAULT`);
+    return this.crudService.get('/v1/store/DEFAULT');
   }
 
   // check roles for access to order page
