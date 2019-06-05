@@ -59,8 +59,7 @@
         <div class="form-group">
           <label class="col-sm-3 col-form-label">Groups *</label>
           <div class="col-sm-12 group-block">
-            <nb-checkbox status="success">ADMIN</nb-checkbox>
-            <nb-checkbox status="success">ADMIN_CATALOGUE</nb-checkbox>
+            <nb-checkbox *ngFor="let group of groups" status="success">{{group.name}}</nb-checkbox>
           </div>
         </div>
 

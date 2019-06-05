@@ -13,6 +13,7 @@ export class UserProfileComponent implements OnInit {
   form: FormGroup;
   user: any;
   languages = [];
+  groups = [];
   path = 'User';
   sidemenuTitle = 'User profile';
   sidemenuValue = 'admin';
@@ -40,11 +41,10 @@ export class UserProfileComponent implements OnInit {
       .subscribe(languages => {
         this.languages = [...languages];
       });
-    // for getting groups
-    // this.configService.getListOfGroups()
-    //   .subscribe(groups => {
-    //     console.log(groups);
-    //   })
+    this.configService.getListOfGroups()
+      .subscribe(groups => {
+        this.groups = [...groups];
+      });
     const id = this.userService.getUserId();
     this.userService.getUser(id)
       .subscribe(user => {

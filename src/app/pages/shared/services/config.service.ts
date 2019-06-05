@@ -17,7 +17,7 @@ export class ConfigService {
   }
 
   getListOfGroups() {
-    return this.crudService.get(`/v1/services/private/groups`);
+    return this.crudService.get(`/v1/sec/private/groups`);
   }
 
 }
