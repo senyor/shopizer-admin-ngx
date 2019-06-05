@@ -42,19 +42,14 @@
         </div>
 
         <div class="form-group">
-          <nb-checkbox status="success" class="col-sm-4">Active</nb-checkbox>
+          <nb-checkbox status="success" class="col-sm-4" formControlName='active'>Active</nb-checkbox>
         </div>
 
         <div class="form-group">
           <label class="col-sm-3 col-form-label">Default language *</label>
           <div class="col-sm-12">
-            <nb-select placeholder="Select Showcase" [(selected)]="selectedItem" outline shape="rectangle">
-              <nb-option value="">Option empty</nb-option>
-              <nb-option value="0">Option 0</nb-option>
-              <nb-option value="1">Option 1</nb-option>
-              <nb-option value="2">Option 2</nb-option>
-              <nb-option value="3">Option 3</nb-option>
-              <nb-option value="4">Option 4</nb-option>
+            <nb-select placeholder="Select language" formControlName='language' outline shape="rectangle">
+              <nb-option *ngFor="let lang of languages" [value]="lang.code">{{lang.code}}</nb-option>
             </nb-select>
           </div>
 
@@ -63,8 +58,9 @@
 
         <div class="form-group">
           <label class="col-sm-3 col-form-label">Groups *</label>
-          <div>
-            <nb-checkbox status="success" class="col-sm-4">Active</nb-checkbox>
+          <div class="col-sm-12 group-block">
+            <nb-checkbox status="success">ADMIN</nb-checkbox>
+            <nb-checkbox status="success">ADMIN_CATALOGUE</nb-checkbox>
           </div>
         </div>
 

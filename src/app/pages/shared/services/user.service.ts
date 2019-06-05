@@ -17,11 +17,11 @@ export class UserService {
   ) { }
 
   getUser(id: any): Observable<any>  {
-    return this.crudService.get('/v1/private/users/1');
+    return this.crudService.get(`/v1/private/users/${id}`);
   }
 
   getMerchant (): Observable<any>  {
-    return this.crudService.get('/v1/store/DEFAULT');
+    return this.crudService.get(`/v1/store/DEFAULT`);
   }
 
   // check roles for access to order page
@@ -46,7 +46,5 @@ export class UserService {
   destroyUserId () {
     localStorage.removeItem(this.userIdString);
   }
-
-
 
 }

@@ -22,6 +22,10 @@ nb-card {
   margin: 20px 15px;
 }
 
+.group-block {
+  display: flex;
+  flex-direction: column;
+}
 
 // changing nb styles
 nb-card {
