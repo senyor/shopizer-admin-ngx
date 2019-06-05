@@ -8,8 +8,9 @@
     "user" : "User fr",
     "myProfile": "My profile fr",
     "changePassword": "Password change fr",
-    "createUser": "My profile fr",
-    "userList": "Create user fr",
+    "createUser": "Create user fr",
+    "userList": "Users list fr",
+
     "orders": "Orders fr"
   }
 }

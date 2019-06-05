@@ -1,0 +1,16 @@
+{
+  "header": {
+    "languages": "Язык"
+  },
+  "sideNav": {
+    "home": "Главная",
+
+    "user" : "User",
+    "myProfile": "Мой профиль",
+    "changePassword": "Сменить пароль",
+    "createUser": "Создать пользователя",
+    "userList": "Список пользователей",
+
+    "orders": "Заказы"
+  }
+}

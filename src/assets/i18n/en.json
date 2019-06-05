@@ -8,8 +8,9 @@
     "user" : "User",
     "myProfile": "My profile",
     "changePassword": "Password change",
-    "createUser": "My profile",
-    "userList": "Create user",
+    "createUser": "Create user",
+    "userList": "Users list",
+
     "orders": "Orders"
   }
 }
