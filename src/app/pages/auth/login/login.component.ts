@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import { TokenService } from '../services/token.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'ngx-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private userService: UserService
   ) {
     this.createForm();
   }
@@ -36,6 +38,7 @@ export class LoginComponent implements OnInit {
     this.authService.logon(formData.username, formData.password)
       .subscribe(res => {
         this.tokenService.saveToken(res.token);
+        this.userService.saveUserId(res.id);
         this.router.navigate([ 'pages' ]);
       }, err => {
         this.errorMessage = 'Invalid username or password';

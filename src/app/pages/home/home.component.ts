@@ -29,7 +29,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    forkJoin(this.userService.getUser(), this.userService.getMerchant())
+    const userId = this.userService.getUserId();
+    forkJoin(this.userService.getUser(userId), this.userService.getMerchant())
       .subscribe(([user, merchant]) => {
         this.user.userName = user.userName;
         this.user.lastAccess = user.lastAccess;

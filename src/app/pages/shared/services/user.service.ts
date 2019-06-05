@@ -10,13 +10,14 @@ import { CrudService } from './crud.service';
 
 export class UserService {
   canAccessToOrder = false;
+  userIdString = 'userId';
 
   constructor(
     private crudService: CrudService
   ) { }
 
-  getUser(): Observable<any>  {
-    return this.crudService.get('/v1/private/users/admin');
+  getUser(id: any): Observable<any>  {
+    return this.crudService.get('/v1/private/users/1');
   }
 
   getMerchant (): Observable<any>  {
@@ -33,5 +34,19 @@ export class UserService {
       });
     });
   }
+
+  getUserId(): string {
+    return localStorage.getItem(this.userIdString);
+  }
+
+  saveUserId(id: string) {
+    localStorage.setItem(this.userIdString, id);
+  }
+
+  destroyUserId () {
+    localStorage.removeItem(this.userIdString);
+  }
+
+
 
 }

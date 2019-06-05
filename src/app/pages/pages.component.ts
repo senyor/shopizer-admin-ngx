@@ -30,8 +30,9 @@ export class PagesComponent {
       this.localedMenu = this.translateMenu(this.localedMenu);
     });
 
+    const userId = this.userService.getUserId();
     // check access to order page
-    this.userService.getUser()
+    this.userService.getUser(userId)
       .subscribe(user => {
         this.userService.checkForAccess(user.permissions);
         if (!this.userService.canAccessToOrder) {
@@ -50,7 +51,7 @@ export class PagesComponent {
         ...child,
         title: this.translate.instant(this.menu[index].children[childIndex].title)
       }))
-    }))
+    }));
   }
 
 }

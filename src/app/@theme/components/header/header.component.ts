@@ -43,14 +43,15 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['auth']);
       }
       // language events
-      if(el.tag === 'language') {
+      if (el.tag === 'language') {
         this.setLanguage(el.item.title);
       }
     });
   }
 
   ngOnInit() {
-    this.userService.getUser()
+    const userId = localStorage.getItem('userId');
+    this.userService.getUser(userId)
       .subscribe((user: any) => {
         this.user = user.firstName + ' ' + user.lastName;
       });
@@ -58,7 +59,7 @@ export class HeaderComponent implements OnInit {
 
   getLanguageArray () {
     environment.client.language.array.forEach(lg => {
-      this.languages = [...this.languages, {title: lg}]
+      this.languages = [...this.languages, {title: lg}];
     });
   }
 
