@@ -1,3 +1,88 @@
-<p>
-  user-profile works!
-</p>
+<div class="page-header">
+  User
+</div>
+<ngx-breadcrumb [path]="path"></ngx-breadcrumb>
+
+<div class="page-content">
+
+  <nb-card size="small">
+    <nb-card-header>
+      Profile
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]='form'>
+
+        <div class="form-group">
+          <label for="firstname" class="col-sm-3 col-form-label">First name *</label>
+          <div class="col-sm-12">
+            <input type="text" class="form-control" id="firstname" formControlName='firstname'
+                   placeholder="First name" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="lastname" class="col-sm-3 col-form-label">Last name *</label>
+          <div class="col-sm-12">
+            <input type="text" class="form-control" id="lastname" formControlName='lastname'
+                   placeholder="Last name" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="username" class="col-sm-3 col-form-label">Username *</label>
+          <div class="col-sm-12">
+            <input type="text" class="form-control" id="username" formControlName='username'
+                   placeholder="Username" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-sm-3 col-form-label">Email address *</label>
+          <div class="col-sm-12">
+            <input type="email" class="form-control" id="email" formControlName='email'
+                   placeholder="Email" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <nb-checkbox status="success" class="col-sm-4">Active</nb-checkbox>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 col-form-label">Default language *</label>
+          <div class="col-sm-12">
+            <nb-select placeholder="Select Showcase" [(selected)]="selectedItem" outline shape="rectangle">
+              <nb-option value="">Option empty</nb-option>
+              <nb-option value="0">Option 0</nb-option>
+              <nb-option value="1">Option 1</nb-option>
+              <nb-option value="2">Option 2</nb-option>
+              <nb-option value="3">Option 3</nb-option>
+              <nb-option value="4">Option 4</nb-option>
+            </nb-select>
+          </div>
+
+
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 col-form-label">Groups *</label>
+          <div>
+            <nb-checkbox status="success" class="col-sm-4">Active</nb-checkbox>
+          </div>
+        </div>
+
+        <hr/>
+
+        <div class="form-group actions-button">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-danger">Remove</button>
+        </div>
+
+      </form>
+
+
+    </nb-card-body>
+  </nb-card>
+
+  <ngx-right-sidemenu [title]="sidemenuTitle" [value]="sidemenuValue" [links]="sidemenuLinks"></ngx-right-sidemenu>
+
+</div>
+
+

@@ -7,11 +7,15 @@ import { OrderListComponent } from '../orders/order-list/order-list.component';
 import { NbSpinnerModule } from '@nebular/theme';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { RightSidemenuComponent } from './components/right-sidemenu/right-sidemenu.component';
 
 
 @NgModule({
   declarations: [
     OrderListComponent,
+    BreadcrumbComponent,
+    RightSidemenuComponent,
     NotFoundComponent
   ],
   imports: [
@@ -29,7 +33,10 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule,
 
     OrderListComponent,
+    BreadcrumbComponent,
+    RightSidemenuComponent,
     NotFoundComponent
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}
