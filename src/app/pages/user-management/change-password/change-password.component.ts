@@ -11,6 +11,7 @@ import { UserService } from '../../shared/services/user.service';
 export class ChangePasswordComponent implements OnInit {
   form: FormGroup;
   user: {};
+  path = 'User';
 
   constructor(
     private userService: UserService,
