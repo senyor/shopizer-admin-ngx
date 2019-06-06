@@ -44,6 +44,14 @@ export class UserService {
     return this.crudService.get(`/v1/private/users/`, params);
   }
 
+  createUser(user: any): Observable<any> {
+    const params = {
+      'store': 'DEFAULT'
+    };
+    user.password = 'password';
+    return this.crudService.post(`/v1/private/user/?store=DEFAULT`, user);
+  }
+
   getUserId(): string {
     return localStorage.getItem(this.userIdString);
   }

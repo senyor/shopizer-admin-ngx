@@ -51,7 +51,7 @@ export class UserFormComponent implements OnInit, OnChanges {
       lastName: ['', [Validators.required]],
       userName: ['', [Validators.required]],
       emailAddress: ['', [Validators.required]],
-      active: ['', [Validators.required]],
+      active: [false, [Validators.required]],
       defaultLanguage: ['', [Validators.required]],
       groups: ['', [Validators.required]],
     });
@@ -71,6 +71,14 @@ export class UserFormComponent implements OnInit, OnChanges {
 
   save() {
     console.log(this.form.value);
+    // todo check
+    if (!this.user.id) {
+      console.log('create');
+      this.userService.createUser(this.form.value)
+        .subscribe(res => {
+          console.log(res);
+        });
+    }
   }
 
   remove() {
@@ -92,7 +100,13 @@ export class UserFormComponent implements OnInit, OnChanges {
     } else {
       newGroups.splice(index, 1); // remove
     }
-    this.form.patchValue({ 'groups': newGroups }); // rewrite form
+    // todo check
+    const arr = [];
+    newGroups.forEach(el => {
+      console.log(el);
+      arr.push({name: el.name});
+    });
+    this.form.patchValue({ 'groups': arr }); // rewrite form
   }
 
 }
