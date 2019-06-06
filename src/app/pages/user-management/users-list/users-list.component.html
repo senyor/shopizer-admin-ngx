@@ -1,3 +1,16 @@
-<p>
-  users-list works!
-</p>
+<div class="page-header">
+  User
+</div>
+<ngx-breadcrumb [path]="path"></ngx-breadcrumb>
+
+<nb-accordion>
+  <nb-accordion-item #item>>
+    <nb-accordion-item-header>
+      Order
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)">
+      </ng2-smart-table>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>

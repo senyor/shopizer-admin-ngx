@@ -35,6 +35,15 @@ export class UserService {
     });
   }
 
+  getUsersList(): Observable<any> {
+    const params = {
+      'store': 'DEFAULT',
+      'lenght': '100',
+      'start': '0'
+    };
+    return this.crudService.get(`/v1/private/users/`, params);
+  }
+
   getUserId(): string {
     return localStorage.getItem(this.userIdString);
   }
