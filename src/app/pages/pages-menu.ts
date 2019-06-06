@@ -21,7 +21,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'sideNav.createUser',
-        link: '/pages/user-management/profile',
+        link: '/pages/user-management/create-user',
       },
       {
         title: 'sideNav.userList',

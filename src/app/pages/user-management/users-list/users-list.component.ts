@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { UserService } from '../../shared/services/user.service';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -12,9 +13,13 @@ export class UsersListComponent implements OnInit {
   @ViewChild('item') accordion;
   source: LocalDataSource = new LocalDataSource();
   path = 'User';
+  showUserDetails = false;
+  user = {};
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.userService.getUsersList()
       .subscribe(users => {
@@ -74,5 +79,16 @@ export class UsersListComponent implements OnInit {
       }
     },
   };
+
+  route(e) {
+    this.showUserDetails = true;
+    this.user = e.data;
+  }
+
+  backToList() {
+    this.showUserDetails = false;
+    this.cdr.detectChanges();
+    this.accordion.toggle();
+  }
 
 }
