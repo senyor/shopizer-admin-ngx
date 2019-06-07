@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ConfigService } from '../../shared/services/config.service';
 import { UserService } from '../../shared/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-user-form',
@@ -14,12 +15,14 @@ export class UserFormComponent implements OnInit, OnChanges {
   @Input() user: any;
   languages = [];
   groups = [];
-  flag = true;
+  showRemoveButton = true;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
     private configService: ConfigService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
   ) {
     this.createForm();
   }
@@ -36,12 +39,12 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.user.currentValue) {
+    if (changes.user.currentValue && changes.user.currentValue.id) {
+      this.loading = true;
       if (this.user.id && this.user.id !== +this.userService.getUserId()) {
-        this.flag = false;
+        this.showRemoveButton = false;
       }
       this.fillForm();
-
     }
   }
 
@@ -50,12 +53,42 @@ export class UserFormComponent implements OnInit, OnChanges {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       userName: ['', [Validators.required]],
-      emailAddress: ['', [Validators.required]],
+      emailAddress: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
       active: [false, [Validators.required]],
       defaultLanguage: ['', [Validators.required]],
       groups: ['', [Validators.required]],
     });
   }
+
+  get firstName() {
+    return this.form.get('firstName');
+  }
+
+  get lastName() {
+    return this.form.get('lastName');
+  }
+
+  get userName() {
+    return this.form.get('userName');
+  }
+
+  get emailAddress() {
+    return this.form.get('emailAddress');
+  }
+
+  get password() {
+    return this.form.get('password');
+  }
+
+  get defaultLanguage() {
+    return this.form.get('defaultLanguage');
+  }
+
+  get userGroups() {
+    return this.form.get('groups');
+  }
+
 
   fillForm() {
     this.form.reset({
@@ -67,16 +100,17 @@ export class UserFormComponent implements OnInit, OnChanges {
       defaultLanguage: this.user.defaultLanguage,
       groups: this.user.groups,
     });
+    this.loading = false;
   }
 
   save() {
-    console.log(this.form.value);
-    // todo check
-    if (!this.user.id) {
-      console.log('create');
+    if (this.user.id) {
+      console.log('update');
+    } else {
       this.userService.createUser(this.form.value)
         .subscribe(res => {
           console.log(res);
+          this.router.navigate(['pages/user-management/users']);
         });
     }
   }
@@ -100,13 +134,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     } else {
       newGroups.splice(index, 1); // remove
     }
-    // todo check
-    const arr = [];
-    newGroups.forEach(el => {
-      console.log(el);
-      arr.push({name: el.name});
-    });
-    this.form.patchValue({ 'groups': arr }); // rewrite form
+    this.form.patchValue({ 'groups': newGroups }); // rewrite form
   }
 
 }

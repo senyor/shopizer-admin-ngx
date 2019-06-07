@@ -48,7 +48,6 @@ export class UserService {
     const params = {
       'store': 'DEFAULT'
     };
-    user.password = 'password';
     return this.crudService.post(`/v1/private/user/?store=DEFAULT`, user);
   }
 
