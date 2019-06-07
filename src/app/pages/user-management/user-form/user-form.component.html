@@ -1,4 +1,4 @@
-<form [formGroup]='form' [nbSpinner]="loading" nbSpinnerStatus="info" nbSpinnerSize="xlarge">
+<form [formGroup]='form'>
 
   <div class="form-group">
     <label for="firstname" class="col-sm-3 col-form-label">First name *</label>
@@ -69,7 +69,7 @@
   <div class="form-group">
     <label class="col-sm-3 col-form-label">Default language *</label>
     <div class="col-sm-12">
-      <nb-select placeholder="Select language" formControlName='defaultLanguage' outline shape="rectangle">
+      <nb-select *ngIf="languages.length" placeholder="Select language" formControlName='defaultLanguage' outline shape="rectangle">
         <nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>
       </nb-select>
     </div>

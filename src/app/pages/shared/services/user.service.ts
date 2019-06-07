@@ -48,7 +48,21 @@ export class UserService {
     const params = {
       'store': 'DEFAULT'
     };
-    return this.crudService.post(`/v1/private/user/?store=DEFAULT`, user);
+    return this.crudService.post(`/v1/private/user/`, user, {params});
+  }
+
+  updateUser(id: any, user: any): Observable<any> {
+    const params = {
+      'store': 'DEFAULT'
+    };
+    return this.crudService.put(`/v1/private/user/${id}`, user, {params});
+  }
+
+  deleteUser(id: any): Observable<any> {
+    const params = {
+      'store': 'DEFAULT'
+    };
+    return this.crudService.delete(`/v1/private/user/${id}`, {params});
   }
 
   getUserId(): string {

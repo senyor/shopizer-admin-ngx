@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ConfigService } from '../../shared/services/config.service';
@@ -16,13 +16,13 @@ export class UserFormComponent implements OnInit, OnChanges {
   languages = [];
   groups = [];
   showRemoveButton = true;
-  loading = false;
 
   constructor(
     private fb: FormBuilder,
     private configService: ConfigService,
     private userService: UserService,
     private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.createForm();
   }
@@ -40,7 +40,6 @@ export class UserFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.user.currentValue && changes.user.currentValue.id) {
-      this.loading = true;
       if (this.user.id && this.user.id !== +this.userService.getUserId()) {
         this.showRemoveButton = false;
       }
@@ -91,7 +90,7 @@ export class UserFormComponent implements OnInit, OnChanges {
 
 
   fillForm() {
-    this.form.reset({
+    this.form.patchValue({
       firstName: this.user.firstName,
       lastName: this.user.lastName,
       userName: this.user.userName,
@@ -100,12 +99,16 @@ export class UserFormComponent implements OnInit, OnChanges {
       defaultLanguage: this.user.defaultLanguage,
       groups: this.user.groups,
     });
-    this.loading = false;
+    this.cdr.detectChanges();
   }
 
   save() {
     if (this.user.id) {
-      console.log('update');
+      this.userService.updateUser(+this.user.id, this.form.value)
+        .subscribe(res => {
+          console.log(res);
+          this.router.navigate(['pages/user-management/users']);
+        });
     } else {
       this.userService.createUser(this.form.value)
         .subscribe(res => {
@@ -116,7 +119,11 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   remove() {
-    console.log('remove');
+    console.log('remove', this.user.id);
+    this.userService.deleteUser(this.user.id)
+      .subscribe(res => {
+        console.log(res);
+      });
   }
 
   userHasRole(group) {
