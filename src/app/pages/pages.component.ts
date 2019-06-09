@@ -24,23 +24,42 @@ export class PagesComponent {
     private translate: TranslateService
   ) {
 
-    this.localedMenu = this.translateMenu(this.localedMenu);
-
-    this.translate.onLangChange.subscribe((lang) => {
-      this.localedMenu = this.translateMenu(this.localedMenu);
-    });
-
     const userId = this.userService.getUserId();
     // check access to order page
     this.userService.getUser(userId)
       .subscribe(user => {
         this.userService.checkForAccess(user.permissions);
-        if (!this.userService.canAccessToOrder) {
-          const index = this.menu.findIndex(el => el.title === 'Orders');
-          this.menu.splice(index, 1);
+        if (this.userService.canAccessToOrder) {
+          const indexOrderMenu = this.menu.findIndex(el => el.title === 'sideNav.orders');
+          this.menu = [...this.menu,
+            {
+              title: 'sideNav.orders',
+              icon: 'fas fa-shopping-cart',
+              link: '/pages/orders',
+              pathMatch: 'prefix'
+            }
+          ];
         }
+        // add pages for admin
+        if (this.userService.isAdmin) {
+          const indexUserMenu = this.menu.findIndex(el => el.title === 'sideNav.user');
+          this.menu[indexUserMenu].children = [...this.menu[indexUserMenu].children,
+            {
+              title: 'sideNav.createUser',
+              link: '/pages/user-management/create-user',
+            },
+            {
+              title: 'sideNav.userList',
+              link: '/pages/user-management/users',
+            }];
+        }
+        this.localedMenu = [...this.menu];
+        this.localedMenu = this.translateMenu(this.localedMenu);
       });
 
+    this.translate.onLangChange.subscribe((lang) => {
+      this.localedMenu = this.translateMenu(this.localedMenu);
+    });
   }
 
   translateMenu(array) {
