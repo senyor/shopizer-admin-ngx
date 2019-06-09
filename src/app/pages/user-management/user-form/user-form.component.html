@@ -38,11 +38,11 @@
     <div class="col-sm-12">
       <input type="email" class="form-control" id="email" formControlName='emailAddress'
              placeholder="Email" required>
-      <span *ngIf="(emailAddress.dirty || emailAddress.touched) && emailAddress.invalid && emailAddress">
-        <span *ngIf="emailAddress.errors.email" class="err-message">
+      <span *ngIf="(emailAddress.dirty || emailAddress.touched) && emailAddress.invalid && emailAddress" class="err-message">
+        <span *ngIf="emailAddress.errors.email">
         Value has to be a valid email address.
         </span>
-        <span *ngIf="emailAddress.errors.required" class="err-message">
+        <span *ngIf="emailAddress.errors.required">
           Email address is required.
         </span>
       </span>
@@ -55,9 +55,13 @@
     <div class="col-sm-12">
       <input type="password" class="form-control" id="password" formControlName='password'
              placeholder="Password" required>
-      <span *ngIf="(password.dirty || password.touched) && password.invalid && password.errors.required"
-            class="err-message">
-        Password is required.
+      <span *ngIf="(password.dirty || password.touched) && password.invalid && password" class="err-message">
+        <span *ngIf="password.errors.required">
+          Password required.
+        </span>
+        <span *ngIf="password.errors.pattern">
+          Password not valid.
+        </span>
       </span>
     </div>
   </div>

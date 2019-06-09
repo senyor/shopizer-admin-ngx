@@ -12,6 +12,7 @@ export class ChangePasswordComponent implements OnInit {
   form: FormGroup;
   user: {};
   path = 'User';
+  pwdPattern = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$';
 
   constructor(
     private userService: UserService,
@@ -30,9 +31,28 @@ export class ChangePasswordComponent implements OnInit {
   private createForm() {
     this.form = this.fb.group({
       password: ['', [Validators.required]],
-      newPassword: ['', [Validators.required]],
-      repeatedNewPassword: ['', [Validators.required]],
-    });
+      newPassword: ['', [Validators.required, Validators.pattern(this.pwdPattern)]],
+      confirmNewPassword: ['', [Validators.required]],
+    }, {validator: this.checkPasswords });
+  }
+
+  get password() {
+    return this.form.get('password');
+  }
+
+  get newPassword() {
+    return this.form.get('newPassword');
+  }
+
+  get confirmNewPassword() {
+    return this.form.get('confirmNewPassword');
+  }
+
+  checkPasswords(group: FormGroup) {
+    const pass = group.controls.newPassword.value;
+    const confirmPass = group.controls.confirmNewPassword.value;
+
+    return pass === confirmPass ? null : { notSame: true };
   }
 
   onSubmit() {

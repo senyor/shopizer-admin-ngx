@@ -16,6 +16,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   languages = [];
   groups = [];
   showRemoveButton = true;
+  pwdPattern = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$';
 
   constructor(
     private fb: FormBuilder,
@@ -53,7 +54,7 @@ export class UserFormComponent implements OnInit, OnChanges {
       lastName: ['', [Validators.required]],
       userName: ['', [Validators.required]],
       emailAddress: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.pattern(this.pwdPattern)]],
       active: [false, [Validators.required]],
       defaultLanguage: ['', [Validators.required]],
       groups: ['', [Validators.required]],
