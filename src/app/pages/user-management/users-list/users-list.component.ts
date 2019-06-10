@@ -16,6 +16,7 @@ export class UsersListComponent implements OnInit {
   path = 'User';
   showUserDetails = false;
   user = User;
+  perPage = 10;
 
   constructor(
     private userService: UserService,
@@ -37,6 +38,7 @@ export class UsersListComponent implements OnInit {
         });
 
         this.source.load(usersArray);
+        this.source.setPaging(1, this.perPage, true);
 
         // open accordion tab
         this.accordion.toggle();
@@ -89,6 +91,7 @@ export class UsersListComponent implements OnInit {
   backToList() {
     this.showUserDetails = false;
     this.cdr.detectChanges();
+    this.source.setPaging(1, 5, true);
     this.accordion.toggle();
   }
 
