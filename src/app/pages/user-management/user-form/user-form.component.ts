@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { ConfigService } from '../../shared/services/config.service';
 import { UserService } from '../../shared/services/user.service';
-import { Router } from '@angular/router';
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'ngx-user-form',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class UserFormComponent implements OnInit, OnChanges {
   form: FormGroup;
-  @Input() user: any;
+  @Input() user: User;
   languages = [];
   groups = [];
   showRemoveButton = true;
@@ -104,7 +105,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   save() {
-    if (this.user.id) {
+    if (this.user && this.user.id) {
       this.userService.updateUser(+this.user.id, this.form.value)
         .subscribe(res => {
           console.log(res);
@@ -129,7 +130,7 @@ export class UserFormComponent implements OnInit, OnChanges {
 
   userHasRole(group) {
     if (!this.user || !this.user.groups) return false;
-    return this.user.groups.find((g) => g.id === group.id);
+    return this.user.groups.find((g: any) => g.id === group.id);
   }
 
   addRole(group) {

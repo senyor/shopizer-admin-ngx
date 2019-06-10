@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { UserService } from '../../shared/services/user.service';
-import { Router } from '@angular/router';
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'ngx-change-password',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ChangePasswordComponent implements OnInit {
   form: FormGroup;
-  user: {};
+  user: User;
   path = 'User';
   pwdPattern = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$';
 
@@ -35,18 +36,18 @@ export class ChangePasswordComponent implements OnInit {
       password: ['', [Validators.required]],
       newPassword: ['', [Validators.required, Validators.pattern(this.pwdPattern)]],
       confirmNewPassword: ['', [Validators.required]],
-    }, {validator: this.checkPasswords });
+    }, { validator: this.checkPasswords });
   }
 
-  get password() {
+  get password(): any {
     return this.form.get('password');
   }
 
-  get newPassword() {
+  get newPassword(): any {
     return this.form.get('newPassword');
   }
 
-  get confirmNewPassword() {
+  get confirmNewPassword(): any {
     return this.form.get('confirmNewPassword');
   }
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { User } from '../../shared/models/user';
+
 @Component({
   selector: 'ngx-create-new-user',
   templateUrl: './create-new-user.component.html',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateNewUserComponent implements OnInit {
   path = 'User';
-  user = {};
+  user: User;
 
   constructor() {
   }

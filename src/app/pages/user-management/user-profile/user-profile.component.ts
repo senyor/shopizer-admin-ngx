@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { UserService } from '../../shared/services/user.service';
+import { User } from 'app/pages/shared/models/user';
 
 @Component({
   selector: 'ngx-user-profile',
@@ -10,7 +11,7 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class UserProfileComponent implements OnInit {
   form: FormGroup;
-  user: any;
+  user: User;
   path = 'User';
   sidemenuTitle = 'User profile';
   sidemenuValue = 'admin';

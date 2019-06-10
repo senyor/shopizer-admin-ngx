@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { UserService } from '../../shared/services/user.service';
 import { LocalDataSource } from 'ng2-smart-table';
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'ngx-users-list',
@@ -14,7 +15,7 @@ export class UsersListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   path = 'User';
   showUserDetails = false;
-  user = {};
+  user = User;
 
   constructor(
     private userService: UserService,
