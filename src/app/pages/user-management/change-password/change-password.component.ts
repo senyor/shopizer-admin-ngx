@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserService } from '../../shared/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-change-password',
@@ -16,7 +17,8 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
   ) {
     this.createForm();
   }
@@ -56,7 +58,15 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('result', this.form.value);
+    const passwords = {
+      changePassword: this.form.value.newPassword,
+      password: this.form.value.password
+    };
+    this.userService.updatePassword(this.userService.getUserId(), passwords)
+      .subscribe(res => {
+        console.log(res);
+        this.router.navigate(['pages/user-management/profile']);
+      });
   }
 
 }

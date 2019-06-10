@@ -70,6 +70,10 @@ export class UserService {
     return this.crudService.delete(`/v1/private/user/${ id }`, { params });
   }
 
+  updatePassword(id: any, passwords: any): Observable<any> {
+    return this.crudService.put(`/v1/private/user/${ id }/password`, passwords);
+  }
+
   getUserId(): string {
     return localStorage.getItem(this.userIdString);
   }

@@ -34,7 +34,7 @@ export class PagesComponent {
           this.menu.splice(indexOrderMenu, 1);
         }
         // check access for admin
-        if (this.userService.isAdmin) {
+        if (!this.userService.isAdmin) {
           const indexUserMenu = this.menu.findIndex(el => el.title === 'sideNav.user');
 
           const indexCreateUser = this.menu[indexUserMenu].children.findIndex(el => el.title === 'sideNav.createUser');
