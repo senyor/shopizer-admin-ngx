@@ -19,14 +19,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'sideNav.changePassword',
         link: '/pages/user-management/change-password',
       },
-      // {
-      //   title: 'sideNav.createUser',
-      //   link: '/pages/user-management/create-user',
-      // },
-      // {
-      //   title: 'sideNav.userList',
-      //   link: '/pages/user-management/users',
-      // },
+      {
+        title: 'sideNav.createUser',
+        link: '/pages/user-management/create-user',
+      },
+      {
+        title: 'sideNav.userList',
+        link: '/pages/user-management/users',
+      },
     ],
   },
   // {
@@ -59,12 +59,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
   //   // icon: 'fas fa-shopping-cart',
   //   link: '',
   // },
-  // {
-  //   title: 'sideNav.orders',
-  //   icon: 'fas fa-shopping-cart',
-  //   link: '/pages/orders',
-  //   pathMatch: 'prefix'
-  // },
+  {
+    title: 'sideNav.orders',
+    icon: 'fas fa-shopping-cart',
+    link: '/pages/orders',
+    pathMatch: 'prefix'
+  },
   // {
   //   title: 'Manage taxes',
   //   // icon: 'fas fa-shopping-cart',

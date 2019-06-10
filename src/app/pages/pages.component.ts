@@ -29,29 +29,19 @@ export class PagesComponent {
     this.userService.getUser(userId)
       .subscribe(user => {
         this.userService.checkForAccess(user.permissions);
-        if (this.userService.canAccessToOrder) {
+        if (!this.userService.canAccessToOrder) {
           const indexOrderMenu = this.menu.findIndex(el => el.title === 'sideNav.orders');
-          this.menu = [...this.menu,
-            {
-              title: 'sideNav.orders',
-              icon: 'fas fa-shopping-cart',
-              link: '/pages/orders',
-              pathMatch: 'prefix'
-            }
-          ];
+          this.menu.splice(indexOrderMenu, 1);
         }
-        // add pages for admin
+        // check access for admin
         if (this.userService.isAdmin) {
           const indexUserMenu = this.menu.findIndex(el => el.title === 'sideNav.user');
-          this.menu[indexUserMenu].children = [...this.menu[indexUserMenu].children,
-            {
-              title: 'sideNav.createUser',
-              link: '/pages/user-management/create-user',
-            },
-            {
-              title: 'sideNav.userList',
-              link: '/pages/user-management/users',
-            }];
+
+          const indexCreateUser = this.menu[indexUserMenu].children.findIndex(el => el.title === 'sideNav.createUser');
+          this.menu[indexUserMenu].children.splice(indexCreateUser, 1);
+
+          const indexUserList = this.menu[indexUserMenu].children.findIndex(el => el.title === 'sideNav.userList');
+          this.menu[indexUserMenu].children.splice(indexUserList, 1);
         }
         this.localedMenu = [...this.menu];
         this.localedMenu = this.translateMenu(this.localedMenu);
