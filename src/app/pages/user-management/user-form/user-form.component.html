@@ -40,8 +40,8 @@
              placeholder="Email" required>
       <span *ngIf="(emailAddress.dirty || emailAddress.touched) && emailAddress.invalid && emailAddress"
             class="err-message">
-        <span *ngIf="emailAddress.errors.email">
-        Value has to be a valid email address.
+        <span *ngIf="emailAddress.errors.email || emailAddress.errors.pattern">
+          Value has to be a valid email address.
         </span>
         <span *ngIf="emailAddress.errors.required">
           Email address is required.
