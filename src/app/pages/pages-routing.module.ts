@@ -5,7 +5,6 @@ import { PagesComponent } from './pages.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { OrdersGuard } from './shared/guards/orders.guard';
-import { UserProfileComponent } from './user-management/user-profile/user-profile.component';
 
 const routes: Routes = [{
   path: '',
@@ -24,10 +23,6 @@ const routes: Routes = [{
       path: 'user-management',
       loadChildren: 'app/pages/user-management/user-management.module#UserManagementModule'
     },
-    // {
-    //   path: 'user-management/profile',
-    //   component: UserProfileComponent
-    // },
     {
       path: '',
       redirectTo: 'home',

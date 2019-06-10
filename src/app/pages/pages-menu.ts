@@ -10,7 +10,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'sideNav.user',
     icon: 'fas fa-user-circle',
-    // link: '/pages/user-management/profile',
     children: [
       {
         title: 'sideNav.myProfile',
@@ -18,15 +17,15 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'sideNav.changePassword',
-        link: '',
+        link: '/pages/user-management/change-password',
       },
       {
         title: 'sideNav.createUser',
-        link: '',
+        link: '/pages/user-management/create-user',
       },
       {
         title: 'sideNav.userList',
-        link: '',
+        link: '/pages/user-management/users',
       },
     ],
   },

@@ -28,8 +28,8 @@ export class CrudService {
     return this.http.put(`${this.url}${path}`, body, options);
   }
 
-  delete(path): Observable<any> {
-    return this.http.delete(`${this.url}${path}`);
+  delete(path, options?: any): Observable<any> {
+    return this.http.delete(`${this.url}${path}`, options);
   }
 
 

@@ -44,9 +44,13 @@
 .logo, .header-action {
   cursor: pointer;
 }
-.ng2-smart-actions ng2-st-tbody-edit-delete{
+.ng2-smart-actions ng2-st-tbody-edit-delete {
   display: none !important;
 }
 .nb-theme-corporate ng2-smart-table .ng2-smart-actions a.ng2-smart-action {
   font-size: 14px !important;
+}
+
+.cdk-global-scrollblock {
+  top: 0 !important;
 }

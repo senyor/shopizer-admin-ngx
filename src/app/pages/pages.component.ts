@@ -24,23 +24,32 @@ export class PagesComponent {
     private translate: TranslateService
   ) {
 
-    this.localedMenu = this.translateMenu(this.localedMenu);
-
-    this.translate.onLangChange.subscribe((lang) => {
-      this.localedMenu = this.translateMenu(this.localedMenu);
-    });
-
     const userId = this.userService.getUserId();
     // check access to order page
     this.userService.getUser(userId)
       .subscribe(user => {
         this.userService.checkForAccess(user.permissions);
         if (!this.userService.canAccessToOrder) {
-          const index = this.menu.findIndex(el => el.title === 'Orders');
-          this.menu.splice(index, 1);
+          const indexOrderMenu = this.menu.findIndex(el => el.title === 'sideNav.orders');
+          this.menu.splice(indexOrderMenu, 1);
         }
+        // check access for admin
+        if (this.userService.isAdmin) {
+          const indexUserMenu = this.menu.findIndex(el => el.title === 'sideNav.user');
+
+          const indexCreateUser = this.menu[indexUserMenu].children.findIndex(el => el.title === 'sideNav.createUser');
+          this.menu[indexUserMenu].children.splice(indexCreateUser, 1);
+
+          const indexUserList = this.menu[indexUserMenu].children.findIndex(el => el.title === 'sideNav.userList');
+          this.menu[indexUserMenu].children.splice(indexUserList, 1);
+        }
+        this.localedMenu = [...this.menu];
+        this.localedMenu = this.translateMenu(this.localedMenu);
       });
 
+    this.translate.onLangChange.subscribe((lang) => {
+      this.localedMenu = this.translateMenu(this.localedMenu);
+    });
   }
 
   translateMenu(array) {

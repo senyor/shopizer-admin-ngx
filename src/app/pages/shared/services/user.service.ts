@@ -11,28 +11,63 @@ import { CrudService } from './crud.service';
 export class UserService {
   canAccessToOrder = false;
   userIdString = 'userId';
+  isAdmin = false;
 
   constructor(
     private crudService: CrudService
-  ) { }
-
-  getUser(id: any): Observable<any>  {
-    return this.crudService.get(`/v1/private/users/${id}`);
+  ) {
   }
 
-  getMerchant (): Observable<any>  {
+  getUser(id: any): Observable<any> {
+    return this.crudService.get(`/v1/private/users/${ id }`);
+  }
+
+  getMerchant(): Observable<any> {
     return this.crudService.get(`/v1/store/DEFAULT`);
   }
 
   // check roles for access to order page
-  checkForAccess (array) {
+  checkForAccess(array) {
     roles.forEach(role => {
       array.forEach(elem => {
         if (role.name === elem.name) {
           this.canAccessToOrder = true;
         }
+        if (elem.name === 'ADMIN') {
+          this.isAdmin = true;
+        }
       });
     });
+  }
+
+  getUsersList(): Observable<any> {
+    const params = {
+      'store': 'DEFAULT',
+      'lenght': '100',
+      'start': '0'
+    };
+    return this.crudService.get(`/v1/private/users/`, params);
+  }
+
+  createUser(user: any): Observable<any> {
+    const params = {
+      'store': 'DEFAULT'
+    };
+    return this.crudService.post(`/v1/private/user/`, user, { params });
+  }
+
+  updateUser(id: any, user: any): Observable<any> {
+    const params = {
+      'store': 'DEFAULT'
+    };
+    return this.crudService.put(`/v1/private/user/${ id }`, user, { params });
+  }
+
+  deleteUser(id: any): Observable<any> {
+    const params = {
+      'store': 'DEFAULT'
+    };
+    return this.crudService.delete(`/v1/private/user/${ id }`, { params });
   }
 
   getUserId(): string {
@@ -43,7 +78,7 @@ export class UserService {
     localStorage.setItem(this.userIdString, id);
   }
 
-  destroyUserId () {
+  destroyUserId() {
     localStorage.removeItem(this.userIdString);
   }
 
