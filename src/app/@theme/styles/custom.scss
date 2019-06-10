@@ -1,0 +1,29 @@
+@import './custom/user-form';
+
+// change color of header
+.nb-theme-corporate nb-layout .layout nb-layout-header nav {
+  background: #0088cc !important;
+}
+// hide user avatar
+.user-picture.background {
+  display: none !important;
+}
+// size for icons in side menu
+.nb-theme-corporate nb-menu .menu-item .menu-icon {
+  font-size: 2rem !important;
+}
+
+// cursor for logo, username
+.logo, .header-action {
+  cursor: pointer;
+}
+.ng2-smart-actions ng2-st-tbody-edit-delete {
+  display: none !important;
+}
+.nb-theme-corporate ng2-smart-table .ng2-smart-actions a.ng2-smart-action {
+  font-size: 14px !important;
+}
+
+.cdk-global-scrollblock {
+  top: 0 !important;
+}
