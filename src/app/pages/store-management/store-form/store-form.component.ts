@@ -14,7 +14,7 @@ export class StoreFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder
   ) {
-    // this.createForm();
+    this.createForm();
   }
 
   ngOnInit() {
@@ -43,5 +43,14 @@ export class StoreFormComponent implements OnInit {
       useCache: ['', [Validators.required]],
     });
   }
+
+  save() {
+    console.log('save', this.form);
+  }
+
+  remove() {
+    console.log('remove');
+  }
+
 
 }
