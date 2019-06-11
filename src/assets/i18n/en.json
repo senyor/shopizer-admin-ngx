@@ -5,11 +5,16 @@
   "sideNav": {
     "home": "Home",
 
-    "user" : "User",
+    "user": "User",
     "myProfile": "My profile",
     "changePassword": "Password change",
     "createUser": "Create user",
     "userList": "Users list",
+
+    "store": "Store",
+    "storeDetails": "Store details",
+    "createStore": "Create store",
+    "storesList": "Stores list",
 
     "orders": "Orders"
   }

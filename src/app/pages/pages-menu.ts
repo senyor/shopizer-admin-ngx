@@ -29,11 +29,25 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-  // {
-  //   title: 'Store',
-  //   // icon: 'fas fa-shopping-cart',
-  //   link: '',
-  // },
+  {
+    title: 'sideNav.store',
+    icon: 'fas fa-building',
+    link: '',
+    children: [
+      {
+        title: 'sideNav.storeDetails',
+        link: '/pages/store-management/store-details',
+      },
+      {
+        title: 'sideNav.createStore',
+        link: '/pages/store-management/create-store',
+      },
+      {
+        title: 'sideNav.storesList',
+        link: '/pages/store-management/stores-list',
+      },
+    ],
+  },
   // {
   //   title: 'Catalogue',
   //   // icon: 'fas fa-shopping-cart',
