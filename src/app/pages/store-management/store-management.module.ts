@@ -8,6 +8,7 @@ import { StoreMarketingComponent } from './store-marketing/store-marketing.compo
 import { StoreCreationComponent } from './store-creation/store-creation.component';
 import { StoresListComponent } from './stores-list/stores-list.component';
 import { StoreHomeComponent } from './store-home/store-home.component';
+import { StoreFormComponent } from './store-form/store-form.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { StoreHomeComponent } from './store-home/store-home.component';
     StoreCreationComponent,
     StoresListComponent,
     StoreMarketingComponent,
-    StoreHomeComponent
+    StoreHomeComponent,
+    StoreFormComponent
   ],
   imports: [
     StoreManagementRoutingModule,

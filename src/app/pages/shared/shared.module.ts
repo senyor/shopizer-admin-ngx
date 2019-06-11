@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
@@ -20,6 +21,7 @@ import { RightSidemenuComponent } from './components/right-sidemenu/right-sideme
   ],
   imports: [
     CommonModule,
+    RouterModule,
 
     Ng2SmartTableModule,
     ThemeModule,
