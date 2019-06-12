@@ -8,18 +8,16 @@
     </div>
   </div>
 
-
   <div class="form-group">
     <label for="code" class="col-sm-10 col-form-label">Unique Store Code *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="code" formControlName='code'
-             placeholder="Unique Store Code" required>
+             placeholder="Unique Store Code" required [disabled]="true">
     </div>
   </div>
 
-
   <div class="form-group">
-    <label for="phone" class="col-sm-10 col-form-label">Store phone *</label>
+    <label for="phone" class="col-sm-10 col-form-label">Store Phone *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="phone" formControlName='phone'
              placeholder="Store phone" required>
@@ -30,7 +28,7 @@
     <label for="email" class="col-sm-10 col-form-label">Store email address *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="email" formControlName='email'
-             placeholder="First name" required>
+             placeholder="Email" required>
     </div>
   </div>
 
@@ -43,89 +41,134 @@
     </div>
 
     <div class="form-group">
-      <label for="address" class="col-sm-3 col-form-label">address *</label>
+      <label for="address" class="col-sm-10 col-form-label">Address *</label>
       <div class="col-sm-12">
         <input type="text" class="form-control" id="address" formControlName='address'
-               placeholder="address" required>
+               placeholder="Аddress" required>
       </div>
     </div>
 
-    <div class="form-group">
-      <label class="col-sm-3 col-form-label">state/Province*</label>
-      <div class="col-sm-12">
-        <!--<nb-select *ngIf="languages.length" placeholder="Select language" formControlName='stateProvince' outline-->
-        <!--shape="rectangle">-->
-        <!--<nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>-->
-        <!--</nb-select>-->
+    <div class="row">
+
+      <div class="form-group col-sm-6">
+        <label class="col-sm-10 col-form-label">State / province *</label>
+        <div class="col-sm-12">
+          <nb-select placeholder="Select state/province" formControlName='stateProvince' outline
+                     shape="rectangle" [disabled]="provinces.length === 0">
+            <nb-option *ngFor="let province of provinces" [value]="province.code">{{ province.name }}</nb-option>
+          </nb-select>
+        </div>
       </div>
+
+      <div class="form-group col-sm-6">
+        <label for="postalCode" class="col-sm-10 col-form-label">Postal code *</label>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" id="postalCode" formControlName='postalCode'
+                 placeholder="Postal code" required>
+        </div>
+      </div>
+
     </div>
 
     <div class="form-group">
-      <label for="city" class="col-sm-3 col-form-label">city *</label>
+      <label for="city" class="col-sm-10 col-form-label">City *</label>
       <div class="col-sm-12">
         <input type="text" class="form-control" id="city" formControlName='city'
-               placeholder="postalCode" required>
+               placeholder="City" required>
       </div>
     </div>
 
     <div class="form-group">
-      <label class="col-sm-3 col-form-label">country*</label>
+      <label class="col-sm-10 col-form-label">Country *</label>
       <div class="col-sm-12">
-        <!--<nb-select *ngIf="languages.length" placeholder="Select language" formControlName='stateProvince' outline-->
-        <!--shape="rectangle">-->
-        <!--<nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>-->
-        <!--</nb-select>-->
+        <nb-select *ngIf="countries.length" placeholder="Select country" formControlName='country' outline
+                   shape="rectangle" (selectedChange)="countryIsSelected($event)">
+          <nb-option *ngFor="let country of countries" [value]="country">{{ country.code }}</nb-option>
+        </nb-select>
       </div>
     </div>
-
 
   </div>
 
+  <div class="form-group">
+    <label class="col-sm-10 col-form-label">Supported languages *</label>
+    <div class="col-sm-12 group-block">
+      <nb-checkbox *ngFor="let language of supportedLanguages" status="success"
+                   (change)="addSupportedLanguage(language.code)">
+        {{ language.code }}
+      </nb-checkbox>
+    </div>
+  </div>
 
-  <!--<div class="form-group">-->
-  <!--<label for="name" class="col-sm-3 col-form-label">First name *</label>-->
-  <!--<div class="col-sm-12">-->
-  <!--<input type="text" class="form-control" id="name" formControlName='name'-->
-  <!--placeholder="First name" required>-->
-  <!--</div>-->
-  <!--</div>-->
+  <div class="form-group">
+    <label class="col-sm-10 col-form-label">Default language *</label>
+    <div class="col-sm-12">
+      <nb-select *ngIf="supportedLanguages.length" placeholder="Select language" formControlName='defaultLanguage'
+                 outline
+                 shape="rectangle">
+        <nb-option *ngFor="let language of supportedLanguages" [value]="language.code">{{ language.code }}</nb-option>
+      </nb-select>
+    </div>
+  </div>
 
+  <div class="form-group">
+    <label class="col-sm-10 col-form-label">Currency *</label>
+    <div class="col-sm-12">
+      <nb-select *ngIf="supportedCurrency.length" placeholder="Select currency" formControlName='currency'
+                 outline
+                 shape="rectangle">
+        <nb-option *ngFor="let currency of supportedCurrency" [value]="currency.code">{{ currency.code }}</nb-option>
+      </nb-select>
+    </div>
+  </div>
 
-  <!--<div class="form-group">-->
-  <!--<label for="name" class="col-sm-3 col-form-label">First name *</label>-->
-  <!--<div class="col-sm-12">-->
-  <!--<input type="text" class="form-control" id="name" formControlName='name'-->
-  <!--placeholder="First name" required>-->
-  <!--</div>-->
-  <!--</div>-->
+  <div class="form-group">
+    <div class="col-sm-12 group-block">
+      <nb-checkbox status="success" formControlName='currencyFormatNational'>
+        National currency format
+      </nb-checkbox>
+    </div>
+    <div class="col-sm-12">
+      National currency format ex $1,234.79 or International currency format ex USD1,345.79
+    </div>
+  </div>
 
-  <!--<div class="form-group">-->
-  <!--<label class="col-sm-3 col-form-label">Default language *</label>-->
-  <!--<div class="col-sm-12">-->
-  <!--<nb-select *ngIf="languages.length" placeholder="Select language" formControlName='defaultLanguage' outline-->
-  <!--shape="rectangle">-->
-  <!--<nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>-->
-  <!--</nb-select>-->
-  <!--</div>-->
-  <!--</div>-->
+  <div class="form-group">
+    <label class="col-sm-10 col-form-label">Weight units *</label>
+    <div class="col-sm-12">
+      <nb-select *ngIf="weightList.length" placeholder="Select weight unit" formControlName='weight' outline
+                 shape="rectangle">
+        <nb-option *ngFor="let el of weightList" [value]="el">{{ el }}</nb-option>
+      </nb-select>
+    </div>
+  </div>
 
-  <!--<div class="form-group">-->
-  <!--<label class="col-sm-3 col-form-label">Default language *</label>-->
-  <!--<div class="col-sm-12">-->
-  <!--<nb-select *ngIf="languages.length" placeholder="Select language" formControlName='defaultLanguage' outline-->
-  <!--shape="rectangle">-->
-  <!--<nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>-->
-  <!--</nb-select>-->
-  <!--</div>-->
-  <!--</div>-->
+  <div class="form-group">
+    <label class="col-sm-10 col-form-label">Size units *</label>
+    <div class="col-sm-12">
+      <nb-select *ngIf="sizeList.length" placeholder="Select size unit" formControlName='dimension' outline
+                 shape="rectangle">
+        <nb-option *ngFor="let el of sizeList" [value]="el">{{ el }}</nb-option>
+      </nb-select>
+    </div>
+  </div>
 
-  <!--<div class="form-group">-->
-  <!--<label for="name" class="col-sm-3 col-form-label">First name *</label>-->
-  <!--<div class="col-sm-12">-->
-  <!--<input type="text" class="form-control" id="name" formControlName='name'-->
-  <!--placeholder="First name" required>-->
-  <!--</div>-->
-  <!--</div>-->
+  <div class="form-group">
+    <label for="city" class="col-sm-10 col-form-label">Web site operating since *</label>
+    <div class="col-sm-12">
+      <input class="form-control has-person-icon" nbInput placeholder="Form Picker" formControlName='inBusinessSince'
+             [nbDatepicker]="formpicker">
+      <nb-datepicker #formpicker></nb-datepicker>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-12 group-block">
+      <nb-checkbox status="success" formControlName='useCache'>
+        Use cache
+      </nb-checkbox>
+    </div>
+  </div>
 
   <hr/>
 
@@ -133,6 +176,5 @@
     <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid && !store?.id">Save</button>
     <!--<button *ngIf="!showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">Remove</button>-->
   </div>
-
 
 </form>

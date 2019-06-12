@@ -19,3 +19,16 @@
 .page-body {
   width: 100%;
 }
+
+// form styles
+.actions-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px 15px;
+}
+
+.group-block {
+  display: flex;
+  flex-direction: column;
+}

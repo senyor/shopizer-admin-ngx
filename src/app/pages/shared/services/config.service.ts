@@ -20,4 +20,27 @@ export class ConfigService {
     return this.crudService.get(`/v1/sec/private/groups`);
   }
 
+  getListOfCountries() {
+    return this.crudService.get(`/v1/country`);
+  }
+
+  getListOfZonesProvincesByCountry(countryCode) {
+    const params = {
+      'code': countryCode,
+    };
+    return this.crudService.get(`/v1/zones`, params);
+  }
+
+  getListOfSupportedCurrency() {
+    return this.crudService.get(`/v1/currency`);
+  }
+
+  getWeightAndSizes() {
+    return this.crudService.get(`/v1/measures`);
+  }
+
+  getSiteConfig() {
+    return this.crudService.get(`/v1/config`);
+  }
+
 }
