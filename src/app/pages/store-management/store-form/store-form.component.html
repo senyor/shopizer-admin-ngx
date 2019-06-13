@@ -34,9 +34,10 @@
 
   <div formGroupName="address" class="address-block">
 
-    <div class="form-group">
+    <div class="form-group" *ngIf="env?.googleApiKey">
       <div class="col-sm-12">
-        <input type="text" class="form-control" id="fullAddress" placeholder="Enter your address" required>
+        <input placeholder="Enter your address" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+               class="form-control" #search [formControl]="searchControl">
       </div>
     </div>
 
@@ -173,7 +174,7 @@
   <hr/>
 
   <div class="form-group actions-button">
-    <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid && !store?.id">Save</button>
+    <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid">Save</button>
     <!--<button *ngIf="!showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">Remove</button>-->
   </div>
 

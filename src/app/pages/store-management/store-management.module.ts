@@ -9,6 +9,8 @@ import { StoreCreationComponent } from './store-creation/store-creation.componen
 import { StoresListComponent } from './stores-list/stores-list.component';
 import { StoreHomeComponent } from './store-home/store-home.component';
 import { StoreFormComponent } from './store-form/store-form.component';
+import { AgmCoreModule } from '@agm/core';
+import { environment } from '../../../environments/environment';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,12 @@ import { StoreFormComponent } from './store-form/store-form.component';
   ],
   imports: [
     StoreManagementRoutingModule,
+
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleApiKey,
+      libraries: ['places'],
+      language: 'en'
+    }),
 
     SharedModule
   ]
