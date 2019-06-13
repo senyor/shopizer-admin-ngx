@@ -1,4 +1,14 @@
-import { Component, ElementRef, Input, NgZone, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  NgZone,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ConfigService } from '../../shared/services/config.service';
@@ -10,7 +20,7 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './store-form.component.html',
   styleUrls: ['./store-form.component.scss']
 })
-export class StoreFormComponent implements OnInit {
+export class StoreFormComponent implements OnInit, OnChanges {
   @Input() store: any;
   @ViewChild('search')
   searchElementRef: ElementRef;
@@ -40,7 +50,8 @@ export class StoreFormComponent implements OnInit {
     private fb: FormBuilder,
     private configService: ConfigService,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private cdr: ChangeDetectorRef
   ) {
     this.createForm();
   }
@@ -71,6 +82,17 @@ export class StoreFormComponent implements OnInit {
       this.addressAutocomplete();
     }
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.store.currentValue && changes.store.currentValue.id) {
+      // console.log(changes.store.currentValue);
+      // if (this.store.id) {
+      // this.showRemoveButton = false;
+      // }
+      this.fillForm();
+    }
+  }
+
 
   addressAutocomplete() {
     // create search FormControl
@@ -137,8 +159,38 @@ export class StoreFormComponent implements OnInit {
     });
   }
 
+  fillForm() {
+    this.form.patchValue({
+      name: this.store.name,
+      code: this.store.code,
+      phone: this.store.phone,
+      email: this.store.email,
+      address: this.fb.group({
+        stateProvince: this.store.stateProvince,
+        country: this.store.country,
+        address: this.store.address,
+        postalCode: this.store.postalCode,
+        city: this.store.city,
+      }),
+      supportedLanguages: this.store.supportedLanguages,
+      defaultLanguage: this.store.defaultLanguage,
+      currency: this.store.currency,
+      currencyFormatNational: this.store.currencyFormatNational,
+      weight: this.store.weight,
+      dimension: this.store.dimension,
+      inBusinessSince: this.store.inBusinessSince,
+      useCache: this.store.useCache,
+
+    });
+    this.cdr.detectChanges();
+  }
+
   get stateProvince() {
     return this.form.get('address').get('stateProvince');
+  }
+
+  get inBusinessSince() {
+    return this.form.get('inBusinessSince');
   }
 
   save() {

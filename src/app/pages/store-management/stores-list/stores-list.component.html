@@ -1,4 +1,4 @@
-<nb-card size="small" class="page-card" *ngIf="!showUserDetails; else userDetailsBlock">
+<nb-card size="small" class="page-card" *ngIf="!showStoreDetails; else storeDetailsBlock">
   <nb-accordion>
     <nb-accordion-item #item>>
       <nb-accordion-item-header>
@@ -11,7 +11,7 @@
     </nb-accordion-item>
   </nb-accordion>
 </nb-card>
-<ng-template #showStoreDetails>
+<ng-template #storeDetailsBlock>
   <nb-actions size="medium" class="back-button">
     <nb-action (click)="backToList()">
       <i class="fas fa-chevron-left"></i>&nbsp;<span>Back to list</span>
