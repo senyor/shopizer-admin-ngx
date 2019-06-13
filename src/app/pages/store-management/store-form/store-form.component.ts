@@ -50,11 +50,11 @@ export class StoreFormComponent implements OnInit {
   private createForm() {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
-      code: ['', [Validators.required]],
+      code: [{value: '', disabled: true}, [Validators.required]],
       phone: ['', [Validators.required]],
       email: ['', [Validators.required]],
       address: this.fb.group({
-        stateProvince: ['', [Validators.required]],
+        stateProvince: [{value: '', disabled: true}, [Validators.required]],
         country: ['', [Validators.required]],
         address: ['', [Validators.required]],
         postalCode: ['', [Validators.required]],
@@ -71,6 +71,10 @@ export class StoreFormComponent implements OnInit {
     });
   }
 
+  get stateProvince() {
+    return this.form.get('address').get('stateProvince');
+  }
+
   save() {
     this.form.controls['address'].patchValue({ country: this.form.value.address.country.code });
     console.log('save', this.form.value);
@@ -85,6 +89,7 @@ export class StoreFormComponent implements OnInit {
       this.configService.getListOfZonesProvincesByCountry(event.code)
         .subscribe(provinces => {
           this.provinces = [...provinces];
+          this.stateProvince.enable();
         });
     }
   }

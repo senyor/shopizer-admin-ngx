@@ -12,7 +12,7 @@
     <label for="code" class="col-sm-10 col-form-label">Unique Store Code *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="code" formControlName='code'
-             placeholder="Unique Store Code" required [disabled]="true">
+             placeholder="Unique Store Code" required>
     </div>
   </div>
 
@@ -54,7 +54,7 @@
         <label class="col-sm-10 col-form-label">State / province *</label>
         <div class="col-sm-12">
           <nb-select placeholder="Select state/province" formControlName='stateProvince' outline
-                     shape="rectangle" [disabled]="provinces.length === 0">
+                     shape="rectangle">
             <nb-option *ngFor="let province of provinces" [value]="province.code">{{ province.name }}</nb-option>
           </nb-select>
         </div>

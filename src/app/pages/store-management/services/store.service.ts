@@ -16,5 +16,13 @@ export class StoreService {
     return this.crudService.get(`/v1/store/DEFAULT`);
   }
 
+  getListOfStores(): Observable<any> {
+    const params = {
+      'lenght': '100',
+      'start': '0'
+    };
+    return this.crudService.get(`/v1/private/stores`, params);
+  }
+
 
 }
