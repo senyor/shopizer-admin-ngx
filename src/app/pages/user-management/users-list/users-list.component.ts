@@ -91,7 +91,7 @@ export class UsersListComponent implements OnInit {
   backToList() {
     this.showUserDetails = false;
     this.cdr.detectChanges();
-    this.source.setPaging(1, 5, true);
+    this.source.setPaging(1, this.perPage, true);
     this.accordion.toggle();
   }
 

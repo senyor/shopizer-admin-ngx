@@ -29,7 +29,7 @@
       User Details
     </nb-card-header>
     <nb-card-body>
-      <ngx-user-form [user]="user"></ngx-user-form>
+      <ngx-user-form [user]="user" (back)="backToList($event)"></ngx-user-form>
     </nb-card-body>
   </nb-card>
 </ng-template>

@@ -1,4 +1,13 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -19,6 +28,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   showRemoveButton = true;
   pwdPattern = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$';
   emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
+  @Output() back = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
@@ -110,7 +120,7 @@ export class UserFormComponent implements OnInit, OnChanges {
       this.userService.updateUser(+this.user.id, this.form.value)
         .subscribe(res => {
           console.log(res);
-          this.router.navigate(['pages/user-management/users']);
+          this.back.emit(true);
         });
     } else {
       this.userService.createUser(this.form.value)
