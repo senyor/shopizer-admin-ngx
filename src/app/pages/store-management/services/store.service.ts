@@ -24,5 +24,23 @@ export class StoreService {
     return this.crudService.get(`/v1/private/stores`, params);
   }
 
+  checkIfStoreExist(code): Observable<any> {
+    const params = {
+      'code': code,
+    };
+    return this.crudService.get(`/v1/private/store/unique`, params);
+  }
+
+  createStore(store: any): Observable<any> {
+    return this.crudService.post(`/v1/private/store`, store);
+  }
+
+  deleteStore(storeCode: any): Observable<any> {
+    return this.crudService.delete(`/v1/private/store/${ storeCode }`);
+  }
+
+  updateStore(store: any): Observable<any> {
+    return this.crudService.put(`/v1/private/store/${ store.code }`, store);
+  }
 
 }

@@ -15,7 +15,6 @@ export class StoreDetailsComponent implements OnInit {
   ) {
     this.storeService.getStore()
       .subscribe(res => {
-        console.log(res);
         this.store = res;
       });
   }

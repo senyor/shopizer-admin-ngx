@@ -5,6 +5,10 @@
     <div class="col-sm-12">
       <input type="text" class="form-control" id="name" formControlName='name'
              placeholder="Store name" required>
+      <span *ngIf="(name.dirty || name.touched) && name.invalid && name.errors.required"
+            class="err-message">
+        Store name is required.
+      </span>
     </div>
   </div>
 
@@ -12,7 +16,11 @@
     <label for="code" class="col-sm-10 col-form-label">Unique Store Code *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="code" formControlName='code'
-             placeholder="Unique Store Code" required>
+             placeholder="Unique Store Code" [readOnly]="'true'" required>
+      <span *ngIf="(code.dirty || code.touched) && code.invalid && code.errors.required"
+            class="err-message">
+        Code is required.
+      </span>
     </div>
   </div>
 
@@ -21,6 +29,10 @@
     <div class="col-sm-12">
       <input type="text" class="form-control" id="phone" formControlName='phone'
              placeholder="Store phone" required>
+      <span *ngIf="(phone.dirty || phone.touched) && phone.invalid && phone.errors.required"
+            class="err-message">
+        Phone is required.
+      </span>
     </div>
   </div>
 
@@ -29,15 +41,24 @@
     <div class="col-sm-12">
       <input type="text" class="form-control" id="email" formControlName='email'
              placeholder="Email" required>
+      <span *ngIf="(email.dirty || email.touched) && email.invalid && email"
+            class="err-message">
+        <span *ngIf="email.errors.email || email.errors.pattern">
+          Value has to be a valid email address.
+        </span>
+        <span *ngIf="email.errors.required">
+          Email address is required.
+        </span>
+      </span>
     </div>
   </div>
 
-  <div formGroupName="address" class="address-block">
+  <div formGroupName="address" class="address-block" size="xsmall" [nbSpinner]="loading">
 
     <div class="form-group" *ngIf="env?.googleApiKey">
       <div class="col-sm-12">
         <input placeholder="Enter your address" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
-               class="form-control" #search [formControl]="searchControl">
+               class="form-control" #search formControlName="searchControl">
       </div>
     </div>
 
@@ -46,6 +67,10 @@
       <div class="col-sm-12">
         <input type="text" class="form-control" id="address" formControlName='address'
                placeholder="Аddress" required>
+        <span *ngIf="(address.dirty || address.touched) && address.invalid && address.errors.required"
+              class="err-message">
+          Address is required.
+        </span>
       </div>
     </div>
 
@@ -54,10 +79,14 @@
       <div class="form-group col-sm-6">
         <label class="col-sm-10 col-form-label">State / province *</label>
         <div class="col-sm-12">
-          <nb-select placeholder="Select state/province" formControlName='stateProvince' outline
+          <nb-select *ngIf="provinces.length; else chooseCountry" placeholder="Select state/province"
+                     formControlName='stateProvince' outline [selected]="stateProvince.value"
                      shape="rectangle">
             <nb-option *ngFor="let province of provinces" [value]="province.code">{{ province.name }}</nb-option>
           </nb-select>
+          <ng-template #chooseCountry>
+            Please select country
+          </ng-template>
         </div>
       </div>
 
@@ -66,6 +95,10 @@
         <div class="col-sm-12">
           <input type="text" class="form-control" id="postalCode" formControlName='postalCode'
                  placeholder="Postal code" required>
+          <span *ngIf="(postalCode.dirty || postalCode.touched) && postalCode.invalid && postalCode.errors.required"
+                class="err-message">
+            Postal code is required.
+          </span>
         </div>
       </div>
 
@@ -76,6 +109,10 @@
       <div class="col-sm-12">
         <input type="text" class="form-control" id="city" formControlName='city'
                placeholder="City" required>
+        <span *ngIf="(city.dirty || city.touched) && city.invalid && city.errors.required"
+              class="err-message">
+          City code is required.
+        </span>
       </div>
     </div>
 
@@ -84,7 +121,7 @@
       <div class="col-sm-12">
         <nb-select *ngIf="countries.length" placeholder="Select country" formControlName='country' outline
                    shape="rectangle" (selectedChange)="countryIsSelected($event)">
-          <nb-option *ngFor="let country of countries" [value]="country">{{ country.code }}</nb-option>
+          <nb-option *ngFor="let country of countries" [value]="country.code">{{ country.code }}</nb-option>
         </nb-select>
       </div>
     </div>
@@ -95,6 +132,7 @@
     <label class="col-sm-10 col-form-label">Supported languages *</label>
     <div class="col-sm-12 group-block">
       <nb-checkbox *ngFor="let language of supportedLanguages" status="success"
+                   [value]="userHasSupportedLanguage(language)"
                    (change)="addSupportedLanguage(language.code)">
         {{ language.code }}
       </nb-checkbox>
@@ -175,7 +213,7 @@
 
   <div class="form-group actions-button">
     <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid">Save</button>
-    <!--<button *ngIf="!showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">Remove</button>-->
+    <button *ngIf="!showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">Remove</button>
   </div>
 
 </form>
