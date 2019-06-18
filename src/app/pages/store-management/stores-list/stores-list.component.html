@@ -23,7 +23,7 @@
       Store Details
     </nb-card-header>
     <nb-card-body>
-      <ngx-store-form [store]="store"></ngx-store-form>
+      <ngx-store-form [store]="store" (back)="backToList($event)"></ngx-store-form>
     </nb-card-body>
   </nb-card>
 </ng-template>

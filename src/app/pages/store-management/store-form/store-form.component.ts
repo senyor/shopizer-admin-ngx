@@ -1,11 +1,11 @@
 import {
   ChangeDetectorRef,
   Component,
-  ElementRef,
+  ElementRef, EventEmitter,
   Input,
   NgZone,
   OnChanges,
-  OnInit,
+  OnInit, Output,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
@@ -25,6 +25,7 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class StoreFormComponent implements OnInit, OnChanges {
   @Input() store: any;
+  @Output() back = new EventEmitter();
   @ViewChild('search')
   searchElementRef: ElementRef;
   supportedLanguages = [];
@@ -46,9 +47,10 @@ export class StoreFormComponent implements OnInit, OnChanges {
     postal_code: 'short_name',
     sublocality_level_1: 'long_name'
   };
-  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
+  emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
   loading = false;
   showRemoveButton = true;
+  isReadonlyCode = false;
 
   constructor(
     private fb: FormBuilder,
@@ -166,8 +168,8 @@ export class StoreFormComponent implements OnInit, OnChanges {
       defaultLanguage: [''],
       currency: [''],
       currencyFormatNational: [true],
-      weight: [''],
-      dimension: [''],
+      weight: ['', [Validators.required]],
+      dimension: ['', [Validators.required]],
       inBusinessSince: [''],
       useCache: [false],
     });
@@ -197,6 +199,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
     if (this.store.address.country) {
       this.countryIsSelected(this.store.address.country);
     }
+    this.isReadonlyCode = true;
     this.cdr.markForCheck();
     this.loading = false;
   }
@@ -247,6 +250,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
       this.storeService.updateStore(this.form.value)
         .subscribe(store => {
           console.log(store);
+          this.back.emit(true);
         });
     } else {
       this.storeService.checkIfStoreExist(this.form.value.code)
@@ -268,7 +272,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
     this.storeService.deleteStore(this.store.code)
       .subscribe(res => {
         console.log(res);
-        this.router.navigate(['pages/store-management/stores-list']);
+        this.back.emit(true);
       });
   }
 
