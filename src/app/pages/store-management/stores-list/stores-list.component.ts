@@ -24,14 +24,16 @@ export class StoresListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getList();
+  }
+
+  getList () {
     this.storeService.getListOfStores()
       .subscribe(stores => {
-        console.log(stores.data);
         this.source.load(stores.data);
         this.source.setPaging(1, this.perPage, true);
         // open accordion tab
         this.accordion.toggle();
-
       });
   }
 
@@ -74,9 +76,7 @@ export class StoresListComponent implements OnInit {
 
   backToList() {
     this.showStoreDetails = false;
-    this.cdr.detectChanges();
-    this.source.setPaging(1, this.perPage, true);
-    this.accordion.toggle();
+    this.getList();
   }
 
 

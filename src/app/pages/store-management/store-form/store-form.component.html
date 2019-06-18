@@ -85,7 +85,9 @@
             <nb-option *ngFor="let province of provinces" [value]="province.code">{{ province.name }}</nb-option>
           </nb-select>
           <ng-template #chooseCountry>
-            Please select country
+            <nb-select placeholder="Select state/province" shape="rectangle" outline disabled>
+              <nb-option></nb-option>
+            </nb-select>
           </ng-template>
         </div>
       </div>
