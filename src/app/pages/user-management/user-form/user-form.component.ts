@@ -27,7 +27,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   groups = [];
   showRemoveButton = true;
   pwdPattern = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$';
-  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
+  emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
   @Output() back = new EventEmitter();
 
   constructor(

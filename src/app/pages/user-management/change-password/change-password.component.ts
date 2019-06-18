@@ -15,6 +15,7 @@ export class ChangePasswordComponent implements OnInit {
   user: User;
   path = 'User';
   pwdPattern = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$';
+  errorMessage = '';
 
   constructor(
     private userService: UserService,
@@ -67,6 +68,8 @@ export class ChangePasswordComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         this.router.navigate(['pages/user-management/profile']);
+      }, err => {
+        this.errorMessage = 'Actual password does not match for user'
       });
   }
 
