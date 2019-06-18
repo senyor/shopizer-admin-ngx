@@ -3,17 +3,19 @@
 </div>
 <ngx-breadcrumb [path]="path"></ngx-breadcrumb>
 
-<nb-accordion *ngIf="!showUserDetails; else userDetailsBlock">
-  <nb-accordion-item #item>>
-    <nb-accordion-item-header>
-      Users
-    </nb-accordion-item-header>
-    <nb-accordion-item-body>
-      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)">
-      </ng2-smart-table>
-    </nb-accordion-item-body>
-  </nb-accordion-item>
-</nb-accordion>
+<nb-card size="small" class="page-card" *ngIf="!showUserDetails; else userDetailsBlock">
+  <nb-accordion>
+    <nb-accordion-item #item>>
+      <nb-accordion-item-header>
+        Users
+      </nb-accordion-item-header>
+      <nb-accordion-item-body>
+        <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)">
+        </ng2-smart-table>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+  </nb-accordion>
+</nb-card>
 
 <ng-template #userDetailsBlock>
   <nb-actions size="medium" class="back-button">
@@ -22,12 +24,12 @@
     </nb-action>
   </nb-actions>
 
-  <nb-card size="small">
+  <nb-card size="small" class="page-card">
     <nb-card-header>
       User Details
     </nb-card-header>
     <nb-card-body>
-      <ngx-user-form [user]="user"></ngx-user-form>
+      <ngx-user-form [user]="user" (back)="backToList($event)"></ngx-user-form>
     </nb-card-body>
   </nb-card>
 </ng-template>

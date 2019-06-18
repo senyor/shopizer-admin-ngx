@@ -38,9 +38,10 @@
     <div class="col-sm-12">
       <input type="email" class="form-control" id="email" formControlName='emailAddress'
              placeholder="Email" required>
-      <span *ngIf="(emailAddress.dirty || emailAddress.touched) && emailAddress.invalid && emailAddress" class="err-message">
-        <span *ngIf="emailAddress.errors.email">
-        Value has to be a valid email address.
+      <span *ngIf="(emailAddress.dirty || emailAddress.touched) && emailAddress.invalid && emailAddress"
+            class="err-message">
+        <span *ngIf="emailAddress.errors.email || emailAddress.errors.pattern">
+          Value has to be a valid email address.
         </span>
         <span *ngIf="emailAddress.errors.required">
           Email address is required.
@@ -60,7 +61,9 @@
           Password required.
         </span>
         <span *ngIf="password.errors.pattern">
-          Password not valid.
+          Password not valid. <br/>
+          Should contains at least 1 character lower case, at least 1 character uppercase,
+          at least 1 digit, 6 to 12 characters
         </span>
       </span>
     </div>
@@ -73,7 +76,8 @@
   <div class="form-group">
     <label class="col-sm-3 col-form-label">Default language *</label>
     <div class="col-sm-12">
-      <nb-select *ngIf="languages.length" placeholder="Select language" formControlName='defaultLanguage' outline shape="rectangle">
+      <nb-select *ngIf="languages.length" placeholder="Select language" formControlName='defaultLanguage' outline
+                 shape="rectangle">
         <nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>
       </nb-select>
     </div>

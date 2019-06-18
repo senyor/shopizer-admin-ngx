@@ -67,7 +67,7 @@ export class UserService {
     const params = {
       'store': 'DEFAULT'
     };
-    return this.crudService.delete(`/v1/private/user/${ id }`, { params });
+    return this.crudService.delete(`/v1/private/users/${ id }`, { params });
   }
 
   updatePassword(id: any, passwords: any): Observable<any> {

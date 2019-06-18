@@ -1,0 +1,17 @@
+@import './custom/overrided-styles';
+@import './custom/errors';
+
+.page-header {
+  font-size: 30px;
+  color: black;
+  padding-bottom: 10px
+}
+
+.page-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.page-card {
+  border-top: 3px solid grey !important;
+}

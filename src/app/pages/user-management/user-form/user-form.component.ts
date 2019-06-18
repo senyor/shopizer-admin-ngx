@@ -1,9 +1,19 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { ConfigService } from '../../shared/services/config.service';
 import { UserService } from '../../shared/services/user.service';
-import { Router } from '@angular/router';
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'ngx-user-form',
@@ -12,11 +22,13 @@ import { Router } from '@angular/router';
 })
 export class UserFormComponent implements OnInit, OnChanges {
   form: FormGroup;
-  @Input() user: any;
+  @Input() user: User;
   languages = [];
   groups = [];
   showRemoveButton = true;
   pwdPattern = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$';
+  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
+  @Output() back = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
@@ -53,7 +65,7 @@ export class UserFormComponent implements OnInit, OnChanges {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       userName: ['', [Validators.required]],
-      emailAddress: ['', [Validators.required, Validators.email]],
+      emailAddress: ['', [Validators.required, Validators.email, Validators.pattern(this.emailPattern)]],
       password: ['', [Validators.required, Validators.pattern(this.pwdPattern)]],
       active: [false, [Validators.required]],
       defaultLanguage: ['', [Validators.required]],
@@ -104,11 +116,11 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   save() {
-    if (this.user.id) {
+    if (this.user && this.user.id) {
       this.userService.updateUser(+this.user.id, this.form.value)
         .subscribe(res => {
           console.log(res);
-          this.router.navigate(['pages/user-management/users']);
+          this.back.emit(true);
         });
     } else {
       this.userService.createUser(this.form.value)
@@ -120,16 +132,16 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   remove() {
-    console.log('remove', this.user.id);
     this.userService.deleteUser(this.user.id)
       .subscribe(res => {
         console.log(res);
+        this.router.navigate(['pages/user-management/users']);
       });
   }
 
   userHasRole(group) {
     if (!this.user || !this.user.groups) return false;
-    return this.user.groups.find((g) => g.id === group.id);
+    return this.user.groups.find((g: any) => g.id === group.id);
   }
 
   addRole(group) {

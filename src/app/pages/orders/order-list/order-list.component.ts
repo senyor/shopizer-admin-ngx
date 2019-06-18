@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { OrdersService } from '../services/orders.service';
@@ -12,6 +12,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 export class OrderListComponent implements OnInit {
   @ViewChild('item') accordion;
   source: LocalDataSource = new LocalDataSource();
+  perPage = 10;
 
   constructor(
     private ordersService: OrdersService
@@ -19,6 +20,7 @@ export class OrderListComponent implements OnInit {
     this.ordersService.getOrders()
       .subscribe(orders => {
         this.source.load(orders.orders);
+        this.source.setPaging(1, this.perPage, true);
         // open accordion tab
         this.accordion.toggle();
       });

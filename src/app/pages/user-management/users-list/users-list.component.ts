@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { UserService } from '../../shared/services/user.service';
 import { LocalDataSource } from 'ng2-smart-table';
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'ngx-users-list',
@@ -14,7 +15,8 @@ export class UsersListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   path = 'User';
   showUserDetails = false;
-  user = {};
+  user = User;
+  perPage = 10;
 
   constructor(
     private userService: UserService,
@@ -36,6 +38,7 @@ export class UsersListComponent implements OnInit {
         });
 
         this.source.load(usersArray);
+        this.source.setPaging(1, this.perPage, true);
 
         // open accordion tab
         this.accordion.toggle();
@@ -88,6 +91,7 @@ export class UsersListComponent implements OnInit {
   backToList() {
     this.showUserDetails = false;
     this.cdr.detectChanges();
+    this.source.setPaging(1, this.perPage, true);
     this.accordion.toggle();
   }
 
