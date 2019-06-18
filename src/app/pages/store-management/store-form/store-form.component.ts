@@ -17,6 +17,7 @@ import { MapsAPILoader } from '@agm/core';
 import { environment } from '../../../../environments/environment';
 import { StoreService } from '../services/store.service';
 import { UserService } from '../../shared/services/user.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'ngx-store-form',
@@ -96,6 +97,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
     if (changes.store.currentValue && changes.store.currentValue.id) {
       if (this.store.id && this.userService.isSuperadmin && this.store.code !== 'DEFAULT') {
         this.showRemoveButton = false;
+        console.log(this.store);
       }
       this.loading = true;
       this.fillForm();
@@ -165,7 +167,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
         city: ['', [Validators.required]]
       }),
       supportedLanguages: [[], [Validators.required]],
-      defaultLanguage: [''],
+      defaultLanguage: ['', [Validators.required]],
       currency: [''],
       currencyFormatNational: [true],
       weight: ['', [Validators.required]],
@@ -187,7 +189,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
       currencyFormatNational: this.store.currencyFormatNational,
       weight: this.store.weight,
       dimension: this.store.dimension,
-      inBusinessSince: this.store.inBusinessSince,
+      inBusinessSince: new Date(this.store.inBusinessSince),
       useCache: this.store.useCache,
     });
     this.form.controls['address'].patchValue({ searchControl: '' });
@@ -246,6 +248,10 @@ export class StoreFormComponent implements OnInit, OnChanges {
 
   save() {
     this.form.controls['address'].patchValue({ country: this.form.value.address.country });
+    this.form.patchValue({ inBusinessSince: moment(this.form.value.inBusinessSince).format('YYYY-MM-DD') });
+    // let data =  this.form.value;
+    // data.inBusinessSince = moment(this.form.value.inBusinessSince).format('YYYY-MM-DD');
+    // data.address.country = this.form.value.address.country;
     if (this.store.id) {
       this.storeService.updateStore(this.form.value)
         .subscribe(store => {
