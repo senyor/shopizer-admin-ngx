@@ -23,6 +23,10 @@ export class UsersListComponent implements OnInit {
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {
+    this.getList();
+  }
+
+  getList () {
     this.userService.getUsersList()
       .subscribe(users => {
         const usersArray = [...users.data];
@@ -90,9 +94,7 @@ export class UsersListComponent implements OnInit {
 
   backToList() {
     this.showUserDetails = false;
-    this.cdr.detectChanges();
-    this.source.setPaging(1, this.perPage, true);
-    this.accordion.toggle();
+    this.getList();
   }
 
 }

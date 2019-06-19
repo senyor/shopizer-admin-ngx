@@ -135,7 +135,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     this.userService.deleteUser(this.user.id)
       .subscribe(res => {
         console.log(res);
-        this.router.navigate(['pages/user-management/users']);
+        this.back.emit(true);
       });
   }
 
