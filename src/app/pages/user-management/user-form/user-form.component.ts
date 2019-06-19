@@ -29,6 +29,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   pwdPattern = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$';
   emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
   @Output() back = new EventEmitter();
+  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
@@ -64,7 +65,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     this.form = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      userName: ['', [Validators.required]],
+      userName: [''],
       emailAddress: ['', [Validators.required, Validators.email, Validators.pattern(this.emailPattern)]],
       password: ['', [Validators.required, Validators.pattern(this.pwdPattern)]],
       active: [false, [Validators.required]],
@@ -79,10 +80,6 @@ export class UserFormComponent implements OnInit, OnChanges {
 
   get lastName() {
     return this.form.get('lastName');
-  }
-
-  get userName() {
-    return this.form.get('userName');
   }
 
   get emailAddress() {
@@ -106,7 +103,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     this.form.patchValue({
       firstName: this.user.firstName,
       lastName: this.user.lastName,
-      userName: this.user.userName,
+      userName: '',
       emailAddress: this.user.emailAddress,
       active: this.user.active,
       defaultLanguage: this.user.defaultLanguage,
@@ -116,6 +113,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   save() {
+    this.form.patchValue({ userName: this.form.value.emailAddress});
     if (this.user && this.user.id) {
       this.userService.updateUser(+this.user.id, this.form.value)
         .subscribe(res => {
@@ -123,11 +121,18 @@ export class UserFormComponent implements OnInit, OnChanges {
           this.back.emit(true);
         });
     } else {
-      this.userService.createUser(this.form.value)
+      this.userService.checkIfUserExist(this.form.value.userName)
         .subscribe(res => {
-          console.log(res);
-          this.router.navigate(['pages/user-management/users']);
-        });
+          if(!res.exists) {
+            this.userService.createUser(this.form.value)
+              .subscribe(res => {
+                console.log(res);
+                this.router.navigate(['pages/user-management/users']);
+              });
+          } else {
+            this.errorMessage = 'Email already exists'
+          }
+        })
     }
   }
 

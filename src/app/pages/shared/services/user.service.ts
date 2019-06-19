@@ -22,6 +22,14 @@ export class UserService {
     return this.crudService.get(`/v1/private/users/${ id }`);
   }
 
+  checkIfUserExist(userName): Observable<any> {
+    const body = {
+      unique: userName,
+      merchant: ''
+    };
+    return this.crudService.post(`/v1/private/user/unique`, body);
+  }
+
   getMerchant(): Observable<any> {
     return this.crudService.get(`/v1/store/DEFAULT`);
   }
