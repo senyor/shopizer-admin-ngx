@@ -9,7 +9,8 @@
     <nb-card-header>
       Profile
     </nb-card-header>
-    <nb-card-body>
+    <div *ngIf="loading" class="loading-block" [nbSpinner]="loading" nbSpinnerSize="large" nbSpinnerStatus="primary"></div>
+    <nb-card-body *ngIf="!loading">
       <ngx-user-form [user]="user"></ngx-user-form>
     </nb-card-body>
   </nb-card>

@@ -4,8 +4,8 @@
 <ngx-breadcrumb [path]="path"></ngx-breadcrumb>
 
 <nb-card size="small" class="page-card" *ngIf="!showUserDetails; else userDetailsBlock">
-  <nb-accordion>
-    <nb-accordion-item #item>>
+  <nb-accordion [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+    <nb-accordion-item #item>
       <nb-accordion-item-header>
         Users
       </nb-accordion-item-header>
