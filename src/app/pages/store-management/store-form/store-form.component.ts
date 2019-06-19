@@ -145,7 +145,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
             }
             this.cdr.markForCheck();
           } else {
-            console.log('choose from list');
+            // console.log('Choose address from list');
           }
         });
       });

@@ -13,6 +13,7 @@ export class UserService {
   userIdString = 'userId';
   isAdmin = false;
   isSuperadmin = false;
+  isStore = false;
 
   constructor(
     private crudService: CrudService
@@ -38,7 +39,10 @@ export class UserService {
           this.isAdmin = true;
         }
         if (elem.name === 'SUPERADMIN') {
-          this.isSuperadmin = true;
+          this.isSuperadmin = false;
+        }
+        if (elem.name === 'STORE') {
+          this.isStore = true;
         }
       });
     });
