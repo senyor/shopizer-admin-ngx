@@ -97,7 +97,6 @@ export class StoreFormComponent implements OnInit, OnChanges {
     if (changes.store.currentValue && changes.store.currentValue.id) {
       if (this.store.id && this.userService.isSuperadmin && this.store.code !== 'DEFAULT') {
         this.showRemoveButton = false;
-        console.log(this.store);
       }
       this.loading = true;
       this.fillForm();

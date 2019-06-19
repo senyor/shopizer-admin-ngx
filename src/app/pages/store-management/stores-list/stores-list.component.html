@@ -1,6 +1,6 @@
 <nb-card size="small" class="page-card" *ngIf="!showStoreDetails; else storeDetailsBlock">
-  <nb-accordion>
-    <nb-accordion-item #item>>
+  <nb-accordion [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+    <nb-accordion-item #item>
       <nb-accordion-item-header>
         Stores
       </nb-accordion-item-header>

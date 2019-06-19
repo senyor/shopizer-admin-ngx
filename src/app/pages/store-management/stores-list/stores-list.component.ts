@@ -15,6 +15,7 @@ export class StoresListComponent implements OnInit {
   showStoreDetails = false;
   store;
   perPage = 10;
+  loadingList = false;
 
   constructor(
     private storeService: StoreService,
@@ -28,10 +29,12 @@ export class StoresListComponent implements OnInit {
   }
 
   getList () {
+    this.loadingList = true;
     this.storeService.getListOfStores()
       .subscribe(stores => {
         this.source.load(stores.data);
         this.source.setPaging(1, this.perPage, true);
+        this.loadingList = false;
         // open accordion tab
         this.accordion.toggle();
       });
@@ -69,7 +72,6 @@ export class StoresListComponent implements OnInit {
   };
 
   route(e) {
-    console.log(e);
     this.showStoreDetails = true;
     this.store = e.data;
   }

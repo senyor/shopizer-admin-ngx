@@ -3,10 +3,12 @@
     Store information
   </nb-card-header>
 
-  <nb-card-body>
+  <div *ngIf="loading" class="loading-block" [nbSpinner]="loading" nbSpinnerSize="large" nbSpinnerStatus="primary"></div>
+
+  <nb-card-body *ngIf="!loading">
 
     <span>
-      Shop settings used for various functionality such us and store addess. Various details adlso used for shipping costs and displayed in product details.
+      Shop settings used for various functionality such us and store addess. Various details also used for shipping costs and displayed in product details.
     </span>
 
     <ngx-store-form [store]="store"></ngx-store-form>
