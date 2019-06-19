@@ -39,7 +39,7 @@ export class UserService {
           this.isAdmin = true;
         }
         if (elem.name === 'SUPERADMIN') {
-          this.isSuperadmin = false;
+          this.isSuperadmin = true;
         }
         if (elem.name === 'STORE') {
           this.isStore = true;
