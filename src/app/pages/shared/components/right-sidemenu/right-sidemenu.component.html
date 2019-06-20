@@ -1,7 +1,8 @@
 <div class="side-right-menu border-top-right">
   {{ title }}: {{ value }}
   <ul>
-    <li><a href="">My profile</a></li>
-    <li><a href="">Change password</a></li>
+    <li *ngFor="let link of links">
+      <a [routerLink]="[link.link]" routerLinkActive="active">{{link.title}}</a>
+    </li>
   </ul>
 </div>

@@ -1,0 +1,29 @@
+<nb-card size="small" class="page-card" *ngIf="!showStoreDetails; else storeDetailsBlock">
+  <nb-accordion [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+    <nb-accordion-item #item>
+      <nb-accordion-item-header>
+        Stores
+      </nb-accordion-item-header>
+      <nb-accordion-item-body>
+        <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)">
+        </ng2-smart-table>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+  </nb-accordion>
+</nb-card>
+<ng-template #storeDetailsBlock>
+  <nb-actions size="medium" class="back-button">
+    <nb-action (click)="backToList()">
+      <i class="fas fa-chevron-left"></i>&nbsp;<span>Back to list</span>
+    </nb-action>
+  </nb-actions>
+
+  <nb-card size="small" class="page-card">
+    <nb-card-header>
+      Store Details
+    </nb-card-header>
+    <nb-card-body>
+      <ngx-store-form [store]="store" (back)="backToList($event)"></ngx-store-form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

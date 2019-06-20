@@ -24,6 +24,10 @@ const routes: Routes = [{
       loadChildren: 'app/pages/user-management/user-management.module#UserManagementModule'
     },
     {
+      path: 'store-management',
+      loadChildren: 'app/pages/store-management/store-management.module#StoreManagementModule'
+    },
+    {
       path: '',
       redirectTo: 'home',
       pathMatch: 'full'

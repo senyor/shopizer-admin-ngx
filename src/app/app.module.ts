@@ -17,6 +17,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthInterceptor } from './pages/shared/auth.interceptor';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NbDateFnsDateModule } from '@nebular/date-fns';
+import { NbMomentDateModule } from '@nebular/moment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +27,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    NbDateFnsDateModule.forRoot({
+      format: 'YYYY-MM-DD',
+    }),
+    NbMomentDateModule,
 
     NgbModule.forRoot(),
     ThemeModule.forRoot(),

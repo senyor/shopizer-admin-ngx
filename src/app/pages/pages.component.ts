@@ -43,6 +43,22 @@ export class PagesComponent {
           const indexUserList = this.menu[indexUserMenu].children.findIndex(el => el.title === 'sideNav.userList');
           this.menu[indexUserMenu].children.splice(indexUserList, 1);
         }
+        // if (!this.userService.isStore) {
+        //   const indexStoreMenu = this.menu.findIndex(el => el.title === 'sideNav.store');
+        //
+        // }
+        if (!this.userService.isSuperadmin) {
+          const indexStoreMenu = this.menu.findIndex(el => el.title === 'sideNav.store');
+
+          const indexCreateUser = this.menu[indexStoreMenu]
+            .children.findIndex(el => el.title === 'sideNav.createStore');
+          this.menu[indexStoreMenu].children.splice(indexCreateUser, 1);
+
+          const indexUserList = this.menu[indexStoreMenu]
+            .children.findIndex(el => el.title === 'sideNav.storesList');
+          this.menu[indexStoreMenu].children.splice(indexUserList, 1);
+
+        }
         this.localedMenu = [...this.menu];
         this.localedMenu = this.translateMenu(this.localedMenu);
       });

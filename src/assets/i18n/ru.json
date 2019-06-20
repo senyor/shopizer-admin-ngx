@@ -11,6 +11,11 @@
     "createUser": "Создать пользователя",
     "userList": "Список пользователей",
 
+    "store": "Store ru",
+    "storeDetails": "Store details ru",
+    "createStore": "Create store ru",
+    "storesList": "Stores list ru",
+
     "orders": "Заказы"
   }
 }

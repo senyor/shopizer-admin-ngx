@@ -16,6 +16,23 @@
   border-top: 3px solid grey !important;
 }
 
+.page-body {
+  width: 100%;
+}
+
+// form styles
+.actions-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px 15px;
+}
+
+.group-block {
+  display: flex;
+  flex-direction: column;
+}
+
 .loading-block {
   width: 100%;
   height: 100px;
