@@ -113,27 +113,28 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   save() {
-    this.form.patchValue({ userName: this.form.value.emailAddress});
-    if (this.user && this.user.id) {
-      this.userService.updateUser(+this.user.id, this.form.value)
-        .subscribe(res => {
-          console.log(res);
-          this.back.emit(true);
-        });
-    } else {
-      this.userService.checkIfUserExist(this.form.value.userName)
-        .subscribe(res => {
-          if(!res.exists) {
+    this.form.patchValue({ userName: this.form.value.emailAddress });
+
+    this.userService.checkIfUserExist(this.form.value.userName)
+      .subscribe(data => {
+        if (!data.exists) {
+          if (this.user && this.user.id) {
+            this.userService.updateUser(+this.user.id, this.form.value)
+              .subscribe(res => {
+                console.log(res);
+                this.back.emit(true);
+              });
+          } else {
             this.userService.createUser(this.form.value)
               .subscribe(res => {
                 console.log(res);
                 this.router.navigate(['pages/user-management/users']);
               });
-          } else {
-            this.errorMessage = 'Email already exists'
           }
-        })
-    }
+        } else {
+          this.errorMessage = 'Email already exists';
+        }
+      });
   }
 
   remove() {
