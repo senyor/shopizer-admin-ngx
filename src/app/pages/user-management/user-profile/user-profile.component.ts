@@ -18,11 +18,11 @@ export class UserProfileComponent implements OnInit {
   sidemenuLinks = [
     {
       title: 'My profile',
-      link: ''
+      link: 'profile'
     },
     {
       title: 'Change password',
-      link: ''
+      link: 'change-password'
     }
   ];
   loading = false;
