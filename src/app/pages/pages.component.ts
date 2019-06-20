@@ -29,12 +29,12 @@ export class PagesComponent {
     this.userService.getUser(userId)
       .subscribe(user => {
         this.userService.checkForAccess(user.permissions);
-        if (!this.userService.canAccessToOrder) {
+        if (!this.userService.roles.canAccessToOrder) {
           const indexOrderMenu = this.menu.findIndex(el => el.title === 'sideNav.orders');
           this.menu.splice(indexOrderMenu, 1);
         }
         // check access for admin
-        if (!this.userService.isAdmin) {
+        if (!this.userService.roles.isAdmin) {
           const indexUserMenu = this.menu.findIndex(el => el.title === 'sideNav.user');
 
           const indexCreateUser = this.menu[indexUserMenu].children.findIndex(el => el.title === 'sideNav.createUser');
@@ -47,7 +47,7 @@ export class PagesComponent {
         //   const indexStoreMenu = this.menu.findIndex(el => el.title === 'sideNav.store');
         //
         // }
-        if (!this.userService.isSuperadmin) {
+        if (!this.userService.roles.isSuperadmin) {
           const indexStoreMenu = this.menu.findIndex(el => el.title === 'sideNav.store');
 
           const indexCreateUser = this.menu[indexStoreMenu]

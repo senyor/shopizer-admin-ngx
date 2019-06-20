@@ -95,7 +95,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.store.currentValue && changes.store.currentValue.id) {
-      if (this.store.id && this.userService.isSuperadmin && this.store.code !== 'DEFAULT') {
+      if (this.store.id && this.userService.roles.isSuperadmin && this.store.code !== 'DEFAULT') {
         this.showRemoveButton = false;
       }
       this.loading = true;

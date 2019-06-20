@@ -9,11 +9,17 @@ import { CrudService } from './crud.service';
 })
 
 export class UserService {
-  canAccessToOrder = false;
+  // canAccessToOrder = false;
   userIdString = 'userId';
-  isAdmin = false;
-  isSuperadmin = false;
-  isStore = false;
+  // isAdmin = false;
+  // isSuperadmin = false;
+  // isStore = false;
+  roles = {
+    canAccessToOrder: false,
+    isAdmin: false,
+    isSuperadmin: false,
+    isStore: false
+  };
 
   constructor(
     private crudService: CrudService
@@ -41,16 +47,16 @@ export class UserService {
     roles.forEach(role => {
       array.forEach(elem => {
         if (role.name === elem.name) {
-          this.canAccessToOrder = true;
+          this.roles.canAccessToOrder = true;
         }
         if (elem.name === 'ADMIN') {
-          this.isAdmin = true;
+          this.roles.isAdmin = true;
         }
         if (elem.name === 'SUPERADMIN') {
-          this.isSuperadmin = true;
+          this.roles.isSuperadmin = true;
         }
         if (elem.name === 'STORE') {
-          this.isStore = true;
+          this.roles.isStore = true;
         }
       });
     });

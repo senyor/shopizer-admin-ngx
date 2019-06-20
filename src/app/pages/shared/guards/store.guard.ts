@@ -17,7 +17,7 @@ export class StoreGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean {
 
-    if (this.userService.isStore) {
+    if (this.userService.roles.isStore) {
       return true;
     }
 

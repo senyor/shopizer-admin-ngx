@@ -17,7 +17,7 @@ export class SuperadminGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean {
 
-    if (this.userService.isSuperadmin) {
+    if (this.userService.roles.isSuperadmin) {
       return true;
     }
 
