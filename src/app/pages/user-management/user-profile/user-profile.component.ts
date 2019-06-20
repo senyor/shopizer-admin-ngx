@@ -25,6 +25,7 @@ export class UserProfileComponent implements OnInit {
       link: ''
     }
   ];
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -34,9 +35,11 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     const id = this.userService.getUserId();
+    this.loading = true;
     this.userService.getUser(id)
       .subscribe(user => {
         this.user = user;
+        this.loading = false;
       });
   }
 

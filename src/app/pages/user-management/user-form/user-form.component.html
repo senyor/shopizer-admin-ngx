@@ -23,20 +23,9 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="username" class="col-sm-3 col-form-label">User name *</label>
-    <div class="col-sm-12">
-      <input type="text" class="form-control" id="username" formControlName='userName'
-             placeholder="Username" required>
-      <span *ngIf="(userName.dirty || userName.touched) && userName.invalid && userName.errors.required"
-            class="err-message">
-        User name is required.
-      </span>
-    </div>
-  </div>
-  <div class="form-group">
     <label for="email" class="col-sm-3 col-form-label">Email address *</label>
     <div class="col-sm-12">
-      <input type="email" class="form-control" id="email" formControlName='emailAddress'
+      <input type="email" class="form-control" id="email" formControlName='emailAddress' (change)="errorMessage = ''"
              placeholder="Email" required>
       <span *ngIf="(emailAddress.dirty || emailAddress.touched) && emailAddress.invalid && emailAddress"
             class="err-message">
@@ -47,7 +36,9 @@
           Email address is required.
         </span>
       </span>
-
+      <span *ngIf="errorMessage !==''" class="err-message">
+        {{errorMessage}}
+      </span>
     </div>
   </div>
 

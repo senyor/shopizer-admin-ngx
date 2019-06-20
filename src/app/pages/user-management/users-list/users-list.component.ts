@@ -17,12 +17,18 @@ export class UsersListComponent implements OnInit {
   showUserDetails = false;
   user = User;
   perPage = 10;
+  loadingList = false;
 
   constructor(
     private userService: UserService,
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {
+    this.getList();
+  }
+
+  getList () {
+    this.loadingList = true;
     this.userService.getUsersList()
       .subscribe(users => {
         const usersArray = [...users.data];
@@ -40,6 +46,7 @@ export class UsersListComponent implements OnInit {
         this.source.load(usersArray);
         this.source.setPaging(1, this.perPage, true);
 
+        this.loadingList = false;
         // open accordion tab
         this.accordion.toggle();
       });
@@ -90,9 +97,7 @@ export class UsersListComponent implements OnInit {
 
   backToList() {
     this.showUserDetails = false;
-    this.cdr.detectChanges();
-    this.source.setPaging(1, this.perPage, true);
-    this.accordion.toggle();
+    this.getList();
   }
 
 }
