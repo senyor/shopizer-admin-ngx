@@ -14,11 +14,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AuthInterceptor } from './pages/shared/auth.interceptor';
+import { AuthInterceptor } from './pages/shared/interceptors/auth.interceptor';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { NbMomentDateModule } from '@nebular/moment';
+import { GlobalHttpInterceptorService } from './pages/shared/interceptors/globalError.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -49,6 +50,11 @@ import { NbMomentDateModule } from '@nebular/moment';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GlobalHttpInterceptorService,
       multi: true,
     },
     TranslateService
