@@ -13,6 +13,9 @@
 // loading progress bar theme
 @import './pace.theme';
 
+// regular style toast
+@import '~ngx-toastr/toastr';
+
 // install the framework and custom global styles
 @include nb-install() {
 

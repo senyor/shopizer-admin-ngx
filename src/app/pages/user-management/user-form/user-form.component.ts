@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { ConfigService } from '../../shared/services/config.service';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../shared/models/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-user-form',
@@ -36,7 +37,8 @@ export class UserFormComponent implements OnInit, OnChanges {
     private configService: ConfigService,
     private userService: UserService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrService,
   ) {
     this.createForm();
   }
@@ -114,25 +116,28 @@ export class UserFormComponent implements OnInit, OnChanges {
 
   save() {
     this.form.patchValue({ userName: this.form.value.emailAddress });
-
     this.userService.checkIfUserExist(this.form.value.userName)
       .subscribe(data => {
-        if (!data.exists) {
-          if (this.user && this.user.id) {
+        if (this.user && this.user.id) {
+          if (!data.exists || (data.exists && this.user.userName === this.form.value.userName)) {
             this.userService.updateUser(+this.user.id, this.form.value)
               .subscribe(res => {
                 console.log(res);
                 this.back.emit(true);
               });
           } else {
+            this.errorMessage = 'Email already exists';
+          }
+        } else {
+          if (!data.exists) {
             this.userService.createUser(this.form.value)
               .subscribe(res => {
                 console.log(res);
                 this.router.navigate(['pages/user-management/users']);
               });
+          } else {
+            this.errorMessage = 'Email already exists';
           }
-        } else {
-          this.errorMessage = 'Email already exists';
         }
       });
   }

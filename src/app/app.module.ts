@@ -20,6 +20,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { NbMomentDateModule } from '@nebular/moment';
 import { GlobalHttpInterceptorService } from './pages/shared/interceptors/globalError.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +44,7 @@ import { GlobalHttpInterceptorService } from './pages/shared/interceptors/global
         deps: [HttpClient]
       }
     }),
+    ToastrModule.forRoot()
   ],
   bootstrap: [AppComponent],
   providers: [

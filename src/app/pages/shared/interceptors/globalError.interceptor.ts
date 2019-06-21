@@ -4,16 +4,17 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpResponse,
-  HttpErrorResponse
 } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class GlobalHttpInterceptorService implements HttpInterceptor {
-  constructor() {
+  constructor(
+    private toastr: ToastrService,
+  ) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler):
@@ -31,6 +32,7 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
           errorMessage = `Error Code: ${ error.status }\nMessage: ${ error.message }`;
         }
         console.error(errorMessage);
+        this.toastr.error(errorMessage, 'Error');
         return throwError(error);
       })
     );

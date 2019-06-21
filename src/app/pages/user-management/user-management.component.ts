@@ -28,7 +28,9 @@ export class UserManagementComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    // this.showSide = window.location.hash.indexOf('stores-list') === -1;
+    this.showSide =
+      window.location.hash.indexOf('users') === -1 &&
+      window.location.hash.indexOf('create-user') === -1;
   }
 
 }
