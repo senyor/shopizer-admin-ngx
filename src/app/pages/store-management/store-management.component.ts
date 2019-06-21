@@ -16,7 +16,7 @@ export class StoreManagementComponent implements OnInit, DoCheck {
     },
     {
       title: 'Store home page',
-      link: 'stores-list'
+      link: 'store-landing'
     },
     {
       title: 'Store details',

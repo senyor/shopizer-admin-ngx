@@ -4,11 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { StoreManagementComponent } from './store-management.component';
 import { StoreCreationComponent } from './store-creation/store-creation.component';
 import { StoresListComponent } from './stores-list/stores-list.component';
-import { StoreMarketingComponent } from './store-marketing/store-marketing.component';
-import { StoreHomeComponent } from './store-home/store-home.component';
 import { StoreDetailsComponent } from './store-details/store-details.component';
 import { SuperadminGuard } from '../shared/guards/superadmin.guard';
 import { StoreGuard } from '../shared/guards/store.guard';
+import { StoreLandingPageComponent } from './store-landing-page/store-landing-page.component';
 
 const routes: Routes = [
   {
@@ -33,14 +32,19 @@ const routes: Routes = [
         component: StoresListComponent,
         canActivate: [SuperadminGuard]
       },
+      // {
+      //   path: 'store-marketing',
+      //   component: StoreMarketingComponent,
+      //   canActivate: [StoreGuard]
+      // },
+      // {
+      //   path: 'store-home',
+      //   component: StoreHomeComponent,
+      //   canActivate: [StoreGuard]
+      // },
       {
-        path: 'store-marketing',
-        component: StoreMarketingComponent,
-        canActivate: [StoreGuard]
-      },
-      {
-        path: 'store-home',
-        component: StoreHomeComponent,
+        path: 'store-landing',
+        component: StoreLandingPageComponent,
         canActivate: [StoreGuard]
       },
     ],
