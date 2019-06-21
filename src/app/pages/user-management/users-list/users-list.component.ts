@@ -1,5 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { UserService } from '../../shared/services/user.service';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -20,14 +19,12 @@ export class UsersListComponent implements OnInit {
   loadingList = false;
 
   constructor(
-    private userService: UserService,
-    private router: Router,
-    private cdr: ChangeDetectorRef
+    private userService: UserService
   ) {
     this.getList();
   }
 
-  getList () {
+  getList() {
     this.loadingList = true;
     this.userService.getUsersList()
       .subscribe(users => {

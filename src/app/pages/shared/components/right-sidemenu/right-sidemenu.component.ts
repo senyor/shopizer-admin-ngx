@@ -12,16 +12,10 @@ export class RightSidemenuComponent implements OnInit {
   @Input() links: any;
 
   constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
-  }
-
-  goToLink(link) {
-    this.router.navigate(['../' + link], { relativeTo: this.activatedRoute });
   }
 
 }

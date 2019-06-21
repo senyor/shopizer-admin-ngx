@@ -1,22 +1,11 @@
-<div class="page-header">
-  User
-</div>
-<ngx-breadcrumb [path]="path"></ngx-breadcrumb>
-
-<div class="page-content">
-
-  <nb-card size="small" class="page-card">
-    <nb-card-header>
-      Profile
-    </nb-card-header>
-    <div *ngIf="loading" class="loading-block" [nbSpinner]="loading" nbSpinnerSize="large" nbSpinnerStatus="primary"></div>
-    <nb-card-body *ngIf="!loading">
-      <ngx-user-form [user]="user"></ngx-user-form>
-    </nb-card-body>
-  </nb-card>
-
-  <ngx-right-sidemenu [title]="sidemenuTitle" [value]="sidemenuValue" [links]="sidemenuLinks"></ngx-right-sidemenu>
-
-</div>
+<nb-card size="small" class="page-card">
+  <nb-card-header>
+    Profile
+  </nb-card-header>
+  <div *ngIf="loading" class="loading-block" [nbSpinner]="loading" nbSpinnerSize="large" nbSpinnerStatus="primary"></div>
+  <nb-card-body *ngIf="!loading">
+    <ngx-user-form [user]="user"></ngx-user-form>
+  </nb-card-body>
+</nb-card>
 
 

@@ -12,23 +12,9 @@ import { User } from 'app/pages/shared/models/user';
 export class UserProfileComponent implements OnInit {
   form: FormGroup;
   user: User;
-  path = 'User';
-  sidemenuTitle = 'User profile';
-  sidemenuValue = 'admin';
-  sidemenuLinks = [
-    {
-      title: 'My profile',
-      link: 'profile'
-    },
-    {
-      title: 'Change password',
-      link: 'change-password'
-    }
-  ];
   loading = false;
 
   constructor(
-    private fb: FormBuilder,
     private userService: UserService,
   ) {
   }

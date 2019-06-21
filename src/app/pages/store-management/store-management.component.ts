@@ -5,7 +5,7 @@ import { Component, DoCheck, OnInit } from '@angular/core';
   templateUrl: './store-management.component.html',
   styleUrls: ['./store-management.component.scss']
 })
-export class StoreManagementComponent implements OnInit {
+export class StoreManagementComponent implements OnInit, DoCheck {
   path = 'Store';
   sidemenuTitle = 'Merchant store';
   sidemenuValue = 'DEFAULT'; //  todo value
@@ -23,7 +23,7 @@ export class StoreManagementComponent implements OnInit {
       link: 'store-details'
     }
   ];
-  // showSide = true;
+  showSide = true;
 
   constructor() {
   }
@@ -31,8 +31,8 @@ export class StoreManagementComponent implements OnInit {
   ngOnInit() {
   }
 
-  // ngDoCheck() {
-  //   this.showSide = window.location.hash.indexOf('stores-list') === -1;
-  // }
+  ngDoCheck() {
+    this.showSide = window.location.hash.indexOf('stores-list') === -1;
+  }
 
 }

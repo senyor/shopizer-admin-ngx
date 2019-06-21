@@ -69,7 +69,7 @@ export class ChangePasswordComponent implements OnInit {
         console.log(res);
         this.router.navigate(['pages/user-management/profile']);
       }, err => {
-        this.errorMessage = 'Actual password does not match for user'
+        this.errorMessage = 'Actual password does not match for user';
       });
   }
 
