@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ConfigService } from '../../shared/services/config.service';
 import { StoreService } from '../services/store.service';
+import { UserService } from '../../shared/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-store-landing-page',
@@ -29,12 +31,19 @@ export class StoreLandingPageComponent implements OnInit {
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
   loading = false;
+  store: any = {};
 
   constructor(
     private fb: FormBuilder,
     private configService: ConfigService,
     private storeService: StoreService,
+    private userService: UserService,
+    private toastrService: ToastrService
   ) {
+    this.userService.getMerchant()
+      .subscribe(res => {
+        this.store = res;
+      });
     this.createForm();
   }
 
@@ -52,29 +61,28 @@ export class StoreLandingPageComponent implements OnInit {
 
   private createForm() {
     this.form = this.fb.group({
-      language: [''],
-      name: '',
-      contentType: '',
-      path: '',
-      slug: '',
-      code: '',
+      language: ['', [Validators.required]],
+      name: [''],
+      contentType: ['PAGE'],
+      path: [''],
+      slug: [''],
+      code: ['LANDING_PAGE'],
       metaDetails: [''],
       title: ['', [Validators.required]],
       pageContent: ['', [Validators.required]],
-      displayedInMenu: false
+      displayedInMenu: [false]
     });
-  }
-
-  onBlur() {
-    console.log(this.form.value.pageContent);
   }
 
   save() {
     this.loading = true;
-    console.log('save', this.form.value);
-    setTimeout(() => {
-      this.loading = false;
-    }, 3000);
+    this.form.patchValue({ name: this.store.name });
+    this.storeService.updatePageContent(this.store.code, this.form.value)
+      .subscribe(res => {
+        console.log(res);
+        this.loading = false;
+        this.toastrService.success('Page has been added.', 'Success');
+      });
   }
 
 }
