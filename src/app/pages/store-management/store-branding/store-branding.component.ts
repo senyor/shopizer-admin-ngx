@@ -19,10 +19,40 @@ export class StoreBrandingComponent implements OnInit {
   logoFile: any;
   brandingSettings: any;
 
+  networkArray = [
+    {
+      'active': false,
+      'id': 0,
+      'key': 'FB',
+      'type': 'INTEGRATION',
+      'value': 'qqewqeqwe'
+    },
+    {
+      'active': false,
+      'id': 0,
+      'key': 'FB',
+      'type': 'INTEGRATION',
+      'value': 'qqewqeqwe'
+    },
+    {
+      'active': false,
+      'id': 0,
+      'key': 'FB',
+      'type': 'INTEGRATION',
+      'value': 'qqewqeqwe'
+    },
+    {
+      'active': false,
+      'id': 0,
+      'key': 'FB',
+      'type': 'INTEGRATION',
+      'value': 'qqewqeqwe'
+    },
+  ];
+
   constructor(
     private storeService: StoreService,
-    private formBuilder: FormBuilder,
-    private changeDetector: ChangeDetectorRef
+    private formBuilder: FormBuilder
   ) {
   }
 
@@ -50,7 +80,6 @@ export class StoreBrandingComponent implements OnInit {
 
   // readfiles
   readfiles(files) {
-    console.log('files from readfiles -  ', files[0]);
     this.logoFile = files[0];
     const reader = new FileReader();
     const image = new Image();
@@ -63,7 +92,6 @@ export class StoreBrandingComponent implements OnInit {
       image.style.margin = '0 auto';
       this.imageDrop.nativeElement.appendChild(image);
       if (this.imageUpload.controls.imageInput.value == null) {
-        console.log('123', this.imageUpload.controls);
         const input = this.imageUpload.controls.imageInput as any;
         input.files = files;
       }
@@ -94,7 +122,6 @@ export class StoreBrandingComponent implements OnInit {
   }
 
   save() {
-    console.log('save image', this.logoFile);
     this.storeService.addStoreLogo(this.logoFile)
       .subscribe(res => {
         console.log(res);
