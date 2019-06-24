@@ -1,0 +1,25 @@
+#imageDrop {
+  border: 10px dashed #ccc;
+  width: 80%;
+  //height: 250px;
+  margin: 20px auto;
+}
+
+#imageDrop.hover {
+  border: 10px dashed #0c0;
+}
+
+#imageDrop img {
+  display: block;
+  margin: 10px auto;
+}
+
+#imageDrop p {
+  display: block;
+  font-size: 14px;
+  margin: 5px auto
+}
+
+#imageInput {
+  display: none;
+}

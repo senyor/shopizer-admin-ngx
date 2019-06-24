@@ -1,0 +1,36 @@
+<nb-card size="small" class="page-card">
+  <nb-card-header>
+    Store logo
+  </nb-card-header>
+  <div *ngIf="loading" class="loading-block"
+       [nbSpinner]="loading"
+       nbSpinnerSize="large"
+       nbSpinnerStatus="primary">
+  </div>
+
+  <nb-card-body *ngIf="!loading">
+    <form [formGroup]="imageUpload" (ngSubmit)="imageUploadSubmitted()">
+      <div id="imageDrop" (click)='imageInput.click()' (drop)="drop($event)" (dragover)="allowDrop($event)" #imageDrop>
+        <img *ngIf="brandingSettings" [src]="brandingSettings?.logo.path" height="200"/>
+        <p>Click or Drop File Here</p>
+      </div>
+      <input type="file" formControlName="imageInput" required #imageInput id="imageInput"
+             (change)='imageChange($event)'>
+
+      <div class="form-group actions-button">
+        <button *ngIf="imageUpload.valid" type="submit" class="btn btn-primary" (click)="save()">Save</button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
+
+<nb-card size="small" class="page-card">
+  <nb-card-header>
+    Social networks and marketing
+  </nb-card-header>
+  <div *ngIf="loading" class="loading-block" [nbSpinner]="loading" nbSpinnerSize="large"
+       nbSpinnerStatus="primary"></div>
+  <nb-card-body *ngIf="!loading">
+
+  </nb-card-body>
+</nb-card>

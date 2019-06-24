@@ -11,6 +11,7 @@ import { StoreHomeComponent } from './store-home/store-home.component';
 import { StoreFormComponent } from './store-form/store-form.component';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from '../../../environments/environment';
+import { StoreBrandingComponent } from './store-branding/store-branding.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { environment } from '../../../environments/environment';
     StoresListComponent,
     StoreMarketingComponent,
     StoreHomeComponent,
-    StoreFormComponent
+    StoreFormComponent,
+    StoreBrandingComponent
   ],
   imports: [
     StoreManagementRoutingModule,

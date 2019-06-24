@@ -9,6 +9,7 @@ import { StoreHomeComponent } from './store-home/store-home.component';
 import { StoreDetailsComponent } from './store-details/store-details.component';
 import { SuperadminGuard } from '../shared/guards/superadmin.guard';
 import { StoreGuard } from '../shared/guards/store.guard';
+import { StoreBrandingComponent } from './store-branding/store-branding.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,11 @@ const routes: Routes = [
       {
         path: 'store-home',
         component: StoreHomeComponent,
+        canActivate: [StoreGuard]
+      },
+      {
+        path: 'store-branding',
+        component: StoreBrandingComponent,
         canActivate: [StoreGuard]
       },
     ],

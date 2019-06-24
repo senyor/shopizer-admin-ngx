@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { CrudService } from '../../shared/services/crud.service';
 import { Observable } from 'rxjs';
+import { SocialNetworks } from '../models/social-networks';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,23 @@ export class StoreService {
   updateStore(store: any): Observable<any> {
     return this.crudService.put(`/v1/private/store/${ store.code }`, store);
   }
+
+  getBrandingDetails(): Observable<any> {
+    const code = 'DEFAULT';
+    return this.crudService.get(`/v1/private/store/${code}/marketing`);
+  }
+
+  createUpdateSocialNetworks(network: SocialNetworks): Observable<any> {
+    const code = 'DEFAULT';
+    return this.crudService.post(`/v1/private/store/${code}/marketing`, network);
+  }
+
+  addStoreLogo(file: any): Observable<any> {
+    const code = 'DEFAULT';
+    const uploadData = new FormData();
+    uploadData.append('file', file, file.name);
+    return this.crudService.post(`/v1/private/store/${code}/marketing/logo`, uploadData);
+  }
+
 
 }
