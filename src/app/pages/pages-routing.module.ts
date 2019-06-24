@@ -28,6 +28,10 @@ const routes: Routes = [{
       loadChildren: 'app/pages/store-management/store-management.module#StoreManagementModule'
     },
     {
+      path: 'catalogue',
+      loadChildren: 'app/pages/catalogue/catalogue.module#CatalogueModule'
+    },
+    {
       path: '',
       redirectTo: 'home',
       pathMatch: 'full'

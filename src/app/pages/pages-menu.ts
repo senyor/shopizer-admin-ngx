@@ -48,11 +48,32 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-  // {
-  //   title: 'Catalogue',
-  //   // icon: 'fas fa-shopping-cart',
-  //   link: '',
-  // },
+  {
+    title: 'Catalogue',
+    // icon: 'fas fa-shopping-cart',
+    children: [
+      {
+        title: 'Products',
+        // link: '/pages/store-management/store-details',
+      },
+      {
+        title: 'Categories',
+        // link: '/pages/store-management/create-store',
+      },
+      {
+        title: 'Options',
+        // link: '/pages/store-management/stores-list',
+      },
+      {
+        title: 'Products group',
+        // link: '/pages/store-management/stores-list',
+      },
+      {
+        title: 'List of manufactures',
+        // link: '/pages/store-management/stores-list',
+      },
+    ],
+  },
   // {
   //   title: 'Manage content',
   //   // icon: 'fas fa-shopping-cart',
