@@ -6,6 +6,9 @@ import { SharedModule } from '../../shared/shared.module';
 import { CategoryCreationComponent } from './category-creation/category-creation.component';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
 import { CategoriesHierarchyComponent } from './categories-hierarchy/categories-hierarchy.component';
+import { ButtonRenderComponent } from './categories-list/button-render.component';
+import { CategoryFormComponent } from './category-form/category-form.component';
+import { CategoryDetailComponent } from './category-detail/category-detail.component';
 
 
 @NgModule({
@@ -13,13 +16,18 @@ import { CategoriesHierarchyComponent } from './categories-hierarchy/categories-
     CategoriesComponent,
     CategoryCreationComponent,
     CategoriesListComponent,
-    CategoriesHierarchyComponent
+    CategoriesHierarchyComponent,
+    ButtonRenderComponent,
+    CategoryFormComponent,
+    CategoryDetailComponent,
   ],
   imports: [
     CategoriesRoutingModule,
 
     SharedModule
-  ]
+  ],
+  entryComponents: [ButtonRenderComponent],
 })
+
 export class CategoriesModule {
 }

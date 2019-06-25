@@ -1,3 +1,8 @@
-<p>
-  categories-list works!
-</p>
+<nb-card size="small" class="page-card">
+  <nb-card-header>
+    Categories
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)"></ng2-smart-table>
+  </nb-card-body>
+</nb-card>

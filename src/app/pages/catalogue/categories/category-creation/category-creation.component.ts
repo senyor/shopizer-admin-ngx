@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./category-creation.component.scss']
 })
 export class CategoryCreationComponent implements OnInit {
+  category = {};
 
   constructor() {
   }

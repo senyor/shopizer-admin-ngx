@@ -5,6 +5,7 @@ import { CategoryCreationComponent } from './category-creation/category-creation
 import { CategoriesComponent } from './categories.component';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
 import { CategoriesHierarchyComponent } from './categories-hierarchy/categories-hierarchy.component';
+import { CategoryDetailComponent } from './category-detail/category-detail.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,11 @@ const routes: Routes = [
       {
         path: 'categories-hierarchy',
         component: CategoriesHierarchyComponent,
+        // canActivate: [SuperadminGuard]
+      },
+      {
+        path: 'category/:id',
+        component: CategoryDetailComponent,
         // canActivate: [SuperadminGuard]
       },
     ],
