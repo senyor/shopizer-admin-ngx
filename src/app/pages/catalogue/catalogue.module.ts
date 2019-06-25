@@ -6,7 +6,7 @@ import { CatalogueComponent } from './catalogue.component';
 
 @NgModule({
   declarations: [
-    CatalogueComponent
+    CatalogueComponent,
   ],
   imports: [
     CatalogueRoutingModule,
@@ -14,4 +14,5 @@ import { CatalogueComponent } from './catalogue.component';
     SharedModule
   ]
 })
-export class CatalogueModule { }
+export class CatalogueModule {
+}

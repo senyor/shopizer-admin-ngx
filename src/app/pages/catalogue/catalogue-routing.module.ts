@@ -1,10 +1,25 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+
+import { CatalogueComponent } from './catalogue.component';
+
+const routes: Routes = [{
+  path: '',
+  component: CatalogueComponent,
+  children: [
+    {
+      path: 'categories',
+      // component: CategoriesComponent,
+      // canActivate: [OrdersGuard],
+      loadChildren: 'app/pages/catalogue/categories/categories.module#CategoriesModule'
+    },
+  ]
+}];
+
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
-export class CatalogueRoutingModule { }
+export class CatalogueRoutingModule {
+}
