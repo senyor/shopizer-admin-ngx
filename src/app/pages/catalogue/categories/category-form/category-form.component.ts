@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../services/category.service';
+import { ConfigService } from '../../../shared/services/config.service';
 
 @Component({
   selector: 'ngx-category-form',
@@ -10,17 +11,33 @@ import { CategoryService } from '../services/category.service';
 export class CategoryFormComponent implements OnInit {
   @Input() category: any;
   form: FormGroup;
+  roots = [];
+  languages = [];
 
   constructor(
     private fb: FormBuilder,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private configService: ConfigService
   ) {
   }
 
   ngOnInit() {
     this.categoryService.getListOfCategories()
       .subscribe(res => {
+        res.sort((a, b) => {
+          if ( a.code < b.code )
+            return -1;
+          if ( a.code > b.code )
+            return 1;
+          return 0;
+        });
         console.log(res);
+        this.roots = [...res];
+      });
+    this.configService.getListOfSupportedLanguages()
+      .subscribe(res => {
+        console.log(res);
+        this.languages = [...res];
       });
     this.createForm();
 
@@ -31,25 +48,15 @@ export class CategoryFormComponent implements OnInit {
       root: ['', [Validators.required]], // ??
       visible: [false, [Validators.required]],
       code: ['', [Validators.required]],
-      // code: [{ value: '', disabled: false }, [Validators.required]],
-      // phone: ['', [Validators.required]],
-      // email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
-      // address: this.fb.group({
-      //   searchControl: [''],
-      //   stateProvince: [{ value: '', disabled: true }],
-      //   country: ['', [Validators.required]],
-      //   address: ['', [Validators.required]],
-      //   postalCode: ['', [Validators.required]],
-      //   city: ['', [Validators.required]]
-      // }),
-      // supportedLanguages: [[], [Validators.required]],
-      // defaultLanguage: ['', [Validators.required]],
-      // currency: [''],
-      // currencyFormatNational: [true],
-      // weight: ['', [Validators.required]],
-      // dimension: ['', [Validators.required]],
-      // inBusinessSince: [''],
-      // useCache: [false],
+      order: [0, [Validators.required]],
+      language: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      shortName: ['', [Validators.required]],
+      friendlyName: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      title: ['', [Validators.required]],
+      keywords: ['', [Validators.required]],
+      pageDescription: ['', [Validators.required]],
     });
   }
 

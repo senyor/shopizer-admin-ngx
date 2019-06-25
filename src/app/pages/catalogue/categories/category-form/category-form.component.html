@@ -1,32 +1,48 @@
 <form [formGroup]='form'>
+
   <div class="form-group">
     <label class="col-sm-10 col-form-label">Root category</label>
     <div class="col-sm-12">
-      <!--<nb-select *ngIf="countries.length" placeholder="Select country" formControlName='country' outline-->
-                 <!--shape="rectangle" (selectedChange)="countryIsSelected($event)">-->
-        <!--<nb-option *ngFor="let country of countries" [value]="country.code">{{ country.code }}</nb-option>-->
-      <!--</nb-select>-->
+      <nb-select *ngIf="roots.length" placeholder="Root"  formControlName='root' outline
+                 shape="rectangle" (selectedChange)="countryIsSelected($event)">
+        <nb-option *ngFor="let root of roots" [value]="root.code">{{ root.code }}</nb-option>
+      </nb-select>
     </div>
   </div>
 
   <div class="form-group">
     <div class="col-sm-12 group-block">
-      <nb-checkbox status="success">
+      <nb-checkbox status="success" formControlName='visible'>
         Visible
       </nb-checkbox>
     </div>
   </div>
 
   <div class="form-group">
-    <!--<label for="phone" class="col-sm-10 col-form-label">Code</label>-->
-    <!--<div class="col-sm-12">-->
-      <!--<input type="text" class="form-control" id="phone" formControlName='phone'-->
-             <!--placeholder="Store phone" required>-->
-      <!--<span *ngIf="(phone.dirty || phone.touched) && phone.invalid && phone.errors.required"-->
-            <!--class="err-message">-->
-        <!--Phone is required.-->
-      <!--</span>-->
-    <!--</div>-->
+    <label for="phone" class="col-sm-10 col-form-label">Code</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" id="phone" formControlName='code'
+             placeholder="Code" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="phone" class="col-sm-10 col-form-label">Order</label>
+    <div class="col-sm-12">
+      <input type="number" class="form-control" id="order" formControlName='order'
+             placeholder="Order" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-10 col-form-label">Language *</label>
+    <div class="col-sm-12">
+      <nb-select *ngIf="languages.length" placeholder="Select language" formControlName='language'
+                 outline
+                 shape="rectangle">
+        <nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>
+      </nb-select>
+    </div>
   </div>
 
 </form>
