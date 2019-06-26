@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../services/category.service';
 import { ConfigService } from '../../../shared/services/config.service';
 
@@ -13,6 +13,21 @@ export class CategoryFormComponent implements OnInit {
   form: FormGroup;
   roots = [];
   languages = [];
+  config = {
+    placeholder: '',
+    tabsize: 2,
+    height: 300,
+    uploadImagePath: '',
+    toolbar: [
+      ['misc', ['codeview', 'undo', 'redo']],
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+      ['fontsize', ['fontname', 'fontsize', 'color']],
+      ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
+      ['insert', ['table', 'picture', 'link', 'video', 'hr']]
+    ],
+    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -25,22 +40,20 @@ export class CategoryFormComponent implements OnInit {
     this.categoryService.getListOfCategories()
       .subscribe(res => {
         res.sort((a, b) => {
-          if ( a.code < b.code )
+          if (a.code < b.code)
             return -1;
-          if ( a.code > b.code )
+          if (a.code > b.code)
             return 1;
           return 0;
         });
-        console.log(res);
         this.roots = [...res];
       });
+    this.createForm();
     this.configService.getListOfSupportedLanguages()
       .subscribe(res => {
-        console.log(res);
         this.languages = [...res];
+        this.addFormArray();
       });
-    this.createForm();
-
   }
 
   private createForm() {
@@ -49,15 +62,35 @@ export class CategoryFormComponent implements OnInit {
       visible: [false, [Validators.required]],
       code: ['', [Validators.required]],
       order: [0, [Validators.required]],
-      language: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      shortName: ['', [Validators.required]],
-      friendlyName: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      title: ['', [Validators.required]],
-      keywords: ['', [Validators.required]],
-      pageDescription: ['', [Validators.required]],
+      selectedLanguage: ['', [Validators.required]],
+      descriptions: this.fb.array([]),
     });
+  }
+
+  addFormArray() {
+    const control = <FormArray>this.form.controls.descriptions;
+    this.languages.forEach(language1 => {
+      control.push(
+        this.fb.group({
+          language: [language1.code, [Validators.required]],
+          name: ['', [Validators.required]],
+          highlight: [''],
+          friendlyUrl: [''],
+          description: [''],
+          title: [''],
+          keyWords: [''],
+          metaDescription: [''],
+        })
+      );
+    });
+  }
+
+  get selectedLanguage() {
+    return this.form.get('selectedLanguage');
+  }
+
+  save() {
+    console.log('save', this.form.value);
   }
 
 }
