@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { CategoryService } from '../services/category.service';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -17,7 +18,8 @@ export class CategoriesListComponent implements OnInit {
 
   constructor(
     private categoryService: CategoryService,
-    private router: Router
+    private router: Router,
+    private _sanitizer: DomSanitizer
   ) {
   }
 
@@ -29,6 +31,9 @@ export class CategoriesListComponent implements OnInit {
     this.loadingList = true;
     this.categoryService.getListOfCategories()
       .subscribe(categories => {
+        categories.forEach(el => {
+          el.idAdditional = el.id;
+        });
         console.log(categories);
         this.source.load(categories);
         this.source.setPaging(1, this.perPage, true);
@@ -44,7 +49,9 @@ export class CategoriesListComponent implements OnInit {
       delete: false,
       position: 'right',
       sort: true,
-      custom: [{ name: 'ourCustomAction', title: 'Details' }],
+      custom: [
+        { name: 'ourCustomAction', title: 'Details' }
+        ],
     },
     columns: {
       id: {
@@ -80,6 +87,15 @@ export class CategoriesListComponent implements OnInit {
         //   console.log(data);
         //   return this._sanitizer.bypassSecurityTrustHtml('<input type="checkbox" [checked]="data">');
         // }
+      },
+      idAdditional: {
+        filter: false,
+        title: '',
+        // type: 'number',
+        type: 'html',
+        valuePrepareFunction: (data) => {
+          return this._sanitizer.bypassSecurityTrustHtml('<a value="data"><i class="fas fa-times"></i></a>');
+        }
       },
     },
   };

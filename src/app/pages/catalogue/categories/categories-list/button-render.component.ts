@@ -1,21 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ViewCell } from 'ng2-smart-table';
 
 @Component({
   template: `
-    <span (click)="clicked(renderValue)">{{renderValue}}</span>
+    <input type="checkbox" [checked]="value" disabled (click)="clicked($event) "/>
   `,
 })
-export class ButtonRenderComponent implements ViewCell, OnInit {
-  renderValue: string;
+export class ButtonRenderComponent implements OnInit {
   @Input() value: string | number;
-  @Input() rowData: any;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.renderValue = this.value.toString();
   }
 
   clicked(name) {
