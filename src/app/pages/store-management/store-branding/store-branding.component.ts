@@ -1,7 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { StoreService } from '../services/store.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Logo } from '../models/logo';
+import { SocialNetworks } from '../models/social-networks';
 
 @Component({
   selector: 'ngx-store-branding',
@@ -10,6 +12,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class StoreBrandingComponent implements OnInit {
   loading = false;
+  loadingButton = false;
 
   @ViewChild('imageDrop') imageDrop;
   acceptedImageTypes = { 'image/png': true, 'image/jpeg': true, 'image/gif': true };
@@ -17,7 +20,9 @@ export class StoreBrandingComponent implements OnInit {
     imageInput: ['', Validators.required]
   });
   logoFile: any;
-  brandingSettings: any;
+  socialNetworks: SocialNetworks[];
+  logo: Logo;
+  isAdding = false;
 
   networkArray = [
     {
@@ -60,10 +65,16 @@ export class StoreBrandingComponent implements OnInit {
     this.storeService.getBrandingDetails()
       .subscribe(res => {
         console.log(res);
-        this.brandingSettings = res;
+        this.socialNetworks = res.socialNetworks;
+        this.logo = res.logo;
+        if (this.socialNetworks.length == 0) {
+          // this.socialNetworks = [...this.networkArray];
+        }
       });
 
   }
+
+  // start WORK WITH IMAGE
 
   // checkfiles
   checkfiles(files) {
@@ -121,11 +132,21 @@ export class StoreBrandingComponent implements OnInit {
     this.checkfiles(event.target.files);
   }
 
-  save() {
+  saveLogo() {
+    this.loadingButton = true;
     this.storeService.addStoreLogo(this.logoFile)
       .subscribe(res => {
         console.log(res);
+        this.loadingButton = false;
+      }, error => {
+        this.loadingButton = false;
       });
+  }
+
+  // end WORK WITH IMAGE
+
+  saveNetworks() {
+    console.log('Save');
   }
 
 }

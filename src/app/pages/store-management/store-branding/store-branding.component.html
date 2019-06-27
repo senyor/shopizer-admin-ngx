@@ -11,15 +11,26 @@
   <nb-card-body *ngIf="!loading">
     <form [formGroup]="imageUpload" (ngSubmit)="imageUploadSubmitted()">
       <div id="imageDrop" (click)='imageInput.click()' (drop)="drop($event)" (dragover)="allowDrop($event)" #imageDrop>
-        <img *ngIf="brandingSettings" [src]="brandingSettings?.logo.path" height="200"/>
-        <p>Click or Drop File Here</p>
+
+        <img *ngIf="logo" [src]="logo?.path" height="200"/>
+        <div>Click or Drop File Here</div>
+
       </div>
+
       <input type="file" formControlName="imageInput" required #imageInput id="imageInput"
              (change)='imageChange($event)'>
 
       <div class="form-group actions-button">
-        <button *ngIf="imageUpload.valid" type="submit" class="btn btn-primary" (click)="save()">Save</button>
+        <button  type="submit" class="btn btn-primary"
+                 (click)="saveLogo()"
+                 *ngIf="imageUpload.valid"
+                 nbButton [nbSpinner]="loadingButton"
+                 nbSpinnerSize="large"
+                 nbSpinnerMessage="">
+          Save
+        </button>
       </div>
+
     </form>
   </nb-card-body>
 </nb-card>
@@ -32,12 +43,30 @@
        nbSpinnerStatus="primary"></div>
   <nb-card-body *ngIf="!loading">
 
-    <div *ngFor="let sn of networkArray">
+
+    <i class="fas fa-plus pointer" (click)="isAdding = true">Add Social Network</i>
+    <div *ngIf="isAdding">
+
+      <div class="form-group">
+        <label for="city" class="col-sm-10 col-form-label">City *</label>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" id="city"
+                 placeholder="City" required>
+          <!--<span *ngIf="(city.dirty || city.touched) && city.invalid && city.errors.required"-->
+                <!--class="err-message">-->
+          <!--City code is required.-->
+        <!--</span>-->
+        </div>
+      </div>
+    </div>
+
+    <div *ngFor="let sn of socialNetworks">
       <nb-checkbox status="success" [value]="sn.active">{{sn.key}}</nb-checkbox>
-      <input type="text" class="form-control" id="city" fullWidth fieldSize="small" [value]="sn.value"  placeholder="City" required>
+      <input type="text" class="form-control" id="city" fullWidth fieldSize="small" [value]="sn.value"
+             placeholder="City" required>
     </div>
     <div class="form-group actions-button">
-      <button type="submit" class="btn btn-primary" (click)="save()">Save</button>
+      <button type="submit" class="btn btn-primary" (click)="saveNetworks()">Save</button>
     </div>
 
   </nb-card-body>
