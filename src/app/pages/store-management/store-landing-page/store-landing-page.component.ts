@@ -30,8 +30,10 @@ export class StoreLandingPageComponent implements OnInit {
     ],
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
+  loadingButton = false;
   loading = false;
   store: any = {};
+  page: any;
 
   constructor(
     private fb: FormBuilder,
@@ -40,11 +42,17 @@ export class StoreLandingPageComponent implements OnInit {
     private userService: UserService,
     private toastrService: ToastrService
   ) {
+    this.createForm();
+    this.loading = true;
+    this.storeService.getPageContent('DEFAULT', 'LANDING_PAGE')
+      .subscribe(res => {
+        this.page = res;
+        this.fillForm();
+      });
     this.userService.getMerchant()
       .subscribe(res => {
         this.store = res;
       });
-    this.createForm();
   }
 
   ngOnInit() {
@@ -74,14 +82,32 @@ export class StoreLandingPageComponent implements OnInit {
     });
   }
 
+  fillForm() {
+    this.form.patchValue({
+      language: 'en',
+      name: this.page.name,
+      contentType: this.page.contentType,
+      path: this.page.path,
+      slug: this.page.slug,
+      code: this.page.code,
+      metaDetails: this.page.metaDetails,
+      title: this.page.title,
+      pageContent: this.page.pageContent,
+      displayedInMenu: this.page.displayedInMenu
+    });
+    this.loading = false;
+  }
+
   save() {
-    this.loading = true;
+    this.loadingButton = true;
     this.form.patchValue({ name: this.store.name });
     this.storeService.updatePageContent(this.store.code, this.form.value)
       .subscribe(res => {
         console.log(res);
-        this.loading = false;
+        this.loadingButton = false;
         this.toastrService.success('Page has been added.', 'Success');
+      }, error1 => {
+        this.loadingButton = false;
       });
   }
 

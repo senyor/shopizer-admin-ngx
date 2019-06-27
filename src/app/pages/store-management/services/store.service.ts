@@ -43,8 +43,16 @@ export class StoreService {
     return this.crudService.put(`/v1/private/store/${ store.code }`, store);
   }
 
+  // PAGE CONTENT
+
+  getPageContent(code: string, pageCode: string): Observable<any> {
+    return this.crudService.get(`/v1/${code}/content/pages/${pageCode}`);
+  }
+
   updatePageContent(code: string, content: any): Observable<any> {
     return this.crudService.post(`/v1/private/${code}/content/pages/${content.code}`, content);
   }
+
+  // end PAGE CONTENT
 
 }
