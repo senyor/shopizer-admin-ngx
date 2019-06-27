@@ -11,6 +11,8 @@ import { StoreHomeComponent } from './store-home/store-home.component';
 import { StoreFormComponent } from './store-form/store-form.component';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from '../../../environments/environment';
+import { StoreLandingPageComponent } from './store-landing-page/store-landing-page.component';
+import { NgxSummernoteModule } from 'ngx-summernote';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { environment } from '../../../environments/environment';
     StoresListComponent,
     StoreMarketingComponent,
     StoreHomeComponent,
-    StoreFormComponent
+    StoreFormComponent,
+    StoreLandingPageComponent
   ],
   imports: [
     StoreManagementRoutingModule,
@@ -31,7 +34,9 @@ import { environment } from '../../../environments/environment';
       language: 'en'
     }),
 
-    SharedModule
+    SharedModule,
+
+    NgxSummernoteModule
   ]
 })
 export class StoreManagementModule {
