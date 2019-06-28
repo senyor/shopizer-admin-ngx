@@ -52,6 +52,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
   loading = false;
   showRemoveButton = true;
   isReadonlyCode = false;
+  isStore: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -64,6 +65,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
     private router: Router
   ) {
     this.createForm();
+    this.isStore = this.userService.roles.isStore;
   }
 
   ngOnInit() {
