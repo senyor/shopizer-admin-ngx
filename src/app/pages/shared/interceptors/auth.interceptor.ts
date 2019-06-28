@@ -1,8 +1,7 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, from, Observable } from 'rxjs';
-import { _throw } from 'rxjs-compat/observable/throw';
+import { BehaviorSubject, from, Observable, throwError } from 'rxjs';
 import { TokenService } from '../../auth/services/token.service';
 import { catchError, finalize, switchMap, take, filter } from 'rxjs/operators';
 import { AuthService } from '../../auth/services/auth.service';
@@ -26,14 +25,12 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(chechReq)
       .pipe(
         catchError(err => {
-          if (err instanceof HttpErrorResponse) {
 
-            if (err.status === 0 || err.status === 401) {
-              return this.handle401Error(req, next);
-            }
-            return _throw(err);
+          if (err.status === 0 || err.status === 401) {
+            return this.handle401Error(req, next);
           } else {
-            return _throw(err);
+            console.log();
+            return throwError(err);
           }
         })
       );
