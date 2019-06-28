@@ -20,7 +20,6 @@ export class StoreLandingPageComponent implements OnInit {
     height: 300,
     uploadImagePath: '',
     toolbar: [
-      // [groupName, [list of button]]
       ['misc', ['codeview', 'undo', 'redo']],
       ['style', ['bold', 'italic', 'underline', 'clear']],
       ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
@@ -61,7 +60,6 @@ export class StoreLandingPageComponent implements OnInit {
         this.languages = [...languages];
       });
   }
-
 
   get title() {
     return this.form.get('title');

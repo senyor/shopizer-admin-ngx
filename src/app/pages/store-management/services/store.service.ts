@@ -50,7 +50,10 @@ export class StoreService {
   }
 
   updatePageContent(code: string, content: any): Observable<any> {
-    return this.crudService.post(`/v1/private/${code}/content/pages/${content.code}`, content);
+    const params = {
+      lang: content.language
+    };
+    return this.crudService.post(`/v1/private/${code}/content/pages/${content.code}`, content, {params});
   }
 
   // end PAGE CONTENT
