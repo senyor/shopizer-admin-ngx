@@ -32,16 +32,6 @@ const routes: Routes = [
         component: StoresListComponent,
         canActivate: [SuperadminGuard]
       },
-      // {
-      //   path: 'store-marketing',
-      //   component: StoreMarketingComponent,
-      //   canActivate: [StoreGuard]
-      // },
-      // {
-      //   path: 'store-home',
-      //   component: StoreHomeComponent,
-      //   canActivate: [StoreGuard]
-      // },
       {
         path: 'store-landing',
         component: StoreLandingPageComponent,
