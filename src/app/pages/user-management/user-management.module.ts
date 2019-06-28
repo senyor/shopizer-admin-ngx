@@ -8,6 +8,7 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { CreateNewUserComponent } from './create-new-user/create-new-user.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { CreateNewUserComponent } from './create-new-user/create-new-user.compon
     ChangePasswordComponent,
     UserFormComponent,
     CreateNewUserComponent,
+    UserDetailsComponent
   ],
   imports: [
     UserManagementRoutingModule,

@@ -7,6 +7,7 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { CreateNewUserComponent } from './create-new-user/create-new-user.component';
 import { AdminGuard } from '../shared/guards/admin.guard';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,11 @@ const routes: Routes = [
         path: 'users',
         canActivate: [AdminGuard],
         component: UsersListComponent,
+      },
+      {
+        path: 'user-details/:id',
+        canActivate: [AdminGuard],
+        component: UserDetailsComponent,
       },
     ],
   }
