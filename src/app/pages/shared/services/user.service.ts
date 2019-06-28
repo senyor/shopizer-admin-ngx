@@ -11,14 +11,12 @@ import { CrudService } from './crud.service';
 export class UserService {
   // canAccessToOrder = false;
   userIdString = 'userId';
-  // isAdmin = false;
-  // isSuperadmin = false;
-  // isStore = false;
   roles = {
     canAccessToOrder: false,
     isAdmin: false,
     isSuperadmin: false,
-    isStore: false
+    isStore: false,
+    isProduct: false,
   };
 
   constructor(
@@ -49,14 +47,15 @@ export class UserService {
         if (role.name === elem.name) {
           this.roles.canAccessToOrder = true;
         }
-        if (elem.name === 'ADMIN') {
-          this.roles.isAdmin = true;
-        }
-        if (elem.name === 'SUPERADMIN') {
-          this.roles.isSuperadmin = true;
-        }
-        if (elem.name === 'STORE') {
-          this.roles.isStore = true;
+        switch (elem.name) {
+          case 'ADMIN':
+            this.roles.isAdmin = true;
+          case 'SUPERADMIN':
+            this.roles.isSuperadmin = true;
+          case 'STORE':
+            this.roles.isStore = true;
+          case 'PRODUCTS':
+            this.roles.isProduct = true;
         }
       });
     });
