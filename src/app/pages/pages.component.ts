@@ -70,7 +70,11 @@ export class PagesComponent {
       title: this.translate.instant(this.menu[index].title),
       children: !el.children ? null : el.children.map((child, childIndex) => ({
         ...child,
-        title: this.translate.instant(this.menu[index].children[childIndex].title)
+        title: this.translate.instant(this.menu[index].children[childIndex].title),
+        children: !child.children ? null : child.children.map((ch, chIndex) => ({
+          ...ch,
+          title: this.translate.instant(this.menu[index].children[childIndex].children[chIndex].title)
+        }))
       }))
     }));
   }
