@@ -24,15 +24,16 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
       retry(1),
       catchError((error) => {
         let errorMessage = '';
-        if (error.error instanceof ErrorEvent) {
-          // client-side error
-          errorMessage = `Error: ${ error.error.message }`;
-        } else {
-          // server-side error
-          errorMessage = `Error Code: ${ error.status }\nMessage: ${ error.message }`;
+        if (error.status !== 401) {
+          if (error.error instanceof ErrorEvent) {
+            // client-side error
+            errorMessage = `Error: ${ error.error.message }`;
+          } else {
+            // server-side error
+            errorMessage = `Error Code: ${ error.status }\nMessage: ${ error.message }`;
+          }
+          this.toastr.error(errorMessage, 'Error');
         }
-        console.error(errorMessage);
-        this.toastr.error(errorMessage, 'Error');
         return throwError(error);
       })
     );

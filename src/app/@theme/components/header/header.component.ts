@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
-import { AnalyticsService } from '../../../@core/utils';
 import { LayoutService } from '../../../@core/utils';
 import { AuthService } from '../../../pages/auth/services/auth.service';
 import { UserService } from '../../../pages/shared/services/user.service';
@@ -30,7 +29,6 @@ export class HeaderComponent implements OnInit {
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private userService: UserService,
-              private analyticsService: AnalyticsService,
               private layoutService: LayoutService,
               private authService: AuthService,
               private router: Router,
