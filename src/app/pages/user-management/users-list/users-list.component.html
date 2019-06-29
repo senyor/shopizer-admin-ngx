@@ -1,4 +1,4 @@
-<nb-card size="small" class="page-card" *ngIf="!showUserDetails; else userDetailsBlock">
+<nb-card size="small" class="page-card">
   <nb-accordion [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
     <nb-accordion-item #item>
       <nb-accordion-item-header>
@@ -11,20 +11,3 @@
     </nb-accordion-item>
   </nb-accordion>
 </nb-card>
-
-<ng-template #userDetailsBlock>
-  <nb-actions size="medium" class="back-button">
-    <nb-action (click)="backToList()">
-      <i class="fas fa-chevron-left"></i>&nbsp;<span>Back to list</span>
-    </nb-action>
-  </nb-actions>
-
-  <nb-card size="small" class="page-card">
-    <nb-card-header>
-      User Details
-    </nb-card-header>
-    <nb-card-body>
-      <ngx-user-form [user]="user" (back)="backToList($event)"></ngx-user-form>
-    </nb-card-body>
-  </nb-card>
-</ng-template>
