@@ -15,7 +15,7 @@ export class StoreDetailsComponent implements OnInit {
     private storeService: StoreService,
   ) {
     this.loading = true;
-    this.storeService.getStore()
+    this.storeService.getStore('DEFAULT')
       .subscribe(res => {
         this.store = res;
         this.loading = false;

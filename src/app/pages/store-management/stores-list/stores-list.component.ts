@@ -12,7 +12,6 @@ import { LocalDataSource } from 'ng2-smart-table';
 export class StoresListComponent implements OnInit {
   @ViewChild('item') accordion;
   source: LocalDataSource = new LocalDataSource();
-  showStoreDetails = false;
   store;
   perPage = 10;
   loadingList = false;
@@ -20,7 +19,6 @@ export class StoresListComponent implements OnInit {
   constructor(
     private storeService: StoreService,
     private router: Router,
-    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -71,15 +69,8 @@ export class StoresListComponent implements OnInit {
     },
   };
 
-  route(e) {
-    this.showStoreDetails = true;
-    this.store = e.data;
+  route(event) {
+    this.router.navigate(['pages/store-management/store-information/', event.data.code]);
   }
-
-  backToList() {
-    this.showStoreDetails = false;
-    this.getList();
-  }
-
 
 }

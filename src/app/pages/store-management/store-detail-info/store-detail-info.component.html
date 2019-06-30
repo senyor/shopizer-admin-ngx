@@ -1,0 +1,14 @@
+<nb-actions size="medium" class="back-button">
+  <nb-action (click)="backToList()">
+    <i class="fas fa-chevron-left"></i>&nbsp;<span>Back to list</span>
+  </nb-action>
+</nb-actions>
+<div [nbSpinner]="loadingInfo" nbSpinnerSize="large" nbSpinnerStatus="primary"></div>
+<nb-card *ngIf="!loadingInfo" size="small" class="page-card" >
+  <nb-card-header>
+    Store Details
+  </nb-card-header>
+  <nb-card-body>
+    <ngx-store-form [store]="store"></ngx-store-form>
+  </nb-card-body>
+</nb-card>
