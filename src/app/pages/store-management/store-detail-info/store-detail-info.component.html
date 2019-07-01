@@ -3,12 +3,13 @@
     <i class="fas fa-chevron-left"></i>&nbsp;<span>Back to list</span>
   </nb-action>
 </nb-actions>
-<div [nbSpinner]="loadingInfo" nbSpinnerSize="large" nbSpinnerStatus="primary"></div>
-<nb-card *ngIf="!loadingInfo" size="small" class="page-card" >
+<nb-card size="small" class="page-card">
   <nb-card-header>
     Store Details
   </nb-card-header>
-  <nb-card-body>
+  <div *ngIf="loadingInfo" [nbSpinner]="loadingInfo" class="loading-block" nbSpinnerSize="large"
+       nbSpinnerStatus="primary"></div>
+  <nb-card-body *ngIf="!loadingInfo">
     <ngx-store-form [store]="store"></ngx-store-form>
   </nb-card-body>
 </nb-card>

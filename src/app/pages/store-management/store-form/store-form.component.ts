@@ -26,7 +26,6 @@ import * as moment from 'moment';
 })
 export class StoreFormComponent implements OnInit, OnChanges {
   @Input() store: any;
-  @Output() back = new EventEmitter();
   @ViewChild('search')
   searchElementRef: ElementRef;
   supportedLanguages = [];
@@ -254,7 +253,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
       this.storeService.updateStore(this.form.value)
         .subscribe(store => {
           console.log(store);
-          this.back.emit(true);
+          this.router.navigate(['pages/store-management/stores-list']);
         });
     } else {
       this.storeService.checkIfStoreExist(this.form.value.code)
@@ -276,7 +275,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
     this.storeService.deleteStore(this.store.code)
       .subscribe(res => {
         console.log(res);
-        this.back.emit(true);
+        this.router.navigate(['pages/store-management/stores-list']);
       });
   }
 
