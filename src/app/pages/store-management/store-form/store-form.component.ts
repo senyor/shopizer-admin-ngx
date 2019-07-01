@@ -18,6 +18,7 @@ import { environment } from '../../../../environments/environment';
 import { StoreService } from '../services/store.service';
 import { UserService } from '../../shared/services/user.service';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-store-form',
@@ -26,7 +27,6 @@ import * as moment from 'moment';
 })
 export class StoreFormComponent implements OnInit, OnChanges {
   @Input() store: any;
-  @Output() back = new EventEmitter();
   @ViewChild('search')
   searchElementRef: ElementRef;
   supportedLanguages = [];
@@ -62,7 +62,8 @@ export class StoreFormComponent implements OnInit, OnChanges {
     private ngZone: NgZone,
     private cdr: ChangeDetectorRef,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService,
   ) {
     this.createForm();
     this.isStore = this.userService.roles.isStore;
@@ -254,7 +255,8 @@ export class StoreFormComponent implements OnInit, OnChanges {
       this.storeService.updateStore(this.form.value)
         .subscribe(store => {
           console.log(store);
-          this.back.emit(true);
+          this.toastr.success('Store successfully updated.', 'Success');
+          this.router.navigate(['pages/store-management/stores-list']);
         });
     } else {
       this.storeService.checkIfStoreExist(this.form.value.code)
@@ -265,6 +267,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
             this.storeService.createStore(this.form.value)
               .subscribe(store => {
                 console.log(store);
+                this.toastr.success('Store successfully created.', 'Success');
                 this.router.navigate(['pages/store-management/stores-list']);
               });
           }
@@ -276,7 +279,8 @@ export class StoreFormComponent implements OnInit, OnChanges {
     this.storeService.deleteStore(this.store.code)
       .subscribe(res => {
         console.log(res);
-        this.back.emit(true);
+        this.toastr.success('Store successfully removed.', 'Success');
+        this.router.navigate(['pages/store-management/stores-list']);
       });
   }
 

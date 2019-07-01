@@ -8,6 +8,7 @@ import { StoreDetailsComponent } from './store-details/store-details.component';
 import { SuperadminGuard } from '../shared/guards/superadmin.guard';
 import { StoreGuard } from '../shared/guards/store.guard';
 import { StoreLandingPageComponent } from './store-landing-page/store-landing-page.component';
+import { StoreDetailInfoComponent } from './store-detail-info/store-detail-info.component';
 
 const routes: Routes = [
   {
@@ -32,19 +33,14 @@ const routes: Routes = [
         component: StoresListComponent,
         canActivate: [SuperadminGuard]
       },
-      // {
-      //   path: 'store-marketing',
-      //   component: StoreMarketingComponent,
-      //   canActivate: [StoreGuard]
-      // },
-      // {
-      //   path: 'store-home',
-      //   component: StoreHomeComponent,
-      //   canActivate: [StoreGuard]
-      // },
       {
         path: 'store-landing',
         component: StoreLandingPageComponent,
+        canActivate: [StoreGuard]
+      },
+      {
+        path: 'store-information/:code',
+        component: StoreDetailInfoComponent,
         canActivate: [StoreGuard]
       },
     ],
