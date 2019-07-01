@@ -44,7 +44,7 @@ import { ToastrModule } from 'ngx-toastr';
         deps: [HttpClient]
       }
     }),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   bootstrap: [AppComponent],
   providers: [

@@ -21,10 +21,12 @@ export class HomeComponent implements OnInit {
     country: '',
     phone: ''
   };
+  canAccessToOrder: boolean;
 
   constructor(
     private userService: UserService
   ) {
+    this.canAccessToOrder = this.userService.roles.canAccessToOrder;
   }
 
   ngOnInit() {

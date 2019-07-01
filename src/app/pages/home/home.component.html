@@ -25,7 +25,7 @@
   </nb-card-body>
 </nb-card>
 
-<nb-card size="small" *ngIf="userService.roles.canAccessToOrder">
+<nb-card size="small" *ngIf="canAccessToOrder">
   <nb-card-header>
     Recent orders
   </nb-card-header>

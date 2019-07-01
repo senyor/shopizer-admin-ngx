@@ -10,7 +10,7 @@
 
 export const environment = {
   production: false,
-  googleApiKey: 'AIzaSyBvepnYaOjI5AhzXqmMatOm_cRKTBva8hY',
+  googleApiKey: '',
   apiUrl: 'http://99.79.1.102:8080/api',
   client: {
     language: {

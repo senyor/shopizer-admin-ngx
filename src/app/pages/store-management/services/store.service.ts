@@ -12,13 +12,13 @@ export class StoreService {
     private crudService: CrudService) {
   }
 
-  getStore(): Observable<any> {
-    return this.crudService.get(`/v1/store/DEFAULT`);
+  getStore(code): Observable<any> {
+    return this.crudService.get(`/v1/store/${code}`);
   }
 
   getListOfStores(): Observable<any> {
     const params = {
-      'lenght': '100',
+      'length': '100',
       'start': '0'
     };
     return this.crudService.get(`/v1/private/stores`, params);
@@ -42,5 +42,20 @@ export class StoreService {
   updateStore(store: any): Observable<any> {
     return this.crudService.put(`/v1/private/store/${ store.code }`, store);
   }
+
+  // PAGE CONTENT
+
+  getPageContent(code: string, pageCode: string): Observable<any> {
+    return this.crudService.get(`/v1/${code}/content/pages/${pageCode}`);
+  }
+
+  updatePageContent(code: string, content: any): Observable<any> {
+    const params = {
+      lang: content.language
+    };
+    return this.crudService.post(`/v1/private/${code}/content/pages/${content.code}`, content, {params});
+  }
+
+  // end PAGE CONTENT
 
 }

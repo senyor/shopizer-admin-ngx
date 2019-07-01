@@ -6,5 +6,15 @@
 export const environment = {
   production: true,
   googleApiKey: '',
-  apiUrl: 'http://99.79.1.102:8080/api'
+  apiUrl: '99.79.1.102:8080/api',
+  client: {
+    language: {
+      default: 'en',
+      array: [
+        'en',
+        'fr',
+        'ru'
+      ],
+    },
+  }
 };

@@ -1,0 +1,68 @@
+<nb-card size="small" class="page-card">
+  <nb-card-header>
+    Store information
+  </nb-card-header>
+  <nb-card-body>
+    <span>
+      Shop settings used for various functionality such us and store address.
+      Various details also used for shipping costs and displayed in product details.
+    </span>
+    <div *ngIf="loading" class="loading-block" [nbSpinner]="loading" nbSpinnerSize="large"
+         nbSpinnerStatus="primary"></div>
+    <form *ngIf="!loading" [formGroup]='form'>
+      <div class="form-group">
+        <label class="col-sm-10 col-form-label">Language</label>
+        <div class="col-sm-12">
+          <nb-select *ngIf="languages.length" placeholder="Select language" formControlName='language' outline
+                     shape="rectangle">
+            <nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="form-group">
+        <label for="title" class="col-sm-10 col-form-label">Landing page title*</label>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" id="title" formControlName='title'
+                 placeholder="Page title" required>
+          <span *ngIf="(title.dirty || title.touched) && title.invalid && title.errors.required" class="err-message">
+            Page title is required.
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="metaDetails" class="col-sm-10 col-form-label">Meta tags description</label>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" id="metaDetails" formControlName='metaDetails'
+                 placeholder="Meta tags description" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="metaDetails" class="col-sm-10 col-form-label">Landing page main text</label>
+        <div class="col-sm-12">
+          <div formControlName="pageContent"
+               [ngxSummernote]="config">
+          </div>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="form-group actions-button">
+        <button type="submit" class="btn btn-primary"
+                (click)="save()"
+                [disabled]="!form.valid"
+                nbButton [nbSpinner]="loadingButton"
+                nbSpinnerSize="large"
+                nbSpinnerMessage="">Save
+        </button>
+      </div>
+
+    </form>
+  </nb-card-body>
+</nb-card>
+

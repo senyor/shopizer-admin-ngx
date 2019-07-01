@@ -9,7 +9,6 @@ import { CrudService } from './crud.service';
 })
 
 export class UserService {
-  // canAccessToOrder = false;
   userIdString = 'userId';
   roles = {
     canAccessToOrder: false,
@@ -37,7 +36,8 @@ export class UserService {
   }
 
   getMerchant(): Observable<any> {
-    return this.crudService.get(`/v1/store/DEFAULT`);
+    const storeCode = 'DEFAULT';
+    return this.crudService.get(`/v1/store/${storeCode}`);
   }
 
   // check roles for access to order page
