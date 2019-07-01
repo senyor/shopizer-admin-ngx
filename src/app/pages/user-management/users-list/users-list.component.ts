@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { UserService } from '../../shared/services/user.service';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -13,13 +14,13 @@ export class UsersListComponent implements OnInit {
   @ViewChild('item') accordion;
   source: LocalDataSource = new LocalDataSource();
   path = 'User';
-  showUserDetails = false;
   user = User;
   perPage = 10;
   loadingList = false;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
   ) {
     this.getList();
   }
@@ -87,14 +88,8 @@ export class UsersListComponent implements OnInit {
     },
   };
 
-  route(e) {
-    this.showUserDetails = true;
-    this.user = e.data;
-  }
-
-  backToList() {
-    this.showUserDetails = false;
-    this.getList();
+  route(event) {
+    this.router.navigate(['pages/user-management/user-details/', event.data.id]);
   }
 
 }
