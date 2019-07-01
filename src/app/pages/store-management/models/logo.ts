@@ -1,5 +1,7 @@
 export class Logo {
   id: number;
+  name: string;
+  path: string;
   defaultImage: boolean;
   externalUrl: string;
   imageName: string;

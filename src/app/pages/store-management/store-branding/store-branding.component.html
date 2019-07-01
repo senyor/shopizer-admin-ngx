@@ -21,12 +21,12 @@
              (change)='imageChange($event)'>
 
       <div class="form-group actions-button">
-        <button  type="submit" class="btn btn-primary"
-                 (click)="saveLogo()"
-                 *ngIf="imageUpload.valid"
-                 nbButton [nbSpinner]="loadingButton"
-                 nbSpinnerSize="large"
-                 nbSpinnerMessage="">
+        <button type="submit" class="btn btn-primary"
+                (click)="saveLogo()"
+                *ngIf="imageUpload.valid"
+                nbButton [nbSpinner]="loadingButton"
+                nbSpinnerSize="large"
+                nbSpinnerMessage="">
           Save
         </button>
       </div>
@@ -43,25 +43,11 @@
        nbSpinnerStatus="primary"></div>
   <nb-card-body *ngIf="!loading">
 
-
-    <i class="fas fa-plus pointer" (click)="isAdding = true">Add Social Network</i>
-    <div *ngIf="isAdding">
-
-      <div class="form-group">
-        <label for="city" class="col-sm-10 col-form-label">City *</label>
-        <div class="col-sm-12">
-          <input type="text" class="form-control" id="city"
-                 placeholder="City" required>
-          <!--<span *ngIf="(city.dirty || city.touched) && city.invalid && city.errors.required"-->
-                <!--class="err-message">-->
-          <!--City code is required.-->
-        <!--</span>-->
-        </div>
-      </div>
-    </div>
-
     <div *ngFor="let sn of socialNetworks">
-      <nb-checkbox status="success" [value]="sn.active">{{sn.key}}</nb-checkbox>
+      <nb-checkbox status="success" [value]="sn.active">
+        <i ngClass="fab fa-{{sn.key.split('_')[0]}}"></i>
+        {{sn.key.split('_')[0][0].toUpperCase() + sn.key.split('_')[0].slice(1)}}
+      </nb-checkbox>
       <input type="text" class="form-control" id="city" fullWidth fieldSize="small" [value]="sn.value"
              placeholder="City" required>
     </div>

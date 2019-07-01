@@ -22,38 +22,6 @@ export class StoreBrandingComponent implements OnInit {
   logoFile: any;
   socialNetworks: SocialNetworks[];
   logo: Logo;
-  isAdding = false;
-
-  networkArray = [
-    {
-      'active': false,
-      'id': 0,
-      'key': 'FB',
-      'type': 'INTEGRATION',
-      'value': 'qqewqeqwe'
-    },
-    {
-      'active': false,
-      'id': 0,
-      'key': 'FB',
-      'type': 'INTEGRATION',
-      'value': 'qqewqeqwe'
-    },
-    {
-      'active': false,
-      'id': 0,
-      'key': 'FB',
-      'type': 'INTEGRATION',
-      'value': 'qqewqeqwe'
-    },
-    {
-      'active': false,
-      'id': 0,
-      'key': 'FB',
-      'type': 'INTEGRATION',
-      'value': 'qqewqeqwe'
-    },
-  ];
 
   constructor(
     private storeService: StoreService,
@@ -67,11 +35,7 @@ export class StoreBrandingComponent implements OnInit {
         console.log(res);
         this.socialNetworks = res.socialNetworks;
         this.logo = res.logo;
-        if (this.socialNetworks.length == 0) {
-          // this.socialNetworks = [...this.networkArray];
-        }
       });
-
   }
 
   // start WORK WITH IMAGE
@@ -143,10 +107,10 @@ export class StoreBrandingComponent implements OnInit {
       });
   }
 
-  // end WORK WITH IMAGE
-
   saveNetworks() {
     console.log('Save');
   }
+
+  // end WORK WITH IMAGE
 
 }
