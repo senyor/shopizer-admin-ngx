@@ -88,15 +88,15 @@ export class CategoriesListComponent implements OnInit {
         //   return this._sanitizer.bypassSecurityTrustHtml('<input type="checkbox" [checked]="data">');
         // }
       },
-      idAdditional: {
-        filter: false,
-        title: '',
-        // type: 'number',
-        type: 'html',
-        valuePrepareFunction: (data) => {
-          return this._sanitizer.bypassSecurityTrustHtml('<a value="data"><i class="fas fa-times"></i></a>');
-        }
-      },
+      // idAdditional: {
+      //   filter: false,
+      //   title: '',
+      //   // type: 'number',
+      //   type: 'html',
+      //   valuePrepareFunction: (data) => {
+      //     return this._sanitizer.bypassSecurityTrustHtml('<a value="data"><i class="fas fa-times"></i></a>');
+      //   }
+      // },
     },
   };
 

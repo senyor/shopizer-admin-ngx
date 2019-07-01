@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { CrudService } from '../../../shared/services/crud.service';
 import { Observable } from 'rxjs';
 
@@ -8,15 +9,20 @@ import { Observable } from 'rxjs';
 export class CategoryService {
 
   constructor(
-    private crudService: CrudService) {
+    private crudService: CrudService
+  ) {
   }
 
   getListOfCategories(): Observable<any> {
     return this.crudService.get(`/v1/category`);
   }
 
-  getCategoryById(id) {
-    return this.crudService.get(`/v1/category/${id}`);
+  getCategoryById(id): Observable<any> {
+    return this.crudService.get(`/v1/category/${ id }`);
+  }
+
+  deleteCategory(id): Observable<any> {
+    return this.crudService.delete(`/v1/category/${ id }`);
   }
 
 }

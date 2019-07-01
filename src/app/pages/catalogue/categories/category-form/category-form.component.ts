@@ -1,14 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { CategoryService } from '../services/category.service';
 import { ConfigService } from '../../../shared/services/config.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-category-form',
   templateUrl: './category-form.component.html',
   styleUrls: ['./category-form.component.scss']
 })
-export class CategoryFormComponent implements OnInit {
+export class CategoryFormComponent implements OnInit, OnChanges {
   @Input() category: any;
   form: FormGroup;
   roots = [];
@@ -28,11 +31,15 @@ export class CategoryFormComponent implements OnInit {
     ],
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
+  showRemoveButton = true;
 
   constructor(
     private fb: FormBuilder,
     private categoryService: CategoryService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private toastr: ToastrService,
   ) {
   }
 
@@ -56,9 +63,19 @@ export class CategoryFormComponent implements OnInit {
       });
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.category.currentValue && changes.category.currentValue.id) {
+      if (this.category.id) {
+        this.showRemoveButton = false;
+      }
+      this.fillForm();
+      this.fillFormArray();
+    }
+  }
+
   private createForm() {
     this.form = this.fb.group({
-      root: ['', [Validators.required]], // ??
+      root: ['', [Validators.required]],
       visible: [false, [Validators.required]],
       code: ['', [Validators.required]],
       order: [0, [Validators.required]],
@@ -69,10 +86,10 @@ export class CategoryFormComponent implements OnInit {
 
   addFormArray() {
     const control = <FormArray>this.form.controls.descriptions;
-    this.languages.forEach(language1 => {
+    this.languages.forEach(lang => {
       control.push(
         this.fb.group({
-          language: [language1.code, [Validators.required]],
+          language: [lang.code, [Validators.required]],
           name: ['', [Validators.required]],
           highlight: [''],
           friendlyUrl: [''],
@@ -85,12 +102,57 @@ export class CategoryFormComponent implements OnInit {
     });
   }
 
+  fillForm() {
+    this.form.patchValue({
+      root: this.category.parent,
+      visible: this.category.visible,
+      code: this.category.code,
+      order: this.category.sortOrder,
+      selectedLanguage: 'en',
+      descriptions: [],
+    });
+  }
+
+  fillFormArray() {
+    this.form.value.descriptions.forEach((desc, index) => {
+      if (desc.language === 'en') {
+        (<FormArray>this.form.get('descriptions')).removeAt(index);
+        const control = <FormArray>this.form.controls.descriptions;
+        control.push(
+          this.fb.group({
+            language: this.form.value.selectedLanguage,
+            name: this.category.description.name,
+            highlight: this.category.description.highlights,
+            friendlyUrl: this.category.description.friendlyUrl,
+            description: this.category.description.description,
+            title: this.category.description.title,
+            keyWords: this.category.description.keyWords,
+            metaDescription: this.category.description.metaDescription,
+          })
+        );
+      }
+    });
+  }
+
   get selectedLanguage() {
     return this.form.get('selectedLanguage');
   }
 
   save() {
-    console.log('save', this.form.value);
+    const categoryObject = this.form.value;
+    categoryObject.descriptions.forEach(el => {
+      el.friendlyUrl = el.friendlyUrl.replace(/ /g, '-').toLowerCase();
+    });
+    console.log('save', categoryObject);
+  }
+
+  remove() {
+    this.categoryService.deleteCategory(this.category.id)
+      .subscribe(res => {
+        console.log(res);
+        this.toastr.success('Category successfully removed.', 'Success');
+        this.router.navigate(['pages/store-management/stores-list']);
+      });
   }
 
 }

@@ -5,7 +5,7 @@
     <div class="col-sm-12">
       <nb-select *ngIf="roots.length" placeholder="Root" formControlName='root' outline
                  shape="rectangle">
-        <nb-option *ngFor="let root of roots" [value]="root.code">{{ root.code }}</nb-option>
+        <nb-option *ngFor="let root of roots" [value]="root">{{ root.code }}</nb-option>
       </nb-select>
     </div>
   </div>
@@ -119,7 +119,7 @@
   <div class="form-group actions-button">
     <button type="submit" class="btn btn-primary" (click)="save()">Save</button>
     <!--<button type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid">Save</button>-->
-    <!--<button *ngIf="!showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">Remove</button>-->
+    <button *ngIf="!showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">Remove</button>
   </div>
 
 
