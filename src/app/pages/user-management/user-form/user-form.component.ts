@@ -29,7 +29,6 @@ export class UserFormComponent implements OnInit, OnChanges {
   showRemoveButton = true;
   pwdPattern = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$';
   emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
-  @Output() back = new EventEmitter();
   errorMessage = '';
 
   constructor(
@@ -123,7 +122,7 @@ export class UserFormComponent implements OnInit, OnChanges {
             this.userService.updateUser(+this.user.id, this.form.value)
               .subscribe(res => {
                 console.log(res);
-                this.back.emit(true);
+                this.router.navigate(['pages/user-management/users']);
               });
           } else {
             this.errorMessage = 'Email already exists';
@@ -146,7 +145,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     this.userService.deleteUser(this.user.id)
       .subscribe(res => {
         console.log(res);
-        this.back.emit(true);
+        this.router.navigate(['pages/user-management/users']);
       });
   }
 
