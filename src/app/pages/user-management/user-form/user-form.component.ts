@@ -1,11 +1,9 @@
 import {
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   Input,
   OnChanges,
   OnInit,
-  Output,
   SimpleChanges
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -122,6 +120,7 @@ export class UserFormComponent implements OnInit, OnChanges {
             this.userService.updateUser(+this.user.id, this.form.value)
               .subscribe(res => {
                 console.log(res);
+                this.toastr.success('User updated.', 'Success');
                 this.router.navigate(['pages/user-management/users']);
               });
           } else {
@@ -132,6 +131,7 @@ export class UserFormComponent implements OnInit, OnChanges {
             this.userService.createUser(this.form.value)
               .subscribe(res => {
                 console.log(res);
+                this.toastr.success('User created.', 'Success');
                 this.router.navigate(['pages/user-management/users']);
               });
           } else {
@@ -145,6 +145,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     this.userService.deleteUser(this.user.id)
       .subscribe(res => {
         console.log(res);
+        this.toastr.success('User removed.', 'Success');
         this.router.navigate(['pages/user-management/users']);
       });
   }

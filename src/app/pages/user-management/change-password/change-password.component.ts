@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../shared/models/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-change-password',
@@ -21,6 +22,7 @@ export class ChangePasswordComponent implements OnInit {
     private userService: UserService,
     private fb: FormBuilder,
     private router: Router,
+    private toastr: ToastrService,
   ) {
     this.createForm();
   }
@@ -67,6 +69,7 @@ export class ChangePasswordComponent implements OnInit {
     this.userService.updatePassword(this.userService.getUserId(), passwords)
       .subscribe(res => {
         console.log(res);
+        this.toastr.success('Password successfully changed.', 'Success');
         this.router.navigate(['pages/user-management/profile']);
       }, err => {
         this.errorMessage = 'Actual password does not match for user';

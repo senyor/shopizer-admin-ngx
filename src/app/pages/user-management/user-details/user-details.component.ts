@@ -23,7 +23,7 @@ export class UserDetailsComponent implements OnInit {
     this.userService.getUser(id)
       .subscribe(res => {
         this.user = res;
-      })
+      });
   }
 
   backToList() {
