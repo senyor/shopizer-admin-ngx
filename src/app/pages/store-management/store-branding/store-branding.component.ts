@@ -33,12 +33,14 @@ export class StoreBrandingComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.storeService.getBrandingDetails()
       .subscribe(res => {
         console.log(res);
         // this.socialNetworksArray = res.socialNetworks;
         this.logo = res.logo;
         this.fillForm(res.socialNetworks);
+        this.loading = false;
       });
   }
 
