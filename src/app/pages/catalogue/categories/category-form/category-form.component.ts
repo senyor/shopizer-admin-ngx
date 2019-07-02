@@ -76,7 +76,7 @@ export class CategoryFormComponent implements OnInit, OnChanges {
   private createForm() {
     this.form = this.fb.group({
       root: ['', [Validators.required]],
-      visible: [false, [Validators.required]],
+      visible: [false],
       code: ['', [Validators.required]],
       order: [0, [Validators.required]],
       selectedLanguage: ['', [Validators.required]],
@@ -87,18 +87,18 @@ export class CategoryFormComponent implements OnInit, OnChanges {
   addFormArray() {
     const control = <FormArray>this.form.controls.descriptions;
     this.languages.forEach(lang => {
-      control.push(
-        this.fb.group({
-          language: [lang.code, [Validators.required]],
-          name: ['', [Validators.required]],
-          highlight: [''],
-          friendlyUrl: [''],
-          description: [''],
-          title: [''],
-          keyWords: [''],
-          metaDescription: [''],
-        })
-      );
+        control.push(
+          this.fb.group({
+            language: [lang.code, [Validators.required]],
+            name: [''],
+            highlight: [''],
+            friendlyUrl: [''],
+            description: [''],
+            title: [''],
+            keyWords: [''],
+            metaDescription: [''],
+          })
+        );
     });
   }
 
@@ -144,10 +144,38 @@ export class CategoryFormComponent implements OnInit, OnChanges {
 
   save() {
     const categoryObject = this.form.value;
-    categoryObject.descriptions.forEach(el => {
-      el.friendlyUrl = el.friendlyUrl.replace(/ /g, '-').toLowerCase();
-    });
-    console.log('save', categoryObject);
+    // const enIndex = categoryObject.descriptions.find(el => el.language === 'en');
+    // console.log(enIndex);
+    // categoryObject.descriptions.forEach(el => {
+    //   el.friendlyUrl = el.friendlyUrl.replace(/ /g, '-').toLowerCase();
+    //   if (el.language !== 'en') {
+    //     for (const elKey in el) {
+    //       if (el.hasOwnProperty(elKey)) {
+    //         console.log(elKey, el);
+    //       }
+    //     }
+    //   }
+    // });
+    console.log('saving', categoryObject);
+    this.categoryService.checkCategoryCode(categoryObject.code)
+      .subscribe(res => {
+        if (this.category.id) {
+          // if exist, it is updating
+          if (!res.exists || (res.exists && this.category.code === this.form.value.code)) {
+
+          } else {
+            console.log('already exists');
+          }
+        } else {
+          if (!res.exists) {
+            console.log('create');
+            // if not exist, it is creating
+
+          } else {
+            console.log('already exists');
+          }
+        }
+      });
   }
 
   remove() {

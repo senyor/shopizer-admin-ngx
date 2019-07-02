@@ -27,4 +27,8 @@ export class CategoryDetailComponent implements OnInit {
       });
   }
 
+  backToList() {
+    this.location.back();
+  }
+
 }
