@@ -1,0 +1,66 @@
+<nb-card size="small" class="page-card">
+  <nb-card-header>
+    Store logo
+  </nb-card-header>
+  <div *ngIf="loading" class="loading-block"
+       [nbSpinner]="loading"
+       nbSpinnerSize="large"
+       nbSpinnerStatus="primary">
+  </div>
+
+  <nb-card-body *ngIf="!loading">
+    <form [formGroup]="imageUpload" (ngSubmit)="imageUploadSubmitted()">
+      <div id="imageDrop" (click)='imageInput.click()' (drop)="drop($event)" (dragover)="allowDrop($event)" #imageDrop>
+
+        <img *ngIf="logo" [src]="logo?.path" height="200"/>
+        <div>Click or Drop File Here</div>
+
+      </div>
+
+      <input type="file" formControlName="imageInput" required #imageInput id="imageInput"
+             (change)='imageChange($event)'>
+
+      <div class="form-group actions-button">
+        <button type="submit" class="btn btn-primary"
+                (click)="saveLogo()"
+                *ngIf="imageUpload.valid"
+                nbButton [nbSpinner]="loadingButton"
+                nbSpinnerSize="large"
+                nbSpinnerMessage="">
+          Save
+        </button>
+      </div>
+
+    </form>
+  </nb-card-body>
+</nb-card>
+
+<nb-card size="small" class="page-card">
+  <nb-card-header>
+    Social networks and marketing
+  </nb-card-header>
+  <div *ngIf="loading" class="loading-block" [nbSpinner]="loading" nbSpinnerSize="large"
+       nbSpinnerStatus="primary"></div>
+  <nb-card-body *ngIf="!loading">
+    <form [formGroup]='form'>
+
+      <div formArrayName="socialNetworks">
+        <div *ngFor="let sn of socialNetworks.controls; let i=index">
+          <div [formGroupName]="i">
+            <nb-checkbox status="success" formControlName='active'>
+              <i ngClass="fab fa-{{socialNetworks.controls[i].value.key.split('_')[0]}}"></i>
+              {{socialNetworks.controls[i].value.key.split('_')[0][0].toUpperCase() + socialNetworks.controls[i].value.key.split('_')[0].slice(1)}}
+            </nb-checkbox>
+            <input type="text" class="form-control" id="city" fullWidth fieldSize="small" formControlName="value"
+                   required>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group actions-button">
+        <button type="submit" class="btn btn-primary" (click)="saveNetworks()">Save</button>
+      </div>
+
+    </form>
+  </nb-card-body>
+</nb-card>
