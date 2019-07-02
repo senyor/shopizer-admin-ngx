@@ -21,7 +21,7 @@ import { StoreBrandingComponent } from './store-branding/store-branding.componen
     StoreCreationComponent,
     StoresListComponent,
     StoreFormComponent,
-    StoreBrandingComponent
+    StoreBrandingComponent,
     StoreFormComponent,
     StoreLandingPageComponent,
     StoreDetailInfoComponent,
