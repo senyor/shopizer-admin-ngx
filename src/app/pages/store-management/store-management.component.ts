@@ -12,7 +12,7 @@ export class StoreManagementComponent implements OnInit, DoCheck {
   sidemenuLinks = [
     {
       title: 'Store branding',
-      link: ''
+      link: 'store-branding'
     },
     {
       title: 'Store home page',
