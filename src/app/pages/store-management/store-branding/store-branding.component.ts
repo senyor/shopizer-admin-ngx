@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { StoreService } from '../services/store.service';
-import { FormBuilder, Validators } from '@angular/forms';
 import { Logo } from '../models/logo';
-import { SocialNetworks } from '../models/social-networks';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-store-branding',
@@ -20,21 +20,25 @@ export class StoreBrandingComponent implements OnInit {
     imageInput: ['', Validators.required]
   });
   logoFile: any;
-  socialNetworks: SocialNetworks[];
   logo: Logo;
+  form: FormGroup;
+
 
   constructor(
     private storeService: StoreService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
   ) {
+    this.createForm();
   }
 
   ngOnInit() {
     this.storeService.getBrandingDetails()
       .subscribe(res => {
         console.log(res);
-        this.socialNetworks = res.socialNetworks;
+        // this.socialNetworksArray = res.socialNetworks;
         this.logo = res.logo;
+        this.fillForm(res.socialNetworks);
       });
   }
 
@@ -107,10 +111,45 @@ export class StoreBrandingComponent implements OnInit {
       });
   }
 
-  saveNetworks() {
-    console.log('Save');
+  // end WORK WITH IMAGE
+
+
+  // start WORK WITH SOCIAL NETWORKS
+
+  private createForm() {
+    this.form = this.formBuilder.group({
+      socialNetworks: this.formBuilder.array([])
+    });
+
   }
 
-  // end WORK WITH IMAGE
+  fillForm(socialNetworksArray) {
+    const control = <FormArray>this.form.controls.socialNetworks;
+    socialNetworksArray.forEach(el => {
+      control.push(
+        this.formBuilder.group({
+          id: el.id,
+          active: el.active,
+          key: el.key,
+          type: el.type,
+          value: el.value
+        })
+      );
+    });
+  }
+
+  get socialNetworks(): FormArray {
+    return <FormArray>this.form.get('socialNetworks');
+  }
+
+  saveNetworks() {
+    this.storeService.updateSocialNetworks(this.form.value)
+      .subscribe(res => {
+        console.log(res);
+        this.toastr.success('Social networks successfully updated.', 'Success');
+      });
+  }
+
+  // end WORK WITH SOCIAL NETWORKS
 
 }

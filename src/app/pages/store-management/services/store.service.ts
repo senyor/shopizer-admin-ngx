@@ -49,9 +49,9 @@ export class StoreService {
     return this.crudService.get(`/v1/private/store/${code}/marketing`);
   }
 
-  createUpdateSocialNetworks(network: SocialNetworks): Observable<any> {
+  updateSocialNetworks(body): Observable<any> {
     const code = 'DEFAULT';
-    return this.crudService.post(`/v1/private/store/${code}/marketing`, network);
+    return this.crudService.post(`/v1/private/store/${code}/marketing`, body);
   }
 
   addStoreLogo(file: any): Observable<any> {
