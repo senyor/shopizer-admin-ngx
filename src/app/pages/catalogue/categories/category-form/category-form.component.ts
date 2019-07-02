@@ -138,6 +138,10 @@ export class CategoryFormComponent implements OnInit, OnChanges {
     return this.form.get('selectedLanguage');
   }
 
+  get descriptions(): FormArray {
+    return <FormArray>this.form.get('descriptions');
+  }
+
   save() {
     const categoryObject = this.form.value;
     categoryObject.descriptions.forEach(el => {

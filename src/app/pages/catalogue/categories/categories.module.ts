@@ -9,6 +9,7 @@ import { CategoriesHierarchyComponent } from './categories-hierarchy/categories-
 import { ButtonRenderComponent } from './categories-list/button-render.component';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { CategoryDetailComponent } from './category-detail/category-detail.component';
+import { NgxSummernoteModule } from 'ngx-summernote';
 
 
 @NgModule({
@@ -24,7 +25,9 @@ import { CategoryDetailComponent } from './category-detail/category-detail.compo
   imports: [
     CategoriesRoutingModule,
 
-    SharedModule
+    SharedModule,
+
+    NgxSummernoteModule
   ],
   entryComponents: [ButtonRenderComponent],
 })
