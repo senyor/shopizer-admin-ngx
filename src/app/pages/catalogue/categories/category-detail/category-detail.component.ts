@@ -11,6 +11,7 @@ import { CategoryService } from '../services/category.service';
 })
 export class CategoryDetailComponent implements OnInit {
   category: any;
+  loadingInfo = false;
 
   constructor(
     private categoryService: CategoryService,
@@ -20,10 +21,12 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadingInfo = true;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.categoryService.getCategoryById(id)
       .subscribe(res => {
         this.category = res;
+        this.loadingInfo = false;
       });
   }
 

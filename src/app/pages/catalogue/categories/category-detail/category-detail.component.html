@@ -7,7 +7,8 @@
   <nb-card-header>
     Create category
   </nb-card-header>
-  <nb-card-body>
+  <nb-card-body [nbSpinner]="loadingInfo" class="loading-block" nbSpinnerSize="large"
+                 nbSpinnerStatus="primary">
     <ngx-category-form [category]="category"></ngx-category-form>
   </nb-card-body>
 </nb-card>
