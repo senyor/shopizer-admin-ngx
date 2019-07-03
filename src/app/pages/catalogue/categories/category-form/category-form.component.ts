@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CategoryService } from '../services/category.service';
@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './category-form.component.html',
   styleUrls: ['./category-form.component.scss']
 })
-export class CategoryFormComponent implements OnInit, OnChanges {
+export class CategoryFormComponent implements OnInit, OnChanges, DoCheck {
   @Input() category: any;
   form: FormGroup;
   roots = [];
@@ -32,6 +32,8 @@ export class CategoryFormComponent implements OnInit, OnChanges {
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
   showRemoveButton = true;
+  loader = false;
+  flag = true;
 
   constructor(
     private fb: FormBuilder,
@@ -55,10 +57,12 @@ export class CategoryFormComponent implements OnInit, OnChanges {
         });
         this.roots = [...res];
       });
-    this.createForm();
+    this.loader = true;
     this.configService.getListOfSupportedLanguages()
       .subscribe(res => {
         this.languages = [...res];
+        this.loader = false;
+        this.createForm();
         this.addFormArray();
       });
   }
@@ -68,8 +72,13 @@ export class CategoryFormComponent implements OnInit, OnChanges {
       if (this.category.id) {
         this.showRemoveButton = false;
       }
+    }
+  }
+
+  ngDoCheck() {
+    if (!this.loader && this.flag) {
       this.fillForm();
-      this.fillFormArray();
+      this.flag = false;
     }
   }
 
@@ -87,18 +96,18 @@ export class CategoryFormComponent implements OnInit, OnChanges {
   addFormArray() {
     const control = <FormArray>this.form.controls.descriptions;
     this.languages.forEach(lang => {
-        control.push(
-          this.fb.group({
-            language: [lang.code, [Validators.required]],
-            name: [''],
-            highlight: [''],
-            friendlyUrl: [''],
-            description: [''],
-            title: [''],
-            keyWords: [''],
-            metaDescription: [''],
-          })
-        );
+      control.push(
+        this.fb.group({
+          language: [lang.code, [Validators.required]],
+          name: [''],
+          highlight: [''],
+          friendlyUrl: [''],
+          description: [''],
+          title: [''],
+          keyWords: [''],
+          metaDescription: [''],
+        })
+      );
     });
   }
 
@@ -111,6 +120,7 @@ export class CategoryFormComponent implements OnInit, OnChanges {
       selectedLanguage: 'en',
       descriptions: [],
     });
+    this.fillFormArray();
   }
 
   fillFormArray() {
