@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './category-form.component.html',
   styleUrls: ['./category-form.component.scss']
 })
-export class CategoryFormComponent implements OnInit, OnChanges, DoCheck {
+export class CategoryFormComponent implements OnInit {
   @Input() category: any;
   form: FormGroup;
   roots = [];
@@ -33,7 +33,6 @@ export class CategoryFormComponent implements OnInit, OnChanges, DoCheck {
   };
   showRemoveButton = true;
   loader = false;
-  flag = true;
 
   constructor(
     private fb: FormBuilder,
@@ -46,6 +45,9 @@ export class CategoryFormComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngOnInit() {
+    if (this.category.id) {
+      this.showRemoveButton = false;
+    }
     this.categoryService.getListOfCategories()
       .subscribe(res => {
         res.sort((a, b) => {
@@ -64,22 +66,10 @@ export class CategoryFormComponent implements OnInit, OnChanges, DoCheck {
         this.loader = false;
         this.createForm();
         this.addFormArray();
+        if (this.category.id) {
+          this.fillForm();
+        }
       });
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.category.currentValue && changes.category.currentValue.id) {
-      if (this.category.id) {
-        this.showRemoveButton = false;
-      }
-    }
-  }
-
-  ngDoCheck() {
-    if (!this.loader && this.flag) {
-      this.fillForm();
-      this.flag = false;
-    }
   }
 
   private createForm() {
@@ -113,7 +103,7 @@ export class CategoryFormComponent implements OnInit, OnChanges, DoCheck {
 
   fillForm() {
     this.form.patchValue({
-      root: this.category.parent,
+      root: this.category.parent === null ? '' : this.category.parent,
       visible: this.category.visible,
       code: this.category.code,
       order: this.category.sortOrder,
@@ -126,20 +116,16 @@ export class CategoryFormComponent implements OnInit, OnChanges, DoCheck {
   fillFormArray() {
     this.form.value.descriptions.forEach((desc, index) => {
       if (desc.language === 'en') {
-        (<FormArray>this.form.get('descriptions')).removeAt(index);
-        const control = <FormArray>this.form.controls.descriptions;
-        control.push(
-          this.fb.group({
-            language: this.form.value.selectedLanguage,
-            name: this.category.description.name,
-            highlight: this.category.description.highlights,
-            friendlyUrl: this.category.description.friendlyUrl,
-            description: this.category.description.description,
-            title: this.category.description.title,
-            keyWords: this.category.description.keyWords,
-            metaDescription: this.category.description.metaDescription,
-          })
-        );
+        (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+          language: this.form.value.selectedLanguage,
+          name: this.category.description.name,
+          highlight: this.category.description.highlights,
+          friendlyUrl: this.category.description.friendlyUrl,
+          description: this.category.description.description,
+          title: this.category.description.title,
+          keyWords: this.category.description.keyWords,
+          metaDescription: this.category.description.metaDescription,
+        });
       }
     });
   }
@@ -180,7 +166,6 @@ export class CategoryFormComponent implements OnInit, OnChanges, DoCheck {
           if (!res.exists) {
             console.log('create');
             // if not exist, it is creating
-
           } else {
             console.log('already exists');
           }

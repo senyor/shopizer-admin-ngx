@@ -9,7 +9,7 @@
   </nb-card-header>
   <nb-card-body [nbSpinner]="loadingInfo" class="loading-block" nbSpinnerSize="large"
                  nbSpinnerStatus="primary">
-    <ngx-category-form [category]="category"></ngx-category-form>
+    <ngx-category-form *ngIf="category" [category]="category"></ngx-category-form>
   </nb-card-body>
 </nb-card>
 
