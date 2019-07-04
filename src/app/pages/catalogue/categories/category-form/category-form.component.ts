@@ -63,12 +63,12 @@ export class CategoryFormComponent implements OnInit {
     this.configService.getListOfSupportedLanguages()
       .subscribe(res => {
         this.languages = [...res];
-        this.loader = false;
         this.createForm();
         this.addFormArray();
         if (this.category.id) {
           this.fillForm();
         }
+        this.loader = false;
       });
   }
 
