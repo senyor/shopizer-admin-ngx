@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CategoryService } from '../services/category.service';
@@ -74,10 +74,10 @@ export class CategoryFormComponent implements OnInit {
 
   private createForm() {
     this.form = this.fb.group({
-      root: ['', [Validators.required]],
+      parent: ['', [Validators.required]],
       visible: [false],
       code: ['', [Validators.required]],
-      order: [0, [Validators.required]],
+      sortOrder: [0, [Validators.required]],
       selectedLanguage: ['', [Validators.required]],
       descriptions: this.fb.array([]),
     });
@@ -90,7 +90,7 @@ export class CategoryFormComponent implements OnInit {
         this.fb.group({
           language: [lang.code, [Validators.required]],
           name: [''],
-          highlight: [''],
+          highlights: [''],
           friendlyUrl: [''],
           description: [''],
           title: [''],
@@ -103,10 +103,10 @@ export class CategoryFormComponent implements OnInit {
 
   fillForm() {
     this.form.patchValue({
-      root: this.category.parent === null ? '' : this.category.parent,
+      parent: this.category.parent === null ? '' : this.category.parent,
       visible: this.category.visible,
       code: this.category.code,
-      order: this.category.sortOrder,
+      sortOrder: this.category.sortOrder,
       selectedLanguage: 'en',
       descriptions: [],
     });
@@ -119,7 +119,7 @@ export class CategoryFormComponent implements OnInit {
         (<FormArray>this.form.get('descriptions')).at(index).patchValue({
           language: this.form.value.selectedLanguage,
           name: this.category.description.name,
-          highlight: this.category.description.highlights,
+          highlights: this.category.description.highlights,
           friendlyUrl: this.category.description.friendlyUrl,
           description: this.category.description.description,
           title: this.category.description.title,
@@ -140,37 +140,83 @@ export class CategoryFormComponent implements OnInit {
 
   save() {
     const categoryObject = this.form.value;
-    // const enIndex = categoryObject.descriptions.find(el => el.language === 'en');
-    // console.log(enIndex);
-    // categoryObject.descriptions.forEach(el => {
-    //   el.friendlyUrl = el.friendlyUrl.replace(/ /g, '-').toLowerCase();
-    //   if (el.language !== 'en') {
-    //     for (const elKey in el) {
-    //       if (el.hasOwnProperty(elKey)) {
-    //         console.log(elKey, el);
-    //       }
-    //     }
-    //   }
-    // });
-    console.log('saving', categoryObject);
-    this.categoryService.checkCategoryCode(categoryObject.code)
-      .subscribe(res => {
-        if (this.category.id) {
-          // if exist, it is updating
-          if (!res.exists || (res.exists && this.category.code === this.form.value.code)) {
+    categoryObject.parent = { id: categoryObject.parent.id, code: categoryObject.parent.code };
 
-          } else {
-            console.log('already exists');
+    // save important values for filling empty field in result object
+    const tmpObj = {
+      name: '',
+      friendlyUrl: ''
+    };
+    categoryObject.descriptions.forEach((el) => {
+      if (tmpObj.name === '' && el.name !== '') {
+        tmpObj.name = el.name;
+      }
+      if (tmpObj.friendlyUrl === '' && el.friendlyUrl !== '') {
+        tmpObj.friendlyUrl = el.friendlyUrl;
+      }
+      for (const elKey in el) {
+        if (el.hasOwnProperty(elKey)) {
+          if (!tmpObj.hasOwnProperty(elKey) && el[elKey] !== '') {
+            tmpObj[elKey] = el[elKey];
           }
-        } else {
-          if (!res.exists) {
-            console.log('create');
-            // if not exist, it is creating
-          } else {
-            console.log('already exists');
+        }
+      }
+    });
+
+    // check required fields
+    if (tmpObj.name === '' || tmpObj.friendlyUrl === '') {
+      console.error('err');
+    } else {
+      categoryObject.descriptions.forEach((el) => {
+        // generate	a	slug	from	category	name
+        el.friendlyUrl = el.friendlyUrl.replace(/ /g, '-').toLowerCase();
+        // fill empty fields
+        for (const elKey in el) {
+          if (el.hasOwnProperty(elKey)) {
+            if (el[elKey] === '' && tmpObj[elKey] !== '') {
+              el[elKey] = tmpObj[elKey];
+            }
           }
         }
       });
+      // check for undefined
+      categoryObject.descriptions.forEach(el => {
+        for (const elKey in el) {
+          if (el.hasOwnProperty(elKey)) {
+            if (typeof el[elKey] === 'undefined') {
+              el[elKey] = '';
+            }
+          }
+        }
+      });
+      console.log('saving', categoryObject);
+
+      this.categoryService.checkCategoryCode(categoryObject.code)
+        .subscribe(res => {
+          if (this.category.id) {
+            // if exist, it is updating
+            if (!res.exists || (res.exists && this.category.code === this.form.value.code)) {
+
+            } else {
+              console.log('already exists');
+            }
+          } else {
+            if (!res.exists) {
+              console.log('create');
+              this.categoryService.addCategory(categoryObject)
+                .subscribe(result => {
+                  console.log(result);
+                  this.toastr.success('Category successfully created.', 'Success');
+                  this.router.navigate(['pages/store-management/stores-list']);
+                });
+            } else {
+              console.log('already exists');
+            }
+          }
+        });
+    }
+
+
   }
 
   remove() {
