@@ -15,6 +15,7 @@ export class CategoriesListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   perPage = 10;
   loadingList = false;
+  categories = [];
 
   constructor(
     private categoryService: CategoryService,
@@ -27,15 +28,28 @@ export class CategoriesListComponent implements OnInit {
     this.getList();
   }
 
+  getChildren(node) {
+    if (node.children && node.children.length !== 0) {
+      this.categories.push(node);
+      node.children.forEach((el) => {
+        this.getChildren(el);
+      });
+    } else {
+      this.categories.push(node);
+    }
+  }
+
   getList() {
     this.loadingList = true;
     this.categoryService.getListOfCategories()
       .subscribe(categories => {
-        categories.forEach(el => {
+        categories.forEach((el) => {
+          this.getChildren(el);
+        });
+        this.categories.forEach(el => {
           el.idAdditional = el.id;
         });
-        console.log(categories);
-        this.source.load(categories);
+        this.source.load(this.categories);
         this.source.setPaging(1, this.perPage, true);
         this.loadingList = false;
       });
@@ -75,6 +89,9 @@ export class CategoriesListComponent implements OnInit {
       parent: {
         title: 'Parent',
         type: 'string',
+        valuePrepareFunction: (parent) => {
+          return parent ? parent.code : 'root';
+        }
       },
       visible: {
         filter: false,
