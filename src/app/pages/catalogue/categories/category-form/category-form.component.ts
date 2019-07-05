@@ -50,6 +50,7 @@ export class CategoryFormComponent implements OnInit {
     }
     this.categoryService.getListOfCategories()
       .subscribe(res => {
+        res.push({id: 0, code: 'root'});
         res.sort((a, b) => {
           if (a.code < b.code)
             return -1;
@@ -74,7 +75,7 @@ export class CategoryFormComponent implements OnInit {
 
   private createForm() {
     this.form = this.fb.group({
-      parent: ['', [Validators.required]],
+      parent: ['root', [Validators.required]],
       visible: [false],
       code: ['', [Validators.required]],
       sortOrder: [0, [Validators.required]],
@@ -103,7 +104,7 @@ export class CategoryFormComponent implements OnInit {
 
   fillForm() {
     this.form.patchValue({
-      parent: this.category.parent === null ? '' : this.category.parent,
+      parent: this.category.parent === null ? 'root' : this.category.parent.code,
       visible: this.category.visible,
       code: this.category.code,
       sortOrder: this.category.sortOrder,
@@ -146,7 +147,8 @@ export class CategoryFormComponent implements OnInit {
 
   save() {
     const categoryObject = this.form.value;
-    categoryObject.parent = { id: categoryObject.parent.id, code: categoryObject.parent.code };
+    const categoryObj = this.roots.find((el) => el.code === categoryObject.parent);
+    categoryObject.parent = { id: categoryObj.id, code: categoryObj.code };
 
     // save important values for filling empty field in result object
     const tmpObj = {
@@ -219,14 +221,11 @@ export class CategoryFormComponent implements OnInit {
           }
         });
     }
-
-
   }
 
   remove() {
     this.categoryService.deleteCategory(this.category.id)
       .subscribe(res => {
-        console.log(res);
         this.toastr.success('Category successfully removed.', 'Success');
         this.router.navigate(['pages/store-management/stores-list']);
       });

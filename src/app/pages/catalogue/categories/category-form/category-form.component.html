@@ -4,9 +4,9 @@
   <div class="form-group">
     <label class="col-sm-10 col-form-label">Root category</label>
     <div class="col-sm-12">
-      <nb-select *ngIf="roots.length" placeholder="Root" formControlName='parent' outline
+      <nb-select *ngIf="roots.length" placeholder="Select root" formControlName='parent' outline
                  shape="rectangle">
-        <nb-option *ngFor="let root of roots" [value]="root">{{ root.code }}</nb-option>
+        <nb-option *ngFor="let root of roots" [value]="root.code">{{ root.code }}</nb-option>
       </nb-select>
     </div>
   </div>
