@@ -138,6 +138,12 @@ export class CategoryFormComponent implements OnInit {
     return <FormArray>this.form.get('descriptions');
   }
 
+  changeName(event, index) {
+    (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+      friendlyUrl: event.replace(/ /g, '-').toLowerCase(),
+    });
+  }
+
   save() {
     const categoryObject = this.form.value;
     categoryObject.parent = { id: categoryObject.parent.id, code: categoryObject.parent.code };
@@ -168,8 +174,6 @@ export class CategoryFormComponent implements OnInit {
       console.error('err');
     } else {
       categoryObject.descriptions.forEach((el) => {
-        // generate	a	slug	from	category	name
-        el.friendlyUrl = el.friendlyUrl.replace(/ /g, '-').toLowerCase();
         // fill empty fields
         for (const elKey in el) {
           if (el.hasOwnProperty(elKey)) {
