@@ -34,7 +34,7 @@ export class CategoryService {
   }
 
   deleteCategory(id): Observable<any> {
-    return this.crudService.delete(`/v1/category/${ id }`);
+    return this.crudService.delete(`/v1/private/category/${ id }`);
   }
 
   checkCategoryCode(code): Observable<any> {

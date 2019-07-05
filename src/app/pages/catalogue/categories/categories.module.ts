@@ -10,6 +10,8 @@ import { ButtonRenderComponent } from './categories-list/button-render.component
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { CategoryDetailComponent } from './category-detail/category-detail.component';
 import { NgxSummernoteModule } from 'ngx-summernote';
+import { NbDialogModule } from '@nebular/theme';
+import { ShowcaseDialogComponent } from './categories-list/showcase-dialog/showcase-dialog.component';
 
 
 @NgModule({
@@ -21,15 +23,17 @@ import { NgxSummernoteModule } from 'ngx-summernote';
     ButtonRenderComponent,
     CategoryFormComponent,
     CategoryDetailComponent,
+    ShowcaseDialogComponent
   ],
   imports: [
     CategoriesRoutingModule,
 
     SharedModule,
 
-    NgxSummernoteModule
+    NgxSummernoteModule,
+    NbDialogModule.forChild(),
   ],
-  entryComponents: [ButtonRenderComponent],
+  entryComponents: [ButtonRenderComponent, ShowcaseDialogComponent],
 })
 
 export class CategoriesModule {

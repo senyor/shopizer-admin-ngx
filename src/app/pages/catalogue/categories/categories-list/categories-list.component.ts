@@ -5,6 +5,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { CategoryService } from '../services/category.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ButtonRenderComponent } from './button-render.component';
+import { NbDialogService } from '@nebular/theme';
+import { ShowcaseDialogComponent } from './showcase-dialog/showcase-dialog.component';
 
 @Component({
   selector: 'ngx-categories-list',
@@ -16,11 +18,17 @@ export class CategoriesListComponent implements OnInit {
   perPage = 10;
   loadingList = false;
   categories = [];
+  buttonDetails = '<button class="btn btn-primary cell-style" ' +
+    'style="padding: 2px 15px; margin: 10px 0px !important;"><span>Details</span></button>';
+  buttonRemove = '<button class="btn btn-danger  cell-style" ' +
+    'style="padding: 2px 15px; margin-bottom: 10px !important;"><span>Remove</span></button>';
+
 
   constructor(
     private categoryService: CategoryService,
     private router: Router,
-    private _sanitizer: DomSanitizer
+    private _sanitizer: DomSanitizer,
+    private dialogService: NbDialogService
   ) {
   }
 
@@ -40,14 +48,12 @@ export class CategoriesListComponent implements OnInit {
   }
 
   getList() {
+    this.categories = [];
     this.loadingList = true;
     this.categoryService.getListOfCategories()
       .subscribe(categories => {
         categories.forEach((el) => {
           this.getChildren(el);
-        });
-        this.categories.forEach(el => {
-          el.idAdditional = el.id;
         });
         this.source.load(this.categories);
         this.source.setPaging(1, this.perPage, true);
@@ -57,15 +63,16 @@ export class CategoriesListComponent implements OnInit {
 
   settings = {
     actions: {
-      columnTitle: 'Details',
+      columnTitle: '',
       add: false,
       edit: false,
       delete: false,
       position: 'right',
       sort: true,
       custom: [
-        { name: 'ourCustomAction', title: 'Details' }
-        ],
+        { name: 'details', title: this._sanitizer.bypassSecurityTrustHtml(this.buttonDetails) },
+        { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml(this.buttonRemove) }
+      ],
     },
     columns: {
       id: {
@@ -105,15 +112,6 @@ export class CategoriesListComponent implements OnInit {
         //   return this._sanitizer.bypassSecurityTrustHtml('<input type="checkbox" [checked]="data">');
         // }
       },
-      // idAdditional: {
-      //   filter: false,
-      //   title: '',
-      //   // type: 'number',
-      //   type: 'html',
-      //   valuePrepareFunction: (data) => {
-      //     return this._sanitizer.bypassSecurityTrustHtml('<a value="data"><i class="fas fa-times"></i></a>');
-      //   }
-      // },
     },
   };
 
@@ -124,7 +122,21 @@ export class CategoriesListComponent implements OnInit {
   // }
 
   route(event) {
-    this.router.navigate(['pages/catalogue/categories/category/', event.data.id]);
+    switch (event.action) {
+      case 'details':
+        this.router.navigate(['pages/catalogue/categories/category/', event.data.id]);
+        break;
+      case 'remove':
+        this.dialogService.open(ShowcaseDialogComponent, {})
+          .onClose.subscribe(res => {
+          if (res) {
+            this.categoryService.deleteCategory(event.data.id)
+              .subscribe(data => {
+                this.getList();
+              });
+          }
+        });
+    }
   }
 
 }
