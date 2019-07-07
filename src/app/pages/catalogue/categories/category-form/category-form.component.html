@@ -24,6 +24,10 @@
     <div class="col-sm-12">
       <input type="text" class="form-control" id="code" formControlName='code'
              placeholder="Code" required>
+      <span *ngIf="(code.dirty || code.touched) && code.invalid && code.errors.required"
+            class="err-message">
+        Сode is required.
+      </span>
     </div>
   </div>
 
@@ -56,6 +60,11 @@
             <div class="col-sm-12">
               <input type="text" class="form-control" id="name" formControlName='name'
                      placeholder="Name" (ngModelChange)="changeName($event, j)">
+              <span *ngIf="(descr.get('name').dirty || descr.get('name').touched)
+              && descr.get('name').invalid && descr.get('name').errors.required"
+                    class="err-message">
+                Name is required.
+              </span>
             </div>
           </div>
 
@@ -72,6 +81,11 @@
             <div class="col-sm-12">
               <input type="text" class="form-control" id="friendlyUrl" formControlName='friendlyUrl'
                      placeholder="Friendly Url">
+              <span *ngIf="(descr.get('friendlyUrl').dirty || descr.get('friendlyUrl').touched)
+              && descr.get('friendlyUrl').invalid && descr.get('friendlyUrl').errors.required"
+                    class="err-message">
+                Friendly Url is required.
+              </span>
             </div>
           </div>
 
@@ -118,7 +132,7 @@
   <hr/>
 
   <div class="form-group actions-button">
-    <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid">Save</button>
+    <button type="submit" class="btn btn-primary" (click)="save()">Save</button>
     <button *ngIf="!showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">Remove</button>
   </div>
 

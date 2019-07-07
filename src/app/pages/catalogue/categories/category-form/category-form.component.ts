@@ -90,9 +90,9 @@ export class CategoryFormComponent implements OnInit {
       control.push(
         this.fb.group({
           language: [lang.code, [Validators.required]],
-          name: [''],
+          name: ['', [Validators.required]],
           highlights: [''],
-          friendlyUrl: [''],
+          friendlyUrl: ['', [Validators.required]],
           description: [''],
           title: [''],
           keyWords: [''],
@@ -129,6 +129,10 @@ export class CategoryFormComponent implements OnInit {
         });
       }
     });
+  }
+
+  get code() {
+    return this.form.get('code');
   }
 
   get selectedLanguage() {
@@ -172,8 +176,8 @@ export class CategoryFormComponent implements OnInit {
     });
 
     // check required fields
-    if (tmpObj.name === '' || tmpObj.friendlyUrl === '') {
-      console.error('err');
+    if (tmpObj.name === '' || tmpObj.friendlyUrl === '' || categoryObject.code === '') {
+      this.toastr.error('Please, fill required fields.', 'Error');
     } else {
       categoryObject.descriptions.forEach((el) => {
         // fill empty fields
