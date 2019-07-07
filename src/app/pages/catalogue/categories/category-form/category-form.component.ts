@@ -33,6 +33,7 @@ export class CategoryFormComponent implements OnInit {
   };
   showRemoveButton = true;
   loader = false;
+  isCodeUnique = true;
 
   constructor(
     private fb: FormBuilder,
@@ -147,6 +148,16 @@ export class CategoryFormComponent implements OnInit {
     (<FormArray>this.form.get('descriptions')).at(index).patchValue({
       friendlyUrl: event.replace(/ /g, '-').toLowerCase(),
     });
+  }
+
+  checkCode(event) {
+    this.categoryService.checkCategoryCode(event.target.value)
+      .subscribe(res => {
+        if (res.exists) {
+          this.isCodeUnique = false;
+          this.cdr.detectChanges();
+        }
+      });
   }
 
   save() {
