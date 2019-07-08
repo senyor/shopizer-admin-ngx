@@ -165,11 +165,13 @@ export class CategoryFormComponent implements OnInit {
   }
 
   checkCode(event) {
-    this.categoryService.checkCategoryCode(event.target.value)
+    const code = event.target.value;
+    this.categoryService.checkCategoryCode(code)
       .subscribe(res => {
-        if (res.exists) {
+        if (res.exists && (this.category.code !== code)) {
           this.isCodeUnique = false;
-          this.cdr.detectChanges();
+        } else {
+          this.isCodeUnique = true;
         }
       });
   }
@@ -231,11 +233,12 @@ export class CategoryFormComponent implements OnInit {
           if (this.category.id) {
             // if exist, it is updating
             if (!res.exists || (res.exists && this.category.code === this.form.value.code)) {
-
+              console.log('update');
             } else {
-              console.log('already exists');
+              this.isCodeUnique = false;
             }
           } else {
+            // if doesn't exist, it is creating
             if (!res.exists) {
               console.log('create');
               this.categoryService.addCategory(categoryObject)
@@ -245,7 +248,7 @@ export class CategoryFormComponent implements OnInit {
                   this.router.navigate(['pages/store-management/stores-list']);
                 });
             } else {
-              console.log('already exists');
+              this.isCodeUnique = false;
             }
           }
         });
