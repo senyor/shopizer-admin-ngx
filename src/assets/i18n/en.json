@@ -16,6 +16,13 @@
     "createStore": "Create store",
     "storesList": "Stores list",
 
+    "catalogue": "Catalogue",
+
+    "categories": "Categories",
+    "createCategory": "Create category",
+    "categoriesList": "Categories list",
+    "categoriesHierarchy": "Categories hierarchy",
+
     "orders": "Orders"
   }
 }

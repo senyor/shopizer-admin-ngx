@@ -1,0 +1,15 @@
+<nb-actions size="medium" class="back-button">
+  <nb-action (click)="backToList()">
+    <i class="fas fa-chevron-left"></i>&nbsp;<span>Back to list</span>
+  </nb-action>
+</nb-actions>
+<nb-card size="small" class="page-card">
+  <nb-card-header>
+    Category
+  </nb-card-header>
+  <nb-card-body [nbSpinner]="loadingInfo" class="loading-block" nbSpinnerSize="large"
+                 nbSpinnerStatus="primary">
+    <ngx-category-form *ngIf="category" [category]="category"></ngx-category-form>
+  </nb-card-body>
+</nb-card>
+
