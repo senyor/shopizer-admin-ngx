@@ -46,9 +46,6 @@ export class CategoryFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.category.id) {
-      this.showRemoveButton = false;
-    }
     this.categoryService.getListOfCategories()
       .subscribe(res => {
         res.push({id: 0, code: 'root'});
@@ -233,19 +230,23 @@ export class CategoryFormComponent implements OnInit {
           if (this.category.id) {
             // if exist, it is updating
             if (!res.exists || (res.exists && this.category.code === this.form.value.code)) {
-              console.log('update');
+              this.categoryService.updateCategory(this.category.id, categoryObject)
+                .subscribe(result => {
+                  console.log(result);
+                  this.toastr.success('Category successfully created.', 'Success');
+                  this.router.navigate(['pages/catalogue/categories/categories-list']);
+                });
             } else {
               this.isCodeUnique = false;
             }
           } else {
             // if doesn't exist, it is creating
             if (!res.exists) {
-              console.log('create');
               this.categoryService.addCategory(categoryObject)
                 .subscribe(result => {
                   console.log(result);
                   this.toastr.success('Category successfully created.', 'Success');
-                  this.router.navigate(['pages/store-management/stores-list']);
+                  this.router.navigate(['pages/catalogue/categories/categories-list']);
                 });
             } else {
               this.isCodeUnique = false;

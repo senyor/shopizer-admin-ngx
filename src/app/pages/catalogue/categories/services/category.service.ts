@@ -29,8 +29,8 @@ export class CategoryService {
     return this.crudService.post(`/v1/private/category`, category);
   }
 
-  updateCategory(category): Observable<any> {
-    return this.crudService.post(`/v1/private/category/${category.id}`, category);
+  updateCategory(id, category): Observable<any> {
+    return this.crudService.put(`/v1/private/category/${id}`, category);
   }
 
   deleteCategory(id): Observable<any> {
