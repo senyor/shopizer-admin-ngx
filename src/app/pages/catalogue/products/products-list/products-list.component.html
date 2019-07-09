@@ -1,3 +1,8 @@
-<p>
-  products-list works!!!!!!!!!!!
-</p>
+<nb-card size="small" class="page-card">
+  <nb-card-header>
+    Products
+  </nb-card-header>
+  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+    <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)"></ng2-smart-table>
+  </nb-card-body>
+</nb-card>
