@@ -69,10 +69,19 @@ export const MENU_ITEMS: NbMenuItem[] = [
           },
         ],
       },
-      // {
-      //   title: 'Products',
-      //   // link: '/pages/store-management/store-details',
-      // },
+      {
+        title: 'sideNav.products',
+        children: [
+          {
+            title: 'sideNav.createProduct',
+            link: '/pages/catalogue/products/create-product',
+          },
+          {
+            title: 'sideNav.productsList',
+            link: '/pages/catalogue/products/products-list',
+          },
+        ],
+      },
       // {
       //   title: 'Options',
       //   // link: '/pages/store-management/stores-list',

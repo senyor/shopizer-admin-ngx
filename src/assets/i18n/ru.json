@@ -23,6 +23,10 @@
     "categoriesList": "Categories list ru",
     "categoriesHierarchy": "Categories hierarchy ru",
 
+    "products": "Products ru",
+    "createProduct": "Create product ru",
+    "productsList": "Products list ru",
+
     "orders": "Заказы"
   }
 }

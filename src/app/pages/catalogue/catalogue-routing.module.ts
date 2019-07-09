@@ -9,9 +9,11 @@ const routes: Routes = [{
   children: [
     {
       path: 'categories',
-      // component: CategoriesComponent,
-      // canActivate: [OrdersGuard],
       loadChildren: 'app/pages/catalogue/categories/categories.module#CategoriesModule'
+    },
+    {
+      path: 'products',
+      loadChildren: 'app/pages/catalogue/products/products.module#ProductsModule'
     },
   ]
 }];
