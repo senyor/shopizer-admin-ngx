@@ -7,6 +7,7 @@ import { ProductsListComponent } from './products-list/products-list.component';
 import { ProductCreationComponent } from './product-creation/product-creation.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductFormComponent } from './product-form/product-form.component';
+import { AvailableButtonComponent } from './products-list/available-button.component';
 
 @NgModule({
   declarations: [
@@ -14,13 +15,15 @@ import { ProductFormComponent } from './product-form/product-form.component';
     ProductsListComponent,
     ProductCreationComponent,
     ProductFormComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    AvailableButtonComponent
   ],
   imports: [
     ProductsRoutingModule,
 
     SharedModule
-  ]
+  ],
+  entryComponents: [ AvailableButtonComponent ]
 })
 export class ProductsModule {
 }

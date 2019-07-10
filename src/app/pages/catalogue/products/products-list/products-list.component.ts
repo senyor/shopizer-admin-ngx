@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AvailableButtonComponent } from './available-button.component';
 
 @Component({
   selector: 'ngx-products-list',
@@ -71,56 +72,21 @@ export class ProductsListComponent implements OnInit {
         title: 'Qty',
         type: 'string',
       },
-      avalaible: {
-        title: 'Avalaible',
-        type: 'string',
-        //   renderComponent: ButtonRenderComponent,
-        //   defaultValue: false,
+      available: {
+        filter: false,
+        title: 'Available',
+        type: 'custom',
+        renderComponent: AvailableButtonComponent,
+        defaultValue: false,
       },
       price: {
         title: 'Price',
         type: 'string',
       },
-      // dateAvailable: {
-      //   title: 'Created',
-      //   type: 'string',
-      // },
-      // code: {
-      //   title: 'Code',
-      //   type: 'string',
-      // },
-      // description: {
-      //   title: 'Name',
-      //   type: 'string',
-      //   valuePrepareFunction: (description) => {
-      //     if (description) {
-      //       return description.name;
-      //     }
-      //   }
-      // },
-      // code: {
-      //   title: 'Code',
-      //   type: 'string',
-      // },
-      // parent: {
-      //   title: 'Parent',
-      //   type: 'string',
-      //   valuePrepareFunction: (parent) => {
-      //     return parent ? parent.code : 'root';
-      //   }
-      // },
-      // visible: {
-      //   filter: false,
-      //   title: 'Visible',
-      //   type: 'custom',
-      //   renderComponent: ButtonRenderComponent,
-      //   defaultValue: false,
-      //   // type: 'html',
-      //   // valuePrepareFunction: (data) => {
-      //   //   console.log(data);
-      //   //   return this._sanitizer.bypassSecurityTrustHtml('<input type="checkbox" [checked]="data">');
-      //   // }
-      // },
+      creationDate: {
+        title: 'Created',
+        type: 'string',
+      },
     },
   };
 
