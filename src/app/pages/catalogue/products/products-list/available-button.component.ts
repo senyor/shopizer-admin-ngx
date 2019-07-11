@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  template: `
-    <input type="checkbox" [checked]="value"  (click)="clicked($event) "/>
-  `,
+  template: `<input type="checkbox" [checked]="value"  (click)="clicked($event) "/>`,
 })
 export class AvailableButtonComponent implements OnInit {
   @Input() value: string | number;

@@ -15,12 +15,9 @@ export class ProductsListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   perPage = 10;
   loadingList = false;
-  buttonDetails = '<button class="btn btn-primary cell-style" ' +
-    'style="padding: 2px 15px; margin: 10px 0px !important;"><span>Details</span></button>';
 
   constructor(
     private productService: ProductService,
-    private _sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit() {
@@ -30,47 +27,54 @@ export class ProductsListComponent implements OnInit {
   getList() {
     this.loadingList = true;
     this.productService.getListOfProducts()
-      .subscribe(products => {
-        console.log(products.products);
-        this.source.load(products.products);
+      .subscribe(res => {
+        const products = res.products;
+        products.forEach(el => {
+          el.name = el.description.name;
+        });
+        console.log(products);
+        this.source.load(products);
         this.source.setPaging(1, this.perPage, true);
         this.loadingList = false;
       });
   }
 
   settings = {
+    mode: 'inline',
+    edit: {
+      editButtonContent: 'Edit',
+      saveButtonContent: '<i class="fas fa-check"></i>',
+      cancelButtonContent: '<i class="fas fa-times"></i>',
+      confirmSave: true
+    },
     actions: {
       columnTitle: '',
       add: false,
-      edit: false,
+      edit: true,
       delete: false,
       position: 'right',
       sort: true,
-      custom: [
-        { name: 'details', title: this._sanitizer.bypassSecurityTrustHtml(this.buttonDetails) }
-      ],
     },
     columns: {
       id: {
         title: 'ID',
         type: 'number',
+        editable: false
       },
       sku: {
         title: 'Sku',
         type: 'string',
+        editable: false
       },
-      description: {
+      name: {
         title: 'Name',
         type: 'string',
-        valuePrepareFunction: (description) => {
-          if (description) {
-            return description.name;
-          }
-        }
+        editable: false,
       },
       quantity: {
         title: 'Qty',
-        type: 'string',
+        type: 'number',
+        editable: true
       },
       available: {
         filter: false,
@@ -78,14 +82,20 @@ export class ProductsListComponent implements OnInit {
         type: 'custom',
         renderComponent: AvailableButtonComponent,
         defaultValue: false,
+        editable: true,
+        editor: {
+          type: 'checkbox'
+        }
       },
       price: {
         title: 'Price',
         type: 'string',
+        editable: true
       },
       creationDate: {
         title: 'Created',
         type: 'string',
+        editable: false
       },
     },
   };
@@ -94,5 +104,20 @@ export class ProductsListComponent implements OnInit {
     console.log(event);
   }
 
+  updateRecord(event) {
+    console.log(event);
+    const product = {
+      available: event.newData.available,
+      price: event.newData.price,
+      quantity: event.newData.quantity
+    };
+    event.confirm.resolve(event.newData);
+    console.log(product);
+    // this.productService.updateProductFromTable(event.newData.id, product)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     event.confirm.resolve(event.newData);
+    //   });
+  }
 
 }

@@ -22,4 +22,12 @@ export class ProductService {
     return this.crudService.get(`/v1/products`, params);
   }
 
+  updateProductFromTable(id, product): Observable<any> {
+    return this.crudService.patch(`/v1/private/product/${id}`, product);
+  }
+  updateProduct(id, product): Observable<any> {
+    return this.crudService.put(`/v1/private/category/${id}`, product);
+  }
+
+
 }
