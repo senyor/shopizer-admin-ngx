@@ -1,3 +1,9 @@
-<p>
-  categories-hierarchy works!
-</p>
+<nb-card size="small" class="page-card">
+  <nb-card-header>
+    Category hierarchy
+  </nb-card-header>
+  <nb-card-body *ngIf="nodes.length !== 0">
+    <tree-root [nodes]="nodes" [options]="options"></tree-root>
+  </nb-card-body>
+</nb-card>
+

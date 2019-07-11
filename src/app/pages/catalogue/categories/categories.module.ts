@@ -12,6 +12,7 @@ import { CategoryDetailComponent } from './category-detail/category-detail.compo
 import { NgxSummernoteModule } from 'ngx-summernote';
 import { NbDialogModule } from '@nebular/theme';
 import { ShowcaseDialogComponent } from './categories-list/showcase-dialog/showcase-dialog.component';
+import { TreeModule } from 'angular-tree-component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { ShowcaseDialogComponent } from './categories-list/showcase-dialog/showc
 
     NgxSummernoteModule,
     NbDialogModule.forChild(),
+    TreeModule
   ],
   entryComponents: [ButtonRenderComponent, ShowcaseDialogComponent],
 })
