@@ -44,4 +44,8 @@ export class CategoryService {
     return this.crudService.get(`/v1/private/category/unique`, params);
   }
 
+  updateHierarchy (childId, parentId): Observable<any> {
+    return this.crudService.put(`/v1/private/category/${childId}/move/${parentId}`, {});
+  }
+
 }

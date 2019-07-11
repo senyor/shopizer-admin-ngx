@@ -59,4 +59,12 @@ export class CategoriesHierarchyComponent implements OnInit {
     }
   }
 
+  onMoveNode($event) {
+    this.categoryService.updateHierarchy($event.node.id, $event.to.parent.id)
+      .subscribe(res => {
+        console.log(res);
+        this.getList();
+      });
+  }
+
 }
