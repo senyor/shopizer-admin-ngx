@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { ProductService } from '../services/product.service';
 import { LocalDataSource } from 'ng2-smart-table';
-import { DomSanitizer } from '@angular/platform-browser';
 import { AvailableButtonComponent } from './available-button.component';
 
 @Component({
@@ -32,7 +31,7 @@ export class ProductsListComponent implements OnInit {
         products.forEach(el => {
           el.name = el.description.name;
         });
-        console.log(products);
+        this.products = [...products];
         this.source.load(products);
         this.source.setPaging(1, this.perPage, true);
         this.loadingList = false;
@@ -68,8 +67,12 @@ export class ProductsListComponent implements OnInit {
       },
       name: {
         title: 'Name',
-        type: 'string',
+        type: 'html',
         editable: false,
+        valuePrepareFunction: (name) => {
+          const id = this.products.find(el => el.name === name).id;
+          return `<a href="#/pages/catalogue/products/product/${id}">${name}</a>`;
+        }
       },
       quantity: {
         title: 'Qty',

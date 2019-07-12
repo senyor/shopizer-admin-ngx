@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { CrudService } from '../../../shared/services/crud.service';
 import { Observable } from 'rxjs';
 
@@ -9,8 +10,8 @@ export class ProductService {
 
   constructor(
     private crudService: CrudService
-  ) { }
-
+  ) {
+  }
 
   getListOfProducts(): Observable<any> {
     const params = {
@@ -23,11 +24,15 @@ export class ProductService {
   }
 
   updateProductFromTable(id, product): Observable<any> {
-    return this.crudService.patch(`/v1/private/product/${id}`, product);
-  }
-  updateProduct(id, product): Observable<any> {
-    return this.crudService.put(`/v1/private/category/${id}`, product);
+    return this.crudService.patch(`/v1/private/product/${ id }`, product);
   }
 
+  updateProduct(id, product): Observable<any> {
+    return this.crudService.put(`/v1/private/category/${ id }`, product);
+  }
+
+  getProductById(id): Observable<any> {
+    return this.crudService.get(`/v1/product/${ id }`);
+  }
 
 }
