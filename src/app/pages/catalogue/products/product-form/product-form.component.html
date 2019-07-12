@@ -35,6 +35,17 @@
   </div>
 
   <div class="form-group">
+    <label class="col-sm-10 col-form-label">Manufacturer</label>
+    <div class="col-sm-12">
+      <nb-select *ngIf="manufacturers.length" placeholder="Select Manufacturer" formControlName='manufacturer'
+                 outline
+                 shape="rectangle">
+        <nb-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.code">{{ manufacturer.code }}</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <div class="form-group">
     <label for="price" class="col-sm-10 col-form-label">Product price</label>
     <div class="col-sm-12">
       <input type="number" class="form-control" id="price" formControlName='price'
@@ -65,6 +76,97 @@
       </nb-checkbox>
     </div>
   </div>
+
+<!--  <div class="form-group">-->
+<!--    <label class="col-sm-10 col-form-label">Language *</label>-->
+<!--    <div class="col-sm-12">-->
+<!--      <nb-select *ngIf="languages.length" placeholder="Select language" outline shape="rectangle"-->
+<!--                 formControlName='selectedLanguage'>-->
+<!--        <nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>-->
+<!--      </nb-select>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+  <!--  <div *ngIf="selectedLanguage.value !== ''" formArrayName='descriptions'>-->
+<!--    <div *ngFor="let descr of descriptions.controls; let j=index">-->
+<!--      <div *ngIf="descr.value.language === selectedLanguage.value">-->
+
+<!--        <div [formGroupName]="j" class="category-description">-->
+
+<!--          <div class="form-group">-->
+<!--            <label for="name" class="col-sm-10 col-form-label">Name</label>-->
+<!--            <div class="col-sm-12">-->
+<!--              <input type="text" class="form-control" id="name" formControlName='name'-->
+<!--                     placeholder="Name" (ngModelChange)="changeName($event, j)">-->
+<!--              <span *ngIf="(descr.get('name').dirty || descr.get('name').touched)-->
+<!--              && descr.get('name').invalid && descr.get('name').errors.required"-->
+<!--                    class="err-message">-->
+<!--                Name is required.-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div class="form-group">-->
+<!--            <label for="highlight" class="col-sm-10 col-form-label">Highlight</label>-->
+<!--            <div class="col-sm-12">-->
+<!--              <input type="text" class="form-control" id="highlight" formControlName='highlights'-->
+<!--                     placeholder="Highlight">-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div class="form-group">-->
+<!--            <label for="friendlyUrl" class="col-sm-10 col-form-label">Friendly Url</label>-->
+<!--            <div class="col-sm-12">-->
+<!--              <input type="text" class="form-control" id="friendlyUrl" formControlName='friendlyUrl'-->
+<!--                     placeholder="Friendly Url">-->
+<!--              <span *ngIf="(descr.get('friendlyUrl').dirty || descr.get('friendlyUrl').touched)-->
+<!--              && descr.get('friendlyUrl').invalid && descr.get('friendlyUrl').errors.required"-->
+<!--                    class="err-message">-->
+<!--                Friendly Url is required.-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div class="form-group">-->
+<!--            <label class="col-sm-10 col-form-label">Category description</label>-->
+<!--            <div class="col-sm-12">-->
+<!--              <div formControlName="description"-->
+<!--                   [ngxSummernote]="config">-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div class="form-group">-->
+<!--            <label for="title" class="col-sm-10 col-form-label">Title</label>-->
+<!--            <div class="col-sm-12">-->
+<!--              <input type="text" class="form-control" id="title" formControlName='title'-->
+<!--                     placeholder="Title">-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div class="form-group">-->
+<!--            <label for="keyWords" class="col-sm-10 col-form-label">(Meta tags) Keywords</label>-->
+<!--            <div class="col-sm-12">-->
+<!--              <input type="text" class="form-control" id="keyWords" formControlName='keyWords'-->
+<!--                     placeholder="Keywords">-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div class="form-group">-->
+<!--            <label for="metaDescription" class="col-sm-10 col-form-label">(Meta tags) Description</label>-->
+<!--            <div class="col-sm-12">-->
+<!--              <input type="text" class="form-control" id="metaDescription" formControlName='metaDescription'-->
+<!--                     placeholder="Description">-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--        </div>-->
+
+
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 
   <!--  <div class="form-group">-->
   <!--    <label class="col-sm-10 col-form-label">Root category</label>-->
