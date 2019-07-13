@@ -31,6 +31,11 @@ const routes: Routes = [{
       loadChildren: 'app/pages/catalogue/catalogue.module#CatalogueModule'
     },
     {
+      path: 'content-management',
+      canActivate: [OrdersGuard],
+      loadChildren: 'app/pages/content-management/content-management.module#ContentManagementModule'
+    },
+    {
       path: '',
       redirectTo: 'home',
       pathMatch: 'full'

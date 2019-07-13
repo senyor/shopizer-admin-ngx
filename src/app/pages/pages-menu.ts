@@ -113,6 +113,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/orders',
     pathMatch: 'prefix'
   },
+  {
+    title: 'Manage Content',
+    icon: 'fas fa-folder',
+    link: '/pages/content-management',
+    pathMatch: 'prefix'
+  },
   // {
   //   title: 'Manage taxes',
   //   // icon: 'fas fa-shopping-cart',
