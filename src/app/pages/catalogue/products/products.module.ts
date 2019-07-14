@@ -8,6 +8,7 @@ import { ProductCreationComponent } from './product-creation/product-creation.co
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { AvailableButtonComponent } from './products-list/available-button.component';
+import { NgxSummernoteModule } from 'ngx-summernote';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AvailableButtonComponent } from './products-list/available-button.compo
   imports: [
     ProductsRoutingModule,
 
-    SharedModule
+    SharedModule,
+    NgxSummernoteModule,
   ],
   entryComponents: [ AvailableButtonComponent ]
 })
