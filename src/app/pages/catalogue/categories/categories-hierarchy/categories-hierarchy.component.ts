@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { CategoryService } from '../services/category.service';
 
@@ -8,6 +8,7 @@ import { CategoryService } from '../services/category.service';
   styleUrls: ['./categories-hierarchy.component.scss']
 })
 export class CategoriesHierarchyComponent implements OnInit {
+  @ViewChild('tree') tree;
   nodes = [];
   options = {
     allowDrag: (node) => {
@@ -65,6 +66,9 @@ export class CategoriesHierarchyComponent implements OnInit {
   }
 
   onMoveNode(event) {
+    const someNode = this.tree.treeModel.getNodeById(event.to.parent.id);
+    someNode.expand();
+
     this.categoryService.updateHierarchy(event.node.id, event.to.parent.id)
       .subscribe(res => {
         console.log(res);

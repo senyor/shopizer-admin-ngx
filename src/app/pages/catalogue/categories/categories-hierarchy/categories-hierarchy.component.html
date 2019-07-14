@@ -4,6 +4,7 @@
   </nb-card-header>
   <nb-card-body *ngIf="nodes.length !== 0">
     <tree-root
+      #tree
       [nodes]="nodes"
       [options]="options"
       (moveNode)="onMoveNode($event)">
