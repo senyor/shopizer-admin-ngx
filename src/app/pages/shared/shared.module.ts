@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { RightSidemenuComponent } from './components/right-sidemenu/right-sidemenu.component';
 import { ImageUploadingComponent } from './components/image-uploading/image-uploading.component';
+import { ShowcaseDialogComponent } from './components/showcase-dialog/showcase-dialog.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ImageUploadingComponent } from './components/image-uploading/image-uplo
     BreadcrumbComponent,
     RightSidemenuComponent,
     NotFoundComponent,
-    ImageUploadingComponent
+    ImageUploadingComponent,
+    ShowcaseDialogComponent
   ],
   imports: [
     CommonModule,
@@ -40,8 +42,10 @@ import { ImageUploadingComponent } from './components/image-uploading/image-uplo
     BreadcrumbComponent,
     RightSidemenuComponent,
     NotFoundComponent,
-    ImageUploadingComponent
-  ]
+    ImageUploadingComponent,
+    ShowcaseDialogComponent
+  ],
+  entryComponents: [ShowcaseDialogComponent],
 })
 export class SharedModule {
 }

@@ -6,7 +6,7 @@ import { CategoryService } from '../services/category.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ButtonRenderComponent } from './button-render.component';
 import { NbDialogService } from '@nebular/theme';
-import { ShowcaseDialogComponent } from './showcase-dialog/showcase-dialog.component';
+import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
 
 @Component({
   selector: 'ngx-categories-list',

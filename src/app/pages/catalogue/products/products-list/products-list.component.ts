@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { AvailableButtonComponent } from './available-button.component';
+import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
+import { NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-products-list',
@@ -17,6 +19,7 @@ export class ProductsListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private dialogService: NbDialogService
   ) { }
 
   ngOnInit() {
@@ -48,7 +51,7 @@ export class ProductsListComponent implements OnInit {
     },
     delete: {
       deleteButtonContent: '<i class="fas fa-trash-alt"></i>',
-      confirmDelete: false
+      confirmDelete: true
     },
     actions: {
       columnTitle: '',
@@ -128,11 +131,18 @@ export class ProductsListComponent implements OnInit {
   }
 
   deleteRecord(event) {
-    this.productService.deleteProduct(event.data.id)
-      .subscribe(res => {
-        console.log(res);
-        this.getList();
-      });
+    this.dialogService.open(ShowcaseDialogComponent, {})
+      .onClose.subscribe(res => {
+      if (res) {
+        event.confirm.resolve();
+        this.productService.deleteProduct(event.data.id)
+          .subscribe(result => {
+            console.log(result);
+          });
+      } else {
+        event.confirm.reject();
+      }
+    });
   }
 
 }
