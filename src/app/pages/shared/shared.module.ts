@@ -10,6 +10,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { RightSidemenuComponent } from './components/right-sidemenu/right-sidemenu.component';
+import { ImageUploadingComponent } from './components/image-uploading/image-uploading.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { RightSidemenuComponent } from './components/right-sidemenu/right-sideme
     OrderListComponent,
     BreadcrumbComponent,
     RightSidemenuComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ImageUploadingComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { RightSidemenuComponent } from './components/right-sidemenu/right-sideme
     OrderListComponent,
     BreadcrumbComponent,
     RightSidemenuComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ImageUploadingComponent
   ]
 })
 export class SharedModule {

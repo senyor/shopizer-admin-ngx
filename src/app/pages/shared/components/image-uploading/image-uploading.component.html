@@ -1,0 +1,7 @@
+<div id="showImage" #showImage></div>
+<input type="file" id="imageInput" #imageInput (change)='imageChange($event)'/>
+
+<div class="image-actions">
+  <button nbButton size="small" outline status="success" (click)='imageInput.click()'>Upload image</button>
+  <button *ngIf="canRemove" nbButton size="small" outline status="danger" (click)='removeImg()'>Remove</button>
+</div>

@@ -2,7 +2,7 @@
 <form [formGroup]='form' *ngIf="!loader">
 
   <div class="form-group">
-    <label for="sku" class="col-sm-10 col-form-label">Sku</label>
+    <label for="sku" class="col-sm-10 col-form-label">Sku*</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="sku" formControlName='sku'
              placeholder="Sku" required>
@@ -28,7 +28,7 @@
   <div class="form-group">
     <label class="col-sm-10 col-form-label">Date available</label>
     <div class="col-sm-12">
-      <input type="date" class="form-control has-person-icon" nbInput placeholder="Form Picker" formControlName='dateAvailable'
+      <input class="form-control has-person-icon" nbInput placeholder="Form Picker" formControlName='dateAvailable'
              [nbDatepicker]="formpicker">
       <nb-datepicker #formpicker></nb-datepicker>
     </div>
@@ -130,7 +130,7 @@
         <div [formGroupName]="j" class="category-description">
 
           <div class="form-group">
-            <label for="name" class="col-sm-10 col-form-label">Name</label>
+            <label for="name" class="col-sm-10 col-form-label">Product name*</label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="name" formControlName='name'
                      placeholder="Name" (ngModelChange)="changeName($event, j)">
@@ -143,7 +143,7 @@
           </div>
 
           <div class="form-group">
-            <label for="highlight" class="col-sm-10 col-form-label">Highlight</label>
+            <label for="highlight" class="col-sm-10 col-form-label">Short product highlight</label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="highlight" formControlName='highlights'
                      placeholder="Highlight">
@@ -151,7 +151,7 @@
           </div>
 
           <div class="form-group">
-            <label for="friendlyUrl" class="col-sm-10 col-form-label">Friendly Url</label>
+            <label for="friendlyUrl" class="col-sm-10 col-form-label">Search engine friendly url </label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="friendlyUrl" formControlName='friendlyUrl'
                      placeholder="Friendly Url">
@@ -200,6 +200,14 @@
 
 
       </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="height" class="col-sm-10 col-form-label">Image</label>
+    <div class="col-sm-12">
+      <ngx-image-uploading [imageUrl]="product?.image?.imageUrl"
+                           (imageChanged)="onImageChanged($event)"></ngx-image-uploading>
     </div>
   </div>
 

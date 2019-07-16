@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ManufactureService } from '../../../shared/services/manufacture.service';
 import { ConfigService } from '../../../shared/services/config.service';
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-product-form',
@@ -35,10 +37,12 @@ export class ProductFormComponent implements OnInit {
     private fb: FormBuilder,
     private manufactureService: ManufactureService,
     private configService: ConfigService,
+    private toastr: ToastrService,
   ) {
   }
 
   ngOnInit() {
+    console.log(this.product);
     this.createForm();
     this.manufactureService.getManufacturers()
       .subscribe(res => {
@@ -61,16 +65,16 @@ export class ProductFormComponent implements OnInit {
     this.form = this.fb.group({
       // uniqueCode: ['', [Validators.required]], // ???
       sku: ['', [Validators.required]],
-      available: [false, [Validators.required]],
-      preOrder: [false, [Validators.required]],
-      dateAvailable: ['', [Validators.required]],
-      manufacturer: ['', [Validators.required]],
+      available: [false],
+      preOrder: [false],
+      dateAvailable: [new Date()],
+      manufacturer: ['DEFAULT'],
       // productType: [0, [Validators.required]], // ???
-      price: [0, [Validators.required]],
+      price: [0],
       quantity: [0, [Validators.required]],
       sortOrder: [0, [Validators.required]],
       productShipeable: [false, [Validators.required]],
-      productSpecifications:  this.fb.group({
+      productSpecifications: this.fb.group({
         weight: [0],
         height: [0],
         width: [0],
@@ -128,7 +132,7 @@ export class ProductFormComponent implements OnInit {
       width: this.product.productSpecifications.width,
       length: this.product.productSpecifications.length,
     };
-    this.form.patchValue({productSpecifications: dimension});
+    this.form.patchValue({ productSpecifications: dimension });
   }
 
   fillFormArray() {
@@ -176,8 +180,67 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
+  onImageChanged(event) {
+    console.log('event', event);
+  }
+
+
   save() {
-    console.log(this.form.value);
+    const productObject = this.form.value;
+    productObject.dateAvailable = moment(productObject.dateAvailable).format('YYYY-MM-DD');
+
+
+    // const manufacturerObject = this.manufacturers.find((el) => el.code === productObject.manufacturer);
+    // console.log(manufacturerObject);
+    // productObject.owner = { id: categoryObj.id, code: categoryObj.code };
+
+    // save important values for filling empty field in result object
+    const tmpObj = {
+      name: '',
+      friendlyUrl: ''
+    };
+    productObject.descriptions.forEach((el) => {
+      if (tmpObj.name === '' && el.name !== '') {
+        tmpObj.name = el.name;
+      }
+      if (tmpObj.friendlyUrl === '' && el.friendlyUrl !== '') {
+        tmpObj.friendlyUrl = el.friendlyUrl;
+      }
+      for (const elKey in el) {
+        if (el.hasOwnProperty(elKey)) {
+          if (!tmpObj.hasOwnProperty(elKey) && el[elKey] !== '') {
+            tmpObj[elKey] = el[elKey];
+          }
+        }
+      }
+    });
+
+    // check required fields
+    if (tmpObj.name === '' || tmpObj.friendlyUrl === '' || productObject.sku === '') {
+      this.toastr.error('Please, fill required fields.', 'Error');
+    } else {
+      productObject.descriptions.forEach((el) => {
+        // fill empty fields
+        for (const elKey in el) {
+          if (el.hasOwnProperty(elKey)) {
+            if (el[elKey] === '' && tmpObj[elKey] !== '') {
+              el[elKey] = tmpObj[elKey];
+            }
+          }
+        }
+      });
+      // check for undefined
+      productObject.descriptions.forEach(el => {
+        for (const elKey in el) {
+          if (el.hasOwnProperty(elKey)) {
+            if (typeof el[elKey] === 'undefined') {
+              el[elKey] = '';
+            }
+          }
+        }
+      });
+      console.log('saving', productObject);
+    }
   }
 
 }
