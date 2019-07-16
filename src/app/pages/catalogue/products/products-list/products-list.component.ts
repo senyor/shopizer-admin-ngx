@@ -46,11 +46,15 @@ export class ProductsListComponent implements OnInit {
       cancelButtonContent: '<i class="fas fa-times"></i>',
       confirmSave: true
     },
+    delete: {
+      deleteButtonContent: '<i class="fas fa-trash-alt"></i>',
+      confirmDelete: false
+    },
     actions: {
       columnTitle: '',
       add: false,
       edit: true,
-      delete: false,
+      delete: true,
       position: 'right',
       sort: true,
     },
@@ -116,11 +120,19 @@ export class ProductsListComponent implements OnInit {
     };
     event.confirm.resolve(event.newData);
     console.log(product);
-    // this.productService.updateProductFromTable(event.newData.id, product)
-    //   .subscribe(res => {
-    //     console.log(res);
-    //     event.confirm.resolve(event.newData);
-    //   });
+    this.productService.updateProductFromTable(event.newData.id, product)
+      .subscribe(res => {
+        console.log(res);
+        event.confirm.resolve(event.newData);
+      });
+  }
+
+  deleteRecord(event) {
+    this.productService.deleteProduct(event.data.id)
+      .subscribe(res => {
+        console.log(res);
+        this.getList();
+      });
   }
 
 }

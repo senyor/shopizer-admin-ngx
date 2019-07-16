@@ -35,4 +35,12 @@ export class ProductService {
     return this.crudService.get(`/v1/product/${ id }`);
   }
 
+  createProduct (product): Observable<any> {
+    return this.crudService.post(`/v1/private/product`, product);
+  }
+
+  deleteProduct(id): Observable<any> {
+    return this.crudService.delete(`/v1/private/product/${ id }`);
+  }
+
 }

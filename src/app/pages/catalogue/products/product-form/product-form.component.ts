@@ -5,6 +5,7 @@ import { ManufactureService } from '../../../shared/services/manufacture.service
 import { ConfigService } from '../../../shared/services/config.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'ngx-product-form',
@@ -38,6 +39,7 @@ export class ProductFormComponent implements OnInit {
     private manufactureService: ManufactureService,
     private configService: ConfigService,
     private toastr: ToastrService,
+    private productService: ProductService
   ) {
   }
 
@@ -192,7 +194,7 @@ export class ProductFormComponent implements OnInit {
 
     // const manufacturerObject = this.manufacturers.find((el) => el.code === productObject.manufacturer);
     // console.log(manufacturerObject);
-    // productObject.owner = { id: categoryObj.id, code: categoryObj.code };
+    // productObject.manufacturer = manufacturerObject;
 
     // save important values for filling empty field in result object
     const tmpObj = {
@@ -240,6 +242,16 @@ export class ProductFormComponent implements OnInit {
         }
       });
       console.log('saving', productObject);
+
+      // if (this.product.id) {
+      //   // updating
+      // } else {
+      //   // creating
+      //   this.productService.createProduct(productObject)
+      //     .subscribe(res => {
+      //       console.log(res);
+      //     });
+      // }
     }
   }
 
