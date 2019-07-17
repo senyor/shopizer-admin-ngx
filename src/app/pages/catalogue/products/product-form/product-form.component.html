@@ -6,6 +6,15 @@
     <div class="col-sm-12">
       <input type="text" class="form-control" id="sku" formControlName='sku'
              placeholder="Sku" required>
+      <span *ngIf="(sku.dirty || sku.touched) && sku.invalid && sku"
+            class="err-message">
+        <span *ngIf="sku.errors.pattern">
+          Only letters and numbers are allowed.
+        </span>
+        <span *ngIf="sku.errors.required">
+          Sku is required.
+        </span>
+      </span>
     </div>
   </div>
 

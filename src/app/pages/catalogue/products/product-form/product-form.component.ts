@@ -36,6 +36,7 @@ export class ProductFormComponent implements OnInit {
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
   productImage = {};
+  skuPattern = '^[a-zA-Zа-яА-Я0-9]+$';
 
   constructor(
     private fb: FormBuilder,
@@ -71,7 +72,7 @@ export class ProductFormComponent implements OnInit {
   private createForm() {
     this.form = this.fb.group({
       // uniqueCode: ['', [Validators.required]], // ???
-      sku: ['', [Validators.required]],
+      sku: ['', [Validators.required, Validators.pattern(this.skuPattern)]],
       available: [false],
       preOrder: [false],
       dateAvailable: [new Date()],
@@ -159,6 +160,10 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
+  get sku() {
+    return this.form.get('sku');
+  }
+
   get selectedLanguage() {
     return this.form.get('selectedLanguage');
   }
@@ -233,7 +238,9 @@ export class ProductFormComponent implements OnInit {
     });
 
     // check required fields
-    if (tmpObj.name === '' || tmpObj.friendlyUrl === '' || productObject.sku === '') {
+    if (!(/^[a-zA-Zа-яА-Я0-9]+$/.test(productObject.sku))) {
+      this.toastr.error('Only letters and numbers are allowed.', 'Error');
+    } else if (tmpObj.name === '' || tmpObj.friendlyUrl === '' || productObject.sku === '') {
       this.toastr.error('Please, fill required fields.', 'Error');
     } else {
       productObject.descriptions.forEach((el) => {
