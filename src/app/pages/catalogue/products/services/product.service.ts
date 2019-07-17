@@ -28,7 +28,7 @@ export class ProductService {
   }
 
   updateProduct(id, product): Observable<any> {
-    return this.crudService.put(`/v1/private/category/${ id }`, product);
+    return this.crudService.put(`/v1/private/product/${ id }`, product);
   }
 
   getProductById(id): Observable<any> {

@@ -57,7 +57,7 @@ export class ImageUploadingComponent implements OnInit {
       const fileReader = event.target as FileReader;
       this.image.src = fileReader.result as string;
       this.showImage.nativeElement.appendChild(this.image);
-      this.imageChanged.emit(files[0]);
+      this.imageChanged.emit({ files: files[0], bytes: this.image.src});
       this.canRemove = true;
     };
     reader.readAsDataURL(files[0]);

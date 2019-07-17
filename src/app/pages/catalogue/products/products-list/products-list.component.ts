@@ -123,11 +123,11 @@ export class ProductsListComponent implements OnInit {
     };
     event.confirm.resolve(event.newData);
     console.log(product);
-    this.productService.updateProductFromTable(event.newData.id, product)
-      .subscribe(res => {
-        console.log(res);
-        event.confirm.resolve(event.newData);
-      });
+    // this.productService.updateProductFromTable(event.newData.id, product)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     event.confirm.resolve(event.newData);
+    //   });
   }
 
   deleteRecord(event) {

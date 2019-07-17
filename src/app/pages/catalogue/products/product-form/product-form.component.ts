@@ -6,6 +6,8 @@ import { ConfigService } from '../../../shared/services/config.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '../services/product.service';
+import { ProductImageService } from '../services/product-image.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-product-form',
@@ -33,13 +35,16 @@ export class ProductFormComponent implements OnInit {
     ],
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
+  productImage = {};
 
   constructor(
     private fb: FormBuilder,
     private manufactureService: ManufactureService,
     private configService: ConfigService,
     private toastr: ToastrService,
-    private productService: ProductService
+    private productService: ProductService,
+    private productImageService: ProductImageService,
+    private router: Router,
   ) {
   }
 
@@ -143,11 +148,11 @@ export class ProductFormComponent implements OnInit {
         (<FormArray>this.form.get('descriptions')).at(index).patchValue({
           language: this.form.value.selectedLanguage,
           name: this.product.description.name,
-          highlights: this.product.description.highlights,
+          highlights: this.product.description.highlights === null ? '' : this.product.description.highlights,
           friendlyUrl: this.product.description.friendlyUrl,
           description: this.product.description.description,
           title: this.product.description.title,
-          keyWords: this.product.description.keyWords,
+          keyWords: this.product.description.keyWords === null ? '' : this.product.description.keyWords,
           metaDescription: this.product.description.metaDescription,
         });
       }
@@ -184,17 +189,27 @@ export class ProductFormComponent implements OnInit {
 
   onImageChanged(event) {
     console.log('event', event);
+    this.productImage = {
+      bytes: event.bytes,
+      contentType: event.files.type,
+      defaultImage: true,
+      files: [
+        null
+      ],
+      id: 0,
+      imageType: 0,
+      imageUrl: '',
+      name: event.files.name,
+      path: ''
+    };
+    console.log(this.productImage);
   }
 
 
   save() {
     const productObject = this.form.value;
     productObject.dateAvailable = moment(productObject.dateAvailable).format('YYYY-MM-DD');
-
-
-    // const manufacturerObject = this.manufacturers.find((el) => el.code === productObject.manufacturer);
-    // console.log(manufacturerObject);
-    // productObject.manufacturer = manufacturerObject;
+    productObject.productSpecifications.manufacturer = productObject.manufacturer;
 
     // save important values for filling empty field in result object
     const tmpObj = {
@@ -243,15 +258,27 @@ export class ProductFormComponent implements OnInit {
       });
       console.log('saving', productObject);
 
-      // if (this.product.id) {
-      //   // updating
-      // } else {
-      //   // creating
-      //   this.productService.createProduct(productObject)
-      //     .subscribe(res => {
-      //       console.log(res);
-      //     });
-      // }
+      if (this.product.id) {
+        this.productService.updateProduct(this.product.id, productObject)
+          .subscribe(res => {
+            console.log(res);
+            this.router.navigate(['pages/catalogue/products/products-list']);
+            // this.productImageService.createImage(this.product.id, this.productImage)
+            //   .subscribe(res1 => {
+            //     console.log(res1);
+            //   });
+          });
+      } else {
+        this.productService.createProduct(productObject)
+          .subscribe(res => {
+            console.log(res);
+            this.router.navigate(['pages/catalogue/products/products-list']);
+            // this.productImageService.createImage(res.id, this.productImage)
+            //   .subscribe(res1 => {
+            //     console.log(res1);
+            //   });
+          });
+      }
     }
   }
 
