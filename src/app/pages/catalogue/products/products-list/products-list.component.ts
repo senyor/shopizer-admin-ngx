@@ -5,6 +5,8 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { AvailableButtonComponent } from './available-button.component';
 import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
 import { NbDialogService } from '@nebular/theme';
+import { StoreService } from '../../../store-management/services/store.service';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'ngx-products-list',
@@ -16,19 +18,41 @@ export class ProductsListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   perPage = 10;
   loadingList = false;
+  stores = [];
+  params = {
+    store: 'DEFAULT',
+    lang: 'en',
+    count: '100',
+    start: '0'
+  };
+  isSuperadmin: boolean;
 
   constructor(
+    private userService: UserService,
     private productService: ProductService,
-    private dialogService: NbDialogService
-  ) { }
+    private dialogService: NbDialogService,
+    private storeService: StoreService,
+  ) {
+    const userId = this.userService.getUserId();
+    this.userService.getUser(userId)
+      .subscribe(user => {
+        this.userService.checkForAccess(user.permissions);
+        this.isSuperadmin = this.userService.roles.isSuperadmin;
+        this.params.store = user.merchant;
+      });
+  }
 
   ngOnInit() {
+    this.storeService.getListOfStores()
+      .subscribe(res => {
+        this.stores = res.data;
+      });
     this.getList();
   }
 
   getList() {
     this.loadingList = true;
-    this.productService.getListOfProducts()
+    this.productService.getListOfProducts(this.params)
       .subscribe(res => {
         const products = res.products;
         products.forEach(el => {
@@ -143,6 +167,11 @@ export class ProductsListComponent implements OnInit {
         event.confirm.reject();
       }
     });
+  }
+
+  choseStore(event) {
+    this.params.store = event;
+    this.getList();
   }
 
 }

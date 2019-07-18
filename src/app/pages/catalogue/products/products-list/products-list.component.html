@@ -3,6 +3,14 @@
     Products
   </nb-card-header>
   <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+
+    <div class="shop-select" *ngIf="isSuperadmin">
+      <nb-select *ngIf="stores.length" outline
+                 shape="rectangle" (selectedChange)="choseStore($event)" [selected]="'DEFAULT'">
+        <nb-option *ngFor="let store of stores" [value]="store.code">{{ store.code }}</nb-option>
+      </nb-select>
+    </div>
+
     <ng2-smart-table
       [settings]="settings"
       [source]="source"

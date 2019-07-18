@@ -13,13 +13,7 @@ export class ProductService {
   ) {
   }
 
-  getListOfProducts(): Observable<any> {
-    const params = {
-      'store': 'DEFAULT',
-      'lang': 'en',
-      'count': '100',
-      'start': '0'
-    };
+  getListOfProducts(params): Observable<any> {
     return this.crudService.get(`/v1/products`, params);
   }
 

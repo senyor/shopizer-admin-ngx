@@ -48,3 +48,8 @@ nb-card-header {
 .ng2-smart-actions {
   width: 100px;
 }
+
+.nb-theme-corporate ng2-smart-table .ng2-smart-actions {
+  padding: 0;
+  height: auto !important;
+}
