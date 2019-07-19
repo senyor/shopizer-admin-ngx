@@ -12,6 +12,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { RightSidemenuComponent } from './components/right-sidemenu/right-sidemenu.component';
 import { ImageUploadingComponent } from './components/image-uploading/image-uploading.component';
 import { ShowcaseDialogComponent } from './components/showcase-dialog/showcase-dialog.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ShowcaseDialogComponent } from './components/showcase-dialog/showcase-d
     RightSidemenuComponent,
     NotFoundComponent,
     ImageUploadingComponent,
-    ShowcaseDialogComponent
+    ShowcaseDialogComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { ShowcaseDialogComponent } from './components/showcase-dialog/showcase-d
     RightSidemenuComponent,
     NotFoundComponent,
     ImageUploadingComponent,
-    ShowcaseDialogComponent
+    ShowcaseDialogComponent,
+    PaginatorComponent
   ],
   entryComponents: [ShowcaseDialogComponent],
 })

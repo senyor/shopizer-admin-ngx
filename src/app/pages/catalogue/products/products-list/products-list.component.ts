@@ -16,16 +16,22 @@ import { UserService } from '../../../shared/services/user.service';
 export class ProductsListComponent implements OnInit {
   products = [];
   source: LocalDataSource = new LocalDataSource();
-  perPage = 10;
   loadingList = false;
   stores = [];
+  isSuperadmin: boolean;
+
+  // paginator
+  perPage = 5;
+  currentPage = 1;
+  totalCount;
+
+  // server params
   params = {
     store: 'DEFAULT',
     lang: 'en',
-    count: '100',
-    start: '0'
+    count: this.perPage,
+    start: 0
   };
-  isSuperadmin: boolean;
 
   constructor(
     private userService: UserService,
@@ -51,16 +57,18 @@ export class ProductsListComponent implements OnInit {
   }
 
   getList() {
+    const startFrom = (this.currentPage - 1) * this.perPage;
+    this.params.start = startFrom;
     this.loadingList = true;
     this.productService.getListOfProducts(this.params)
       .subscribe(res => {
         const products = res.products;
+        this.totalCount = res.totalCount;
         products.forEach(el => {
           el.name = el.description.name;
         });
         this.products = [...products];
         this.source.load(products);
-        this.source.setPaging(1, this.perPage, true);
         this.loadingList = false;
       });
   }
@@ -102,7 +110,7 @@ export class ProductsListComponent implements OnInit {
         editable: false,
         valuePrepareFunction: (name) => {
           const id = this.products.find(el => el.name === name).id;
-          return `<a href="#/pages/catalogue/products/product/${id}">${name}</a>`;
+          return `<a href="#/pages/catalogue/products/product/${ id }">${ name }</a>`;
         }
       },
       quantity: {
@@ -171,6 +179,25 @@ export class ProductsListComponent implements OnInit {
 
   choseStore(event) {
     this.params.store = event;
+    this.getList();
+  }
+
+  // paginator
+  changePage(event) {
+    switch (event.action) {
+      case 'onPage': {
+        this.currentPage = event.data;
+        break;
+      }
+      case 'onPrev': {
+        this.currentPage--;
+        break;
+      }
+      case 'onNext': {
+        this.currentPage++;
+        break;
+      }
+    }
     this.getList();
   }
 
