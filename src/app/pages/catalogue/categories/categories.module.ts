@@ -11,6 +11,8 @@ import { CategoryFormComponent } from './category-form/category-form.component';
 import { CategoryDetailComponent } from './category-detail/category-detail.component';
 import { NgxSummernoteModule } from 'ngx-summernote';
 import { NbDialogModule } from '@nebular/theme';
+import { ShowcaseDialogComponent } from './categories-list/showcase-dialog/showcase-dialog.component';
+import { TreeModule } from 'angular-tree-component';
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import { NbDialogModule } from '@nebular/theme';
     ButtonRenderComponent,
     CategoryFormComponent,
     CategoryDetailComponent,
+    ShowcaseDialogComponent
   ],
   imports: [
     CategoriesRoutingModule,
@@ -30,8 +33,9 @@ import { NbDialogModule } from '@nebular/theme';
 
     NgxSummernoteModule,
     NbDialogModule.forChild(),
+    TreeModule
   ],
-  entryComponents: [ButtonRenderComponent],
+  entryComponents: [ButtonRenderComponent, ShowcaseDialogComponent],
 })
 
 export class CategoriesModule {
