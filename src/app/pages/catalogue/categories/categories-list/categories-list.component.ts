@@ -18,11 +18,6 @@ export class CategoriesListComponent implements OnInit {
   perPage = 10;
   loadingList = false;
   categories = [];
-  buttonDetails = '<button class="btn btn-primary cell-style" ' +
-    'style="padding: 2px 15px; margin: 10px 0px !important;"><span>Details</span></button>';
-  buttonRemove = '<button class="btn btn-danger  cell-style" ' +
-    'style="padding: 2px 15px; margin-bottom: 10px !important;"><span>Remove</span></button>';
-
 
   constructor(
     private categoryService: CategoryService,
@@ -70,8 +65,8 @@ export class CategoriesListComponent implements OnInit {
       position: 'right',
       sort: true,
       custom: [
-        { name: 'details', title: this._sanitizer.bypassSecurityTrustHtml(this.buttonDetails) },
-        { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml(this.buttonRemove) }
+        { name: 'details', title: 'Edit' },
+        { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
       ],
     },
     columns: {

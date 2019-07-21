@@ -3,6 +3,9 @@
     Categories
   </nb-card-header>
   <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
-    <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)"></ng2-smart-table>
+    <ng2-smart-table [settings]="settings"
+                     [source]="source"
+                     (custom)="route($event)">
+    </ng2-smart-table>
   </nb-card-body>
 </nb-card>

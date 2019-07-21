@@ -37,3 +37,13 @@
   width: 100%;
   height: 100px;
 }
+// back to list button
+.back-button {
+  cursor: pointer;
+}
+
+// custom action column in table
+ng2-st-tbody-custom {
+  display: flex;
+  flex-direction: row;
+}
