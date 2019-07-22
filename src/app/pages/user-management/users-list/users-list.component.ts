@@ -11,12 +11,23 @@ import { User } from '../../shared/models/user';
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
-  @ViewChild('item') accordion;
   source: LocalDataSource = new LocalDataSource();
   path = 'User';
   user = User;
-  perPage = 10;
   loadingList = false;
+
+  // paginator
+  perPage = 3;
+  currentPage = 1;
+  totalCount;
+
+  // server params
+  params = {
+    store: 'DEFAULT',
+    lang: 'en',
+    length: this.perPage,
+    start: 0
+  };
 
   constructor(
     private userService: UserService,
@@ -26,27 +37,26 @@ export class UsersListComponent implements OnInit {
   }
 
   getList() {
+    const startFrom = (this.currentPage - 1) * this.perPage;
+    this.params.start = startFrom;
     this.loadingList = true;
-    this.userService.getUsersList()
-      .subscribe(users => {
-        const usersArray = [...users.data];
+    this.userService.getUsersList(this.params)
+      .subscribe(res => {
+        const usersArray = [...res.data];
+        // todo change recordsTotal to totalCount
+        this.totalCount = res.recordsTotal;
 
         // remove current user from list
-        const index = usersArray.findIndex(el => el.id === +this.userService.getUserId());
-        usersArray.splice(index, 1);
+        // const index = usersArray.findIndex(el => el.id === +this.userService.getUserId());
+        // usersArray.splice(index, 1);
 
         // create 'name' property for displaying in the table
         usersArray.map(user => {
           user.name = user.firstName + ' ' + user.lastName;
           return user;
         });
-
         this.source.load(usersArray);
-        this.source.setPaging(1, this.perPage, true);
-
         this.loadingList = false;
-        // open accordion tab
-        this.accordion.toggle();
       });
   }
 
@@ -90,6 +100,25 @@ export class UsersListComponent implements OnInit {
 
   route(event) {
     this.router.navigate(['pages/user-management/user-details/', event.data.id]);
+  }
+
+  // paginator
+  changePage(event) {
+    switch (event.action) {
+      case 'onPage': {
+        this.currentPage = event.data;
+        break;
+      }
+      case 'onPrev': {
+        this.currentPage--;
+        break;
+      }
+      case 'onNext': {
+        this.currentPage++;
+        break;
+      }
+    }
+    this.getList();
   }
 
 }
