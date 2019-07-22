@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./store-branding.component.scss']
 })
 export class StoreBrandingComponent implements OnInit {
+  storeCode = 'DEFAULT';
   loading = false;
   loadingButton = false;
 
@@ -34,7 +35,7 @@ export class StoreBrandingComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.storeService.getBrandingDetails()
+    this.storeService.getBrandingDetails(this.storeCode)
       .subscribe(res => {
         this.logo = res.logo;
         this.fillForm(res.socialNetworks);
@@ -79,10 +80,6 @@ export class StoreBrandingComponent implements OnInit {
 
   }
 
-  imageUploadSubmitted() {
-    // console.log('IMAGE VALUE SUBMIT = =  ', this.imageUpload.controls.imageInput.value);
-  }
-
   allowDrop(e) {
     e.preventDefault();
   }
@@ -109,6 +106,14 @@ export class StoreBrandingComponent implements OnInit {
       }, error => {
         this.loadingButton = false;
       });
+  }
+
+  removeLogo() {
+    console.log('remove');
+    // this.storeService.removeStoreLogo(this.storeCode)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //   });
   }
 
   // end WORK WITH IMAGE

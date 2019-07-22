@@ -56,12 +56,11 @@ export class StoreService {
 
   // start BRANDING
 
-  getBrandingDetails(): Observable<any> {
-    const code = 'DEFAULT';
+  getBrandingDetails(code): Observable<any> {
     return this.crudService.get(`/v1/private/store/${code}/marketing`);
   }
 
-  updateSocialNetworks(body): Observable<any> {
+  updateSocialNetworks(body: any): Observable<any> {
     const code = 'DEFAULT';
     return this.crudService.post(`/v1/private/store/${code}/marketing`, body);
   }
@@ -71,6 +70,10 @@ export class StoreService {
     const uploadData = new FormData();
     uploadData.append('file', file, file.name);
     return this.crudService.post(`/v1/private/store/${code}/marketing/logo`, uploadData);
+  }
+
+  removeStoreLogo(code: string): Observable<any> {
+    return this.crudService.delete(`/v1/private/store/${code}/marketing/logo`);
   }
 
   // end BRANDING

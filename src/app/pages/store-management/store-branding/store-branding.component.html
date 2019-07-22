@@ -9,7 +9,7 @@
   </div>
 
   <nb-card-body *ngIf="!loading">
-    <form [formGroup]="imageUpload" (ngSubmit)="imageUploadSubmitted()">
+    <form [formGroup]="imageUpload">
       <div id="imageDrop" (click)='imageInput.click()' (drop)="drop($event)" (dragover)="allowDrop($event)" #imageDrop>
 
         <img *ngIf="logo" [src]="logo?.path" height="200"/>
@@ -29,6 +29,8 @@
                 nbSpinnerMessage="">
           Save
         </button>
+        <button type="submit" class="btn btn-danger"
+                (click)="removeLogo()">Remove</button>
       </div>
 
     </form>
