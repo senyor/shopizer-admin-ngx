@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { StoreService } from '../services/store.service';
@@ -10,11 +10,20 @@ import { LocalDataSource } from 'ng2-smart-table';
   styleUrls: ['./stores-list.component.scss']
 })
 export class StoresListComponent implements OnInit {
-  @ViewChild('item') accordion;
   source: LocalDataSource = new LocalDataSource();
   store;
-  perPage = 10;
   loadingList = false;
+
+  // paginator
+  perPage = 5;
+  currentPage = 1;
+  totalCount;
+
+  // server params
+  params = {
+    length: this.perPage,
+    start: 0
+  };
 
   constructor(
     private storeService: StoreService,
@@ -26,15 +35,15 @@ export class StoresListComponent implements OnInit {
     this.getList();
   }
 
-  getList () {
+  getList() {
+    const startFrom = (this.currentPage - 1) * this.perPage;
+    this.params.start = startFrom;
     this.loadingList = true;
-    this.storeService.getListOfStores()
-      .subscribe(stores => {
-        this.source.load(stores.data);
-        this.source.setPaging(1, this.perPage, true);
+    this.storeService.getListOfStores(this.params)
+      .subscribe(res => {
+        this.totalCount = res.totalCount;
+        this.source.load(res.data);
         this.loadingList = false;
-        // open accordion tab
-        this.accordion.toggle();
       });
   }
 
@@ -71,6 +80,25 @@ export class StoresListComponent implements OnInit {
 
   route(event) {
     this.router.navigate(['pages/store-management/store-information/', event.data.code]);
+  }
+
+  // paginator
+  changePage(event) {
+    switch (event.action) {
+      case 'onPage': {
+        this.currentPage = event.data;
+        break;
+      }
+      case 'onPrev': {
+        this.currentPage--;
+        break;
+      }
+      case 'onNext': {
+        this.currentPage++;
+        break;
+      }
+    }
+    this.getList();
   }
 
 }
