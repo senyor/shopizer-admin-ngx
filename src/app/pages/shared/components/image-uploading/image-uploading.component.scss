@@ -1,0 +1,11 @@
+#imageInput {
+  display: none;
+}
+
+.image-actions {
+  display: flex;
+  flex-direction: row;
+  button:first-child {
+    margin-right: 20px;
+  }
+}

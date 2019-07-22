@@ -10,6 +10,9 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { RightSidemenuComponent } from './components/right-sidemenu/right-sidemenu.component';
+import { ImageUploadingComponent } from './components/image-uploading/image-uploading.component';
+import { ShowcaseDialogComponent } from './components/showcase-dialog/showcase-dialog.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 
 @NgModule({
@@ -17,7 +20,10 @@ import { RightSidemenuComponent } from './components/right-sidemenu/right-sideme
     OrderListComponent,
     BreadcrumbComponent,
     RightSidemenuComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ImageUploadingComponent,
+    ShowcaseDialogComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,
@@ -37,8 +43,12 @@ import { RightSidemenuComponent } from './components/right-sidemenu/right-sideme
     OrderListComponent,
     BreadcrumbComponent,
     RightSidemenuComponent,
-    NotFoundComponent
-  ]
+    NotFoundComponent,
+    ImageUploadingComponent,
+    ShowcaseDialogComponent,
+    PaginatorComponent
+  ],
+  entryComponents: [ShowcaseDialogComponent],
 })
 export class SharedModule {
 }

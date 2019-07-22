@@ -48,11 +48,54 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-  // {
-  //   title: 'Catalogue',
-  //   // icon: 'fas fa-shopping-cart',
-  //   link: '',
-  // },
+  {
+    title: 'sideNav.catalogue',
+    icon: 'fas fa-tags',
+    children: [
+      {
+        title: 'sideNav.categories',
+        children: [
+          {
+            title: 'sideNav.createCategory',
+            link: '/pages/catalogue/categories/create-category',
+          },
+          {
+            title: 'sideNav.categoriesList',
+            link: '/pages/catalogue/categories/categories-list',
+          },
+          {
+            title: 'sideNav.categoriesHierarchy',
+            link: '/pages/catalogue/categories/categories-hierarchy',
+          },
+        ],
+      },
+      {
+        title: 'sideNav.products',
+        children: [
+          {
+            title: 'sideNav.createProduct',
+            link: '/pages/catalogue/products/create-product',
+          },
+          {
+            title: 'sideNav.productsList',
+            link: '/pages/catalogue/products/products-list',
+          },
+        ],
+      },
+      // {
+      //   title: 'Options',
+      //   // link: '/pages/store-management/stores-list',
+      // },
+      // {
+      //   title: 'Products group',
+      //   // link: '/pages/store-management/stores-list',
+      // },
+      // {
+      //   title: 'List of manufactures',
+      //   // link: '/pages/store-management/stores-list',
+      // },
+    ],
+  },
   // {
   //   title: 'Manage content',
   //   // icon: 'fas fa-shopping-cart',

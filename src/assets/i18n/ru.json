@@ -16,6 +16,17 @@
     "createStore": "Create store ru",
     "storesList": "Stores list ru",
 
+    "catalogue": "Catalogue ru",
+
+    "categories": "Categories ru",
+    "createCategory": "Create category ru",
+    "categoriesList": "Categories list ru",
+    "categoriesHierarchy": "Categories hierarchy ru",
+
+    "products": "Products ru",
+    "createProduct": "Create product ru",
+    "productsList": "Products list ru",
+
     "orders": "Заказы"
   }
 }

@@ -16,6 +16,17 @@
     "createStore": "Create store fr",
     "storesList": "Stores list fr",
 
+    "catalogue": "Catalogue fr",
+
+    "categories": "Categories fr",
+    "createCategory": "Create category fr",
+    "categoriesList": "Categories list fr",
+    "categoriesHierarchy": "Categories hierarchy fr",
+
+    "products": "Products fr",
+    "createProduct": "Create product fr",
+    "productsList": "Products list fr",
+
     "orders": "Orders fr"
   }
 }

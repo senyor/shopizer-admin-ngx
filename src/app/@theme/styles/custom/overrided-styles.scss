@@ -18,9 +18,9 @@
   cursor: pointer;
 }
 
-.ng2-smart-actions ng2-st-tbody-edit-delete {
-  display: none !important;
-}
+//.ng2-smart-actions ng2-st-tbody-edit-delete {
+//  display: none !important;
+//}
 
 .nb-theme-corporate ng2-smart-table .ng2-smart-actions a.ng2-smart-action {
   font-size: 14px !important;
@@ -43,4 +43,17 @@ nb-card.small-card, nb-card.large-card  {
 
 nb-card-header {
   background-color: #F5F5F5;
+}
+
+.toggle-children-wrapper {
+  padding-right: 0 !important;
+}
+
+.ng2-smart-actions {
+  width: 100px;
+}
+
+.nb-theme-corporate ng2-smart-table .ng2-smart-actions {
+  padding: 0;
+  height: auto !important;
 }

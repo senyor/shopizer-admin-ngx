@@ -43,10 +43,6 @@ export class PagesComponent {
           const indexUserList = this.menu[indexUserMenu].children.findIndex(el => el.title === 'sideNav.userList');
           this.menu[indexUserMenu].children.splice(indexUserList, 1);
         }
-        // if (!this.userService.isStore) {
-        //   const indexStoreMenu = this.menu.findIndex(el => el.title === 'sideNav.store');
-        //
-        // }
         if (!this.userService.roles.isSuperadmin) {
           const indexStoreMenu = this.menu.findIndex(el => el.title === 'sideNav.store');
 
@@ -57,8 +53,8 @@ export class PagesComponent {
           const indexUserList = this.menu[indexStoreMenu]
             .children.findIndex(el => el.title === 'sideNav.storesList');
           this.menu[indexStoreMenu].children.splice(indexUserList, 1);
-
         }
+
         this.localedMenu = [...this.menu];
         this.localedMenu = this.translateMenu(this.localedMenu);
       });
@@ -74,7 +70,11 @@ export class PagesComponent {
       title: this.translate.instant(this.menu[index].title),
       children: !el.children ? null : el.children.map((child, childIndex) => ({
         ...child,
-        title: this.translate.instant(this.menu[index].children[childIndex].title)
+        title: this.translate.instant(this.menu[index].children[childIndex].title),
+        children: !child.children ? null : child.children.map((ch, chIndex) => ({
+          ...ch,
+          title: this.translate.instant(this.menu[index].children[childIndex].children[chIndex].title)
+        }))
       }))
     }));
   }
