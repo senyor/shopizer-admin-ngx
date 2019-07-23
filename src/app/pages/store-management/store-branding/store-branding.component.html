@@ -10,27 +10,29 @@
 
   <nb-card-body *ngIf="!loading">
     <form [formGroup]="imageUpload">
-      <div id="imageDrop" (click)='imageInput.click()' (drop)="drop($event)" (dragover)="allowDrop($event)" #imageDrop>
+      <div class="wrapper" (click)='imageInput.click()' (drop)="drop($event)" (dragover)="allowDrop($event)">
+        <div id="imageDrop" #imageDrop>
 
-        <img *ngIf="logo" [src]="logo?.path" height="200"/>
-        <div>Click or Drop File Here</div>
+          <img *ngIf="logo" [src]="logo?.path" height="200"/>
 
+        </div>
+        <div class="uploadingPhrase">Click or Drop File Here</div>
       </div>
 
       <input type="file" formControlName="imageInput" required #imageInput id="imageInput"
              (change)='imageChange($event)'>
 
       <div class="form-group actions-button">
+        <button type="submit" class="btn btn-danger"
+                (click)="removeLogo()">Remove</button>
         <button type="submit" class="btn btn-primary"
                 (click)="saveLogo()"
-                *ngIf="imageUpload.valid"
+                *ngIf="logoFile"
                 nbButton [nbSpinner]="loadingButton"
                 nbSpinnerSize="large"
                 nbSpinnerMessage="">
           Save
         </button>
-        <button type="submit" class="btn btn-danger"
-                (click)="removeLogo()">Remove</button>
       </div>
 
     </form>

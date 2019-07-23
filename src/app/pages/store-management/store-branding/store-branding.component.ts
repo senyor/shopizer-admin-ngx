@@ -70,6 +70,7 @@ export class StoreBrandingComponent implements OnInit {
       image.height = 200;
       image.style.display = 'block';
       image.style.margin = '0 auto';
+      image.className  = 'appendedImage';
       this.imageDrop.nativeElement.appendChild(image);
       if (this.imageUpload.controls.imageInput.value == null) {
         const input = this.imageUpload.controls.imageInput as any;
@@ -109,11 +110,18 @@ export class StoreBrandingComponent implements OnInit {
   }
 
   removeLogo() {
-    console.log('remove');
-    // this.storeService.removeStoreLogo(this.storeCode)
-    //   .subscribe(res => {
-    //     console.log(res);
-    //   });
+    this.logoFile = null;
+    const image = document.getElementsByClassName('appendedImage')[0];
+    const node = document.getElementById('imageDrop');
+    if (!image) {
+      node.removeChild(node.getElementsByTagName('img')[0]);
+    } else {
+      node.removeChild(node.getElementsByClassName('appendedImage')[0]);
+    }
+    this.storeService.removeStoreLogo(this.storeCode)
+      .subscribe(res => {
+        console.log(res);
+      });
   }
 
   // end WORK WITH IMAGE
