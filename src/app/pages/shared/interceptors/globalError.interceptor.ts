@@ -24,7 +24,8 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
       retry(1),
       catchError((error) => {
         let errorMessage = '';
-        if (error.status !== 401) {
+        if (error.status === 404 && req.url.search(/login/gi) !== -1) {
+        } else if (error.status !== 401) {
           if (error.error instanceof ErrorEvent) {
             // client-side error
             errorMessage = `Error: ${ error.error.message }`;
