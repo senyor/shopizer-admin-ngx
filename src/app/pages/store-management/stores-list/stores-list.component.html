@@ -1,13 +1,17 @@
 <nb-card size="small" class="page-card">
-  <nb-accordion [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
-    <nb-accordion-item #item>
-      <nb-accordion-item-header>
-        Stores
-      </nb-accordion-item-header>
-      <nb-accordion-item-body>
-        <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)">
-        </ng2-smart-table>
-      </nb-accordion-item-body>
-    </nb-accordion-item>
-  </nb-accordion>
+  <nb-card-header>
+    Stores
+  </nb-card-header>
+  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+    <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)">
+    </ng2-smart-table>
+
+    <ngx-paginator
+      (changePage)="changePage($event)"
+      [pagesToShow]="5"
+      [currentPage]="currentPage"
+      [perPage]="perPage"
+      [count]="totalCount">
+    </ngx-paginator>
+  </nb-card-body>
 </nb-card>

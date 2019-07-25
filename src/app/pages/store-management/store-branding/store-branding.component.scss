@@ -1,4 +1,4 @@
-#imageDrop {
+.wrapper {
   border: 10px dashed #ccc;
   width: 80%;
   min-height: 200px;
@@ -6,7 +6,7 @@
   padding: 20px;
 }
 
-#imageDrop.hover {
+.wrapper.hover {
   border: 10px dashed #0c0;
 }
 
@@ -15,7 +15,7 @@
   margin: 10px auto;
 }
 
-#imageDrop div {
+.uploadingPhrase {
   font-size: 14px;
   width: 150px;
   margin: 65px auto 0;

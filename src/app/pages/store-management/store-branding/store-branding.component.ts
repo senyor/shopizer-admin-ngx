@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./store-branding.component.scss']
 })
 export class StoreBrandingComponent implements OnInit {
+  storeCode = 'DEFAULT';
   loading = false;
   loadingButton = false;
 
@@ -34,7 +35,7 @@ export class StoreBrandingComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.storeService.getBrandingDetails()
+    this.storeService.getBrandingDetails(this.storeCode)
       .subscribe(res => {
         this.logo = res.logo;
         this.fillForm(res.socialNetworks);
@@ -69,6 +70,7 @@ export class StoreBrandingComponent implements OnInit {
       image.height = 200;
       image.style.display = 'block';
       image.style.margin = '0 auto';
+      image.className  = 'appendedImage';
       this.imageDrop.nativeElement.appendChild(image);
       if (this.imageUpload.controls.imageInput.value == null) {
         const input = this.imageUpload.controls.imageInput as any;
@@ -77,10 +79,6 @@ export class StoreBrandingComponent implements OnInit {
     };
     reader.readAsDataURL(files[0]);
 
-  }
-
-  imageUploadSubmitted() {
-    // console.log('IMAGE VALUE SUBMIT = =  ', this.imageUpload.controls.imageInput.value);
   }
 
   allowDrop(e) {
@@ -108,6 +106,21 @@ export class StoreBrandingComponent implements OnInit {
         this.loadingButton = false;
       }, error => {
         this.loadingButton = false;
+      });
+  }
+
+  removeLogo() {
+    this.logoFile = null;
+    const image = document.getElementsByClassName('appendedImage')[0];
+    const node = document.getElementById('imageDrop');
+    if (!image) {
+      node.removeChild(node.getElementsByTagName('img')[0]);
+    } else {
+      node.removeChild(node.getElementsByClassName('appendedImage')[0]);
+    }
+    this.storeService.removeStoreLogo(this.storeCode)
+      .subscribe(res => {
+        console.log(res);
       });
   }
 
