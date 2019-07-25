@@ -18,6 +18,7 @@ export class OrderDetailsComponent implements OnInit {
   ) {
     this.createForm();
   }
+  loading: boolean;
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {

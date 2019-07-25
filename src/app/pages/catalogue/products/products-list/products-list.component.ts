@@ -49,7 +49,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.storeService.getListOfStores()
+    this.storeService.getListOfStores({start: 0})
       .subscribe(res => {
         this.stores = res.data;
       });

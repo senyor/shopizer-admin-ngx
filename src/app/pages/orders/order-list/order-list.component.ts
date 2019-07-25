@@ -86,7 +86,7 @@ export class OrderListComponent implements OnInit {
   };
 
   route(e) {
-    this.router.navigate(['pages/orders/order-details', e.data.id]);
+    // this.router.navigate(['pages/orders/order-details', e.data.id]);
   }
 
 }
