@@ -1,6 +1,8 @@
 {
   "header": {
-    "languages": "Languages fr"
+    "languages": "Languages fr",
+    "profile": "Profile fr",
+    "logout": "Log out fr"
   },
   "sideNav": {
     "home": "Home fr",

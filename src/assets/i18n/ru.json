@@ -1,15 +1,17 @@
 {
   "header": {
-    "languages": "Язык"
+    "languages": "Languages ru",
+    "profile": "Profile ru",
+    "logout": "Log out ru"
   },
   "sideNav": {
-    "home": "Главная",
+    "home": "Home ru",
 
-    "user" : "User",
-    "myProfile": "Мой профиль",
-    "changePassword": "Сменить пароль",
-    "createUser": "Создать пользователя",
-    "userList": "Список пользователей",
+    "user": "User ru",
+    "myProfile": "My profile ru",
+    "changePassword": "Password change ru",
+    "createUser": "Create user ru",
+    "userList": "Users list ru",
 
     "store": "Store ru",
     "storeDetails": "Store details ru",
@@ -27,6 +29,6 @@
     "createProduct": "Create product ru",
     "productsList": "Products list ru",
 
-    "orders": "Заказы"
+    "orders": "Orders ru"
   }
 }
