@@ -269,6 +269,7 @@ export class ProductFormComponent implements OnInit {
         this.productService.updateProduct(this.product.id, productObject)
           .subscribe(res => {
             console.log(res);
+            this.toastr.success('Product successfully updated.', 'Success');
             this.router.navigate(['pages/catalogue/products/products-list']);
             // this.productImageService.createImage(this.product.id, this.productImage)
             //   .subscribe(res1 => {
@@ -279,6 +280,7 @@ export class ProductFormComponent implements OnInit {
         this.productService.createProduct(productObject)
           .subscribe(res => {
             console.log(res);
+            this.toastr.success('Product successfully created.', 'Success');
             this.router.navigate(['pages/catalogue/products/products-list']);
             // this.productImageService.createImage(res.id, this.productImage)
             //   .subscribe(res1 => {

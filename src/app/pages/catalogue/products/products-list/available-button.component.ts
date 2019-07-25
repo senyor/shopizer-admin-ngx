@@ -7,6 +7,7 @@ import { ProductService } from '../services/product.service';
 })
 export class AvailableButtonComponent implements OnInit {
   @Input() value: boolean;
+  @Input() rowData: any;
 
   constructor(
     private productService: ProductService
@@ -20,13 +21,13 @@ export class AvailableButtonComponent implements OnInit {
     this.value = !this.value;
     const product = {
       available: this.value,
+      price: this.rowData.price,
+      quantity: this.rowData.quantity
     };
-    console.log(product);
-    // this.productService.updateProductFromTable(event.newData.id, product)
-    //   .subscribe(res => {
-    //     console.log(res);
-    //     event.confirm.resolve(event.newData);
-    //   });
+    this.productService.updateProductFromTable(this.rowData.id, product)
+      .subscribe(res => {
+        console.log(res);
+      });
   }
 
 }
