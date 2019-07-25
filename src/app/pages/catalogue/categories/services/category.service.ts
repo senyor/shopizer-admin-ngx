@@ -22,7 +22,10 @@ export class CategoryService {
   }
 
   getCategoryById(id): Observable<any> {
-    return this.crudService.get(`/v1/category/${ id }`);
+    const params = {
+      lang: '_all'
+    };
+    return this.crudService.get(`/v1/category/${ id }`, params);
   }
 
   addCategory(category): Observable<any> {

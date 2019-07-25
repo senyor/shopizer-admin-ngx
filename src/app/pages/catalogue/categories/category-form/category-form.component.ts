@@ -127,6 +127,22 @@ export class CategoryFormComponent implements OnInit {
         });
       }
     });
+    // this.form.value.descriptions.forEach((desc, index) => {
+    //   this.category.descriptions.forEach((description) => {
+    //     if (desc.language === description.language) {
+    //       (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+    //         language: description.language,
+    //         name: description.name,
+    //         highlights: description.highlights,
+    //         friendlyUrl: description.friendlyUrl,
+    //         description: description.description,
+    //         title: description.title,
+    //         keyWords: description.keyWords,
+    //         metaDescription: description.metaDescription,
+    //       });
+    //     }
+    //   });
+    // });
   }
 
   get code() {
