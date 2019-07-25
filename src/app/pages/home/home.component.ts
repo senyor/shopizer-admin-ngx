@@ -26,7 +26,12 @@ export class HomeComponent implements OnInit {
   constructor(
     private userService: UserService
   ) {
-    this.canAccessToOrder = this.userService.roles.canAccessToOrder;
+    const userId = this.userService.getUserId();
+    this.userService.getUser(userId)
+      .subscribe(user => {
+        this.userService.checkForAccess(user.permissions);
+        this.canAccessToOrder = this.userService.roles.canAccessToOrder;
+      });
   }
 
   ngOnInit() {
