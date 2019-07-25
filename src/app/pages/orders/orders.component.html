@@ -1,3 +1,7 @@
 <nb-card size="large">
-  <nb-route-tabset [tabs]="tabs"></nb-route-tabset>
+  <nb-tabset>
+    <nb-tab tabTitle="List of orders">
+      <router-outlet></router-outlet>
+    </nb-tab>
+  </nb-tabset>
 </nb-card>

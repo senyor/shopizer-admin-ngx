@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { OrdersComponent } from './orders.component';
 import { OrderListComponent } from './order-list/order-list.component';
+import { NotFoundComponent } from '../shared/components/not-found/not-found.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 
 const routes: Routes = [
@@ -16,6 +18,14 @@ const routes: Routes = [
       {
         path: 'order-list',
         component: OrderListComponent,
+      },
+      {
+        path: 'order-details/:id',
+        component: OrderDetailsComponent,
+      },
+      {
+        path: '**',
+        component: NotFoundComponent
       }
     ],
   }
