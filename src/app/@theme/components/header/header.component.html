@@ -16,7 +16,7 @@
     [class.right]="position === 'normal'"
     [class.left]="position === 'inverse'">
     <nb-action *nbIsGranted="['view', 'user']" >
-      <nb-user [nbContextMenu]="userMenu" [name]="user"></nb-user>
+      <nb-user [nbContextMenu]="localedMenu" [name]="user"></nb-user>
     </nb-action>
 
     <nb-action size="large" [nbContextMenu]="languages" nbContextMenuTag="language">

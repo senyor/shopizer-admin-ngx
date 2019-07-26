@@ -20,9 +20,10 @@ export class HeaderComponent implements OnInit {
   user: string;
 
   userMenu = [
-    { title: 'Profile' },
-    { title: 'Log out' }
+    { title: 'header.profile' },
+    { title: 'header.logout' }
     ];
+  localedMenu = [...this.userMenu];
 
   languages = [];
 
@@ -45,14 +46,25 @@ export class HeaderComponent implements OnInit {
         this.setLanguage(el.item.title);
       }
     });
+    this.localedMenu = [...this.localedMenu];
+    this.translate.onLangChange.subscribe((lang) => {
+      this.localedMenu = this.translateMenu(this.localedMenu);
+    });
   }
 
   ngOnInit() {
+    this.localedMenu = this.translateMenu(this.localedMenu);
     const userId = localStorage.getItem('userId');
     this.userService.getUser(userId)
       .subscribe((user: any) => {
         this.user = user.firstName + ' ' + user.lastName;
       });
+  }
+
+  translateMenu(array) {
+    return array.map((el, index) => ({
+      title: this.translate.instant(this.userMenu[index].title),
+    }));
   }
 
   getLanguageArray () {
