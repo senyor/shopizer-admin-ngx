@@ -1,6 +1,6 @@
 <nb-card size="small" [nbSpinner]="loading" nbSpinnerStatus="info" nbSpinnerSize="xlarge">
   <nb-card-header>
-    Store information
+    {{ "home.storeInformation" | translate }}
   </nb-card-header>
   <nb-card-body>
 
@@ -19,7 +19,7 @@
       </span>
       <span>
       <i class="fa fa-calendar-alt"></i>
-      Last access: {{user?.lastAccess | date : 'medium'}}
+      {{ "home.lastAccess" | translate }}: {{user?.lastAccess | date : 'medium'}}
       </span>
     </div>
   </nb-card-body>
@@ -27,7 +27,7 @@
 
 <nb-card size="small" *ngIf="canAccessToOrder">
   <nb-card-header>
-    Recent orders
+    {{ "home.recentOrders" | translate }}
   </nb-card-header>
   <nb-card-body>
     <ngx-order-list></ngx-order-list>

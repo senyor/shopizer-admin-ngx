@@ -30,5 +30,43 @@
     "productsList": "Products list",
 
     "orders": "Orders"
+  },
+  "home": {
+    "storeInformation": "Store information",
+    "lastAccess": "Last access",
+    "recentOrders": "Recent orders"
+  },
+  "user": {
+    "pageTitle": "User",
+    "profile": "Profile",
+    "form": {
+      "firstName": "First name",
+      "firstNameErrorRequired": "First name is required.",
+
+      "lastName": "Last name",
+      "lastNameErrorRequired": "Last name is required.",
+
+      "emailAddress": "Email",
+      "emailAddressErrorRequired": "Value has to be a valid email address.",
+      "emailAddressErrorNotValid": "Email address is required.",
+
+      "errorMessage": "errorMessage",
+
+      "passwordErrorRequired": "Password required..",
+      "passwordErrorNotValid": "Password not valid.",
+      "passwordErrorRules": "Should contains at least 1 character lower case, at least 1 character uppercase, at least 1 digit, 6 to 12 characters",
+
+      "active": "Active",
+
+      "defaultLanguage": "Default language",
+      "selectLanguage": "Select language",
+
+      "groups": "Groups"
+    }
+  },
+  "common": {
+    "password": "Password",
+    "save": "Save",
+    "remove": "Remove"
   }
 }

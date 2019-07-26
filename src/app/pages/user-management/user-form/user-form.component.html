@@ -1,39 +1,39 @@
 <form [formGroup]='form'>
 
   <div class="form-group">
-    <label for="firstname" class="col-sm-3 col-form-label">First name *</label>
+    <label for="firstname" class="col-sm-3 col-form-label"> {{ 'user.form.firstName' | translate }} *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="firstname" formControlName='firstName'
-             placeholder="First name" required>
+             placeholder="{{ 'user.form.firstName' | translate }} " required>
       <span *ngIf="(firstName.dirty || firstName.touched) && firstName.invalid && firstName.errors.required"
             class="err-message">
-        First name is required.
+         {{ 'user.form.firstNameErrorRequired' | translate }}
       </span>
     </div>
   </div>
   <div class="form-group">
-    <label for="lastname" class="col-sm-3 col-form-label">Last name *</label>
+    <label for="lastname" class="col-sm-3 col-form-label">{{ 'user.form.lastName' | translate }} *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="lastname" formControlName='lastName'
-             placeholder="Last name" required>
+             placeholder="{{ 'user.form.lastName' | translate }}" required>
       <span *ngIf="(lastName.dirty || lastName.touched) && lastName.invalid && lastName.errors.required"
             class="err-message">
-        Last name is required.
+        {{ 'user.form.lastNameErrorRequired' | translate }}
       </span>
     </div>
   </div>
   <div class="form-group">
-    <label for="email" class="col-sm-3 col-form-label">Email address *</label>
+    <label for="email" class="col-sm-3 col-form-label">{{ 'user.form.emailAddress' | translate }} *</label>
     <div class="col-sm-12">
       <input type="email" class="form-control" id="email" formControlName='emailAddress' (change)="errorMessage = ''"
-             placeholder="Email" required>
+             placeholder="{ 'user.form.emailAddress' | translate }}" required>
       <span *ngIf="(emailAddress.dirty || emailAddress.touched) && emailAddress.invalid && emailAddress"
             class="err-message">
         <span *ngIf="emailAddress.errors.email || emailAddress.errors.pattern">
-          Value has to be a valid email address.
+          {{ 'user.form.emailAddressErrorRequired' | translate }}
         </span>
         <span *ngIf="emailAddress.errors.required">
-          Email address is required.
+          {{ 'user.form.emailAddressErrorNotValid' | translate }}
         </span>
       </span>
       <span *ngIf="errorMessage !==''" class="err-message">
@@ -43,31 +43,30 @@
   </div>
 
   <div class="form-group" *ngIf="!user?.id">
-    <label for="password" class="col-sm-3 col-form-label">Password *</label>
+    <label for="password" class="col-sm-3 col-form-label">{{ 'user.common.password' | translate }} *</label>
     <div class="col-sm-12">
       <input type="password" class="form-control" id="password" formControlName='password'
-             placeholder="Password" required>
+             placeholder="{{ 'user.common.password' | translate }}" required>
       <span *ngIf="(password.dirty || password.touched) && password.invalid && password" class="err-message">
         <span *ngIf="password.errors.required">
-          Password required.
+         {{ 'user.form.passwordErrorRequired' | translate }}
         </span>
         <span *ngIf="password.errors.pattern">
-          Password not valid. <br/>
-          Should contains at least 1 character lower case, at least 1 character uppercase,
-          at least 1 digit, 6 to 12 characters
+          {{ 'user.form.passwordErrorNotValid' | translate }} <br/>
+          {{ 'user.form.passwordErrorRules' | translate }}
         </span>
       </span>
     </div>
   </div>
 
   <div class="form-group">
-    <nb-checkbox status="success" class="col-sm-4" formControlName='active'>Active</nb-checkbox>
+    <nb-checkbox status="success" class="col-sm-4" formControlName='active'>{{ 'user.form.active' | translate }}</nb-checkbox>
   </div>
 
   <div class="form-group">
-    <label class="col-sm-3 col-form-label">Default language *</label>
+    <label class="col-sm-3 col-form-label">{{ 'user.form.defaultLanguage' | translate }} *</label>
     <div class="col-sm-12">
-      <nb-select *ngIf="languages.length" placeholder="Select language" formControlName='defaultLanguage' outline
+      <nb-select *ngIf="languages.length" placeholder="{{ 'user.form.selectLanguage' | translate }}" formControlName='defaultLanguage' outline
                  shape="rectangle">
         <nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>
       </nb-select>
@@ -75,7 +74,7 @@
   </div>
 
   <div class="form-group">
-    <label class="col-sm-3 col-form-label">Groups *</label>
+    <label class="col-sm-3 col-form-label">{{ 'user.form.groups' | translate }} *</label>
     <div class="col-sm-12 group-block">
       <nb-checkbox *ngFor="let group of groups" status="success" [value]="userHasRole(group)" (change)="addRole(group)">
         {{ group.name }}
@@ -86,8 +85,8 @@
   <hr/>
 
   <div class="form-group actions-button">
-    <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid && !user?.id">Save</button>
-    <button *ngIf="!showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">Remove</button>
+    <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid && !user?.id">{{ 'common.save' | translate }}</button>
+    <button *ngIf="!showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">{{ 'common.remove' | translate }}</button>
   </div>
 
 </form>

@@ -30,5 +30,43 @@
     "productsList": "Products list fr",
 
     "orders": "Orders fr"
+  },
+  "home": {
+    "storeInformation": "Store information fr",
+    "lastAccess": "Last access fr",
+    "recentOrders": "Recent orders fr"
+  },
+  "user": {
+    "pageTitle": "User fr",
+    "profile": "Profile fr",
+    "form": {
+      "firstName": "First name fr",
+      "firstNameErrorRequired": "First name is required. fr",
+
+      "lastName": "Last name fr",
+      "lastNameErrorRequired": "Last name is required. fr",
+
+      "emailAddress": "Email fr",
+      "emailAddressErrorRequired": "Value has to be a valid email address. fr",
+      "emailAddressErrorNotValid": "Email address is required. fr",
+
+      "errorMessage": "errorMessage",
+
+      "passwordErrorRequired": "Password required. fr",
+      "passwordErrorNotValid": "Password not valid. fr",
+      "passwordErrorRules": "Should contains at least 1 character lower case, at least 1 character uppercase, at least 1 digit, 6 to 12 characters fr",
+
+      "active": "Active fr",
+
+      "defaultLanguage": "Default language fr",
+      "selectLanguage": "Select language fr",
+
+      "groups": "Groups fr"
+    }
+  },
+  "common": {
+    "password": "Password fr",
+    "save": "Save fr",
+    "remove": "Remove fr"
   }
 }
