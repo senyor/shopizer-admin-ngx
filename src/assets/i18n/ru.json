@@ -69,7 +69,10 @@
 
     "name": "Customer name ru",
     "status": "Status ru",
-    "details": "Details ru"
+    "details": "Details ru",
+    "toastr": {
+      "pwdSuccessfullyChanged": "Password successfully changed. ru"
+    }
   },
   "common": {
     "password": "Пароль",

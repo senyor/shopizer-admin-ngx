@@ -69,7 +69,10 @@
 
     "name": "Customer name fr",
     "status": "Status fr",
-    "details": "Details fr"
+    "details": "Details fr",
+    "toastr": {
+      "pwdSuccessfullyChanged": "Password successfully changed. fr"
+    }
   },
   "common": {
     "password": "Password fr",

@@ -63,7 +63,10 @@
 
     "name": "Customer name",
     "status": "Status",
-    "details": "Details"
+    "details": "Details",
+    "toastr": {
+      "pwdSuccessfullyChanged": "Password successfully changed."
+    }
   },
   "common": {
     "password": "Password",
