@@ -39,40 +39,42 @@
   "user": {
     "pageTitle": "User fr",
     "profile": "Profile fr",
-    "form": {
-      "firstName": "First name fr",
-      "firstNameErrorRequired": "First name is required. fr",
 
-      "lastName": "Last name fr",
-      "lastNameErrorRequired": "Last name is required. fr",
+    "firstName": "First name fr",
+    "firstNameErrorRequired": "First name is required. fr",
 
-      "emailAddress": "Email fr",
-      "emailAddressErrorRequired": "Value has to be a valid email address. fr",
-      "emailAddressErrorNotValid": "Email address is required. fr",
+    "lastName": "Last name fr",
+    "lastNameErrorRequired": "Last name is required. fr",
 
-      "errorMessage": "errorMessage",
+    "emailAddress": "Email fr",
+    "emailAddressErrorRequired": "Value has to be a valid email address. fr",
+    "emailAddressErrorNotValid": "Email address is required. fr",
 
-      "passwordErrorRequired": "Password required. fr",
-      "passwordErrorNotValid": "Password not valid. fr",
-      "passwordErrorRules": "Should contains at least 1 character lower case, at least 1 character uppercase, at least 1 digit, 6 to 12 characters fr",
-
-      "active": "Active fr",
-
-      "defaultLanguage": "Default language fr",
-      "selectLanguage": "Select language fr",
-
-      "groups": "Groups fr"
-    },
-    "newPassword": "New password fr",
-    "repeatNewPassword": "Repeat new password fr",
     "passwordErrorRequired": "Password required. fr",
     "passwordErrorNotValid": "Password not valid. fr",
-    "passwordErrorRules": "Should contains at least 1 character lower case, at least 1 character uppercase, at least 1 digit, 6 to 12 characters. fr",
-    "passwordNotMatch": "Passwords do not match. fr"
+    "passwordErrorRules": "Should contains at least 1 character lower case, at least 1 character uppercase, at least 1 digit, 6 to 12 characters fr",
+
+    "active": "Active fr",
+    "defaultLanguage": "Default language fr",
+    "selectLanguage": "Select language fr",
+    "groups": "Groups fr",
+
+    "newPassword": "New password fr",
+    "repeatNewPassword": "Repeat new password fr",
+    "passwordNotMatch": "Passwords do not match. fr",
+
+    "createUser": "Create user fr",
+    "users": "Users fr",
+    "userDetails": "User details fr",
+
+    "name": "Customer name fr",
+    "status": "Status fr",
+    "details": "Details fr"
   },
   "common": {
     "password": "Password fr",
     "save": "Save fr",
-    "remove": "Remove fr"
+    "remove": "Remove fr",
+    "backToList": "Back to list fr"
   }
 }

@@ -1,11 +1,11 @@
 <nb-actions size="medium" class="back-button">
   <nb-action (click)="backToList()">
-    <i class="fas fa-chevron-left"></i>&nbsp;<span>Back to list</span>
+    <i class="fas fa-chevron-left"></i>&nbsp;<span>{{ 'common.backToList' | translate }}</span>
   </nb-action>
 </nb-actions>
 <nb-card size="small" class="page-card">
   <nb-card-header>
-    User Details
+    {{ 'user.userDetails' | translate }}
   </nb-card-header>
   <nb-card-body>
     <ngx-user-form [user]="user"></ngx-user-form>

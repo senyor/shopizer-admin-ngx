@@ -17,7 +17,7 @@ export class UsersListComponent implements OnInit {
   loadingList = false;
 
   // paginator
-  perPage = 3;
+  perPage = 5;
   currentPage = 1;
   totalCount;
 
