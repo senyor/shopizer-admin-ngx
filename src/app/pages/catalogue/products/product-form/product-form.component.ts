@@ -194,20 +194,7 @@ export class ProductFormComponent implements OnInit {
 
   onImageChanged(event) {
     console.log('event', event);
-    this.productImage = {
-      bytes: event.bytes,
-      contentType: event.files.type,
-      defaultImage: true,
-      files: [
-        null
-      ],
-      id: 0,
-      imageType: 0,
-      imageUrl: '',
-      name: event.files.name,
-      path: ''
-    };
-    console.log(this.productImage);
+    this.productImage = event.files;
   }
 
 
