@@ -2,17 +2,17 @@
 <form [formGroup]='form' *ngIf="!loader">
 
   <div class="form-group">
-    <label for="sku" class="col-sm-10 col-form-label">Sku*</label>
+    <label for="sku" class="col-sm-10 col-form-label">{{ 'product.sku' | translate}} *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="sku" formControlName='sku'
-             placeholder="Sku" required>
+             placeholder="{{ 'product.sku' | translate}}" required>
       <span *ngIf="(sku.dirty || sku.touched) && sku.invalid && sku"
             class="err-message">
         <span *ngIf="sku.errors.pattern">
-          Only letters and numbers are allowed.
+          {{ 'common.alphaDecimalRule' | translate}}
         </span>
         <span *ngIf="sku.errors.required">
-          Sku is required.
+          {{ 'common.skuRequired' | translate}}
         </span>
       </span>
     </div>
@@ -21,7 +21,7 @@
   <div class="form-group">
     <div class="col-sm-12 group-block">
       <nb-checkbox status="success" formControlName='available'>
-        Available
+        {{ 'product.available' | translate}}
       </nb-checkbox>
     </div>
   </div>
@@ -29,13 +29,13 @@
   <div class="form-group">
     <div class="col-sm-12 group-block">
       <nb-checkbox status="success" formControlName='preOrder'>
-        Pre-order
+        {{ 'product.preOrder' | translate}}
       </nb-checkbox>
     </div>
   </div>
 
   <div class="form-group">
-    <label class="col-sm-10 col-form-label">Date available</label>
+    <label class="col-sm-10 col-form-label">{{ 'product.dateAvailable' | translate}}</label>
     <div class="col-sm-12">
       <input class="form-control has-person-icon" nbInput placeholder="Form Picker" formControlName='dateAvailable'
              [nbDatepicker]="formpicker">
@@ -44,9 +44,9 @@
   </div>
 
   <div class="form-group">
-    <label class="col-sm-10 col-form-label">Manufacturer</label>
+    <label class="col-sm-10 col-form-label">{{ 'product.manufacturer' | translate}}</label>
     <div class="col-sm-12">
-      <nb-select *ngIf="manufacturers.length" placeholder="Select Manufacturer" formControlName='manufacturer'
+      <nb-select *ngIf="manufacturers.length" placeholder="{{ 'product.manufacturer' | translate}}" formControlName='manufacturer'
                  outline
                  shape="rectangle">
         <nb-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.code">{{ manufacturer.code }}</nb-option>
@@ -55,33 +55,33 @@
   </div>
 
   <div class="form-group">
-    <label for="price" class="col-sm-10 col-form-label">Product price</label>
+    <label for="price" class="col-sm-10 col-form-label">{{ 'product.price' | translate}}</label>
     <div class="col-sm-12">
       <input type="number" class="form-control" id="price" formControlName='price'
-             placeholder="Price" required>
+             placeholder="{{ 'product.price' | translate}}" required>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="quantity" class="col-sm-10 col-form-label">Quantity</label>
+    <label for="quantity" class="col-sm-10 col-form-label">{{ 'product.quantity' | translate}}</label>
     <div class="col-sm-12">
       <input type="number" class="form-control" id="quantity" formControlName='quantity'
-             placeholder="Quantity" required>
+             placeholder="{{ 'product.quantity' | translate}}" required>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="sortOrder" class="col-sm-10 col-form-label">Order</label>
+    <label for="sortOrder" class="col-sm-10 col-form-label">{{ 'product.order' | translate }}</label>
     <div class="col-sm-12">
       <input type="number" class="form-control" id="sortOrder" formControlName='sortOrder'
-             placeholder="Order" required>
+             placeholder="{{ 'product.order' | translate }}" required>
     </div>
   </div>
 
   <div class="form-group">
     <div class="col-sm-12 group-block">
       <nb-checkbox status="success" formControlName='productShipeable'>
-        Product will be shipped
+        {{ 'product.productShipeable' | translate }}
       </nb-checkbox>
     </div>
   </div>
@@ -89,43 +89,43 @@
   <div class="form-group" formGroupName='productSpecifications'>
 
     <div class="form-group">
-      <label for="weight" class="col-sm-10 col-form-label">Weight</label>
+      <label for="weight" class="col-sm-10 col-form-label">{{ 'common.weight' | translate }}</label>
       <div class="col-sm-12">
         <input type="number" class="form-control" id="weight" formControlName='weight'
-               placeholder="Weight" required>
+               placeholder="{{ 'common.weight' | translate }} " required>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="height" class="col-sm-10 col-form-label">Height</label>
+      <label for="height" class="col-sm-10 col-form-label">{{ 'common.height' | translate}}</label>
       <div class="col-sm-12">
         <input type="number" class="form-control" id="height" formControlName='height'
-               placeholder="Height" required>
+               placeholder="{{ 'common.height' | translate }}" required>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="width" class="col-sm-10 col-form-label">Width</label>
+      <label for="width" class="col-sm-10 col-form-label">{{ 'common.width' | translate}}</label>
       <div class="col-sm-12">
         <input type="number" class="form-control" id="width" formControlName='width'
-               placeholder="Width" required>
+               placeholder="{{ 'common.width' | translate }}" required>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="length" class="col-sm-10 col-form-label">Length</label>
+      <label for="length" class="col-sm-10 col-form-label">{{ 'common.length' | translate}}</label>
       <div class="col-sm-12">
         <input type="number" class="form-control" id="length" formControlName='length'
-               placeholder="Length" required>
+               placeholder="{{ 'common.length' | translate }}" required>
       </div>
     </div>
 
   </div>
 
   <div class="form-group">
-    <label class="col-sm-10 col-form-label">Language *</label>
+    <label class="col-sm-10 col-form-label">{{ 'common.language' | translate }} *</label>
     <div class="col-sm-12">
-      <nb-select *ngIf="languages.length" placeholder="Select language" outline shape="rectangle"
+      <nb-select *ngIf="languages.length" placeholder="{{ 'common.language' | translate }}" outline shape="rectangle"
                  formControlName='selectedLanguage'>
         <nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>
       </nb-select>
@@ -139,41 +139,41 @@
         <div [formGroupName]="j" class="category-description">
 
           <div class="form-group">
-            <label for="name" class="col-sm-10 col-form-label">Product name*</label>
+            <label for="name" class="col-sm-10 col-form-label">{{ 'product.name' | translate }} *</label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="name" formControlName='name'
-                     placeholder="Name" (ngModelChange)="changeName($event, j)">
+                     placeholder="{{ 'product.name' | translate }}" (ngModelChange)="changeName($event, j)">
               <span *ngIf="(descr.get('name').dirty || descr.get('name').touched)
               && descr.get('name').invalid && descr.get('name').errors.required"
                     class="err-message">
-                Name is required.
+               {{ 'product.nameRequired' | translate }}
               </span>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="highlight" class="col-sm-10 col-form-label">Short product highlight</label>
+            <label for="highlight" class="col-sm-10 col-form-label">{{ 'common.highlight' | translate }}</label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="highlight" formControlName='highlights'
-                     placeholder="Highlight">
+                     placeholder="{{ 'common.highlight' | translate }}">
             </div>
           </div>
 
           <div class="form-group">
-            <label for="friendlyUrl" class="col-sm-10 col-form-label">Search engine friendly url </label>
+            <label for="friendlyUrl" class="col-sm-10 col-form-label">{{ 'common.friendlyUrl' | translate }}</label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="friendlyUrl" formControlName='friendlyUrl'
-                     placeholder="Friendly Url">
+                     placeholder="{{ 'common.friendlyUrl' | translate }}">
               <span *ngIf="(descr.get('friendlyUrl').dirty || descr.get('friendlyUrl').touched)
               && descr.get('friendlyUrl').invalid && descr.get('friendlyUrl').errors.required"
                     class="err-message">
-                Friendly Url is required.
+                {{ 'common.friendlyUrlRequired' | translate }}
               </span>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-sm-10 col-form-label">Category description</label>
+            <label class="col-sm-10 col-form-label">{{ 'common.description' | translate }}</label>
             <div class="col-sm-12">
               <div formControlName="description"
                    [ngxSummernote]="config">
@@ -182,26 +182,26 @@
           </div>
 
           <div class="form-group">
-            <label for="title" class="col-sm-10 col-form-label">Title</label>
+            <label for="title" class="col-sm-10 col-form-label">{{ 'common.title' | translate }}</label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="title" formControlName='title'
-                     placeholder="Title">
+                     placeholder="{{ 'common.title' | translate }}">
             </div>
           </div>
 
           <div class="form-group">
-            <label for="keyWords" class="col-sm-10 col-form-label">(Meta tags) Keywords</label>
+            <label for="keyWords" class="col-sm-10 col-form-label">{{ 'common.keyWords' | translate }}</label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="keyWords" formControlName='keyWords'
-                     placeholder="Keywords">
+                     placeholder="{{ 'common.keyWordsPlaceholder' | translate }}">
             </div>
           </div>
 
           <div class="form-group">
-            <label for="metaDescription" class="col-sm-10 col-form-label">(Meta tags) Description</label>
+            <label for="metaDescription" class="col-sm-10 col-form-label">{{ 'common.metaDescription' | translate }}</label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="metaDescription" formControlName='metaDescription'
-                     placeholder="Description">
+                     placeholder="{{ 'common.description' | translate }}">
             </div>
           </div>
 
@@ -213,7 +213,7 @@
   </div>
 
   <div class="form-group">
-    <label for="height" class="col-sm-10 col-form-label">Image</label>
+    <label for="height" class="col-sm-10 col-form-label">{{ 'common.image' | translate }}</label>
     <div class="col-sm-12">
       <ngx-image-uploading [imageUrl]="product?.image?.imageUrl"
                            (imageChanged)="onImageChanged($event)"></ngx-image-uploading>
@@ -223,7 +223,7 @@
   <hr/>
 
   <div class="form-group actions-button">
-    <button type="submit" class="btn btn-primary" (click)="save()">Save</button>
+    <button type="submit" class="btn btn-primary" (click)="save()">{{ 'common.save' | translate }}</button>
   </div>
 
 

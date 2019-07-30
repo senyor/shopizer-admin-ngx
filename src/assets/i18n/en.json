@@ -143,6 +143,29 @@
       "categoryRemoved": "Category removed."
     }
   },
+  "product": {
+    "product": "Product",
+    "sku": "Sku",
+    "skuRequired": "Sku is required.",
+    "name": "Product name",
+    "nameRequired": "Name is required.",
+    "qty": "Qty",
+    "quantity": "Quantity",
+    "available": "Available",
+    "price": "Price",
+    "creationDate": "Created",
+    "preOrder": "Pre-order",
+    "dateAvailable": "Date available",
+    "manufacturer": "Manufacturer",
+    "order": "Order",
+    "productShipeable": "Product will be shipped",
+
+    "toastr": {
+      "productUpdated": "Product updated.",
+      "productCreated": "Product created.",
+      "productRemoved": "Product removed."
+    }
+  },
   "common": {
     "password": "Password",
     "save": "Save",
@@ -156,14 +179,21 @@
     "ok": "Ok",
     "cancel": "Cancel",
     "fillRequiredFields": "Please, fill required fields.",
+    "alphaDecimalRule": "Only letters and numbers are allowed.",
 
-    "highlight": "Highlight",
-    "friendlyUrl": "Friendly Url",
+    "highlight": "Short product highlight",
+    "friendlyUrl": "Search engine friendly url",
     "friendlyUrlRequired": "Friendly Url is required.",
     "description": "Description",
     "title": "Title",
     "keyWords": "(Meta tags) Keywords",
     "keyWordsPlaceholder": "Keywords",
-    "metaDescription": "(Meta tags) Description"
+    "metaDescription": "(Meta tags) Description",
+    "image": "Image",
+
+    "weight": "Weight",
+    "height": "Height",
+    "width": "Width",
+    "length": "Length"
   }
 }

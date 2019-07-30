@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '../services/product.service';
 import { ProductImageService } from '../services/product-image.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-product-form',
@@ -46,6 +47,7 @@ export class ProductFormComponent implements OnInit {
     private productService: ProductService,
     private productImageService: ProductImageService,
     private router: Router,
+    private translate: TranslateService
   ) {
   }
 
@@ -239,9 +241,9 @@ export class ProductFormComponent implements OnInit {
 
     // check required fields
     if (!(/^[a-zA-Zа-яА-Я0-9]+$/.test(productObject.sku))) {
-      this.toastr.error('Only letters and numbers are allowed.', 'Error');
+      this.toastr.error(this.translate.instant('common.alphaDecimalRule'));
     } else if (tmpObj.name === '' || tmpObj.friendlyUrl === '' || productObject.sku === '') {
-      this.toastr.error('Please, fill required fields.', 'Error');
+      this.toastr.error(this.translate.instant('common.fillRequiredFields'));
     } else {
       productObject.descriptions.forEach((el) => {
         // fill empty fields
@@ -269,7 +271,7 @@ export class ProductFormComponent implements OnInit {
         this.productService.updateProduct(this.product.id, productObject)
           .subscribe(res => {
             console.log(res);
-            this.toastr.success('Product successfully updated.', 'Success');
+            this.toastr.success(this.translate.instant('product.toastr.productUpdated'));
             this.router.navigate(['pages/catalogue/products/products-list']);
             // this.productImageService.createImage(this.product.id, this.productImage)
             //   .subscribe(res1 => {
@@ -280,7 +282,7 @@ export class ProductFormComponent implements OnInit {
         this.productService.createProduct(productObject)
           .subscribe(res => {
             console.log(res);
-            this.toastr.success('Product successfully created.', 'Success');
+            this.toastr.success(this.translate.instant('product.toastr.productCreated'));
             this.router.navigate(['pages/catalogue/products/products-list']);
             // this.productImageService.createImage(res.id, this.productImage)
             //   .subscribe(res1 => {
