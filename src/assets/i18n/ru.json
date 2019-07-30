@@ -121,7 +121,12 @@
     "operatingSince": "Web site operating since",
     "useCache": "Use cache",
 
-    "stores": "Stores"
+    "stores": "Stores",
+    "toastr": {
+      "storeUpdated": "Store updated. ru",
+      "storeCreated": "Store created.",
+      "storeRemoved": "Store removed. ru"
+    }
   },
   "common": {
     "password": "Пароль",

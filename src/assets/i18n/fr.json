@@ -121,7 +121,12 @@
     "operatingSince": "Web site operating since",
     "useCache": "Use cache",
 
-    "stores": "Stores"
+    "stores": "Stores",
+    "toastr": {
+      "storeUpdated": "Store updated. fr",
+      "storeCreated": "Store created.",
+      "storeRemoved": "Store removed. fr"
+    }
   },
   "common": {
     "password": "Password fr",

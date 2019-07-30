@@ -115,7 +115,12 @@
     "operatingSince": "Web site operating since",
     "useCache": "Use cache",
 
-    "stores": "Stores"
+    "stores": "Stores",
+    "toastr": {
+      "storeUpdated": "Store updated.",
+      "storeCreated": "Store created.",
+      "storeRemoved": "Store removed."
+    }
   },
   "common": {
     "password": "Password",
