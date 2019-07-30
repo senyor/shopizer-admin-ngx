@@ -5,6 +5,7 @@ import { ConfigService } from '../../shared/services/config.service';
 import { StoreService } from '../services/store.service';
 import { UserService } from '../../shared/services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-store-landing-page',
@@ -39,7 +40,8 @@ export class StoreLandingPageComponent implements OnInit {
     private configService: ConfigService,
     private storeService: StoreService,
     private userService: UserService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private translate: TranslateService
   ) {
     this.createForm();
     this.loading = true;
@@ -103,7 +105,7 @@ export class StoreLandingPageComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         this.loadingButton = false;
-        this.toastrService.success('Page has been added.', 'Success');
+        this.toastrService.success(this.translate.instant('store.pageAdded'));
       }, error1 => {
         this.loadingButton = false;
       });

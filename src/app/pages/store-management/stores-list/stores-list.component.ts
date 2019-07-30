@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { StoreService } from '../services/store.service';
 import { LocalDataSource } from 'ng2-smart-table';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-stores-list',
@@ -25,9 +26,12 @@ export class StoresListComponent implements OnInit {
     start: 0
   };
 
+  settings = {};
+
   constructor(
     private storeService: StoreService,
     private router: Router,
+    private translate: TranslateService,
   ) {
   }
 
@@ -45,38 +49,45 @@ export class StoresListComponent implements OnInit {
         this.source.load(res.data);
         this.loadingList = false;
       });
+    this.setSettings();
+    this.translate.onLangChange.subscribe((event) => {
+      this.setSettings();
+    });
   }
 
-  settings = {
-    actions: {
-      columnTitle: 'Details',
-      add: false,
-      edit: false,
-      delete: false,
-      position: 'right',
-      sort: true,
-      custom: [
-        {
-          name: 'activate',
-          title: '<a>Details</a>'
+
+  setSettings() {
+    this.settings = {
+      actions: {
+        columnTitle: '',
+        add: false,
+        edit: false,
+        delete: false,
+        position: 'right',
+        sort: true,
+        custom: [
+          {
+            name: 'activate',
+            title: `${this.translate.instant('common.details')}`
+          }
+        ],
+      },
+      columns: {
+        id: {
+          title: 'ID',
+          type: 'number',
+        },
+        name: {
+          title: this.translate.instant('store.storeName'),
+          type: 'string',
+        },
+        email: {
+          title: this.translate.instant('user.emailAddress'),
+          type: 'string',
         }
-      ],
-    },
-    columns: {
-      id: {
-        title: 'ID',
-        type: 'number',
       },
-      name: {
-        title: 'Name',
-        type: 'string',
-      },
-      email: {
-        title: 'Email',
-        type: 'string',
-      }
-    },
-  };
+    };
+  }
 
   route(event) {
     this.router.navigate(['pages/store-management/store-information/', event.data.code]);

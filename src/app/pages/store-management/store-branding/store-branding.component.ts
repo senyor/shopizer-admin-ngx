@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StoreService } from '../services/store.service';
 import { Logo } from '../models/logo';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-store-branding',
@@ -29,6 +30,7 @@ export class StoreBrandingComponent implements OnInit {
     private storeService: StoreService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
+    private translate: TranslateService
   ) {
     this.createForm();
   }
@@ -48,10 +50,10 @@ export class StoreBrandingComponent implements OnInit {
   // checkfiles
   checkfiles(files) {
     if (this.acceptedImageTypes[files[0].type] !== true) {
-      this.imageDrop.nativeElement.innerHTML = 'Not an image';
+      this.imageDrop.nativeElement.innerHTML = this.translate.instant('store.notAnImage');
       return;
     } else if (files.length > 1) {
-      this.imageDrop.nativeElement.innerHTML = 'Only one image/time';
+      this.imageDrop.nativeElement.innerHTML = this.translate.instant('store.onlyOneImage');
       return;
     } else {
       this.readfiles(files);
@@ -103,6 +105,7 @@ export class StoreBrandingComponent implements OnInit {
     this.storeService.addStoreLogo(this.logoFile)
       .subscribe(res => {
         console.log(res);
+        this.toastr.success(this.translate.instant('store.logoSaved'));
         this.loadingButton = false;
       }, error => {
         this.loadingButton = false;
@@ -159,7 +162,7 @@ export class StoreBrandingComponent implements OnInit {
     this.storeService.updateSocialNetworks(this.form.value)
       .subscribe(res => {
         console.log(res);
-        this.toastr.success('Social networks successfully updated.', 'Success');
+        this.toastr.success(this.translate.instant('store.networksUpdated'));
       });
   }
 

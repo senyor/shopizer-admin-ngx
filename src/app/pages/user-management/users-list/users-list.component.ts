@@ -29,6 +29,7 @@ export class UsersListComponent implements OnInit {
     length: this.perPage,
     start: 0
   };
+
   settings = {};
 
   constructor(
@@ -61,16 +62,16 @@ export class UsersListComponent implements OnInit {
         this.source.load(usersArray);
         this.loadingList = false;
       });
-    this.setSetting();
+    this.setSettings();
     this.translate.onLangChange.subscribe((event) => {
-      this.setSetting();
+      this.setSettings();
     });
   }
 
   ngOnInit() {
   }
 
-  setSetting() {
+  setSettings() {
     this.settings = {
       actions: {
         columnTitle: '',

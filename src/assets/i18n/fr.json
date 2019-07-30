@@ -47,8 +47,8 @@
     "lastNameErrorRequired": "Last name is required. fr",
 
     "emailAddress": "Email fr",
-    "emailAddressErrorRequired": "Value has to be a valid email address. fr",
-    "emailAddressErrorNotValid": "Email address is required. fr",
+    "emailAddressErrorRequired": "Email address is required. fr",
+    "emailAddressErrorNotValid": "Value has to be a valid email address. fr",
 
     "passwordErrorRequired": "Password required. fr",
     "passwordErrorNotValid": "Password not valid. fr",
@@ -78,11 +78,57 @@
       "emailExists": "Email already exists fr"
     }
   },
+  "store": {
+    "storeInfo": "Store information",
+    "infoText": "Shop settings used for various functionality such us and store addess. Various details adlso used for shipping costs and displayed in product details.",
+
+    "storeLogo": "Store logo",
+    "dropFile": "Click or Drop File Here",
+    "networksMarketing": "Social networks and marketing",
+    "notAnImage": "Not an image",
+    "onlyOneImage": "Only one image/time",
+    "logoSaved": "Logo saved.",
+    "networksUpdated": "Social networks updated.",
+
+    "landingTitle": "Landing page title",
+    "titleRequired": "Page title is required.",
+    "tagDescription": "Meta tags description",
+    "landingText": "Landing page main text",
+    "pageAdded": "Page added",
+
+    "storeName": "Store name fr",
+    "storeNameRequired": "Store name is required.",
+    "storeCode": "Unique Store Code",
+    "codeRequired": "Code is required.",
+    "storePhone": "Store Phone",
+    "phoneRequired": "Phone is required.",
+    "storeEmail": "Store email address",
+    "enterAddress": "Enter your address",
+    "address": "Address",
+    "addressRequired": "Address is required.",
+    "stateProvince": "State / province",
+    "postalCode": "Postal code",
+    "postalCodeRequired": "Postal code is required.",
+    "storeCity": "City",
+    "cityCodeRequired": "City code is required.",
+    "storeCountry": "Country",
+    "supportedLanguages": "Supported languages",
+    "storeCurrency": "Currency",
+    "currencyFormat": "National currency format",
+    "currencyFormatRule": "National currency format ex $1,234.79 or International currency format ex USD1,345.79",
+    "weightUnits": "Weight units",
+    "sizeUnits": "Size units",
+    "operatingSince": "Web site operating since",
+    "useCache": "Use cache",
+
+    "stores": "Stores"
+  },
   "common": {
     "password": "Password fr",
     "save": "Save fr",
     "remove": "Remove fr",
     "backToList": "Back to list fr",
-    "details": "Details fr"
+    "details": "Details fr",
+    "language": "Language"
   }
 }
