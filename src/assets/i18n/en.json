@@ -122,12 +122,48 @@
       "storeRemoved": "Store removed."
     }
   },
+  "category": {
+    "category": "Category",
+    "categoryHierarchy": "Category hierarchy",
+    "createCategory": "Create category",
+    "categoryName": "Category name",
+    "parent": "Parent",
+
+    "rootCategory": "Root category",
+    "code": "Code",
+    "codeRequired": "Сode is required.",
+    "codeExists": "This code already exists.",
+    "order": "Order",
+    "name": "Category name",
+    "nameRequired": "Name is required.",
+
+    "toastr": {
+      "categoryUpdated": "Category updated.",
+      "categoryCreated": "Category created.",
+      "categoryRemoved": "Category removed."
+    }
+  },
   "common": {
     "password": "Password",
     "save": "Save",
     "remove": "Remove",
     "backToList": "Back to list",
     "details": "Details",
-    "language": "Language"
+    "language": "Language",
+    "edit": "Edit",
+    "visible": "Visible",
+    "removeQuestion": "Do you really want to remove this entity?",
+    "ok": "Ok",
+    "cancel": "Cancel",
+    "fillRequiredFields": "Please, fill required fields.",
+
+    "highlight": "Highlight",
+    "friendlyUrl": "Friendly Url",
+    "friendlyUrlRequired": "Friendly Url is required.",
+    "description": "Description",
+    "title": "Title",
+    "keyWords": "(Meta tags) Keywords",
+    "keyWordsPlaceholder": "Keywords",
+    "metaDescription": "(Meta tags) Description"
   }
 }

@@ -7,6 +7,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { ButtonRenderComponent } from './button-render.component';
 import { NbDialogService } from '@nebular/theme';
 import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-categories-list',
@@ -18,12 +19,14 @@ export class CategoriesListComponent implements OnInit {
   perPage = 10;
   loadingList = false;
   categories = [];
+  settings = {};
 
   constructor(
     private categoryService: CategoryService,
     private router: Router,
     private _sanitizer: DomSanitizer,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private translate: TranslateService
   ) {
   }
 
@@ -47,6 +50,7 @@ export class CategoriesListComponent implements OnInit {
     this.loadingList = true;
     this.categoryService.getListOfCategories()
       .subscribe(categories => {
+        console.log(categories);
         categories.forEach((el) => {
           this.getChildren(el);
         });
@@ -54,61 +58,69 @@ export class CategoriesListComponent implements OnInit {
         this.source.setPaging(1, this.perPage, true);
         this.loadingList = false;
       });
+    this.setSettings();
+    this.translate.onLangChange.subscribe((event) => {
+      this.setSettings();
+    });
   }
 
-  settings = {
-    actions: {
-      columnTitle: '',
-      add: false,
-      edit: false,
-      delete: false,
-      position: 'right',
-      sort: true,
-      custom: [
-        { name: 'details', title: 'Edit' },
-        { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
-      ],
-    },
-    columns: {
-      id: {
-        filter: false,
-        title: 'ID',
-        type: 'number',
+  setSettings() {
+    this.settings = {
+      actions: {
+        columnTitle: '',
+        add: false,
+        edit: false,
+        delete: false,
+        position: 'right',
+        sort: true,
+        custom: [
+          { name: 'details', title: `${this.translate.instant('common.edit')}` },
+          { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
+        ],
       },
-      description: {
-        title: 'Name',
-        type: 'string',
-        valuePrepareFunction: (description) => {
-          if (description) {
-            return description.name;
+      columns: {
+        id: {
+          filter: false,
+          title: 'ID',
+          type: 'number',
+        },
+        description: {
+          title: this.translate.instant('category.categoryName'),
+          type: 'string',
+          valuePrepareFunction: (description) => {
+            if (description) {
+              return description.name;
+            }
           }
-        }
+        },
+        code: {
+          title: this.translate.instant('category.code'),
+          type: 'string',
+        },
+        parent: {
+          title: this.translate.instant('category.parent'),
+          type: 'string',
+          valuePrepareFunction: (parent) => {
+            return parent ? parent.code : 'root';
+          }
+        },
+        visible: {
+          filter: false,
+          title: this.translate.instant('common.visible'),
+          type: 'custom',
+          renderComponent: ButtonRenderComponent,
+          defaultValue: false,
+          // type: 'html',
+          // valuePrepareFunction: (data) => {
+          //   console.log(data);
+          //   return this._sanitizer.bypassSecurityTrustHtml('<input type="checkbox" [checked]="data">');
+          // }
+        },
       },
-      code: {
-        title: 'Code',
-        type: 'string',
-      },
-      parent: {
-        title: 'Parent',
-        type: 'string',
-        valuePrepareFunction: (parent) => {
-          return parent ? parent.code : 'root';
-        }
-      },
-      visible: {
-        filter: false,
-        title: 'Visible',
-        type: 'custom',
-        renderComponent: ButtonRenderComponent,
-        defaultValue: false,
-        // type: 'html',
-        // valuePrepareFunction: (data) => {
-        //   console.log(data);
-        //   return this._sanitizer.bypassSecurityTrustHtml('<input type="checkbox" [checked]="data">');
-        // }
-      },
-    },
-  };
+    };
+  }
+
+
 
   // onUserRowSelect (event) {
   //   event.data.visible = event.isSelected;

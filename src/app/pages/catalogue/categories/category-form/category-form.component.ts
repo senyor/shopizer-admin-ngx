@@ -5,6 +5,7 @@ import { CategoryService } from '../services/category.service';
 import { ConfigService } from '../../../shared/services/config.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-category-form',
@@ -42,6 +43,7 @@ export class CategoryFormComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private router: Router,
     private toastr: ToastrService,
+    private translate: TranslateService
   ) {
   }
 
@@ -217,7 +219,7 @@ export class CategoryFormComponent implements OnInit {
 
     // check required fields
     if (tmpObj.name === '' || tmpObj.friendlyUrl === '' || categoryObject.code === '') {
-      this.toastr.error('Please, fill required fields.', 'Error');
+      this.toastr.error(this.translate.instant('common.fillRequiredFields'));
     } else {
       categoryObject.descriptions.forEach((el) => {
         // fill empty fields
@@ -249,7 +251,7 @@ export class CategoryFormComponent implements OnInit {
               this.categoryService.updateCategory(this.category.id, categoryObject)
                 .subscribe(result => {
                   console.log(result);
-                  this.toastr.success('Category successfully created.', 'Success');
+                  this.toastr.success(this.translate.instant('category.toastr.categoryUpdated'));
                   this.router.navigate(['pages/catalogue/categories/categories-list']);
                 });
             } else {
@@ -261,7 +263,7 @@ export class CategoryFormComponent implements OnInit {
               this.categoryService.addCategory(categoryObject)
                 .subscribe(result => {
                   console.log(result);
-                  this.toastr.success('Category successfully created.', 'Success');
+                  this.toastr.success(this.translate.instant('category.toastr.categoryCreated'));
                   this.router.navigate(['pages/catalogue/categories/categories-list']);
                 });
             } else {
@@ -275,7 +277,7 @@ export class CategoryFormComponent implements OnInit {
   remove() {
     this.categoryService.deleteCategory(this.category.id)
       .subscribe(res => {
-        this.toastr.success('Category successfully removed.', 'Success');
+        this.toastr.success(this.translate.instant('category.toastr.categoryRemoved'));
         this.router.navigate(['pages/store-management/stores-list']);
       });
   }
