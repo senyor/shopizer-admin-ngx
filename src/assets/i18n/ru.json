@@ -71,13 +71,18 @@
     "status": "Status ru",
     "details": "Details ru",
     "toastr": {
-      "pwdSuccessfullyChanged": "Password successfully changed. ru"
+      "pwdSuccessfullyChanged": "Password successfully changed. ru",
+      "userUpdated": "User updated. ru",
+      "userCreated": "User created. ru",
+      "userRemoved": "User removed. ru",
+      "emailExists": "Email already exists ru"
     }
   },
   "common": {
     "password": "Пароль",
     "save": "Сохранить",
     "remove": "Удалить",
-    "backToList": "Назад"
+    "backToList": "Назад",
+    "details": "Details ru"
   }
 }

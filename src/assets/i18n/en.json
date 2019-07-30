@@ -65,13 +65,18 @@
     "status": "Status",
     "details": "Details",
     "toastr": {
-      "pwdSuccessfullyChanged": "Password successfully changed."
+      "pwdSuccessfullyChanged": "Password successfully changed.",
+      "userUpdated": "User updated.",
+      "userCreated": "User created.",
+      "userRemoved": "User removed.",
+      "emailExists": "Email already exists"
     }
   },
   "common": {
     "password": "Password",
     "save": "Save",
     "remove": "Remove",
-    "backToList": "Back to list"
+    "backToList": "Back to list",
+    "details": "Details"
   }
 }

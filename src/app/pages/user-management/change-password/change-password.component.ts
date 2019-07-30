@@ -71,9 +71,7 @@ export class ChangePasswordComponent implements OnInit {
     this.userService.updatePassword(this.userService.getUserId(), passwords)
       .subscribe(res => {
         console.log(res);
-        this.translate.get('user.toastr.pwdSuccessfullyChanged').subscribe((translate: string) => {
-          this.toastr.success(translate);
-        });
+        this.toastr.success(this.translate.instant('user.toastr.pwdSuccessfullyChanged'));
         this.router.navigate(['pages/user-management/profile']);
       }, err => {
         this.errorMessage = 'Actual password does not match for user';

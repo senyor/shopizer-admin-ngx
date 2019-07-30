@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { User } from '../../shared/models/user';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-users-list',
@@ -28,10 +29,12 @@ export class UsersListComponent implements OnInit {
     length: this.perPage,
     start: 0
   };
+  settings = {};
 
   constructor(
     private userService: UserService,
     private router: Router,
+    private translate: TranslateService,
   ) {
     this.getList();
   }
@@ -58,45 +61,52 @@ export class UsersListComponent implements OnInit {
         this.source.load(usersArray);
         this.loadingList = false;
       });
+    this.setSetting();
+    this.translate.onLangChange.subscribe((event) => {
+      this.setSetting();
+    });
   }
 
   ngOnInit() {
   }
 
-  settings = {
-    actions: {
-      columnTitle: 'Details',
-      add: false,
-      edit: false,
-      delete: false,
-      position: 'right',
-      sort: true,
-      custom: [
-        {
-          name: 'activate',
-          title: '<a>Details</a>'
+  setSetting() {
+    this.settings = {
+      actions: {
+        columnTitle: '',
+        add: false,
+        edit: false,
+        delete: false,
+        position: 'right',
+        sort: true,
+        custom: [
+          {
+            name: 'activate',
+            title: `${this.translate.instant('common.details')}`
+          }
+        ],
+      },
+      columns: {
+        id: {
+          title: 'ID',
+          type: 'number',
+        },
+        name: {
+          title: this.translate.instant('user.name'),
+          type: 'string',
+        },
+        emailAddress: {
+          title: this.translate.instant('user.emailAddress'),
+          type: 'string',
+        },
+        active: {
+          title: this.translate.instant('user.status'),
+          type: 'string',
         }
-      ],
-    },
-    columns: {
-      id: {
-        title: 'ID',
-        type: 'number',
       },
-      name: {
-        title: 'Customer Name',
-        type: 'string',
-      },
-      emailAddress: {
-        title: 'email',
-        type: 'string',
-      },
-      active: {
-        title: 'Status',
-        type: 'string',
-      }
-    },
-  };
+    };
+  }
+
 
   route(event) {
     this.router.navigate(['pages/user-management/user-details/', event.data.id]);
