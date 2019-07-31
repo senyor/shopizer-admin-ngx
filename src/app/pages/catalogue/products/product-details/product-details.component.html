@@ -1,11 +1,11 @@
 <nb-actions size="medium" class="back-button">
   <nb-action (click)="backToList()">
-    <i class="fas fa-chevron-left"></i>&nbsp;<span>Back to list</span>
+    <i class="fas fa-chevron-left"></i>&nbsp;<span>{{ 'common.backToList' | translate }}</span>
   </nb-action>
 </nb-actions>
 <nb-card size="small" class="page-card">
   <nb-card-header>
-    Product
+    {{ 'product.product' | translate }}
   </nb-card-header>
   <nb-card-body [nbSpinner]="loadingInfo" class="loading-block" nbSpinnerSize="large"
                 nbSpinnerStatus="primary">

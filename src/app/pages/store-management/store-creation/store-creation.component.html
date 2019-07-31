@@ -1,10 +1,10 @@
 <nb-card size="small" class="page-card">
   <nb-card-header>
-    Store information
+    {{ 'store.storeInfo' | translate}}
   </nb-card-header>
   <nb-card-body>
     <span>
-      Shop settings used for various functionality such us and store addess. Various details adlso used for shipping costs and displayed in product details.
+      {{ 'store.infoText' | translate}}
     </span>
     <ngx-store-form [store]="store"></ngx-store-form>
   </nb-card-body>

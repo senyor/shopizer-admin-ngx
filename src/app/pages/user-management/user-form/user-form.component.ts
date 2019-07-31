@@ -1,4 +1,4 @@
- import {
+import {
   ChangeDetectorRef,
   Component,
   Input,
@@ -13,6 +13,7 @@ import { ConfigService } from '../../shared/services/config.service';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../shared/models/user';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-user-form',
@@ -36,6 +37,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     private router: Router,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
+    private translate: TranslateService
   ) {
     this.createForm();
   }
@@ -120,22 +122,22 @@ export class UserFormComponent implements OnInit, OnChanges {
             this.userService.updateUser(+this.user.id, this.form.value)
               .subscribe(res => {
                 console.log(res);
-                this.toastr.success('User updated.', 'Success');
+                this.toastr.success(this.translate.instant('user.toastr.userUpdated'));
                 this.router.navigate(['pages/user-management/users']);
               });
           } else {
-            this.errorMessage = 'Email already exists';
+            this.errorMessage = this.translate.instant('user.toastr.emailExists');
           }
         } else {
           if (!data.exists) {
             this.userService.createUser(this.form.value)
               .subscribe(res => {
                 console.log(res);
-                this.toastr.success('User created.', 'Success');
+                this.toastr.success(this.translate.instant('user.toastr.userCreated'));
                 this.router.navigate(['pages/user-management/users']);
               });
           } else {
-            this.errorMessage = 'Email already exists';
+            this.errorMessage = this.translate.instant('user.toastr.emailExists');
           }
         }
       });
@@ -145,7 +147,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     this.userService.deleteUser(this.user.id)
       .subscribe(res => {
         console.log(res);
-        this.toastr.success('User removed.', 'Success');
+        this.toastr.success(this.translate.instant('user.toastr.userRemoved'));
         this.router.navigate(['pages/user-management/users']);
       });
   }

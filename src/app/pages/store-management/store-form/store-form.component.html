@@ -1,53 +1,53 @@
 <form [formGroup]='form'>
 
   <div class="form-group">
-    <label for="name" class="col-sm-10 col-form-label">Store name *</label>
+    <label for="name" class="col-sm-10 col-form-label">{{ 'store.storeName' | translate }} *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="name" formControlName='name'
-             placeholder="Store name" required>
+             placeholder="{{ 'store.storeName' | translate }}" required>
       <span *ngIf="(name.dirty || name.touched) && name.invalid && name.errors.required"
             class="err-message">
-        Store name is required.
+        {{ 'store.storeNameRequired' | translate }}
       </span>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="code" class="col-sm-10 col-form-label">Unique Store Code *</label>
+    <label for="code" class="col-sm-10 col-form-label">{{ 'store.storeCode' | translate }} *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="code" formControlName='code'
-             placeholder="Unique Store Code" [readOnly]="isReadonlyCode" required>
+             placeholder="{{ 'store.storeCode' | translate }}" [readOnly]="isReadonlyCode" required>
       <span *ngIf="(code.dirty || code.touched) && code.invalid && code.errors.required"
             class="err-message">
-        Code is required.
+        {{ 'store.codeRequired' | translate }}
       </span>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="phone" class="col-sm-10 col-form-label">Store Phone *</label>
+    <label for="phone" class="col-sm-10 col-form-label">{{ 'store.storePhone' | translate }} *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="phone" formControlName='phone'
-             placeholder="Store phone" required>
+             placeholder="{{ 'store.storePhone' | translate }}" required>
       <span *ngIf="(phone.dirty || phone.touched) && phone.invalid && phone.errors.required"
             class="err-message">
-        Phone is required.
+        {{ 'store.phoneRequired' | translate }}
       </span>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="email" class="col-sm-10 col-form-label">Store email address *</label>
+    <label for="email" class="col-sm-10 col-form-label">{{ 'store.storeEmail' | translate }} *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="email" formControlName='email'
-             placeholder="Email" required>
+             placeholder="{{ 'user.emailAddress' | translate }}" required>
       <span *ngIf="(email.dirty || email.touched) && email.invalid && email"
             class="err-message">
         <span *ngIf="email.errors.email || email.errors.pattern">
-          Value has to be a valid email address.
+          {{ 'user.emailAddressErrorNotValid' | translate }}
         </span>
         <span *ngIf="email.errors.required">
-          Email address is required.
+          {{ 'user.emailAddressErrorRequired' | translate }}
         </span>
       </span>
     </div>
@@ -57,19 +57,19 @@
 
     <div class="form-group" *ngIf="env?.googleApiKey">
       <div class="col-sm-12">
-        <input placeholder="Enter your address" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+        <input placeholder="{{ 'store.enterAddress' | translate }}" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
                class="form-control" #search formControlName="searchControl">
       </div>
     </div>
 
     <div class="form-group">
-      <label for="address" class="col-sm-10 col-form-label">Address *</label>
+      <label for="address" class="col-sm-10 col-form-label">{{ 'store.address' | translate }} *</label>
       <div class="col-sm-12">
         <input type="text" class="form-control" id="address" formControlName='address'
-               placeholder="Аddress" required>
+               placeholder="{{ 'store.address' | translate }}" required>
         <span *ngIf="(address.dirty || address.touched) && address.invalid && address.errors.required"
               class="err-message">
-          Address is required.
+          {{ 'store.addressRequired' | translate }}
         </span>
       </div>
     </div>
@@ -77,15 +77,15 @@
     <div class="row">
 
       <div class="form-group col-sm-6">
-        <label class="col-sm-10 col-form-label">State / province</label>
+        <label class="col-sm-10 col-form-label">{{ 'store.stateProvince' | translate }}</label>
         <div class="col-sm-12">
-          <nb-select *ngIf="provinces.length; else chooseCountry" placeholder="Select state/province"
+          <nb-select *ngIf="provinces.length; else chooseCountry" placeholder="{{ 'store.stateProvince' | translate }}"
                      formControlName='stateProvince' outline [selected]="stateProvince.value"
                      shape="rectangle">
             <nb-option *ngFor="let province of provinces" [value]="province.code">{{ province.name }}</nb-option>
           </nb-select>
           <ng-template #chooseCountry>
-            <nb-select placeholder="Select state/province" shape="rectangle" outline disabled>
+            <nb-select placeholder="{{ 'store.stateProvince' | translate }}" shape="rectangle" outline disabled>
               <nb-option></nb-option>
             </nb-select>
           </ng-template>
@@ -93,13 +93,13 @@
       </div>
 
       <div class="form-group col-sm-6">
-        <label for="postalCode" class="col-sm-10 col-form-label">Postal code *</label>
+        <label for="postalCode" class="col-sm-10 col-form-label">{{ 'store.postalCode' | translate }} *</label>
         <div class="col-sm-12">
           <input type="text" class="form-control" id="postalCode" formControlName='postalCode'
-                 placeholder="Postal code" required>
+                 placeholder="{{ 'store.postalCode' | translate }}" required>
           <span *ngIf="(postalCode.dirty || postalCode.touched) && postalCode.invalid && postalCode.errors.required"
                 class="err-message">
-            Postal code is required.
+            {{ 'store.postalCodeRequired' | translate }}
           </span>
         </div>
       </div>
@@ -107,21 +107,21 @@
     </div>
 
     <div class="form-group">
-      <label for="city" class="col-sm-10 col-form-label">City *</label>
+      <label for="city" class="col-sm-10 col-form-label">{{ 'store.storeCity' | translate }} *</label>
       <div class="col-sm-12">
         <input type="text" class="form-control" id="city" formControlName='city'
-               placeholder="City" required>
+               placeholder="{{ 'store.storeCity' | translate }}" required>
         <span *ngIf="(city.dirty || city.touched) && city.invalid && city.errors.required"
               class="err-message">
-          City code is required.
+          {{ 'store.cityCodeRequired' | translate }}
         </span>
       </div>
     </div>
 
     <div class="form-group">
-      <label class="col-sm-10 col-form-label">Country *</label>
+      <label class="col-sm-10 col-form-label">{{ 'store.storeCountry' | translate }} *</label>
       <div class="col-sm-12">
-        <nb-select *ngIf="countries.length" placeholder="Select country" formControlName='country' outline
+        <nb-select *ngIf="countries.length" placeholder="{{ 'store.storeCountry' | translate }}" formControlName='country' outline
                    shape="rectangle" (selectedChange)="countryIsSelected($event)">
           <nb-option *ngFor="let country of countries" [value]="country.code">{{ country.code }}</nb-option>
         </nb-select>
@@ -131,7 +131,7 @@
   </div>
 
   <div class="form-group">
-    <label class="col-sm-10 col-form-label">Supported languages *</label>
+    <label class="col-sm-10 col-form-label">{{ 'store.supportedLanguages' | translate }} *</label>
     <div class="col-sm-12 group-block">
       <nb-checkbox *ngFor="let language of supportedLanguages" status="success"
                    [value]="userHasSupportedLanguage(language)"
@@ -142,9 +142,9 @@
   </div>
 
   <div class="form-group">
-    <label class="col-sm-10 col-form-label">Default language *</label>
+    <label class="col-sm-10 col-form-label">{{ 'user.defaultLanguage' | translate }} *</label>
     <div class="col-sm-12">
-      <nb-select *ngIf="supportedLanguages.length" placeholder="Select language" formControlName='defaultLanguage'
+      <nb-select *ngIf="supportedLanguages.length" placeholder="{{ 'user.defaultLanguage' | translate }}" formControlName='defaultLanguage'
                  outline
                  shape="rectangle">
         <nb-option *ngFor="let language of supportedLanguages" [value]="language.code">{{ language.code }}</nb-option>
@@ -153,9 +153,9 @@
   </div>
 
   <div class="form-group">
-    <label class="col-sm-10 col-form-label">Currency</label>
+    <label class="col-sm-10 col-form-label">{{ 'store.storeCurrency' | translate }}</label>
     <div class="col-sm-12">
-      <nb-select *ngIf="supportedCurrency.length" placeholder="Select currency" formControlName='currency'
+      <nb-select *ngIf="supportedCurrency.length" placeholder="{{ 'store.storeCurrency' | translate }}" formControlName='currency'
                  outline
                  shape="rectangle">
         <nb-option *ngFor="let currency of supportedCurrency" [value]="currency.code">{{ currency.code }}</nb-option>
@@ -166,18 +166,18 @@
   <div class="form-group">
     <div class="col-sm-12 group-block">
       <nb-checkbox status="success" formControlName='currencyFormatNational'>
-        National currency format
+        {{ 'store.currencyFormat' | translate }}
       </nb-checkbox>
     </div>
     <div class="col-sm-12">
-      National currency format ex $1,234.79 or International currency format ex USD1,345.79
+      {{ 'store.currencyFormatRule' | translate }}
     </div>
   </div>
 
   <div class="form-group">
-    <label class="col-sm-10 col-form-label">Weight units *</label>
+    <label class="col-sm-10 col-form-label">{{ 'store.weightUnits' | translate }} *</label>
     <div class="col-sm-12">
-      <nb-select *ngIf="weightList.length" placeholder="Select weight unit" formControlName='weight' outline
+      <nb-select *ngIf="weightList.length" placeholder="{{ 'store.weightUnits' | translate }}" formControlName='weight' outline
                  shape="rectangle">
         <nb-option *ngFor="let el of weightList" [value]="el">{{ el }}</nb-option>
       </nb-select>
@@ -185,9 +185,9 @@
   </div>
 
   <div class="form-group">
-    <label class="col-sm-10 col-form-label">Size units *</label>
+    <label class="col-sm-10 col-form-label">{{ 'store.sizeUnits' | translate }} *</label>
     <div class="col-sm-12">
-      <nb-select *ngIf="sizeList.length" placeholder="Select size unit" formControlName='dimension' outline
+      <nb-select *ngIf="sizeList.length" placeholder="{{ 'store.sizeUnits' | translate }}" formControlName='dimension' outline
                  shape="rectangle">
         <nb-option *ngFor="let el of sizeList" [value]="el">{{ el }}</nb-option>
       </nb-select>
@@ -195,7 +195,7 @@
   </div>
 
   <div class="form-group">
-    <label for="city" class="col-sm-10 col-form-label">Web site operating since</label>
+    <label for="city" class="col-sm-10 col-form-label">{{ 'store.operatingSince' | translate }}</label>
     <div class="col-sm-12">
       <input class="form-control has-person-icon" nbInput placeholder="Form Picker" formControlName='inBusinessSince'
              [nbDatepicker]="formpicker">
@@ -206,7 +206,7 @@
   <div class="form-group">
     <div class="col-sm-12 group-block">
       <nb-checkbox status="success" formControlName='useCache'>
-        Use cache
+        {{ 'store.useCache' | translate }}
       </nb-checkbox>
     </div>
   </div>
@@ -214,8 +214,8 @@
   <hr/>
 
   <div class="form-group actions-button">
-    <button *ngIf="isStore" type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid">Save</button>
-    <button *ngIf="!showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">Remove</button>
+    <button *ngIf="isStore" type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid">{{ 'common.save' | translate}}</button>
+    <button *ngIf="!showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">{{ 'common.remove' | translate}}</button>
   </div>
 
 </form>

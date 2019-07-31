@@ -7,6 +7,7 @@ import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dia
 import { NbDialogService } from '@nebular/theme';
 import { StoreService } from '../../../store-management/services/store.service';
 import { UserService } from '../../../shared/services/user.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-products-list',
@@ -32,12 +33,14 @@ export class ProductsListComponent implements OnInit {
     count: this.perPage,
     start: 0
   };
+  settings = {};
 
   constructor(
     private userService: UserService,
     private productService: ProductService,
     private dialogService: NbDialogService,
     private storeService: StoreService,
+    private translate: TranslateService
   ) {
     const userId = this.userService.getUserId();
     this.userService.getUser(userId)
@@ -71,76 +74,84 @@ export class ProductsListComponent implements OnInit {
         this.source.load(products);
         this.loadingList = false;
       });
+    this.setSettings();
+    this.translate.onLangChange.subscribe((event) => {
+      this.setSettings();
+    });
   }
 
-  settings = {
-    mode: 'inline',
-    edit: {
-      editButtonContent: 'Edit',
-      saveButtonContent: '<i class="fas fa-check"></i>',
-      cancelButtonContent: '<i class="fas fa-times"></i>',
-      confirmSave: true
-    },
-    delete: {
-      deleteButtonContent: '<i class="fas fa-trash-alt"></i>',
-      confirmDelete: true
-    },
-    actions: {
-      columnTitle: '',
-      add: false,
-      edit: true,
-      delete: true,
-      position: 'right',
-      sort: true,
-    },
-    columns: {
-      id: {
-        title: 'ID',
-        type: 'number',
-        editable: false
+  setSettings() {
+    this.settings = {
+      mode: 'inline',
+      edit: {
+        editButtonContent: this.translate.instant('common.edit'),
+        saveButtonContent: '<i class="fas fa-check"></i>',
+        cancelButtonContent: '<i class="fas fa-times"></i>',
+        confirmSave: true
       },
-      sku: {
-        title: 'Sku',
-        type: 'string',
-        editable: false
+      delete: {
+        deleteButtonContent: '<i class="fas fa-trash-alt"></i>',
+        confirmDelete: true
       },
-      name: {
-        title: 'Name',
-        type: 'html',
-        editable: false,
-        valuePrepareFunction: (name) => {
-          const id = this.products.find(el => el.name === name).id;
-          return `<a href="#/pages/catalogue/products/product/${ id }">${ name }</a>`;
-        }
+      actions: {
+        columnTitle: '',
+        add: false,
+        edit: true,
+        delete: true,
+        position: 'right',
+        sort: true,
       },
-      quantity: {
-        title: 'Qty',
-        type: 'number',
-        editable: true
+      columns: {
+        id: {
+          title: 'ID',
+          type: 'number',
+          editable: false
+        },
+        sku: {
+          title: this.translate.instant('product.sku'),
+          type: 'string',
+          editable: false
+        },
+        name: {
+          title: this.translate.instant('product.name'),
+          type: 'html',
+          editable: false,
+          valuePrepareFunction: (name) => {
+            const id = this.products.find(el => el.name === name).id;
+            return `<a href="#/pages/catalogue/products/product/${ id }">${ name }</a>`;
+          }
+        },
+        quantity: {
+          title: this.translate.instant('product.qty'),
+          type: 'number',
+          editable: true
+        },
+        available: {
+          filter: false,
+          title: this.translate.instant('product.available'),
+          type: 'custom',
+          renderComponent: AvailableButtonComponent,
+          defaultValue: false,
+          editable: true,
+          editor: {
+            type: 'checkbox'
+          }
+        },
+        price: {
+          title: this.translate.instant('product.price'),
+          type: 'string',
+          editable: true
+        },
+        creationDate: {
+          title: this.translate.instant('product.creationDate'),
+          type: 'string',
+          editable: false
+        },
       },
-      available: {
-        filter: false,
-        title: 'Available',
-        type: 'custom',
-        renderComponent: AvailableButtonComponent,
-        defaultValue: false,
-        editable: true,
-        editor: {
-          type: 'checkbox'
-        }
-      },
-      price: {
-        title: 'Price',
-        type: 'string',
-        editable: true
-      },
-      creationDate: {
-        title: 'Created',
-        type: 'string',
-        editable: false
-      },
-    },
-  };
+    };
+  }
+
+
 
   route(event) {
     console.log(event);

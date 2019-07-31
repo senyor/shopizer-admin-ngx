@@ -19,6 +19,7 @@ import { StoreService } from '../services/store.service';
 import { UserService } from '../../shared/services/user.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-store-form',
@@ -64,6 +65,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
     private userService: UserService,
     private router: Router,
     private toastr: ToastrService,
+    private translate: TranslateService
   ) {
     this.createForm();
     this.isStore = this.userService.roles.isStore;
@@ -255,7 +257,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
       this.storeService.updateStore(this.form.value)
         .subscribe(store => {
           console.log(store);
-          this.toastr.success('Store successfully updated.', 'Success');
+          this.toastr.success(this.translate.instant('store.toastr.storeUpdated'));
           this.router.navigate(['pages/store-management/stores-list']);
         });
     } else {
@@ -267,7 +269,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
             this.storeService.createStore(this.form.value)
               .subscribe(store => {
                 console.log(store);
-                this.toastr.success('Store successfully created.', 'Success');
+                this.toastr.success(this.translate.instant('store.toastr.storeCreated'));
                 this.router.navigate(['pages/store-management/stores-list']);
               });
           }
@@ -279,7 +281,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
     this.storeService.deleteStore(this.store.code)
       .subscribe(res => {
         console.log(res);
-        this.toastr.success('Store successfully removed.', 'Success');
+        this.toastr.success(this.translate.instant('store.toastr.storeRemoved'));
         this.router.navigate(['pages/store-management/stores-list']);
       });
   }
