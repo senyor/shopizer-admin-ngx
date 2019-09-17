@@ -18,13 +18,20 @@ export class AuthService {
   ) {
   }
 
-  logon(username: string, password: string): Observable<any> {
+  login(username: string, password: string): Observable<any> {
     return this.crudService.post(this.loginUserUrl, { username, password });
   }
 
   logout() {
     this.tokenService.destroyToken();
     this.userService.destroyUserId();
+    this.userService.roles = {
+      canAccessToOrder: false,
+      isAdmin: false,
+      isSuperadmin: false,
+      isStore: false,
+      isProduct: false,
+    };
   }
 
   refresh(): Observable<any> {

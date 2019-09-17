@@ -44,9 +44,6 @@ export class UserService {
   checkForAccess(array) {
     roles.forEach(role => {
       array.forEach(elem => {
-        if (role.name === elem.name) {
-          this.roles.canAccessToOrder = true;
-        }
         switch (elem.name) {
           case 'ADMIN':
             this.roles.isAdmin = true;
@@ -56,6 +53,8 @@ export class UserService {
             this.roles.isStore = true;
           case 'PRODUCTS':
             this.roles.isProduct = true;
+          case role.name:
+            this.roles.canAccessToOrder = true;
         }
       });
     });

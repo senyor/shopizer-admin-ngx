@@ -20,9 +20,9 @@ export class HeaderComponent implements OnInit {
   user: string;
 
   userMenu = [
-    { title: 'header.profile' },
-    { title: 'header.logout' }
-    ];
+    { title: 'header.profile', tag: 'profile' },
+    { title: 'header.logout', tag: 'logout' }
+  ];
   localedMenu = [...this.userMenu];
 
   languages = [];
@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
 
     this.getLanguageArray();
     menuService.onItemClick().subscribe((el) => {
-      if (el.item.title === 'Log out') {
+      if (el.item['tag'] === 'logout') {
         this.authService.logout();
         this.router.navigate(['auth']);
       }
@@ -63,6 +63,7 @@ export class HeaderComponent implements OnInit {
 
   translateMenu(array) {
     return array.map((el, index) => ({
+      ...el,
       title: this.translate.instant(this.userMenu[index].title),
     }));
   }
@@ -74,6 +75,7 @@ export class HeaderComponent implements OnInit {
   }
 
   setLanguage (lang) {
+    localStorage.setItem('lang', lang);
     this.translate.setDefaultLang(lang);
     this.translate.use(lang);
   }

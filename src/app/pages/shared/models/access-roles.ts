@@ -1,7 +1,8 @@
-export const  roles = [{
-  'id': 1,
-  'name': 'STORE_ADMIN'
-},
+export const roles = [
+  {
+    'id': 1,
+    'name': 'STORE_ADMIN'
+  },
   {
     'id': 2,
     'name': 'SUPERADMIN'

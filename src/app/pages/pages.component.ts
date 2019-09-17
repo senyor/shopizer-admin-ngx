@@ -16,16 +16,16 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class PagesComponent {
 
-  menu = MENU_ITEMS;
+  menu = [...MENU_ITEMS];
   localedMenu = [...this.menu];
 
   constructor(
     private userService: UserService,
     private translate: TranslateService
   ) {
-
     const userId = this.userService.getUserId();
     // check access to order page
+    this.menu = [...MENU_ITEMS];
     this.userService.getUser(userId)
       .subscribe(user => {
         this.userService.checkForAccess(user.permissions);
