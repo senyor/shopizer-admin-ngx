@@ -12,6 +12,7 @@ import { StoreDetailInfoComponent } from './store-detail-info/store-detail-info.
 import { StoreBrandingComponent } from './store-branding/store-branding.component';
 import { RetailerComponent } from './retailer/retailer.component';
 import { RetailerPageGuard } from '../shared/guards/retailer-page.guard';
+import { RetailerListComponent } from './retailer-list/retailer-list.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,11 @@ const routes: Routes = [
         path: 'retailer',
         component: RetailerComponent,
         canActivate: [RetailerPageGuard]
+      },
+      {
+        path: 'retailer-list',
+        component: RetailerListComponent,
+        // canActivate: [RetailerPageGuard]
       },
     ],
   }

@@ -14,6 +14,7 @@ import { NgxSummernoteModule } from 'ngx-summernote';
 import { StoreDetailInfoComponent } from './store-detail-info/store-detail-info.component';
 import { StoreBrandingComponent } from './store-branding/store-branding.component';
 import { RetailerComponent } from './retailer/retailer.component';
+import { RetailerListComponent } from './retailer-list/retailer-list.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { RetailerComponent } from './retailer/retailer.component';
     StoreLandingPageComponent,
     StoreDetailInfoComponent,
     RetailerComponent,
+    RetailerListComponent
   ],
   imports: [
     StoreManagementRoutingModule,
