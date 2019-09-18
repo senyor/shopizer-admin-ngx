@@ -41,6 +41,9 @@ export class HeaderComponent implements OnInit {
         this.authService.logout();
         this.router.navigate(['auth']);
       }
+      if (el.item['tag'] === 'profile') {
+        this.router.navigate(['pages/user-management/profile']);
+      }
       // language events
       if (el.tag === 'language') {
         this.setLanguage(el.item.title);
