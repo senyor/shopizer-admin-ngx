@@ -35,6 +35,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '',
     children: [
       {
+        title: 'sideNav.retailer',
+        link: '/pages/store-management/retailer',
+      },
+      {
         title: 'sideNav.storeDetails',
         link: '/pages/store-management/store-details',
       },

@@ -13,6 +13,7 @@ import { StoreLandingPageComponent } from './store-landing-page/store-landing-pa
 import { NgxSummernoteModule } from 'ngx-summernote';
 import { StoreDetailInfoComponent } from './store-detail-info/store-detail-info.component';
 import { StoreBrandingComponent } from './store-branding/store-branding.component';
+import { RetailerComponent } from './retailer/retailer.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { StoreBrandingComponent } from './store-branding/store-branding.componen
     StoreFormComponent,
     StoreLandingPageComponent,
     StoreDetailInfoComponent,
+    RetailerComponent,
   ],
   imports: [
     StoreManagementRoutingModule,

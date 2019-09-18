@@ -17,6 +17,8 @@
     "storeDetails": "Store details ru",
     "createStore": "Create store ru",
     "storesList": "Stores list ru",
+    "retailer": "Retailer ru",
+    "retailerList": "Retailer list ru",
 
     "catalogue": "Catalogue ru",
 
@@ -171,6 +173,9 @@
       "productCreated": "Product created.",
       "productRemoved": "Product removed."
     }
+  },
+  "retailer": {
+    "selectRetailer": "Select retailer ru"
   },
   "common": {
     "password": "Пароль",

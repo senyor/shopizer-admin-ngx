@@ -17,6 +17,8 @@
     "storeDetails": "Store details fr",
     "createStore": "Create store fr",
     "storesList": "Stores list fr",
+    "retailer": "Retailer fr",
+    "retailerList": "Retailer list fr",
 
     "catalogue": "Catalogue fr",
 
@@ -171,6 +173,9 @@
       "productCreated": "Product created.",
       "productRemoved": "Product removed."
     }
+  },
+  "retailer": {
+    "selectRetailer": "Select retailer fr"
   },
   "common": {
     "password": "Password fr",

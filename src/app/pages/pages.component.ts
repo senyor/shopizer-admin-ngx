@@ -54,6 +54,13 @@ export class PagesComponent {
             .children.findIndex(el => el.title === 'sideNav.storesList');
           this.menu[indexStoreMenu].children.splice(indexUserList, 1);
         }
+        if (!this.userService.roles.isRetailerAdmin && !this.userService.roles.isSuperadmin) {
+          const indexStoreMenu = this.menu.findIndex(el => el.title === 'sideNav.store');
+
+          const indexRetailer = this.menu[indexStoreMenu]
+            .children.findIndex(el => el.title === 'sideNav.retailer');
+          this.menu[indexStoreMenu].children.splice(indexRetailer, 1);
+        }
 
         this.localedMenu = [...this.menu];
         this.localedMenu = this.translateMenu(this.localedMenu);

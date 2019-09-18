@@ -31,6 +31,7 @@ export class AuthService {
       isSuperadmin: false,
       isStore: false,
       isProduct: false,
+      isRetailerAdmin: false,
     };
   }
 
