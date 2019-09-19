@@ -55,6 +55,8 @@ export class StoreFormComponent implements OnInit, OnChanges {
   isReadonlyCode = false;
   isStore: boolean;
 
+  fakeRetailerArray = ['ret1', 'ret2'];
+
   constructor(
     private fb: FormBuilder,
     private configService: ConfigService,
@@ -178,6 +180,9 @@ export class StoreFormComponent implements OnInit, OnChanges {
       dimension: ['', [Validators.required]],
       inBusinessSince: [''],
       useCache: [false],
+      /// TODO make according api
+      isRetailer: [false],
+      retailer: [''],
     });
   }
 
@@ -250,6 +255,10 @@ export class StoreFormComponent implements OnInit, OnChanges {
     return this.form.get('inBusinessSince');
   }
 
+  get isRetailer() {
+    return this.form.get('isRetailer');
+  }
+
   save() {
     this.form.controls['address'].patchValue({ country: this.form.value.address.country });
     this.form.patchValue({ inBusinessSince: moment(this.form.value.inBusinessSince).format('YYYY-MM-DD') });
@@ -315,6 +324,10 @@ export class StoreFormComponent implements OnInit, OnChanges {
   userHasSupportedLanguage(language) {
     if (!this.store || !this.store.supportedLanguages) return false;
     return this.store.supportedLanguages.find((l: any) => l === language.code);
+  }
+
+  showRetailers(event) {
+    event ? this.form.controls['retailer'].disable() : this.form.controls['retailer'].enable();
   }
 
 }
