@@ -13,6 +13,7 @@ import { StoreBrandingComponent } from './store-branding/store-branding.componen
 import { RetailerComponent } from './retailer/retailer.component';
 import { RetailerPageGuard } from '../shared/guards/retailer-page.guard';
 import { RetailerListComponent } from './retailer-list/retailer-list.component';
+import { RetailerCreationComponent } from './retailer-creation/retailer-creation.component';
 
 const routes: Routes = [
   {
@@ -60,7 +61,12 @@ const routes: Routes = [
       {
         path: 'retailer-list',
         component: RetailerListComponent,
-        // canActivate: [RetailerPageGuard]
+        // canActivate: []
+      },
+      {
+        path: 'create-retailer',
+        component: RetailerCreationComponent,
+        // canActivate: []
       },
     ],
   }

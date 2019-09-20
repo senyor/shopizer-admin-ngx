@@ -54,6 +54,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
   showRemoveButton = true;
   isReadonlyCode = false;
   isStore: boolean;
+  establishmentType: string = 'store';
 
   fakeRetailerArray = ['ret1', 'ret2'];
 
@@ -71,6 +72,14 @@ export class StoreFormComponent implements OnInit, OnChanges {
   ) {
     this.createForm();
     this.isStore = this.userService.roles.isStore;
+    this.getEstablishmentType();
+  }
+
+  getEstablishmentType() {
+    const childRoute = window.location.hash.slice(window.location.hash.indexOf('store-management/') + 17);
+    if (childRoute.indexOf('store') === -1) {
+      this.establishmentType = 'retailer';
+    }
   }
 
   ngOnInit() {

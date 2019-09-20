@@ -60,6 +60,15 @@ export class PagesComponent {
           const indexRetailer = this.menu[indexStoreMenu]
             .children.findIndex(el => el.title === 'sideNav.retailer');
           this.menu[indexStoreMenu].children.splice(indexRetailer, 1);
+
+          const indexRetailerList = this.menu[indexStoreMenu]
+            .children.findIndex(el => el.title === 'sideNav.retailerList');
+          this.menu[indexStoreMenu].children.splice(indexRetailerList, 1);
+
+
+          const indexRetailerCreation = this.menu[indexStoreMenu]
+            .children.findIndex(el => el.title === 'sideNav.createRetailer');
+          this.menu[indexStoreMenu].children.splice(indexRetailerCreation, 1);
         }
 
         this.localedMenu = [...this.menu];

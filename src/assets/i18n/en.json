@@ -19,6 +19,7 @@
     "storesList": "Stores list",
     "retailer": "Retailer",
     "retailerList": "Retailer list",
+    "createRetailer": "Create retailer",
 
     "catalogue": "Catalogue",
 
@@ -175,7 +176,13 @@
     }
   },
   "retailer": {
-    "selectRetailer": "Select retailer"
+    "selectRetailer": "Select retailer",
+
+    "retailerName": "Retailer name",
+    "retailerNameRequired": "Retailer name is required.",
+    "retailerCode": "Unique Retailer Code",
+    "retailerPhone": "Retailer Phone",
+    "retailerEmail": "Retailer email address"
   },
   "common": {
     "password": "Password",
