@@ -31,8 +31,8 @@ export class PagesComponent {
 
   checkAccess() {
     this.menu = JSON.parse(JSON.stringify(MENU_ITEMS));
-    // console.log('before', this.menu);
     const roles = JSON.parse(localStorage.getItem('roles'));
+
     if (!roles.canAccessToOrder) {
       const indexOrderMenu = this.menu.findIndex(el => el.title === 'sideNav.orders');
       this.menu[indexOrderMenu].hidden = true;
@@ -57,23 +57,26 @@ export class PagesComponent {
         .children.findIndex(el => el.title === 'sideNav.storesList');
       this.menu[indexStoreMenu].children[indexUserList].hidden = true;
     }
+    // TODO fix
     if (!roles.isRetailerAdmin && !roles.isSuperadmin) {
       const indexStoreMenu = this.menu.findIndex(el => el.title === 'sideNav.store');
 
       const indexRetailer = this.menu[indexStoreMenu]
         .children.findIndex(el => el.title === 'sideNav.retailer');
       this.menu[indexStoreMenu].children[indexRetailer].hidden = true;
+    }
+    if (!roles.isRetailerAdmin && !roles.isSuperadmin) {
+      const indexStoreMenu = this.menu.findIndex(el => el.title === 'sideNav.store');
 
       const indexRetailerList = this.menu[indexStoreMenu]
         .children.findIndex(el => el.title === 'sideNav.retailerList');
       this.menu[indexStoreMenu].children[indexRetailerList].hidden = true;
 
-
       const indexRetailerCreation = this.menu[indexStoreMenu]
         .children.findIndex(el => el.title === 'sideNav.createRetailer');
       this.menu[indexStoreMenu].children[indexRetailerCreation].hidden = true;
     }
-    // console.log('after', this.menu);
+
     this.localedMenu = [...this.menu];
     this.localedMenu = this.translateMenu(this.localedMenu);
   }

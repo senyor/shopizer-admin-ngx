@@ -271,6 +271,10 @@ export class StoreFormComponent implements OnInit, OnChanges {
   save() {
     this.form.controls['address'].patchValue({ country: this.form.value.address.country });
     this.form.patchValue({ inBusinessSince: moment(this.form.value.inBusinessSince).format('YYYY-MM-DD') });
+    this.establishmentType === 'store' ? this.saveStore() : this.saveRetailer();
+  }
+
+  saveStore() {
     if (this.store.id) {
       this.storeService.updateStore(this.form.value)
         .subscribe(store => {
@@ -293,6 +297,10 @@ export class StoreFormComponent implements OnInit, OnChanges {
           }
         });
     }
+  }
+
+  saveRetailer() {
+    console.log('saveRetailer');
   }
 
   remove() {
