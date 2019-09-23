@@ -52,7 +52,6 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.product);
     this.createForm();
     this.manufactureService.getManufacturers()
       .subscribe(res => {
@@ -195,7 +194,6 @@ export class ProductFormComponent implements OnInit {
   }
 
   onImageChanged(event) {
-    console.log('event', event);
     this.productImage = {
       bytes: event.bytes,
       contentType: event.files.type,
@@ -209,7 +207,6 @@ export class ProductFormComponent implements OnInit {
       name: event.files.name,
       path: ''
     };
-    console.log(this.productImage);
   }
 
 
@@ -265,7 +262,6 @@ export class ProductFormComponent implements OnInit {
           }
         }
       });
-      console.log('saving', productObject);
 
       if (this.product.id) {
         this.productService.updateProduct(this.product.id, productObject)
@@ -281,7 +277,6 @@ export class ProductFormComponent implements OnInit {
       } else {
         this.productService.createProduct(productObject)
           .subscribe(res => {
-            console.log(res);
             this.toastr.success(this.translate.instant('product.toastr.productCreated'));
             this.router.navigate(['pages/catalogue/products/products-list']);
             // this.productImageService.createImage(res.id, this.productImage)

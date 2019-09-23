@@ -50,7 +50,6 @@ export class CategoriesListComponent implements OnInit {
     this.loadingList = true;
     this.categoryService.getListOfCategories()
       .subscribe(categories => {
-        console.log(categories);
         categories.forEach((el) => {
           this.getChildren(el);
         });

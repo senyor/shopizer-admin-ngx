@@ -22,7 +22,7 @@ export class ProductsListComponent implements OnInit {
   isSuperadmin: boolean;
 
   // paginator
-  perPage = 5;
+  perPage = 10;
   currentPage = 1;
   totalCount;
 
@@ -164,11 +164,12 @@ export class ProductsListComponent implements OnInit {
       quantity: event.newData.quantity
     };
     event.confirm.resolve(event.newData);
-    console.log(product);
     this.productService.updateProductFromTable(event.newData.id, product)
       .subscribe(res => {
         console.log(res);
         event.confirm.resolve(event.newData);
+      }, error => {
+        console.log(error.error.message);
       });
   }
 
@@ -179,7 +180,6 @@ export class ProductsListComponent implements OnInit {
         event.confirm.resolve();
         this.productService.deleteProduct(event.data.id)
           .subscribe(result => {
-            console.log(result);
           });
       } else {
         event.confirm.reject();
@@ -205,6 +205,14 @@ export class ProductsListComponent implements OnInit {
       }
       case 'onNext': {
         this.currentPage++;
+        break;
+      }
+      case 'onFirst': {
+        this.currentPage = 1;
+        break;
+      }
+      case 'onLast': {
+        this.currentPage = event.data;
         break;
       }
     }
