@@ -116,35 +116,21 @@ export class CategoryFormComponent implements OnInit {
 
   fillFormArray() {
     this.form.value.descriptions.forEach((desc, index) => {
-      if (desc.language === 'en') {
-        (<FormArray>this.form.get('descriptions')).at(index).patchValue({
-          language: this.form.value.selectedLanguage,
-          name: this.category.description.name,
-          highlights: this.category.description.highlights,
-          friendlyUrl: this.category.description.friendlyUrl,
-          description: this.category.description.description,
-          title: this.category.description.title,
-          keyWords: this.category.description.keyWords,
-          metaDescription: this.category.description.metaDescription,
-        });
-      }
+      this.category.descriptions.forEach((description) => {
+        if (desc.language === description.language) {
+          (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+            language: description.language,
+            name: description.name,
+            highlights: description.highlights,
+            friendlyUrl: description.friendlyUrl,
+            description: description.description,
+            title: description.title,
+            keyWords: description.keyWords,
+            metaDescription: description.metaDescription,
+          });
+        }
+      });
     });
-    // this.form.value.descriptions.forEach((desc, index) => {
-    //   this.category.descriptions.forEach((description) => {
-    //     if (desc.language === description.language) {
-    //       (<FormArray>this.form.get('descriptions')).at(index).patchValue({
-    //         language: description.language,
-    //         name: description.name,
-    //         highlights: description.highlights,
-    //         friendlyUrl: description.friendlyUrl,
-    //         description: description.description,
-    //         title: description.title,
-    //         keyWords: description.keyWords,
-    //         metaDescription: description.metaDescription,
-    //       });
-    //     }
-    //   });
-    // });
   }
 
   get code() {
