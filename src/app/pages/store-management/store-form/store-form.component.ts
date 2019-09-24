@@ -54,6 +54,9 @@ export class StoreFormComponent implements OnInit, OnChanges {
   showRemoveButton = true;
   isReadonlyCode = false;
   isStore: boolean;
+  establishmentType: string = 'store';
+
+  fakeRetailerArray = ['ret1', 'ret2'];
 
   constructor(
     private fb: FormBuilder,
@@ -69,6 +72,14 @@ export class StoreFormComponent implements OnInit, OnChanges {
   ) {
     this.createForm();
     this.isStore = this.userService.roles.isStore;
+    this.getEstablishmentType();
+  }
+
+  getEstablishmentType() {
+    const childRoute = window.location.hash.slice(window.location.hash.indexOf('store-management/') + 17);
+    if (childRoute.indexOf('store') === -1) {
+      this.establishmentType = 'retailer';
+    }
   }
 
   ngOnInit() {
@@ -178,6 +189,9 @@ export class StoreFormComponent implements OnInit, OnChanges {
       dimension: ['', [Validators.required]],
       inBusinessSince: [''],
       useCache: [false],
+      /// TODO make according api
+      isRetailer: [false],
+      retailer: [''],
     });
   }
 
@@ -250,9 +264,17 @@ export class StoreFormComponent implements OnInit, OnChanges {
     return this.form.get('inBusinessSince');
   }
 
+  get isRetailer() {
+    return this.form.get('isRetailer');
+  }
+
   save() {
     this.form.controls['address'].patchValue({ country: this.form.value.address.country });
     this.form.patchValue({ inBusinessSince: moment(this.form.value.inBusinessSince).format('YYYY-MM-DD') });
+    this.establishmentType === 'store' ? this.saveStore() : this.saveRetailer();
+  }
+
+  saveStore() {
     if (this.store.id) {
       this.storeService.updateStore(this.form.value)
         .subscribe(store => {
@@ -275,6 +297,10 @@ export class StoreFormComponent implements OnInit, OnChanges {
           }
         });
     }
+  }
+
+  saveRetailer() {
+    console.log('saveRetailer');
   }
 
   remove() {
@@ -315,6 +341,10 @@ export class StoreFormComponent implements OnInit, OnChanges {
   userHasSupportedLanguage(language) {
     if (!this.store || !this.store.supportedLanguages) return false;
     return this.store.supportedLanguages.find((l: any) => l === language.code);
+  }
+
+  showRetailers(event) {
+    event ? this.form.controls['retailer'].disable() : this.form.controls['retailer'].enable();
   }
 
 }

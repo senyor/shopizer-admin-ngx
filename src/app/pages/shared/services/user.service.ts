@@ -16,6 +16,7 @@ export class UserService {
     isSuperadmin: false,
     isStore: false,
     isProduct: false,
+    isRetailerAdmin: false,
   };
 
   constructor(
@@ -47,14 +48,22 @@ export class UserService {
         switch (elem.name) {
           case 'ADMIN':
             this.roles.isAdmin = true;
+            break;
           case 'SUPERADMIN':
             this.roles.isSuperadmin = true;
+            break;
           case 'STORE':
             this.roles.isStore = true;
+            break;
           case 'PRODUCTS':
             this.roles.isProduct = true;
+            break;
+          case 'ADMIN_RETAIL':
+            this.roles.isRetailerAdmin = true;
+            break;
           case role.name:
             this.roles.canAccessToOrder = true;
+            break;
         }
       });
     });
