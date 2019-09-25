@@ -1,0 +1,15 @@
+<div>
+  <nb-card-header>
+    Content Boxes
+    <div class="buttons-row">
+      <button nbButton (click)="addBoxes()">
+        Create Box
+      </button>
+    </div>
+  </nb-card-header>
+
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" class="home-table">
+    </ng2-smart-table>
+  </nb-card-body>
+</div>

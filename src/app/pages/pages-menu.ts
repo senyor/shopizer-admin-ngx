@@ -96,11 +96,28 @@ export const MENU_ITEMS: NbMenuItem[] = [
       // },
     ],
   },
-  // {
-  //   title: 'Manage content',
-  //   // icon: 'fas fa-shopping-cart',
-  //   link: '',
-  // },
+  {
+    title: 'Manage content',
+    icon: 'fas fa-edit',
+    children: [
+      {
+        title: 'Manage Pages',
+        link: '/pages/content/pages/list',
+      },
+      {
+        title: 'Manage Boxes',
+        link: '/pages/content/boxes/list',
+      },
+      {
+        title: 'Manage Images',
+        link: '/pages/content/images/list',
+      },
+      {
+        title: 'Manage Files',
+        // link: '/pages/forms/datepicker',
+      },
+    ],
+  },
   // {
   //   title: 'Shipping',
   //   // icon: 'fas fa-shopping-cart',
