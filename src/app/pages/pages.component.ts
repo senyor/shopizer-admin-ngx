@@ -81,8 +81,8 @@ export class PagesComponent {
     this.localedMenu = this.translateMenu(this.localedMenu);
   }
 
-  translateMenu(array) {
-    return array.map((el, index) => ({
+  translateMenu(menu) {
+    return menu.map((el, index) => ({
       ...el,
       title: this.translate.instant(this.menu[index].title),
       children: !el.children ? null : el.children.map((child, childIndex) => ({

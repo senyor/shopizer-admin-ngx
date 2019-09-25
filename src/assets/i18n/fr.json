@@ -212,6 +212,8 @@
     "weight": "Weight",
     "height": "Height",
     "width": "Width",
-    "length": "Length"
+    "length": "Length",
+
+    "merchantStore": "Merchant store"
   }
 }

@@ -14,6 +14,7 @@ import { UserService } from '../../shared/services/user.service';
 import { User } from '../../shared/models/user';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { StoreService } from '../../store-management/services/store.service';
 
 @Component({
   selector: 'ngx-user-form',
@@ -29,11 +30,13 @@ export class UserFormComponent implements OnInit, OnChanges {
   pwdPattern = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$';
   emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
   errorMessage = '';
+  stores = [];
 
   constructor(
     private fb: FormBuilder,
     private configService: ConfigService,
     private userService: UserService,
+    private storeService: StoreService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
@@ -51,6 +54,10 @@ export class UserFormComponent implements OnInit, OnChanges {
       .subscribe(groups => {
         this.groups = [...groups];
       });
+    this.storeService.getListOfStores({})
+      .subscribe(res => {
+        this.stores = [...res.data];
+      });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -66,6 +73,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     this.form = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
+      store: ['DEFAULT'],
       userName: [''],
       emailAddress: ['', [Validators.required, Validators.email, Validators.pattern(this.emailPattern)]],
       password: ['', [Validators.required, Validators.pattern(this.pwdPattern)]],
@@ -104,6 +112,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     this.form.patchValue({
       firstName: this.user.firstName,
       lastName: this.user.lastName,
+      store: this.user.merchant,
       userName: '',
       emailAddress: this.user.emailAddress,
       active: this.user.active,
@@ -130,6 +139,8 @@ export class UserFormComponent implements OnInit, OnChanges {
           }
         } else {
           if (!data.exists) {
+            // const store = this.form.value.store;
+            const store = '';
             this.userService.createUser(this.form.value)
               .subscribe(res => {
                 console.log(res);

@@ -15,6 +15,7 @@ import { RetailerPageGuard } from '../shared/guards/retailer-page.guard';
 import { RetailerListComponent } from './retailer-list/retailer-list.component';
 import { RetailerCreationComponent } from './retailer-creation/retailer-creation.component';
 import { SuperuserAdminGuard } from '../shared/guards/superuser-admin.guard';
+import { RetailerStoresComponent } from './retailer-stores/retailer-stores.component';
 
 const routes: Routes = [
   {
@@ -67,6 +68,11 @@ const routes: Routes = [
       {
         path: 'create-retailer',
         component: RetailerCreationComponent,
+        canActivate: [SuperuserAdminGuard]
+      },
+      {
+        path: 'retailer-stores',
+        component: RetailerStoresComponent,
         canActivate: [SuperuserAdminGuard]
       },
     ],

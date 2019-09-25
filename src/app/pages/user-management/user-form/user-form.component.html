@@ -23,6 +23,15 @@
     </div>
   </div>
   <div class="form-group">
+    <label class="col-sm-3 col-form-label">{{ 'common.merchantStore' | translate }} *</label>
+    <div class="col-sm-12">
+      <nb-select *ngIf="stores.length" placeholder="{{ 'common.merchantStore' | translate }}" formControlName='store' outline
+                 shape="rectangle">
+        <nb-option *ngFor="let store of stores" [value]="store.code">{{ store.code }}</nb-option>
+      </nb-select>
+    </div>
+  </div>
+  <div class="form-group">
     <label for="email" class="col-sm-3 col-form-label">{{ 'user.emailAddress' | translate }} *</label>
     <div class="col-sm-12">
       <input type="email" class="form-control" id="email" formControlName='emailAddress' (change)="errorMessage = ''"
