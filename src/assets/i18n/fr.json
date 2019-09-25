@@ -17,6 +17,9 @@
     "storeDetails": "Store details fr",
     "createStore": "Create store fr",
     "storesList": "Stores list fr",
+    "retailer": "Retailer fr",
+    "retailerList": "Retailer list fr",
+    "createRetailer": "Create retailer fr",
 
     "catalogue": "Catalogue fr",
 
@@ -171,6 +174,15 @@
       "productCreated": "Product created.",
       "productRemoved": "Product removed."
     }
+  },
+  "retailer": {
+    "selectRetailer": "Select retailer fr",
+
+    "retailerName": "Retailer name",
+    "retailerNameRequired": "Retailer name is required.",
+    "retailerCode": "Unique Retailer Code",
+    "retailerPhone": "Retailer Phone",
+    "retailerEmail": "Retailer email address"
   },
   "common": {
     "password": "Password fr",

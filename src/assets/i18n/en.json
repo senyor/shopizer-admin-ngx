@@ -6,23 +6,32 @@
   },
   "sideNav": {
     "home": "Home",
+
     "user": "User",
     "myProfile": "My profile",
     "changePassword": "Password change",
     "createUser": "Create user",
     "userList": "Users list",
+
     "store": "Store",
     "storeDetails": "Store details",
     "createStore": "Create store",
     "storesList": "Stores list",
+    "retailer": "Retailer",
+    "retailerList": "Retailer list",
+    "createRetailer": "Create retailer",
+
     "catalogue": "Catalogue",
+
     "categories": "Categories",
     "createCategory": "Create category",
     "categoriesList": "Categories list",
     "categoriesHierarchy": "Categories hierarchy",
+
     "products": "Products",
     "createProduct": "Create product",
     "productsList": "Products list",
+
     "orders": "Orders"
   },
   "home": {
@@ -165,6 +174,15 @@
       "productCreated": "Product created.",
       "productRemoved": "Product removed."
     }
+  },
+  "retailer": {
+    "selectRetailer": "Select retailer",
+
+    "retailerName": "Retailer name",
+    "retailerNameRequired": "Retailer name is required.",
+    "retailerCode": "Unique Retailer Code",
+    "retailerPhone": "Retailer Phone",
+    "retailerEmail": "Retailer email address"
   },
   "common": {
     "password": "Password",

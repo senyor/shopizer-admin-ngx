@@ -10,6 +10,11 @@ import { StoreGuard } from '../shared/guards/store.guard';
 import { StoreLandingPageComponent } from './store-landing-page/store-landing-page.component';
 import { StoreDetailInfoComponent } from './store-detail-info/store-detail-info.component';
 import { StoreBrandingComponent } from './store-branding/store-branding.component';
+import { RetailerComponent } from './retailer/retailer.component';
+import { RetailerPageGuard } from '../shared/guards/retailer-page.guard';
+import { RetailerListComponent } from './retailer-list/retailer-list.component';
+import { RetailerCreationComponent } from './retailer-creation/retailer-creation.component';
+import { SuperuserAdminGuard } from '../shared/guards/superuser-admin.guard';
 
 const routes: Routes = [
   {
@@ -48,6 +53,21 @@ const routes: Routes = [
         path: 'store-branding',
         component: StoreBrandingComponent,
         canActivate: [StoreGuard]
+      },
+      {
+        path: 'retailer',
+        component: RetailerComponent,
+        canActivate: [RetailerPageGuard]
+      },
+      {
+        path: 'retailer-list',
+        component: RetailerListComponent,
+        canActivate: [SuperuserAdminGuard]
+      },
+      {
+        path: 'create-retailer',
+        component: RetailerCreationComponent,
+        canActivate: [SuperuserAdminGuard]
       },
     ],
   }

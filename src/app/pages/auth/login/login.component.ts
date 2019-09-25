@@ -4,6 +4,7 @@ import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import { TokenService } from '../services/token.service';
 import { UserService } from '../../shared/services/user.service';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-login',
@@ -39,7 +40,13 @@ export class LoginComponent implements OnInit {
       .subscribe(res => {
         this.tokenService.saveToken(res.token);
         this.userService.saveUserId(res.id);
-        this.router.navigate([ 'pages' ]);
+        this.userService.getUser(res.id)
+          .subscribe(user => {
+            this.userService.checkForAccess(user.permissions);
+            localStorage.setItem('roles', JSON.stringify(this.userService.roles));
+            delay(1000);
+            this.router.navigate([ 'pages' ]);
+          });
       }, err => {
         this.errorMessage = 'Invalid username or password';
       });

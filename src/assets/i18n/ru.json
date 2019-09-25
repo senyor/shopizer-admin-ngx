@@ -17,6 +17,9 @@
     "storeDetails": "Store details ru",
     "createStore": "Create store ru",
     "storesList": "Stores list ru",
+    "retailer": "Retailer ru",
+    "retailerList": "Retailer list ru",
+    "createRetailer": "Create retailer ru",
 
     "catalogue": "Catalogue ru",
 
@@ -171,6 +174,15 @@
       "productCreated": "Product created.",
       "productRemoved": "Product removed."
     }
+  },
+  "retailer": {
+    "selectRetailer": "Select retailer ru",
+
+    "retailerName": "Retailer name",
+    "retailerNameRequired": "Retailer name is required.",
+    "retailerCode": "Unique Retailer Code",
+    "retailerPhone": "Retailer Phone",
+    "retailerEmail": "Retailer email address"
   },
   "common": {
     "password": "Пароль",
