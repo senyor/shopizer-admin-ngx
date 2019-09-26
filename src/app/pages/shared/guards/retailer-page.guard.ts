@@ -18,7 +18,7 @@ export class RetailerPageGuard implements CanActivate {
     Observable<boolean> | Promise<boolean> | boolean {
 
     if (this.userService.roles.isSuperadmin ||
-      this.userService.roles.isRetailerAdmin ||
+      this.userService.roles.isAdminRetail ||
       this.userService.roles.isAdmin) {
       return true;
     }

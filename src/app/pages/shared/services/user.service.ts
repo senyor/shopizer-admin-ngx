@@ -16,7 +16,7 @@ export class UserService {
     isSuperadmin: false,
     isStore: false,
     isProduct: false,
-    isRetailerAdmin: false,
+    isAdminRetail: false,
   };
 
   constructor(
@@ -43,6 +43,7 @@ export class UserService {
 
   // check roles for access to order page
   checkForAccess(array) {
+    console.log(roles, array);
     roles.forEach(role => {
       array.forEach(elem => {
         switch (elem.name) {
@@ -59,7 +60,7 @@ export class UserService {
             this.roles.isProduct = true;
             break;
           case 'ADMIN_RETAIL':
-            this.roles.isRetailerAdmin = true;
+            this.roles.isAdminRetail = true;
             break;
           case role.name:
             this.roles.canAccessToOrder = true;
