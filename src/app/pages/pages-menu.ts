@@ -144,7 +144,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/content/images/list',
       },
       {
-        title: 'Manage Files',
+        title: 'Promotion',
+        link: '/pages/content/promotion',
         // link: '/pages/forms/datepicker',
       },
     ],

@@ -2,11 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ContentComponent } from './content.component';
-import { PagesComponent } from './pages/pages.component';
+import { PageComponent } from './pages/page.component';
 import { BoxesComponent } from './boxes/boxes.component';
 import { AddPageComponent } from './pages/add-page.component';
 import { AddBoxComponent } from './boxes/add-box.component';
 import { ImagesComponent } from './images/images.component';
+import { UploadComponent } from './upload/upload.component';
+
+import { PromotionComponent } from './promotion/promotion.component';
+// import { ImagesComponent } from './images/images.component';
 
 const routes: Routes = [{
   path: '',
@@ -14,7 +18,7 @@ const routes: Routes = [{
   children: [
     {
       path: 'pages/list',
-      component: PagesComponent,
+      component: PageComponent,
     },
     {
       path: 'pages/add',
@@ -31,6 +35,10 @@ const routes: Routes = [{
     {
       path: 'images/list',
       component: ImagesComponent,
+    },
+    {
+      path: 'promotion',
+      component: PromotionComponent,
     }
   ],
 }];
@@ -43,9 +51,11 @@ export class ContentRoutingModule { }
 
 export const routedComponents = [
   ContentComponent,
-  PagesComponent,
+  PageComponent,
   AddPageComponent,
   BoxesComponent,
   AddBoxComponent,
-  ImagesComponent
+  ImagesComponent,
+  UploadComponent,
+  PromotionComponent
 ];

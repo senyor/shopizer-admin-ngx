@@ -6,11 +6,11 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { CrudService } from '../../shared/services/crud.service';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'pages-table',
-  templateUrl: './pages.component.html',
-  styleUrls: ['./pages.component.scss'],
+  selector: 'page-table',
+  templateUrl: './page.component.html',
+  styleUrls: ['./page.component.scss'],
 })
-export class PagesComponent {
+export class PageComponent {
   settings = {
     mode: 'external',
     hideSubHeader: true,
