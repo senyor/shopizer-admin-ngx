@@ -1,6 +1,6 @@
 import { MenuItem } from './menu-item';
 
-const IsCustomer = () => {
+const IsAccessToOrder = () => {
   return (JSON.parse(localStorage.getItem('roles'))).canAccessToOrder;
 };
 
@@ -99,14 +99,14 @@ export const MENU_ITEMS: MenuItem[] = [
         key: 'sideNav.createStore',
         link: '/pages/store-management/create-store',
         hidden: false,
-        guards: [IsSuperadmin, IsAdmin]
+        guards: [IsSuperadmin, IsAdmin, IsAdminRetail]
       },
       {
         title: 'sideNav.storesList',
         key: 'sideNav.storesList',
         link: '/pages/store-management/stores-list',
         hidden: false,
-        guards: [IsSuperadmin, IsAdmin, IsAdminRetail]
+        guards: [IsSuperadmin, IsAdmin]
       },
     ],
   },
@@ -201,7 +201,7 @@ export const MENU_ITEMS: MenuItem[] = [
     link: '/pages/orders',
     pathMatch: 'prefix',
     hidden: false,
-    guards: [IsCustomer]
+    guards: [IsAccessToOrder]
   },
   // {
   //   title: 'Manage taxes',

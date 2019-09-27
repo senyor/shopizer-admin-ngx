@@ -29,17 +29,13 @@ export class PagesComponent {
 
   checkAccess(menu) {
     menu.forEach(el => {
-      if (el.guards) {
-        el.guards.some((guard) => {
-          console.log('el', el);
-          console.log(guard());
-        });
-        if (el.guards.some((guard) => guard())) {
-          if (el.children && el.children.length) {
-            this.checkAccess(el.children);
-          }
-        } else {
-          el.hidden = true;
+      if (el.guards && !el.guards.some((guard) => guard())) {
+        el.hidden = true;
+      }
+
+      if (!el.hidden) {
+        if (el.children && el.children.length) {
+          this.checkAccess(el.children);
         }
       }
     });
