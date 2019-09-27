@@ -43,7 +43,6 @@ export class UserService {
 
   // check roles for access to order page
   checkForAccess(array) {
-    console.log(roles, array);
     roles.forEach(role => {
       array.forEach(elem => {
         switch (elem.name) {

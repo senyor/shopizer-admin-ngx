@@ -45,7 +45,7 @@ export class ProductsListComponent implements OnInit {
     const userId = this.userService.getUserId();
     this.userService.getUser(userId)
       .subscribe(user => {
-        this.userService.checkForAccess(user.permissions);
+        this.userService.checkForAccess(user.groups);
         this.isSuperadmin = this.userService.roles.isSuperadmin;
         this.params.store = user.merchant;
       });

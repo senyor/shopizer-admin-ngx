@@ -42,8 +42,7 @@ export class LoginComponent implements OnInit {
         this.userService.saveUserId(res.id);
         this.userService.getUser(res.id)
           .subscribe(user => {
-            console.log('user', user);
-            this.userService.checkForAccess(user.permissions);
+            this.userService.checkForAccess(user.groups);
             localStorage.setItem('roles', JSON.stringify(this.userService.roles));
             delay(1000);
             this.router.navigate([ 'pages' ]);
