@@ -27,7 +27,7 @@
     <div class="col-sm-12">
       <nb-select *ngIf="stores.length" placeholder="{{ 'common.merchantStore' | translate }}" formControlName='store' outline
                  shape="rectangle">
-        <nb-option *ngFor="let store of stores" [value]="store.code">{{ store.code }}</nb-option>
+        <nb-option *ngFor="let store of stores" [value]="store.code" (click) ="chooseMerchant(store)">{{ store.code }}</nb-option>
       </nb-select>
     </div>
   </div>

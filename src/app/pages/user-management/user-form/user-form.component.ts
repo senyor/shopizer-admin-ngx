@@ -31,6 +31,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
   errorMessage = '';
   stores = [];
+  roles;
 
   constructor(
     private fb: FormBuilder,
@@ -42,6 +43,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     private toastr: ToastrService,
     private translate: TranslateService
   ) {
+    this.roles = JSON.parse(localStorage.getItem('roles'));
     this.createForm();
   }
 
@@ -119,6 +121,8 @@ export class UserFormComponent implements OnInit, OnChanges {
       defaultLanguage: this.user.defaultLanguage,
       groups: this.user.groups,
     });
+    (this.roles.isSuperadmin || this.roles.isRetailerAdmin) ?
+      this.form.controls['store'].enable() : this.form.controls['store'].disable();
     this.cdr.detectChanges();
   }
 
@@ -139,9 +143,7 @@ export class UserFormComponent implements OnInit, OnChanges {
           }
         } else {
           if (!data.exists) {
-            // const store = this.form.value.store;
-            const store = '';
-            this.userService.createUser(this.form.value)
+            this.userService.createUser(this.form.value, this.form.value.store)
               .subscribe(res => {
                 console.log(res);
                 this.toastr.success(this.translate.instant('user.toastr.userCreated'));
@@ -179,6 +181,10 @@ export class UserFormComponent implements OnInit, OnChanges {
       newGroups.splice(index, 1); // remove
     }
     this.form.patchValue({ 'groups': newGroups }); // rewrite form
+  }
+
+  chooseMerchant(merchant) {
+    console.log(merchant);
   }
 
 }
