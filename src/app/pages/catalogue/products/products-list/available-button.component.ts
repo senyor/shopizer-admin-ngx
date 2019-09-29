@@ -26,7 +26,6 @@ export class AvailableButtonComponent implements OnInit {
     };
     this.productService.updateProductFromTable(this.rowData.id, product)
       .subscribe(res => {
-        console.log(res);
       });
   }
 

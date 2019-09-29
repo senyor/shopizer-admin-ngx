@@ -16,7 +16,7 @@ export class UserService {
     isSuperadmin: false,
     isStore: false,
     isProduct: false,
-    isRetailerAdmin: false,
+    isAdminRetail: false,
   };
 
   constructor(
@@ -59,7 +59,7 @@ export class UserService {
             this.roles.isProduct = true;
             break;
           case 'ADMIN_RETAIL':
-            this.roles.isRetailerAdmin = true;
+            this.roles.isAdminRetail = true;
             break;
           case role.name:
             this.roles.canAccessToOrder = true;

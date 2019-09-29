@@ -74,4 +74,12 @@ export class PaginatorComponent implements OnInit {
     return pages;
   }
 
+  onFirst() {
+    this.changePage.emit({ action: 'onFirst', data: null });
+  }
+
+  onLast() {
+    this.changePage.emit({ action: 'onLast', data: this.totalPages() });
+  }
+
 }

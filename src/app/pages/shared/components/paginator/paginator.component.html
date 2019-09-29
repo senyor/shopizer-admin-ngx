@@ -4,6 +4,9 @@
 <!--    <span class="page-totals">{{ totalPages() }} pages</span>-->
   </div>
   <div class="numbers">
+    <button class="link" (click)="onFirst()" [disabled]="currentPage === 1" [ngClass]="{ 'disabled': currentPage === 1 }">
+      &lt;&lt;
+    </button>
     <button class="link" (click)="onPrev()" [disabled]="currentPage === 1" [ngClass]="{ 'disabled': currentPage === 1 }">
       &lt;
     </button>
@@ -15,6 +18,9 @@
 
     <button class="link" (click)="onNext()" [disabled]="lastPage()" [ngClass]="{ 'disabled': lastPage() }">
       &gt;
+    </button>
+    <button class="link" (click)="onLast()" [disabled]="lastPage()" [ngClass]="{ 'disabled': lastPage() }">
+      &gt;>
     </button>
   </div>
 </div>
