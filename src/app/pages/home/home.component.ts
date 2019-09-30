@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
     const userId = this.userService.getUserId();
     this.userService.getUser(userId)
       .subscribe(user => {
-        this.userService.checkForAccess(user.permissions);
+        this.userService.checkForAccess(user.groups);
         this.canAccessToOrder = this.userService.roles.canAccessToOrder;
       });
   }

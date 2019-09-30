@@ -1,0 +1,55 @@
+@import '../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.buttons-row {
+  float: right
+}
+
+.banner-image {
+  width: 201px;
+  height: inherit;
+}
+
+.image-title {
+  text-align: center;
+}
+
+.row {
+  height: 70vh;
+}
+
+.nb-close {
+  font-size: 19px;
+  position: absolute;
+  right: 17px;
+  top: 20px;
+  height: 20px;
+  background-color: #0088cc;
+  color: #fff;
+  border-radius: 23px;
+  width: 20px;
+}
+
+
+/deep/ upload {
+  .dropzone {
+    position: absolute !important;
+    top: 0px !important;
+    left: 0 !important;
+    height: 100% !important;
+    width: 100% !important;
+    // border: 2px dashed #ddd;
+    // border-radius: 4px;
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    padding: 10%;
+    transition: height 0.2s ease;
+  }
+}
