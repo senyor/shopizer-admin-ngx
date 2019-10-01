@@ -165,6 +165,7 @@
     "creationDate": "Created",
     "preOrder": "Pre-order",
     "dateAvailable": "Date available",
+    "productType": "Product type",
     "manufacturer": "Manufacturer",
     "order": "Order",
     "productShipeable": "Product will be shipped",

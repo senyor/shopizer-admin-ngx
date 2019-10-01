@@ -55,6 +55,17 @@
   </div>
 
   <div class="form-group">
+    <label class="col-sm-10 col-form-label">{{ 'product.productType' | translate}}</label>
+    <div class="col-sm-12">
+      <nb-select *ngIf="productTypes.length" placeholder="{{ 'product.productType' | translate}}" formControlName='productType'
+                 outline
+                 shape="rectangle">
+        <nb-option *ngFor="let type of productTypes" [value]="type.code">{{ type.code }}</nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <div class="form-group">
     <label for="price" class="col-sm-10 col-form-label">{{ 'product.price' | translate}}</label>
     <div class="col-sm-12">
       <input type="number" class="form-control" id="price" formControlName='price'

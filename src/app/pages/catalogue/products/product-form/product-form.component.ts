@@ -21,6 +21,7 @@ export class ProductFormComponent implements OnInit {
   loader = false;
   manufacturers = [];
   languages = [];
+  productTypes = [];
   config = {
     placeholder: '',
     tabsize: 2,
@@ -57,6 +58,10 @@ export class ProductFormComponent implements OnInit {
       .subscribe(res => {
         this.manufacturers = [...res];
       });
+    this.productService.getProductTypes()
+      .subscribe(res => {
+        this.productTypes = [...res];
+      });
     this.loader = true;
     this.configService.getListOfSupportedLanguages()
       .subscribe(res => {
@@ -78,7 +83,7 @@ export class ProductFormComponent implements OnInit {
       preOrder: [false],
       dateAvailable: [new Date()],
       manufacturer: ['DEFAULT'],
-      // productType: [0, [Validators.required]], // ???
+      productType: [''],
       price: [0],
       quantity: [0, [Validators.required]],
       sortOrder: [0, [Validators.required]],

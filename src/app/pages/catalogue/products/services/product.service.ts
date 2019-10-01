@@ -37,4 +37,8 @@ export class ProductService {
     return this.crudService.delete(`/v1/private/product/${ id }`);
   }
 
+  getProductTypes(): Observable<any> {
+    return this.crudService.get(`/v1/products/types`);
+  }
+
 }

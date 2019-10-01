@@ -31,10 +31,6 @@ const routes: Routes = [{
       loadChildren: 'app/pages/catalogue/catalogue.module#CatalogueModule'
     },
     {
-      path: 'content',
-      loadChildren: 'app/pages/content/content.module#ContentModule'
-    },
-    {
       path: '',
       redirectTo: 'home',
       pathMatch: 'full'
