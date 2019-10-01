@@ -1,11 +1,11 @@
 import {
   ChangeDetectorRef,
   Component,
-  ElementRef, EventEmitter,
+  ElementRef,
   Input,
   NgZone,
   OnChanges,
-  OnInit, Output,
+  OnInit,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
@@ -53,7 +53,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
   loading = false;
   showRemoveButton = true;
   isReadonlyCode = false;
-  isStore: boolean;
+  isAdminStore: boolean;
   establishmentType: string = 'store';
 
   fakeRetailerArray = ['ret1', 'ret2'];
@@ -71,7 +71,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
     private translate: TranslateService
   ) {
     this.createForm();
-    this.isStore = this.userService.roles.isStore;
+    this.isAdminStore = this.userService.roles.isAdminStore;
     this.getEstablishmentType();
   }
 
@@ -300,7 +300,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
   }
 
   saveRetailer() {
-    console.log('saveRetailer');
+    // console.log('saveRetailer');
   }
 
   remove() {

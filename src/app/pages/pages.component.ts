@@ -29,9 +29,7 @@ export class PagesComponent {
 
   checkAccess(menu) {
     menu.forEach(el => {
-      if (el.guards && !el.guards.some((guard) => guard())) {
-        el.hidden = true;
-      }
+      el.hidden = el.guards && !el.guards.some((guard) => guard());
 
       if (!el.hidden) {
         if (el.children && el.children.length) {

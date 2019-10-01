@@ -212,7 +212,7 @@
   </div>
 
 <!--  TODO if from retailer store list,  then checkbox not enabled-->
-  <div *ngIf="establishmentType === 'retailer' && (userService.roles.isSuperadmin || userService.roles.isRetailerAdmin)">
+  <div *ngIf="establishmentType === 'retailer' && (userService.roles.isSuperadmin || userService.roles.isAdminRetail)">
     <div class="form-group">
       <div class="col-sm-12 group-block">
         <nb-checkbox status="success" formControlName='isRetailer' (change)="showRetailers(isRetailer.value)">
@@ -236,7 +236,7 @@
   <hr/>
 
   <div class="form-group actions-button">
-    <button *ngIf="isStore" type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid">{{ 'common.save' | translate}}</button>
+    <button *ngIf="isAdminStore" type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid">{{ 'common.save' | translate}}</button>
     <button *ngIf="!showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">{{ 'common.remove' | translate}}</button>
   </div>
 

@@ -2,19 +2,18 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { StoreManagementComponent } from './store-management.component';
-import { StoreCreationComponent } from './store-creation/store-creation.component';
-import { StoresListComponent } from './stores-list/stores-list.component';
-import { StoreDetailsComponent } from './store-details/store-details.component';
-import { SuperadminGuard } from '../shared/guards/superadmin.guard';
-import { StoreGuard } from '../shared/guards/store.guard';
-import { StoreLandingPageComponent } from './store-landing-page/store-landing-page.component';
-import { StoreDetailInfoComponent } from './store-detail-info/store-detail-info.component';
-import { StoreBrandingComponent } from './store-branding/store-branding.component';
 import { RetailerComponent } from './retailer/retailer.component';
-import { RetailerPageGuard } from '../shared/guards/retailer-page.guard';
 import { RetailerListComponent } from './retailer-list/retailer-list.component';
 import { RetailerCreationComponent } from './retailer-creation/retailer-creation.component';
 import { SuperuserAdminGuard } from '../shared/guards/superuser-admin.guard';
+import { SuperuserAdminRetailGuard } from '../shared/guards/superuser-admin-retail.guard';
+import { SuperuserAdminRetailStoreGuard } from '../shared/guards/superuser-admin-retail-store.guard';
+import { StoreDetailsComponent } from './store-details/store-details.component';
+import { StoreCreationComponent } from './store-creation/store-creation.component';
+import { StoresListComponent } from './stores-list/stores-list.component';
+import { StoreLandingPageComponent } from './store-landing-page/store-landing-page.component';
+import { StoreDetailInfoComponent } from './store-detail-info/store-detail-info.component';
+import { StoreBrandingComponent } from './store-branding/store-branding.component';
 import { RetailerStoresComponent } from './retailer-stores/retailer-stores.component';
 
 const routes: Routes = [
@@ -28,37 +27,37 @@ const routes: Routes = [
       {
         path: 'store-details',
         component: StoreDetailsComponent,
-        canActivate: [StoreGuard]
+        canActivate: [SuperuserAdminRetailStoreGuard]
       },
       {
         path: 'create-store',
         component: StoreCreationComponent,
-        canActivate: [SuperadminGuard]
+        canActivate: [SuperuserAdminRetailGuard]
       },
       {
         path: 'stores-list',
         component: StoresListComponent,
-        canActivate: [SuperadminGuard]
+        canActivate: [SuperuserAdminGuard]
       },
       {
         path: 'store-landing',
         component: StoreLandingPageComponent,
-        canActivate: [StoreGuard]
+        canActivate: [SuperuserAdminRetailStoreGuard]
       },
       {
         path: 'store-information/:code',
         component: StoreDetailInfoComponent,
-        canActivate: [StoreGuard]
+        canActivate: [SuperuserAdminRetailStoreGuard]
       },
       {
         path: 'store-branding',
         component: StoreBrandingComponent,
-        canActivate: [StoreGuard]
+        canActivate: [SuperuserAdminRetailStoreGuard]
       },
       {
         path: 'retailer',
         component: RetailerComponent,
-        canActivate: [RetailerPageGuard]
+        canActivate: [SuperuserAdminRetailGuard]
       },
       {
         path: 'retailer-list',

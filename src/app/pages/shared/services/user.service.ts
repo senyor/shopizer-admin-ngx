@@ -12,10 +12,13 @@ export class UserService {
   userIdString = 'userId';
   roles = {
     canAccessToOrder: false,
-    isAdmin: false,
     isSuperadmin: false,
-    isStore: false,
-    isProduct: false,
+    isAdmin: false,
+    isAdminCatalogue: false,
+    isAdminStore: false,
+    isAdminOrder: false,
+    isAdminContent: false,
+    isCustomer: false,
     isAdminRetail: false,
   };
 
@@ -45,24 +48,33 @@ export class UserService {
   checkForAccess(array) {
     roles.forEach(role => {
       array.forEach(elem => {
+        if (elem.name === role.name) {
+          this.roles.canAccessToOrder = true;
+        }
         switch (elem.name) {
-          case 'ADMIN':
-            this.roles.isAdmin = true;
-            break;
           case 'SUPERADMIN':
             this.roles.isSuperadmin = true;
             break;
-          case 'STORE':
-            this.roles.isStore = true;
+          case 'ADMIN':
+            this.roles.isAdmin = true;
             break;
-          case 'PRODUCTS':
-            this.roles.isProduct = true;
+          case 'ADMIN_CATALOGUE':
+            this.roles.isAdminCatalogue = true;
+            break;
+          case 'ADMIN_STORE':
+            this.roles.isAdminStore = true;
+            break;
+          case 'ADMIN_ORDER':
+            this.roles.isAdminOrder = true;
+            break;
+          case 'ADMIN_CONTENT':
+            this.roles.isAdminContent = true;
+            break;
+          case 'CUSTOMER':
+            this.roles.isCustomer = true;
             break;
           case 'ADMIN_RETAIL':
             this.roles.isAdminRetail = true;
-            break;
-          case role.name:
-            this.roles.canAccessToOrder = true;
             break;
         }
       });
