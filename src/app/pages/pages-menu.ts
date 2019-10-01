@@ -174,29 +174,6 @@ export const MENU_ITEMS: MenuItem[] = [
       // },
     ],
   },
-  {
-    title: 'Manage content',
-    icon: 'fas fa-edit',
-    children: [
-      {
-        title: 'Manage Pages',
-        link: '/pages/content/pages/list',
-      },
-      {
-        title: 'Manage Boxes',
-        link: '/pages/content/boxes/list',
-      },
-      {
-        title: 'Manage Images',
-        link: '/pages/content/images/list',
-      },
-      {
-        title: 'Promotion',
-        link: '/pages/content/promotion',
-        // link: '/pages/forms/datepicker',
-      },
-    ],
-  },
   // {
   //   title: 'Shipping',
   //   // icon: 'fas fa-shopping-cart',
