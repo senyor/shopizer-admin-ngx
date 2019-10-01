@@ -32,6 +32,20 @@ export class UserFormComponent implements OnInit, OnChanges {
   errorMessage = '';
   stores = [];
   roles;
+  rules = {
+    'ADMIN_RETAIL': {
+      rules: [
+        { key: 'ADMIN_STORE', checked: false, disabled: true },
+        { key: 'ADMIN_RETAIL', checked: false, disabled: false }
+        ]
+    },
+    'ADMIN_STORE': {
+      rules: [
+        { key: 'ADMIN_STORE', checked: false, disabled: false },
+        { key: 'ADMIN_RETAIL', checked: false, disabled: true }
+        ]
+    }
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -54,11 +68,29 @@ export class UserFormComponent implements OnInit, OnChanges {
       });
     this.configService.getListOfGroups()
       .subscribe(groups => {
+        groups.forEach((el) => {
+          el.checked = false;
+          el.disabled = false;
+        });
         this.groups = [...groups];
+        if (this.user) {
+          this.user.groups.forEach((uGroup) => {
+            this.groups.forEach((group) => {
+              if (uGroup['name'] === group.name) {
+                group.checked = true;
+                group.disabled = false;
+              }
+            });
+          });
+        } else {
+          this.checkRules('ADMIN_RETAIL');
+        }
       });
     this.storeService.getListOfStores({})
       .subscribe(res => {
         this.stores = [...res.data];
+        const uStore = this.stores.find((store) => store.code === this.form.value.store);
+        this.chooseMerchant(uStore);
       });
   }
 
@@ -75,7 +107,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     this.form = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      store: ['DEFAULT'],
+      store: ['DEFAULT', [Validators.required]],
       userName: [''],
       emailAddress: ['', [Validators.required, Validators.email, Validators.pattern(this.emailPattern)]],
       password: ['', [Validators.required, Validators.pattern(this.pwdPattern)]],
@@ -127,6 +159,13 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   save() {
+    const newGroups = [];
+    this.groups.forEach((el) => {
+      if (el.checked) {
+        newGroups.push({id: el.id, name: el.name});
+      }
+    });
+    this.form.patchValue({ groups: newGroups });
     this.form.patchValue({ userName: this.form.value.emailAddress });
     this.userService.checkIfUserExist(this.form.value.userName)
       .subscribe(data => {
@@ -165,26 +204,22 @@ export class UserFormComponent implements OnInit, OnChanges {
       });
   }
 
-  userHasRole(group) {
-    if (!this.user || !this.user.groups) return false;
-    return this.user.groups.find((g: any) => g.id === group.id);
-  }
-
-  addRole(group) {
-    let newGroups = this.form.value.groups ? [...this.form.value.groups] : [];
-    // check if element is exist in array
-    const index = newGroups.findIndex(el => el.id === group.id);
-    // if exist
-    if (index === -1) {
-      newGroups = [...newGroups, group]; // add
-    } else {
-      newGroups.splice(index, 1); // remove
-    }
-    this.form.patchValue({ 'groups': newGroups }); // rewrite form
-  }
-
   chooseMerchant(merchant) {
-    console.log(merchant);
+    const role = merchant.retailer ? 'ADMIN_RETAIL' : 'ADMIN_STORE';
+    this.checkRules(role);
+  }
+
+  checkRules (role) {
+    if (this.rules[role].rules.length !== 0) {
+      this.rules[role].rules.forEach((el) => {
+        this.groups.forEach((group) => {
+          if (el.key === group.name) {
+            group.checked = el.checked;
+            group.disabled = el.disabled;
+          }
+        });
+      });
+    }
   }
 
 }
