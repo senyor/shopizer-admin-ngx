@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+
 import { Observable } from 'rxjs';
-import { UserService } from '../services/user.service';
+import { UserService } from '../../services/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RetailerPageGuard implements CanActivate {
+export class AdminOrderGuard implements CanActivate {
 
   constructor(
     private router: Router,
@@ -17,9 +18,7 @@ export class RetailerPageGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean {
 
-    if (this.userService.roles.isSuperadmin ||
-      this.userService.roles.isAdminRetail ||
-      this.userService.roles.isAdmin) {
+    if (this.userService.roles.isAdminOrder) {
       return true;
     }
 

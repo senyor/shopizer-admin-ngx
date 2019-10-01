@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { UserService } from '../services/user.service';
+import { UserService } from '../../services/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StoreGuard implements CanActivate {
+export class AdminContentGuard implements CanActivate {
 
   constructor(
     private router: Router,
@@ -18,7 +18,7 @@ export class StoreGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean {
 
-    if (this.userService.roles.isAdminStore) {
+    if (this.userService.roles.isAdminContent) {
       return true;
     }
 

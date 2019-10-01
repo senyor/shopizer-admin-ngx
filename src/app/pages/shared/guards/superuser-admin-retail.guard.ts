@@ -7,7 +7,7 @@ import { UserService } from '../services/user.service';
 @Injectable({
   providedIn: 'root'
 })
-export class StoreGuard implements CanActivate {
+export class SuperuserAdminRetailGuard implements CanActivate {
 
   constructor(
     private router: Router,
@@ -18,7 +18,9 @@ export class StoreGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean {
 
-    if (this.userService.roles.isAdminStore) {
+    if (this.userService.roles.isSuperadmin ||
+      this.userService.roles.isAdmin ||
+      this.userService.roles.isAdminRetail) {
       return true;
     }
 

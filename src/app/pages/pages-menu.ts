@@ -12,16 +12,28 @@ const IsAdmin = () => {
   return (JSON.parse(localStorage.getItem('roles'))).isAdmin;
 };
 
-const IsAdminRetail = () => {
-  return (JSON.parse(localStorage.getItem('roles'))).isAdminRetail;
+const IsAdminCatalogue = () => {
+  return (JSON.parse(localStorage.getItem('roles'))).isAdminCatalogue;
 };
 
 const IsAdminStore = () => {
   return (JSON.parse(localStorage.getItem('roles'))).isAdminStore;
 };
 
-const IsAdminCatalogue = () => {
-  return (JSON.parse(localStorage.getItem('roles'))).isAdminCatalogue;
+const IsAdminOrder = () => {
+  return (JSON.parse(localStorage.getItem('roles'))).isAdminOrder;
+};
+
+const IsAdminContent = () => {
+  return (JSON.parse(localStorage.getItem('roles'))).isAdminContent;
+};
+
+const IsCustomer = () => {
+  return (JSON.parse(localStorage.getItem('roles'))).isCustomer;
+};
+
+const IsAdminRetail = () => {
+  return (JSON.parse(localStorage.getItem('roles'))).isAdminRetail;
 };
 
 export const MENU_ITEMS: MenuItem[] = [
@@ -69,6 +81,7 @@ export const MENU_ITEMS: MenuItem[] = [
     icon: 'fas fa-building',
     link: '',
     hidden: false,
+    guards: [IsSuperadmin, IsAdmin, IsAdminRetail, IsAdminStore],
     children: [
       {
         title: 'sideNav.retailer',
