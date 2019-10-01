@@ -1,6 +1,6 @@
 <nb-card>
   <nb-card-header>Create Manage Page</nb-card-header>
-  <nb-card-body>
+  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
     <form #pagesForm="ngForm" role="form">
       <div class="row">
         <div class="col-sm-6">
@@ -42,7 +42,7 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Page content (en)</label>
-            <ngx-tiny-mce></ngx-tiny-mce>
+            <ngx-tiny-mce [(ngModel)]="page.ePagecontent" name="ePagecontent"></ngx-tiny-mce>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Title (en)</label>
@@ -68,7 +68,7 @@
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Page name (fr)</label>
             <input type="text" [(ngModel)]="page.fPagename" name="fPagename" class="form-control" id="page_name"
-              placeholder="Page Name" required>
+              placeholder="Page Name">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Search engine friendly url (fr)</label>
@@ -76,7 +76,7 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Page content (fr)</label>
-            <ngx-tiny-mce></ngx-tiny-mce>
+            <ngx-tiny-mce [(ngModel)]="page.fPagecontent" name="fPagecontent"></ngx-tiny-mce>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Title (fr)</label>
@@ -101,7 +101,7 @@
 
       </div>
       <div>
-        <button type="button" nbButton status="success" [disabled]="!pagesForm.form.valid">Submit</button>
+        <button type="button" nbButton status="success" [disabled]="!pagesForm.form.valid" (click)="createPages()">Submit</button>
       </div>
 
     </form>

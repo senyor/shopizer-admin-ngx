@@ -176,25 +176,35 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     title: 'Manage content',
+    key: 'sideNav.content',
     icon: 'fas fa-edit',
     children: [
       {
         title: 'Manage Pages',
+        key: 'sideNav.pages',
         link: '/pages/content/pages/list',
       },
       {
         title: 'Manage Boxes',
+        key: 'sideNav.boxes',
         link: '/pages/content/boxes/list',
       },
       {
         title: 'Manage Images',
+        key: 'sideNav.images',
         link: '/pages/content/images/list',
       },
       {
-        title: 'Promotion',
-        link: '/pages/content/promotion',
-        // link: '/pages/forms/datepicker',
+        title: 'Manage Files',
+        key: 'sideNav.files',
+        link: '/pages/content/files/list',
       },
+      // {
+      //   title: 'Promotion',
+      //   key: 'sideNav.managecontent',
+      //   link: '/pages/content/promotion',
+      //   // link: '/pages/forms/datepicker',
+      // },
     ],
   },
   // {

@@ -1,0 +1,15 @@
+<div class="pages">
+  <nb-card-header>
+    Manage Files
+    <!-- <div class="buttons-row">
+      <button nbButton (click)="addBoxes()">
+        Create Box
+      </button>
+    </div> -->
+  </nb-card-header>
+
+  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+    <ng2-smart-table [settings]="settings" [source]="source" class="home-table">
+    </ng2-smart-table>
+  </nb-card-body>
+</div>

@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
-// import { SmartTableData } from '../../../@core/data/smart-table';
-// import { AppService } from '../../../directive/app.service';
-// import { Action } from '../../../directive/app.constants';
 import { CrudService } from '../../shared/services/crud.service';
 import { Router } from '@angular/router';
 @Component({
@@ -54,20 +51,17 @@ export class PageComponent {
 
   constructor(
     private crudService: CrudService,
-    // private appService: AppService,
     public router: Router
   ) {
     this.getPages()
   }
   getPages() {
-    // let action = Action.CONTENT + Action.PAGES;
 
     this.crudService.get('/v1/content/pages')
       .subscribe(data => {
         console.log(data, '************')
         this.source = data;
       }, error => {
-        // this.router.navigate(['/error']);
       });
   }
   addPages() {

@@ -6,13 +6,11 @@
   },
   "sideNav": {
     "home": "Home fr",
-
     "user": "User fr",
     "myProfile": "My profile fr",
     "changePassword": "Password change fr",
     "createUser": "Create user fr",
     "userList": "Users list fr",
-
     "store": "Store fr",
     "storeDetails": "Store details fr",
     "createStore": "Create store fr",
@@ -20,19 +18,20 @@
     "retailer": "Retailer fr",
     "retailerList": "Retailer list fr",
     "createRetailer": "Create retailer fr",
-
     "catalogue": "Catalogue fr",
-
     "categories": "Categories fr",
     "createCategory": "Create category fr",
     "categoriesList": "Categories list fr",
     "categoriesHierarchy": "Categories hierarchy fr",
-
     "products": "Products fr",
     "createProduct": "Create product fr",
     "productsList": "Products list fr",
-
-    "orders": "Orders fr"
+    "orders": "Orders fr",
+    "content": "Gérer le contenu",
+    "pages": "Gérer les pages",
+    "boxes": "Gérer les boîtes",
+    "images": "Gérer les images",
+    "files": "Gérer les fichiers"
   },
   "home": {
     "storeInformation": "Store information fr",
@@ -42,34 +41,26 @@
   "user": {
     "pageTitle": "User fr",
     "profile": "Profile fr",
-
     "firstName": "First name fr",
     "firstNameErrorRequired": "First name is required. fr",
-
     "lastName": "Last name fr",
     "lastNameErrorRequired": "Last name is required. fr",
-
     "emailAddress": "Email fr",
     "emailAddressErrorRequired": "Email address is required. fr",
     "emailAddressErrorNotValid": "Value has to be a valid email address. fr",
-
     "passwordErrorRequired": "Password required. fr",
     "passwordErrorNotValid": "Password not valid. fr",
     "passwordErrorRules": "Should contains at least 1 character lower case, at least 1 character uppercase, at least 1 digit, 6 to 12 characters fr",
-
     "active": "Active fr",
     "defaultLanguage": "Default language fr",
     "selectLanguage": "Select language fr",
     "groups": "Groups fr",
-
     "newPassword": "New password fr",
     "repeatNewPassword": "Repeat new password fr",
     "passwordNotMatch": "Passwords do not match. fr",
-
     "createUser": "Create user fr",
     "users": "Users fr",
     "userDetails": "User details fr",
-
     "name": "Customer name fr",
     "status": "Status fr",
     "details": "Details fr",
@@ -84,7 +75,6 @@
   "store": {
     "storeInfo": "Store information",
     "infoText": "Shop settings used for various functionality such us and store addess. Various details adlso used for shipping costs and displayed in product details.",
-
     "storeLogo": "Store logo",
     "dropFile": "Click or Drop File Here",
     "networksMarketing": "Social networks and marketing",
@@ -92,13 +82,11 @@
     "onlyOneImage": "Only one image/time",
     "logoSaved": "Logo saved.",
     "networksUpdated": "Social networks updated.",
-
     "landingTitle": "Landing page title",
     "titleRequired": "Page title is required.",
     "tagDescription": "Meta tags description",
     "landingText": "Landing page main text",
     "pageAdded": "Page added",
-
     "storeName": "Store name fr",
     "storeNameRequired": "Store name is required.",
     "storeCode": "Unique Store Code",
@@ -123,7 +111,6 @@
     "sizeUnits": "Size units",
     "operatingSince": "Web site operating since",
     "useCache": "Use cache",
-
     "stores": "Stores",
     "toastr": {
       "storeUpdated": "Store updated. fr",
@@ -137,7 +124,6 @@
     "createCategory": "Create category",
     "categoryName": "Category name",
     "parent": "Parent",
-
     "rootCategory": "Root category",
     "code": "Code",
     "codeRequired": "Сode is required.",
@@ -145,7 +131,6 @@
     "order": "Order",
     "name": "Category name",
     "nameRequired": "Name is required.",
-
     "toastr": {
       "categoryUpdated": "Category updated.",
       "categoryCreated": "Category created.",
@@ -168,7 +153,6 @@
     "manufacturer": "Manufacturer",
     "order": "Order",
     "productShipeable": "Product will be shipped",
-
     "toastr": {
       "productUpdated": "Product updated.",
       "productCreated": "Product created.",
@@ -177,7 +161,6 @@
   },
   "retailer": {
     "selectRetailer": "Select retailer fr",
-
     "retailerName": "Retailer name",
     "retailerNameRequired": "Retailer name is required.",
     "retailerCode": "Unique Retailer Code",
@@ -198,7 +181,6 @@
     "cancel": "Cancel",
     "fillRequiredFields": "Please, fill required fields.",
     "alphaDecimalRule": "Only letters and numbers are allowed.",
-
     "highlight": "Short product highlight",
     "friendlyUrl": "Search engine friendly url",
     "friendlyUrlRequired": "Friendly Url is required.",
@@ -208,7 +190,6 @@
     "keyWordsPlaceholder": "Keywords",
     "metaDescription": "(Meta tags) Description",
     "image": "Image",
-
     "weight": "Weight",
     "height": "Height",
     "width": "Width",

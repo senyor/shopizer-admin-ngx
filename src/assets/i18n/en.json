@@ -6,13 +6,11 @@
   },
   "sideNav": {
     "home": "Home",
-
     "user": "User",
     "myProfile": "My profile",
     "changePassword": "Password change",
     "createUser": "Create user",
     "userList": "Users list",
-
     "store": "Store",
     "storeDetails": "Store details",
     "createStore": "Create store",
@@ -20,19 +18,20 @@
     "retailer": "Retailer",
     "retailerList": "Retailer list",
     "createRetailer": "Create retailer",
-
     "catalogue": "Catalogue",
-
     "categories": "Categories",
     "createCategory": "Create category",
     "categoriesList": "Categories list",
     "categoriesHierarchy": "Categories hierarchy",
-
     "products": "Products",
     "createProduct": "Create product",
     "productsList": "Products list",
-
-    "orders": "Orders"
+    "orders": "Orders",
+    "content": "Manage content",
+    "pages": "Manage Pages",
+    "boxes": "Manage Boxes",
+    "images": "Manage Images",
+    "files": "Manage Files"
   },
   "home": {
     "storeInformation": "Store information",
@@ -42,34 +41,26 @@
   "user": {
     "pageTitle": "User",
     "profile": "Profile",
-
     "firstName": "First name",
     "firstNameErrorRequired": "First name is required.",
-
     "lastName": "Last name",
     "lastNameErrorRequired": "Last name is required.",
-
     "emailAddress": "Email",
     "emailAddressErrorRequired": " Email address is required.",
     "emailAddressErrorNotValid": "Value has to be a valid email address.",
-
     "passwordErrorRequired": "Password required.",
     "passwordErrorNotValid": "Password not valid.",
     "passwordErrorRules": "Should contains at least 1 character lower case, at least 1 character uppercase, at least 1 digit, 6 to 12 characters",
-
     "active": "Active",
     "defaultLanguage": "Default language",
     "selectLanguage": "Select language",
     "groups": "Groups",
-
     "newPassword": "New password",
     "repeatNewPassword": "Repeat new password",
     "passwordNotMatch": "Passwords do not match.",
-
     "createUser": "Create user",
     "users": "Users",
     "userDetails": "User details",
-
     "name": "Customer name",
     "status": "Status",
     "details": "Details",
@@ -84,7 +75,6 @@
   "store": {
     "storeInfo": "Store information",
     "infoText": "Shop settings used for various functionality such us and store addess. Various details adlso used for shipping costs and displayed in product details.",
-
     "storeLogo": "Store logo",
     "dropFile": "Click or Drop File Here",
     "networksMarketing": "Social networks and marketing",
@@ -92,13 +82,11 @@
     "onlyOneImage": "Only one image/time",
     "logoSaved": "Logo saved.",
     "networksUpdated": "Social networks updated.",
-
     "landingTitle": "Landing page title",
     "titleRequired": "Page title is required.",
     "tagDescription": "Meta tags description",
     "landingText": "Landing page main text",
     "pageAdded": "Page added",
-
     "storeName": "Store name",
     "storeNameRequired": "Store name is required.",
     "storeCode": "Unique Store Code",
@@ -123,7 +111,6 @@
     "sizeUnits": "Size units",
     "operatingSince": "Web site operating since",
     "useCache": "Use cache",
-
     "stores": "Stores",
     "toastr": {
       "storeUpdated": "Store updated.",
@@ -137,7 +124,6 @@
     "createCategory": "Create category",
     "categoryName": "Category name",
     "parent": "Parent",
-
     "rootCategory": "Root category",
     "code": "Code",
     "codeRequired": "Сode is required.",
@@ -145,7 +131,6 @@
     "order": "Order",
     "name": "Category name",
     "nameRequired": "Name is required.",
-
     "toastr": {
       "categoryUpdated": "Category updated.",
       "categoryCreated": "Category created.",
@@ -168,7 +153,6 @@
     "manufacturer": "Manufacturer",
     "order": "Order",
     "productShipeable": "Product will be shipped",
-
     "toastr": {
       "productUpdated": "Product updated.",
       "productCreated": "Product created.",
@@ -177,7 +161,6 @@
   },
   "retailer": {
     "selectRetailer": "Select retailer",
-
     "retailerName": "Retailer name",
     "retailerNameRequired": "Retailer name is required.",
     "retailerCode": "Unique Retailer Code",
@@ -198,7 +181,6 @@
     "cancel": "Cancel",
     "fillRequiredFields": "Please, fill required fields.",
     "alphaDecimalRule": "Only letters and numbers are allowed.",
-
     "highlight": "Short product highlight",
     "friendlyUrl": "Search engine friendly url",
     "friendlyUrlRequired": "Friendly Url is required.",
@@ -208,7 +190,6 @@
     "keyWordsPlaceholder": "Keywords",
     "metaDescription": "(Meta tags) Description",
     "image": "Image",
-
     "weight": "Weight",
     "height": "Height",
     "width": "Width",

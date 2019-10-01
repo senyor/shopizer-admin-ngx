@@ -24,7 +24,7 @@ export class ImagesComponent {
   getImages() {
     // let action = Action.CONTENT + Action.BOXES;
     this.loadingList = true;
-    this.crudService.get('/v1/DEFAULT/content/images')
+    this.crudService.get('/v1/content/images')
       .subscribe(data => {
         this.loadingList = false;
         this.uploadedFiles = data.content;
@@ -34,6 +34,7 @@ export class ImagesComponent {
       });
   }
   handleUpload = (files: any) => {
+    this.loadingList = true;
     let reader = new FileReader();
     reader.onload = (e: any) => {
       this.uploadedFiles.push({
@@ -44,17 +45,17 @@ export class ImagesComponent {
     }
     reader.readAsDataURL(files[0]);
 
-    // let formData = new FormData();
-    // formData.append('file', files[0]);
-    // this.crudService.post('/v1/private/content', formData)
-    //   .subscribe(data => {
-    //     console.log(data);
-    //     this.loadingList = false;
-    //     // this.uploadedFiles = data.content;
-    //   }, error => {
-    //     this.loadingList = false;
+    let formData = new FormData();
+    formData.append('file', files[0]);
+    this.crudService.post('/v1/private/file', formData)
+      .subscribe(data => {
+        console.log(data);
+        this.loadingList = false;
+        // this.uploadedFiles = data.content;
+      }, error => {
+        this.loadingList = false;
 
-    //   });
+      });
 
 
   }

@@ -37,12 +37,83 @@
 
 
 // table css //
+files-content {
+  nb-card-header {}
+
+  nb-card-body {
+
+    .home-table {
+      table {
+        border-collapse: separate;
+        border-spacing: 0 15px;
+
+        thead {
+          background: transparent !important;
+
+          tr {
+            background: transparent !important;
+
+            th {
+              border: none !important;
+            }
+          }
+        }
+
+        tbody {
+          tr {
+            background: #fff !important;
+
+            &.ng2-smart-row.selected {
+              background: #fff !important;
+            }
+
+            &:hover {
+              background: #fff !important;
+            }
+
+            td {
+              height: auto !important;
+              border: none !important;
+              padding: 14px 1.25rem;
+
+              ng2-st-tbody-custom {
+                display: inline-flex;
+
+                a.ng2-smart-action {
+                  border: none !important;
+
+                  .nb-edit {
+                    &:before {
+                      font-size: 24px !important;
+                    }
+                  }
+
+                  .nb-trash {
+                    &:before {
+                      font-size: 24px !important;
+                    }
+                  }
+
+                  .nb-info {
+                    &:before {
+                      color: #a4abb3;
+                      font-size: 16px;
+                      position: absolute;
+                      margin-left: 3px;
+                      margin-top: 3px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
 page-table {
-  // nb-card {
-  //   background-color: transparent !important;
-  //   box-shadow: none !important;
-
   nb-card-header {}
 
   nb-card-body {
@@ -133,9 +204,6 @@ page-table {
       }
     }
   }
-
-  // }
-
 }
 
 .promotion {

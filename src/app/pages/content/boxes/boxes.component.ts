@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
-// import { SmartTableData } from '../../../@core/data/smart-table';
-// import { AppService } from '../../../directive/app.service';
-// import { Action } from '../../../directive/app.constants';
 import { CrudService } from '../../shared/services/crud.service';
 import { Router } from '@angular/router';
 @Component({
