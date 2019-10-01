@@ -27,10 +27,13 @@ export class AuthService {
     this.userService.destroyUserId();
     this.userService.roles = {
       canAccessToOrder: false,
-      isAdmin: false,
       isSuperadmin: false,
-      isStore: false,
-      isProduct: false,
+      isAdmin: false,
+      isAdminCatalogue: false,
+      isAdminStore: false,
+      isAdminOrder: false,
+      isAdminContent: false,
+      isCustomer: false,
       isAdminRetail: false,
     };
     localStorage.removeItem('roles');
