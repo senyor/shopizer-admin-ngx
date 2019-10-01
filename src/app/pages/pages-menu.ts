@@ -20,6 +20,10 @@ const IsAdminStore = () => {
   return (JSON.parse(localStorage.getItem('roles'))).isAdminStore;
 };
 
+const IsAdminCatalogue = () => {
+  return (JSON.parse(localStorage.getItem('roles'))).isAdminCatalogue;
+};
+
 export const MENU_ITEMS: MenuItem[] = [
   {
     title: 'sideNav.home',
@@ -115,6 +119,7 @@ export const MENU_ITEMS: MenuItem[] = [
     key: 'sideNav.catalogue',
     icon: 'fas fa-tags',
     hidden: false,
+    guards: [IsSuperadmin, IsAdminRetail, IsAdminStore, IsAdminCatalogue],
     children: [
       {
         title: 'sideNav.categories',

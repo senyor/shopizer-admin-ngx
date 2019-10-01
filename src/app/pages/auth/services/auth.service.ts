@@ -25,14 +25,8 @@ export class AuthService {
   logout() {
     this.tokenService.destroyToken();
     this.userService.destroyUserId();
-    this.userService.roles = {
-      canAccessToOrder: false,
-      isAdmin: false,
-      isSuperadmin: false,
-      isStore: false,
-      isProduct: false,
-      isAdminRetail: false,
-    };
+    const roles = this.userService.roles;
+    for (const key in roles) roles[key] = false;
     localStorage.removeItem('roles');
   }
 

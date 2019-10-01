@@ -17,6 +17,7 @@ export class UserService {
     isStore: false,
     isProduct: false,
     isAdminRetail: false,
+    isAdminCatalogue: false,
   };
 
   constructor(
@@ -60,6 +61,9 @@ export class UserService {
             break;
           case 'ADMIN_RETAIL':
             this.roles.isAdminRetail = true;
+            break;
+          case 'ADMIN_CATALOGUE':
+            this.roles.isAdminCatalogue = true;
             break;
           case role.name:
             this.roles.canAccessToOrder = true;
