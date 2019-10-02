@@ -57,7 +57,7 @@
   <div class="form-group">
     <label class="col-sm-10 col-form-label">{{ 'product.productType' | translate}}</label>
     <div class="col-sm-12">
-      <nb-select *ngIf="productTypes.length" placeholder="{{ 'product.productType' | translate}}" formControlName='productType'
+      <nb-select *ngIf="productTypes.length" placeholder="{{ 'product.productType' | translate}}" formControlName='type'
                  outline
                  shape="rectangle">
         <nb-option *ngFor="let type of productTypes" [value]="type.code">{{ type.code }}</nb-option>

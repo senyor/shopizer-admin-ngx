@@ -83,7 +83,7 @@ export class ProductFormComponent implements OnInit {
       preOrder: [false],
       dateAvailable: [new Date()],
       manufacturer: ['DEFAULT'],
-      productType: [''],
+      type: [''],
       price: [0],
       quantity: [0, [Validators.required]],
       sortOrder: [0, [Validators.required]],
@@ -122,13 +122,12 @@ export class ProductFormComponent implements OnInit {
 
   fillForm() {
     this.form.patchValue({
-      // uniqueCode: ['', [Validators.required]], // ???
       sku: this.product.sku,
       available: this.product.available,
       preOrder: this.product.preOrder,
       dateAvailable: this.product.dateAvailable,
       manufacturer: this.product.manufacturer.code,
-      // productType: [0, [Validators.required]], // ???
+      // type: this.product.type.code, // TODO
       price: this.product.price,
       quantity: this.product.quantity,
       sortOrder: this.product.sortOrder,
@@ -208,6 +207,7 @@ export class ProductFormComponent implements OnInit {
     const productObject = this.form.value;
     productObject.dateAvailable = moment(productObject.dateAvailable).format('YYYY-MM-DD');
     productObject.productSpecifications.manufacturer = productObject.manufacturer;
+    // productObject.type = this.productTypes.find((type) => type.code === productObject.type); // TODO
 
     // save important values for filling empty field in result object
     const tmpObj = {
