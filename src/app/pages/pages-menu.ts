@@ -176,20 +176,77 @@ export const MENU_ITEMS: MenuItem[] = [
             link: '/pages/catalogue/products/products-list',
             hidden: false
           },
+          {
+            title: 'sideNav.manageInventory',
+            key: 'sideNav.manageInventory',
+            // link: '/pages/catalogue/products/manage-inventory',
+            hidden: false
+          },
         ],
       },
-      // {
-      //   title: 'Options',
-      //   // link: '/pages/store-management/stores-list',
-      // },
-      // {
-      //   title: 'Products group',
-      //   // link: '/pages/store-management/stores-list',
-      // },
-      // {
-      //   title: 'List of manufactures',
-      //   // link: '/pages/store-management/stores-list',
-      // },
+      {
+        title: 'sideNav.brands',
+        key: 'sideNav.brands',
+        hidden: false,
+        children: [
+          {
+            title: 'sideNav.createBrand',
+            key: 'sideNav.createBrand',
+            link: '/pages/catalogue/brands/create-brand',
+            hidden: false
+          },
+          {
+            title: 'sideNav.brandsList',
+            key: 'sideNav.brandsList',
+            link: '/pages/catalogue/brands/brands-list',
+            hidden: false
+          },
+        ],
+      },
+      {
+        title: 'sideNav.catalogues',
+        key: 'sideNav.catalogues',
+        hidden: false,
+        children: [
+          {
+            title: 'sideNav.createCatalogue',
+            key: 'sideNav.createCatalogue',
+            // link: '/pages/catalogue/catalogues/create-catalogue',
+            hidden: false
+          },
+          {
+            title: 'sideNav.cataloguesList',
+            key: 'sideNav.cataloguesList',
+            // link: '/pages/catalogue/catalogues/catalogues-list',
+            hidden: false
+          },
+        ],
+      },
+      {
+        title: 'sideNav.productsGroups',
+        key: 'sideNav.productsGroups',
+        hidden: false,
+        children: [
+          {
+            title: 'sideNav.createProductsGroups',
+            key: 'sideNav.createProductsGroups',
+            // link: '/pages/catalogue/products/create-product',
+            hidden: false
+          },
+          {
+            title: 'sideNav.listProductsGroups',
+            key: 'sideNav.listProductsGroups',
+            // link: '/pages/catalogue/products/products-list',
+            hidden: false
+          },
+          {
+            title: 'sideNav.productsGroupsList',
+            key: 'sideNav.productsGroupsList',
+            // link: '/pages/catalogue/products/manage-inventory',
+            hidden: false
+          },
+        ],
+      },
     ],
   },
   // {

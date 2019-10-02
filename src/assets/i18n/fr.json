@@ -23,6 +23,10 @@
 
     "catalogue": "Catalogue fr",
 
+    "catalogues": "Catalogues",
+    "createCatalogue": "Create catalogue",
+    "cataloguesList": "Catalogues list",
+
     "categories": "Categories fr",
     "createCategory": "Create category fr",
     "categoriesList": "Categories list fr",
@@ -31,6 +35,16 @@
     "products": "Products fr",
     "createProduct": "Create product fr",
     "productsList": "Products list fr",
+    "manageInventory": "Manage inventory",
+
+    "brands": "Brands",
+    "createBrand": "Create brand",
+    "brandsList": "Brands list",
+
+    "productsGroups": "Products groups",
+    "createProductsGroups": "Create product group",
+    "listProductsGroups": "List products groups",
+    "productsGroupsList": "Product groups list",
 
     "orders": "Orders fr"
   },
@@ -176,6 +190,10 @@
       "productRemoved": "Product removed."
     }
   },
+  "brand": {
+    "brand": "Brand",
+    "brandName": "Brand name"
+  },
   "retailer": {
     "selectRetailer": "Select retailer fr",
 
@@ -213,6 +231,8 @@
     "weight": "Weight",
     "height": "Height",
     "width": "Width",
-    "length": "Length"
+    "length": "Length",
+
+    "code": "Code"
   }
 }

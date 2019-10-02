@@ -9,6 +9,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ProductFormComponent } from './product-form/product-form.component';
 import { AvailableButtonComponent } from './products-list/available-button.component';
 import { NgxSummernoteModule } from 'ngx-summernote';
+import { ManageInventoryComponent } from './manage-inventory/manage-inventory.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NgxSummernoteModule } from 'ngx-summernote';
     ProductCreationComponent,
     ProductFormComponent,
     ProductDetailsComponent,
-    AvailableButtonComponent
+    AvailableButtonComponent,
+    ManageInventoryComponent
   ],
   imports: [
     ProductsRoutingModule,

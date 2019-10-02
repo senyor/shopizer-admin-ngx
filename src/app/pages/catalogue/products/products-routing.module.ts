@@ -5,6 +5,7 @@ import { ProductsComponent } from './products.component';
 import { ProductCreationComponent } from './product-creation/product-creation.component';
 import { ProductsListComponent } from './products-list/products-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ManageInventoryComponent } from './manage-inventory/manage-inventory.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'product/:id',
         component: ProductDetailsComponent,
+      },
+      {
+        path: 'manage-inventory',
+        component: ManageInventoryComponent,
       },
     ],
   }

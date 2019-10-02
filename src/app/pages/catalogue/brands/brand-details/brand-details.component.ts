@@ -2,30 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { ProductService } from '../services/product.service';
+import { BrandService } from '../services/brand.service';
 
 @Component({
-  selector: 'ngx-product-details',
-  templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.scss']
+  selector: 'ngx-brand-details',
+  templateUrl: './brand-details.component.html',
+  styleUrls: ['./brand-details.component.scss']
 })
-export class ProductDetailsComponent implements OnInit {
-  product = {};
+export class BrandDetailsComponent implements OnInit {
+  brand = {};
   loadingInfo = false;
 
   constructor(
+    private brandService: BrandService,
     private activatedRoute: ActivatedRoute,
     private location: Location,
-    private productService: ProductService
   ) {
   }
 
   ngOnInit() {
     this.loadingInfo = true;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.productService.getProductById(id)
-      .subscribe(res => {
-        this.product = res;
+    this.brandService.getBrandById(id)
+      .subscribe(brand => {
+        this.brand = brand;
         this.loadingInfo = false;
       });
   }
