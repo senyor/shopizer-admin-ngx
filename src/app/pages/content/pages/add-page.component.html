@@ -5,12 +5,12 @@
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">
-            <nb-checkbox [(ngModel)]="page.visible" name="visible" status="success">Visible</nb-checkbox>
+            <nb-checkbox [(ngModel)]="visible" name="visible" status="success">Visible</nb-checkbox>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="form-group">
-            <nb-checkbox [(ngModel)]="page.mainmenu" name="mainmenu" status="success">Display this page in main menu</nb-checkbox>
+            <nb-checkbox [(ngModel)]="mainmenu" name="mainmenu" status="success">Display this page in main menu</nb-checkbox>
           </div>
         </div>
       </div>
@@ -18,14 +18,17 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="inputWebsite" class="label">Code</label>
-            <input type="text" [(ngModel)]="page.code" name="code" class="form-control" id="code" placeholder="Code"
-              required>
+            <input type="text" [(ngModel)]="code" name="code" class="form-control" id="code" placeholder="Code"
+              (focusout)="focusOutFunction()" required>
+            <span *ngIf="codeExits" class="err-message">{{message}}</span>
+            <span *ngIf="!codeExits" class="err-message-success">{{message}}</span>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="
+              col-sm-6">
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Order</label>
-            <input type="number" [(ngModel)]="page.order" name="order" class="form-control" id="order" placeholder="Order">
+            <input type="number" [(ngModel)]="order" name="order" class="form-control" id="order" placeholder="Order">
           </div>
         </div>
       </div>
@@ -33,68 +36,65 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Page name (en)</label>
-            <input type="text" [(ngModel)]="page.ePagename" name="ePagename" class="form-control" id="page_name"
-              placeholder="Page Name" required>
+            <input type="text" [(ngModel)]="en.name" name="name" class="form-control" id="page_name" placeholder="Page Name"
+              (keyup)="urlTitle($event)" required>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Search engine friendly url (en)</label>
-            <input type="text" [(ngModel)]="page.eUrl" name="eUrl" class="form-control" id="url" placeholder="Url">
+            <input type="text" [(ngModel)]="en.slug" name="slug" class="form-control" id="url" placeholder="Url">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Page content (en)</label>
-            <ngx-tiny-mce [(ngModel)]="page.ePagecontent" name="ePagecontent"></ngx-tiny-mce>
+            <ngx-tiny-mce [(ngModel)]="en.pageContent" name="pageContent"></ngx-tiny-mce>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Title (en)</label>
-            <input type="text" [(ngModel)]="page.eTitle" name="eTitle" class="form-control" id="title" placeholder="Title">
+            <input type="text" [(ngModel)]="en.title" name="title" class="form-control" id="title" placeholder="Title">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Keywords (en)</label>
-            <input type="text" [(ngModel)]="page.eKeyword" name="eKeyword" class="form-control" id="keyword"
-              placeholder="keyword">
+            <input type="text" [(ngModel)]="en.keyword" name="keyword" class="form-control" id="keyword" placeholder="keyword">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Product group</label>
-            <input type="text" [(ngModel)]="page.eProduct_group" name="eProduct_group" class="form-control" id="product_group"
+            <input type="text" [(ngModel)]="en.productGroup" name="productGroup" class="form-control" id="product_group"
               placeholder="Product group">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Description metatag (en)</label>
-            <input type="text" [(ngModel)]="page.eDescription" name="eDescription" class="form-control" id="description"
+            <input type="text" [(ngModel)]="en.metaDetails" name="metaDetails" class="form-control" id="description"
               placeholder="Description metatag">
           </div>
         </div>
         <div class="col-sm-6">
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Page name (fr)</label>
-            <input type="text" [(ngModel)]="page.fPagename" name="fPagename" class="form-control" id="page_name"
-              placeholder="Page Name">
+            <input type="text" [(ngModel)]="fr.name" name="fr.name" class="form-control" id="page_name" placeholder="Page Name">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Search engine friendly url (fr)</label>
-            <input type="text" [(ngModel)]="page.fUrl" name="fUrl" class="form-control" id="url" placeholder="Url">
+            <input type="text" [(ngModel)]="fr.slug" name="fr.slug" class="form-control" id="url" placeholder="Url">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Page content (fr)</label>
-            <ngx-tiny-mce [(ngModel)]="page.fPagecontent" name="fPagecontent"></ngx-tiny-mce>
+            <ngx-tiny-mce [(ngModel)]="fr.pageContent" name="fr.pageContent"></ngx-tiny-mce>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Title (fr)</label>
-            <input type="text" [(ngModel)]="page.fTitle" name="fTitle" class="form-control" id="title" placeholder="Title">
+            <input type="text" [(ngModel)]="fr.title" name="fr.title" class="form-control" id="title" placeholder="Title">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Keywords (fr)</label>
-            <input type="text" [(ngModel)]="page.fKeyword" name="fKeyword" class="form-control" id="keyword"
-              placeholder="keyword">
+            <input type="text" [(ngModel)]="fr.keyword" name="fr.keyword" class="form-control" id="keyword" placeholder="keyword">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Product group</label>
-            <input type="text" [(ngModel)]="page.fProduct_group" name="fProduct_group" class="form-control" id="product_group"
+            <input type="text" [(ngModel)]="fr.productGroup" name="fr.productGroup" class="form-control" id="product_group"
               placeholder="Product group">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Description metatag (fr )</label>
-            <input type="text" [(ngModel)]="page.fDescription" name="fDescription" class="form-control" id="description"
+            <input type="text" [(ngModel)]="fr.metaDetails" name="fr.metaDetails" class="form-control" id="description"
               placeholder="Description metatag">
           </div>
         </div>

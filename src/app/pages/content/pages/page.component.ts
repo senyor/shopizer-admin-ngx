@@ -18,17 +18,17 @@ export class PageComponent {
       position: 'right',
       custom: [
         {
-          name: 'edit',
+          name: 'onEdit',
           title: '<i class="nb-edit"></i>'
         },
         {
           name: 'delete',
           title: '<i class="nb-trash"></i>'
-        },
-        {
-          name: 'delete',
-          title: '<i class="nb-info"></i>'
         }
+        // {
+        //   name: 'delete',
+        //   title: '<i class="nb-info"></i>'
+        // }
       ]
     },
     columns: {
@@ -65,9 +65,15 @@ export class PageComponent {
       });
   }
   addPages() {
+    localStorage.setItem('contentpageid', '');
     this.router.navigate(['/pages/content/pages/add']);
   }
+  onEdit(event) {
+    console.log(event);
+    localStorage.setItem('contentpageid', event.data.code);
+    this.router.navigate(['/pages/content/pages/add']);
 
+  }
   // onDeleteConfirm(event): void {
   //   if (window.confirm('Are you sure you want to delete?')) {
   //     event.confirm.resolve();
