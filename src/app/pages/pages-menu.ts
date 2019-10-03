@@ -211,13 +211,13 @@ export const MENU_ITEMS: MenuItem[] = [
           {
             title: 'sideNav.createCatalogue',
             key: 'sideNav.createCatalogue',
-            // link: '/pages/catalogue/catalogues/create-catalogue',
+            link: '/pages/catalogue/catalogues/create-catalogue',
             hidden: false
           },
           {
             title: 'sideNav.cataloguesList',
             key: 'sideNav.cataloguesList',
-            // link: '/pages/catalogue/catalogues/catalogues-list',
+            link: '/pages/catalogue/catalogues/catalogues-list',
             hidden: false
           },
         ],
@@ -230,19 +230,19 @@ export const MENU_ITEMS: MenuItem[] = [
           {
             title: 'sideNav.createProductsGroups',
             key: 'sideNav.createProductsGroups',
-            // link: '/pages/catalogue/products/create-product',
+            link: '/pages/catalogue/products-groups/create-products-group',
             hidden: false
           },
           {
             title: 'sideNav.listProductsGroups',
             key: 'sideNav.listProductsGroups',
-            // link: '/pages/catalogue/products/products-list',
+            link: '/pages/catalogue/products-groups/products-groups-list',
             hidden: false
           },
           {
             title: 'sideNav.productsGroupsList',
             key: 'sideNav.productsGroupsList',
-            // link: '/pages/catalogue/products/manage-inventory',
+            link: '/pages/catalogue/products-groups/groups-list',
             hidden: false
           },
         ],
