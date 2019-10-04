@@ -38,7 +38,10 @@
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "node_modules/leaflet/dist/leaflet.css",
               "src/app/@theme/styles/styles.scss",
-              "node_modules/summernote/dist/summernote-lite.css"
+              "node_modules/summernote/dist/summernote-lite.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeng/resources/primeng.min.css"
             ],
             "scripts": [
               "node_modules/pace-js/pace.min.js",
