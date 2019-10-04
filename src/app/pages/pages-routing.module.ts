@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { OrdersGuard } from './shared/guards/orders.guard';
+import { SuperadminStoreRetailCatalogueGuard } from './shared/guards/superadmin-store-retail-catalogue.guard';
 
 const routes: Routes = [{
   path: '',
@@ -28,6 +29,7 @@ const routes: Routes = [{
     },
     {
       path: 'catalogue',
+      canActivate: [SuperadminStoreRetailCatalogueGuard],
       loadChildren: 'app/pages/catalogue/catalogue.module#CatalogueModule'
     },
     {
