@@ -47,3 +47,14 @@ ng2-st-tbody-custom {
   display: flex;
   flex-direction: row;
 }
+
+// styles for selector with
+
+.selector-wrap {
+  display: flex;
+  flex-direction: row-reverse;
+  .selector-element {
+    width: 45%;
+    margin-bottom: 20px;
+  }
+}
