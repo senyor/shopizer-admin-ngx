@@ -31,7 +31,13 @@
     "pages": "Manage Pages",
     "boxes": "Manage Boxes",
     "images": "Manage Images",
-    "files": "Manage Files"
+    "files": "Manage Files",
+    "shipping": "Shipping",
+    "configuration": "Configuration",
+    "methods": "Methods",
+    "origin": "Origin",
+    "options": "Options",
+    "packaging": "Packaging"
   },
   "home": {
     "storeInformation": "Store information",

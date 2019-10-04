@@ -17,18 +17,10 @@ export class FilesComponent {
       delete: false,
       position: 'right',
       custom: [
-        // {
-        //   name: 'edit',
-        //   title: '<i class="nb-edit"></i>'
-        // },
         {
           name: 'delete',
           title: '<i class="nb-trash"></i>'
-        },
-        // {
-        //   name: 'delete',
-        //   title: '<i class="nb-info"></i>'
-        // }
+        }
       ]
     },
     columns: {
@@ -39,11 +31,11 @@ export class FilesComponent {
       path: {
         title: 'URL',
         type: 'string',
-      },
-      // contentType: {
-      //   title: 'Type',
-      //   // type: 'string',
-      // }
+        valuePrepareFunction: (cell, row) => {
+          console.log(row);
+          return row.path + row.name
+        }
+      }
     },
   };
 
@@ -56,7 +48,7 @@ export class FilesComponent {
   }
   getFiles() {
     this.loadingList = true;
-    this.crudService.get('/v1/content/images')
+    this.crudService.get('/v1/content/folder')
       .subscribe(data => {
         this.loadingList = false;
         this.source = data.content;

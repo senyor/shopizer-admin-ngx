@@ -27,11 +27,17 @@
     "createProduct": "Create product ru",
     "productsList": "Products list ru",
     "orders": "Orders ru",
-    "content": "Управление контентом",
-    "pages": "Управление страницами",
-    "boxes": "Управление коробками",
-    "images": "Управление изображениями",
-    "files": "Управление файлами"
+    "content": "Manage content ru",
+    "pages": "Manage Pages ru",
+    "boxes": "Manage Boxes ru",
+    "images": "Manage Images ru",
+    "files": "Manage Files ru",
+    "shipping": "Shipping ru",
+    "configuration": "Configuration ru",
+    "methods": "Methods ru",
+    "origin": "Origin ru",
+    "options": "Options ru",
+    "packaging": "Packaging ru"
   },
   "home": {
     "storeInformation": "Store information ru",

@@ -206,6 +206,54 @@ page-table {
   }
 }
 
+shipping-config {
+  nb-card-header {}
+
+  nb-card-body {
+    // padding: 0 !important;
+
+    .home-table {
+      table {
+        border-collapse: separate;
+        border-spacing: 0 15px;
+
+        thead {
+          background: transparent !important;
+
+          tr {
+            background: transparent !important;
+
+            th {
+              border: none !important;
+            }
+          }
+        }
+
+        tbody {
+          tr {
+            background: #fff !important;
+
+            &.ng2-smart-row.selected {
+              background: #fff !important;
+            }
+
+            &:hover {
+              background: #fff !important;
+            }
+
+            td {
+              height: auto !important;
+              border: none !important;
+              padding: 1.1em !important;
+              padding: 14px 1.25rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .promotion {
   .q-rule {
     border: 0px !important;

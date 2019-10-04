@@ -1,0 +1,26 @@
+<div class="pages">
+  <nb-card>
+    <nb-card-header>
+      Shipping Configuration
+    </nb-card-header>
+    <nb-card-body>
+      <form #pagesForm="ngForm" role="form">
+
+        <div class="form-group mode">
+          <label for="inputWebsite" class="label">Shipping mode</label>
+          <div class="form-group">
+            <nb-radio status="success" class="shipping-radio">Limited</nb-radio>
+            <nb-radio status="success" class="shipping-radio">Unlimited</nb-radio>
+          </div>
+        </div>
+        <div class="submit-button">
+          <button type="button" nbButton status="success">Save</button>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+    <ng2-smart-table [settings]="settings" [source]="source" class="home-table">
+    </ng2-smart-table>
+  </nb-card-body>
+</div>

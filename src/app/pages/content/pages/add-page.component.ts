@@ -88,8 +88,7 @@ export class AddPageComponent {
       'contentType': 'PAGE',
       'displayedInMenu': this.mainmenu,
       'metaDetails': this.en.metaDetails,
-      'pageContent': this.en.pageContent,
-      'path': '',
+      'pageContent': '<div class=\"ad_box\"><img class=\"banner\" src=\"some_ad.png\" alt=\"\" /><h3>Hot Items </h3> <br /> <ul id=\"items\" /></div>',
       'slug': this.en.slug,
       'title': this.en.title
     }

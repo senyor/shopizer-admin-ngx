@@ -27,11 +27,17 @@
     "createProduct": "Create product fr",
     "productsList": "Products list fr",
     "orders": "Orders fr",
-    "content": "Gérer le contenu",
-    "pages": "Gérer les pages",
-    "boxes": "Gérer les boîtes",
-    "images": "Gérer les images",
-    "files": "Gérer les fichiers"
+    "content": "Manage content fr",
+    "pages": "Manage Pages fr",
+    "boxes": "Manage Boxes fr",
+    "images": "Manage Images fr",
+    "files": "Manage Files fr",
+    "shipping": "Shipping fr",
+    "configuration": "Configuration fr",
+    "methods": "Methods fr",
+    "origin": "Origin fr",
+    "options": "Options fr",
+    "packaging": "Packaging fr"
   },
   "home": {
     "storeInformation": "Store information fr",

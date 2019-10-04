@@ -35,6 +35,10 @@ const routes: Routes = [{
       loadChildren: 'app/pages/content/content.module#ContentModule'
     },
     {
+      path: 'shipping',
+      loadChildren: 'app/pages/shipping/shipping.module#ShippingModule'
+    },
+    {
       path: '',
       redirectTo: 'home',
       pathMatch: 'full'

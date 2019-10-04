@@ -207,11 +207,38 @@ export const MENU_ITEMS: MenuItem[] = [
       // },
     ],
   },
-  // {
-  //   title: 'Shipping',
-  //   // icon: 'fas fa-shopping-cart',
-  //   link: '',
-  // },
+  {
+    title: 'Shipping',
+    key: 'sideNav.shipping',
+    icon: 'fas fa-truck',
+    children: [
+      {
+        title: 'Configuration',
+        key: 'sideNav.configuration',
+        link: '/pages/shipping/config',
+      },
+      {
+        title: 'Methods',
+        key: 'sideNav.methods',
+        link: '/pages/shipping/config',
+      },
+      {
+        title: 'Origin',
+        key: 'sideNav.origin',
+        link: '/pages/shipping/config',
+      },
+      {
+        title: 'Options',
+        key: 'sideNav.options',
+        link: '/pages/shipping/config',
+      },
+      {
+        title: 'Packaging',
+        key: 'sideNav.packaging',
+        link: '/pages/shipping/config',
+      }
+    ]
+  },
   // {
   //   title: 'Payment',
   //   // icon: 'fas fa-shopping-cart',
