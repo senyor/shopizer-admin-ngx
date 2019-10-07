@@ -8,8 +8,8 @@
     </div>
   </nb-card-header>
 
-  <nb-card-body>
-    <ng2-smart-table [settings]="settings" [source]="source" (custom)="onEdit($event)" class="home-table">
+  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+    <ng2-smart-table [settings]="settings" [source]="source" (custom)="onClickAction($event)" class="home-table">
     </ng2-smart-table>
   </nb-card-body>
   <!-- </nb-card> -->

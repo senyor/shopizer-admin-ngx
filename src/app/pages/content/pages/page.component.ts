@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { CrudService } from '../../shared/services/crud.service';
 import { Router } from '@angular/router';
+import { NbDialogService } from '@nebular/theme';
+import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'page-table',
   templateUrl: './page.component.html',
@@ -18,7 +21,7 @@ export class PageComponent {
       position: 'right',
       custom: [
         {
-          name: 'onEdit',
+          name: 'edit',
           title: '<i class="nb-edit"></i>'
         },
         {
@@ -48,10 +51,12 @@ export class PageComponent {
   };
 
   source: LocalDataSource = new LocalDataSource();
-
+  loadingList = false;
   constructor(
     private crudService: CrudService,
-    public router: Router
+    public router: Router,
+    private dialogService: NbDialogService,
+    private toastr: ToastrService
   ) {
     this.getPages()
   }
@@ -68,11 +73,40 @@ export class PageComponent {
     localStorage.setItem('contentpageid', '');
     this.router.navigate(['/pages/content/pages/add']);
   }
+  onClickAction(event) {
+    switch (event.action) {
+      case 'edit':
+        this.onEdit(event);
+        break;
+      case 'delete':
+        this.onDelete(event);
+
+    }
+
+  }
   onEdit(event) {
-    console.log(event);
     localStorage.setItem('contentpageid', event.data.code);
     this.router.navigate(['/pages/content/pages/add']);
-
+  }
+  onDelete(event) {
+    this.loadingList = true;
+    console.log(event);
+    this.dialogService.open(ShowcaseDialogComponent, {})
+      .onClose.subscribe(res => {
+        if (res) {
+          console.log('fsdfsfdf');
+          this.crudService.delete('/v1/private/content/page/' + event.data.id + '?id=' + event.data.id)
+            .subscribe(data => {
+              this.loadingList = false;
+              this.toastr.success('Page deleted successfully');
+              this.getPages();
+            }, error => {
+              this.loadingList = false;
+            });
+        } else {
+          this.loadingList = false;
+        }
+      });
   }
   // onDeleteConfirm(event): void {
   //   if (window.confirm('Are you sure you want to delete?')) {
