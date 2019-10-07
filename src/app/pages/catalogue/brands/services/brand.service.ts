@@ -33,4 +33,11 @@ export class BrandService {
     return this.crudService.delete(`/v1/private/manufacturer/${id}`);
   }
 
+  checkCategoryCode(code): Observable<any> {
+    const params = {
+      'code': code,
+    };
+    return this.crudService.get(`/v1/private/manufacturer/unique`, params);
+  }
+
 }

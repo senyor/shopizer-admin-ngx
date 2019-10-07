@@ -15,7 +15,7 @@ export class CategoryService {
 
   getListOfCategories(): Observable<any> {
     const params = {
-      'store': 'DEFAULT ',
+      'store': 'DEFAULT',
       'lang': 'en'
     };
     return this.crudService.get(`/v1/category`, params);

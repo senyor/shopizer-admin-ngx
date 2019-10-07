@@ -169,11 +169,7 @@ export class CategoryFormComponent implements OnInit {
     const code = event.target.value;
     this.categoryService.checkCategoryCode(code)
       .subscribe(res => {
-        if (res.exists && (this.category.code !== code)) {
-          this.isCodeUnique = false;
-        } else {
-          this.isCodeUnique = true;
-        }
+        this.isCodeUnique = !(res.exists && (this.category.code !== code));
       });
   }
 

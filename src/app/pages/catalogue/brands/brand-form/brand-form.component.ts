@@ -31,6 +31,7 @@ export class BrandFormComponent implements OnInit {
     ],
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
+  isCodeUnique = true;
 
   constructor(
     private brandService: BrandService,
@@ -143,16 +144,12 @@ export class BrandFormComponent implements OnInit {
     });
   }
 
-  checkCode(event) { // TODO
-    // const code = event.target.value;
-    // this.categoryService.checkCategoryCode(code)
-    //   .subscribe(res => {
-    //     if (res.exists && (this.category.code !== code)) {
-    //       this.isCodeUnique = false;
-    //     } else {
-    //       this.isCodeUnique = true;
-    //     }
-    //   });
+  checkCode(event) {
+    const code = event.target.value;
+    this.brandService.checkCategoryCode(code)
+      .subscribe(res => {
+        this.isCodeUnique = !(res.exists && (this.brand.code !== code));
+      });
   }
 
   save() {
