@@ -1,9 +1,9 @@
 <div class="selector-wrap">
   <div class="selector-element">
-    <nb-select *ngIf="list1.length" placeholder="{{ 'product.manufacturer' | translate}}" [(ngModel)]="isRed"
+    <nb-select *ngIf="availableList.length" placeholder="{{ 'product.manufacturer' | translate}}" [(ngModel)]="isRed"
                outline
                shape="rectangle">
-      <nb-option *ngFor="let manufacturer of list1" [value]="manufacturer.code">{{ manufacturer.code }}</nb-option>
+      <nb-option *ngFor="let manufacturer of availableList" [value]="manufacturer.code">{{ manufacturer.code }}</nb-option>
     </nb-select>
   </div>
 </div>
@@ -12,8 +12,8 @@
             targetHeader="Selected"
             dragdrop="true"
             [responsive]="true"
-            [source]="list1"
-            [target]="list2"
+            [source]="availableList"
+            [target]="selectedList"
             sourceFilterPlaceholder="Search"
             targetFilterPlaceholder="Search"
             [showSourceControls]="false"

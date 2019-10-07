@@ -8,6 +8,7 @@ import { ButtonRenderComponent } from './button-render.component';
 import { NbDialogService } from '@nebular/theme';
 import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { ProductService } from '../../products/services/product.service';
 
 @Component({
   selector: 'ngx-categories-list',
@@ -21,17 +22,27 @@ export class CategoriesListComponent implements OnInit {
   categories = [];
   settings = {};
 
+  isRed = 'false';
+  availableList: any[];
+  selectedList: any[];
+
   constructor(
     private categoryService: CategoryService,
     private router: Router,
     private _sanitizer: DomSanitizer,
     private dialogService: NbDialogService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private productService: ProductService
   ) {
   }
 
   ngOnInit() {
     this.getList();
+    this.productService.getListOfProducts({})
+      .subscribe(res => {
+        this.availableList = [...res.products];
+        this.selectedList = [];
+      });
   }
 
   getChildren(node) {

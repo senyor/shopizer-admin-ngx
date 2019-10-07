@@ -7,15 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CataloguesListComponent implements OnInit {
   isRed = 'false';
-  list1: any[];
-
-  list2: any[];
+  availableList: any[];
+  selectedList: any[];
 
   constructor() {
   }
 
   ngOnInit() {
-    this.list1 = [{
+    this.availableList = [{
       'id': 1,
       'code': 'DEFAULT1',
       'descriptions': [
@@ -71,7 +70,7 @@ export class CataloguesListComponent implements OnInit {
       ]
     }
     ];
-    this.list2 = [];
+    this.selectedList = [];
   }
 
 }
