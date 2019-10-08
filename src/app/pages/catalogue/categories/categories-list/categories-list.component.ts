@@ -22,7 +22,6 @@ export class CategoriesListComponent implements OnInit {
   categories = [];
   settings = {};
 
-  isRed = 'false';
   availableList: any[];
   selectedList: any[];
 
