@@ -6,6 +6,7 @@ import { ProductCreationComponent } from './product-creation/product-creation.co
 import { ProductsListComponent } from './products-list/products-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ManageInventoryComponent } from './manage-inventory/manage-inventory.component';
+import { InventoryDetailsComponent } from './inventory-details/inventory-details.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
       {
         path: 'manage-inventory',
         component: ManageInventoryComponent,
+      },
+      {
+        path: 'inventory-details',
+        component: InventoryDetailsComponent,
       },
     ],
   }

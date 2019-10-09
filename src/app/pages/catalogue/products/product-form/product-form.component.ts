@@ -54,10 +54,10 @@ export class ProductFormComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.manufactureService.getManufacturers()
-      .subscribe(res => {
-        this.manufacturers = [...res];
-      });
+    // this.manufactureService.getManufacturers()
+    //   .subscribe(res => {
+    //     this.manufacturers = [...res];
+    //   });
     this.productService.getProductTypes()
       .subscribe(res => {
         this.productTypes = [...res];

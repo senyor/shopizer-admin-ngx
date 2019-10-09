@@ -1,3 +1,30 @@
-<p>
-  manage-inventory works!
-</p>
+<nb-card size="small" class="page-card">
+  <nb-card-header>
+    !!!Product name
+  </nb-card-header>
+  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+
+    <nb-actions size="medium" class="back-button">
+      <nb-action>
+        <i class="fas fa-plus"></i>&nbsp;<a routerLink="/pages/catalogue/products/inventory-details">Add to inventory</a>
+      </nb-action>
+    </nb-actions>
+
+    <ng2-smart-table
+      [settings]="settings"
+      [source]="source"
+      (custom)="route($event)"
+      (editConfirm)="updateRecord($event)"
+      (deleteConfirm)="deleteRecord($event)">
+    </ng2-smart-table>
+
+    <ngx-paginator
+      (changePage)="changePage($event)"
+      [pagesToShow]="5"
+      [currentPage]="currentPage"
+      [perPage]="perPage"
+      [count]="totalCount">
+    </ngx-paginator>
+
+  </nb-card-body>
+</nb-card>

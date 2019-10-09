@@ -9,6 +9,9 @@
   </nb-card-header>
   <nb-card-body [nbSpinner]="loadingInfo" class="loading-block" nbSpinnerSize="large"
                 nbSpinnerStatus="primary">
+    <button nbButton outline status="success" class="right-card-button">
+      <a routerLink="/pages/catalogue/products/manage-inventory">List inventory</a>
+    </button>
     <ngx-product-form *ngIf="product" [product]="product"></ngx-product-form>
   </nb-card-body>
 </nb-card>
