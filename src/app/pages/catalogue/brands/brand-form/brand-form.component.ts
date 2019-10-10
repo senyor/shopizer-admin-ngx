@@ -5,6 +5,7 @@ import { BrandService } from '../services/brand.service';
 import { ConfigService } from '../../../shared/services/config.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-brand-form',
@@ -38,7 +39,8 @@ export class BrandFormComponent implements OnInit {
     private fb: FormBuilder,
     private configService: ConfigService,
     private toastr: ToastrService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router,
   ) {
   }
 
@@ -60,6 +62,7 @@ export class BrandFormComponent implements OnInit {
   createForm() {
     this.form = this.fb.group({
       code: ['', [Validators.required]],
+      order: ['', [Validators.required]],
       selectedLanguage: ['', [Validators.required]],
       descriptions: this.fb.array([]),
     });
@@ -86,6 +89,7 @@ export class BrandFormComponent implements OnInit {
   fillForm() {
     this.form.patchValue({
       code: this.brand.code,
+      order: this.brand.order,
       selectedLanguage: 'en',
       descriptions: [],
     });
@@ -201,34 +205,34 @@ export class BrandFormComponent implements OnInit {
       });
       console.log('saving', brandObject);
 
-      // this.brandService.checkCategoryCode(brandObject.code)
-      //   .subscribe(res => {
-      //     if (this.category.id) {
-      //       // if exist, it is updating
-      //       if (!res.exists || (res.exists && this.category.code === this.form.value.code)) {
-      //         this.brandService.updateCategory(this.category.id, brandObject)
-      //           .subscribe(result => {
-      //             console.log(result);
-      //             this.toastr.success(this.translate.instant('category.toastr.categoryUpdated'));
-      //             this.router.navigate(['pages/catalogue/categories/categories-list']);
-      //           });
-      //       } else {
-      //         this.isCodeUnique = false;
-      //       }
-      //     } else {
-      //       // if doesn't exist, it is creating
-      //       if (!res.exists) {
-      //         this.brandService.addCategory(brandObject)
-      //           .subscribe(result => {
-      //             console.log(result);
-      //             this.toastr.success(this.translate.instant('category.toastr.categoryCreated'));
-      //             this.router.navigate(['pages/catalogue/categories/categories-list']);
-      //           });
-      //       } else {
-      //         this.isCodeUnique = false;
-      //       }
-      //     }
-      //   });
+      this.brandService.checkCategoryCode(brandObject.code)
+        .subscribe(res => {
+          if (this.brand.id) {
+            // if exist, it is updating
+            // if (!res.exists || (res.exists && this.category.code === this.form.value.code)) {
+            //   this.brandService.updateCategory(this.category.id, brandObject)
+            //     .subscribe(result => {
+            //       console.log(result);
+            //       this.toastr.success(this.translate.instant('category.toastr.categoryUpdated'));
+            //       this.router.navigate(['pages/catalogue/categories/categories-list']);
+            //     });
+            // } else {
+            //   this.isCodeUnique = false;
+            // }
+          } else {
+            // if doesn't exist, it is creating
+            if (!res.exists) {
+              this.brandService.createBrand(brandObject)
+                .subscribe(result => {
+                  console.log(result);
+                  this.toastr.success(this.translate.instant('category.toastr.categoryCreated'));
+                  this.router.navigate(['pages/catalogue/brands/brands-list']);
+                });
+            } else {
+              this.isCodeUnique = false;
+            }
+          }
+        });
     }
   }
 

@@ -10,7 +10,7 @@ import { BrandService } from '../services/brand.service';
   styleUrls: ['./brand-details.component.scss']
 })
 export class BrandDetailsComponent implements OnInit {
-  brand = {};
+  brand: any = {};
   loadingInfo = false;
 
   constructor(

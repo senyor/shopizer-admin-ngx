@@ -36,7 +36,7 @@ export class BrandsListComponent implements OnInit {
     this.loadingList = true;
     this.brandService.getListOfBrands()
       .subscribe(brands => {
-        this.source.load(brands);
+        this.source.load(brands.manufacturers);
         this.source.setPaging(1, this.perPage, true);
         this.loadingList = false;
       });

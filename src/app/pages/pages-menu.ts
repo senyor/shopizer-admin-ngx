@@ -179,7 +179,7 @@ export const MENU_ITEMS: MenuItem[] = [
           {
             title: 'sideNav.manageInventory',
             key: 'sideNav.manageInventory',
-            // link: '/pages/catalogue/products/manage-inventory',
+            link: '/pages/catalogue/products/manage-inventory',
             hidden: false
           },
         ],

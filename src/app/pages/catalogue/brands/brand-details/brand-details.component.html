@@ -9,6 +9,6 @@
   </nb-card-header>
   <nb-card-body [nbSpinner]="loadingInfo" class="loading-block" nbSpinnerSize="large"
                 nbSpinnerStatus="primary">
-    <ngx-brand-form *ngIf="brand" [brand]="brand"></ngx-brand-form>
+    <ngx-brand-form *ngIf="brand.id" [brand]="brand"></ngx-brand-form>
   </nb-card-body>
 </nb-card>
