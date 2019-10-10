@@ -56,7 +56,7 @@ export class ProductFormComponent implements OnInit {
     this.createForm();
     this.manufactureService.getManufacturers()
       .subscribe(res => {
-        this.manufacturers = [...res];
+        this.manufacturers = [...res.manufacturers];
       });
     this.productService.getProductTypes()
       .subscribe(res => {
@@ -200,6 +200,10 @@ export class ProductFormComponent implements OnInit {
   onImageChanged(event) {
     console.log('event', event);
     this.productImage = event.files;
+    // this.productImageService.createImage(this.product.id, this.productImage)
+    //   .subscribe(res1 => {
+    //     console.log(res1);
+    //   });
   }
 
 
