@@ -29,6 +29,13 @@
 
 .mode {
   float: left;
+  // width: 100%;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: .5rem;
+  width: 100% !important;
 }
 
 .submit-button {
@@ -47,6 +54,19 @@
   width: 20px;
 }
 
+.nb-theme-corporate nb-card {
+  font-size: 1rem;
+  line-height: 1.25;
+  background: #ffffff;
+  color: #4b4b4b;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem !important;
+  border-radius: 0.17rem;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  font-weight: 400;
+  border: 1px solid #d5dbe0;
+}
 
 /deep/ upload {
   .dropzone {

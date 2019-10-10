@@ -227,16 +227,16 @@ export const MENU_ITEMS: MenuItem[] = [
         key: 'sideNav.origin',
         link: '/pages/shipping/config',
       },
-      {
-        title: 'Options',
-        key: 'sideNav.options',
-        link: '/pages/shipping/config',
-      },
-      {
-        title: 'Packaging',
-        key: 'sideNav.packaging',
-        link: '/pages/shipping/config',
-      }
+      // {
+      //   title: 'Options',
+      //   key: 'sideNav.options',
+      //   link: '/pages/shipping/config',
+      // },
+      // {
+      //   title: 'Packaging',
+      //   key: 'sideNav.packaging',
+      //   link: '/pages/shipping/config',
+      // }
     ]
   },
   // {

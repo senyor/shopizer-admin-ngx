@@ -9,7 +9,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./configuration.component.scss'],
 })
 export class ConfigurationComponent {
+  leftAreaItems = [];
+  rightAreaItems = null;
+  leftAreaLabel = "Available";
+  rightAreaLabel = "Selected";
 
+  leftAreaId = "Available";
+  rightAreaId = "Selected";
+  code = "code";
+  label = "label";
   loadingList = false;
   constructor(
     private crudService: CrudService
@@ -17,7 +25,9 @@ export class ConfigurationComponent {
     this.getCountry()
 
   }
-  source: LocalDataSource = new LocalDataSource();
+
+
+  // source: LocalDataSource = new LocalDataSource();
   settings = {
     mode: 'external',
     hideSubHeader: true,
@@ -44,11 +54,18 @@ export class ConfigurationComponent {
     this.crudService.get('/v1/country')
       .subscribe(data => {
         this.loadingList = false;
-        this.source = data;
+        let value = [];
+        data.forEach((item) => {
+          value.push({ 'code': item.id, 'label': item.name })
+        });
+        this.leftAreaItems = value
+        console.log(this.leftAreaItems)
+        // this.source = data;
       }, error => {
         this.loadingList = false;
 
       });
+
   }
 
 }

@@ -1,0 +1,27 @@
+.center {
+    position: absolute;
+    top: 50%;
+    left: 30%;
+}
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 20px;
+    margin-left: -15px;
+}
+
+@media (max-width:576px) {
+
+
+    .center {
+        position: relative;
+        ;
+        top: 8%;
+        left: 0%;
+        text-align: center;
+        height: 20vh;
+    }
+}

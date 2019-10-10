@@ -7,11 +7,75 @@
       <form #pagesForm="ngForm" role="form">
 
         <div class="form-group mode">
-          <label for="inputWebsite" class="label">Shipping mode</label>
+          <label for="inputWebsite" class="label"><b>Shipping mode</b></label>
           <div class="form-group">
             <nb-radio status="success" class="shipping-radio">Limited</nb-radio>
             <nb-radio status="success" class="shipping-radio">Unlimited</nb-radio>
           </div>
+        </div>
+        <!-- <div class="submit-button">
+          <button type="button" nbButton status="success">Save</button>
+        </div> -->
+      </form>
+    </nb-card-body>
+  </nb-card>
+  <nb-card-body *ngIf="leftAreaItems.length > 0">
+
+
+    <app-transferlistbox [code]="code" [label]="label" [leftAreaList]="leftAreaItems" [rightAreaList]="rightAreaItems"
+      [leftAreaLabel]="leftAreaLabel" [rightAreaLabel]="rightAreaLabel" [leftAreaId]="leftAreaId" [rightAreaId]="rightAreaId"></app-transferlistbox>
+
+    <!-- <ng2-smart-table [settings]="settings" [source]="source" class="home-table">
+    </ng2-smart-table> -->
+  </nb-card-body>
+  <nb-card>
+
+    <nb-card-body>
+      <form #pagesForm="ngForm" role="form">
+        <div class="form-group">
+          <nb-checkbox [(ngModel)]="visible" name="visible" status="success">Tax on shipping</nb-checkbox>
+        </div>
+
+
+        <div class="form-group mode">
+          <label for="inputWebsite" class="label"><b>Shipping Quotes</b></label>
+          <!-- <div class="form-group"> -->
+          <nb-radio status="success" class="shipping-radio">Display all shipping quotes</nb-radio>
+          <!-- </div> -->
+          <!-- <div class="form-group"> -->
+          <nb-radio status="success" class="shipping-radio">Display least expensive shipping quotes</nb-radio>
+          <!-- </div> -->
+          <!-- <div class="form-group"> -->
+          <nb-radio status="success" class="shipping-radio">Display highest expensive shipping quotes</nb-radio>
+          <!-- </div> -->
+        </div>
+
+        <div class="form-group mode">
+          <label for="inputWebsite" class="label"><b>Packaging information </b>(Weight units LB , Size units IN)</label>
+          <div class="form-group">
+            <nb-radio status="success" class="shipping-radio">Items will be shipped individually</nb-radio>
+          </div>
+          <div class="form-group">
+            <nb-radio status="success" class="shipping-radio">Items will be combined and shipped in a box</nb-radio>
+          </div>
+
+
+        </div>
+        <div class="form-group">
+          <label for="inputWebsite" class="label">Box width</label>
+          <input type="number" name="width" class="form-control" id="width" placeholder="Box width" required>
+        </div>
+        <div class="form-group">
+          <label for="inputWebsite" class="label">Box height</label>
+          <input type="number" name="height" class="form-control" id="heigth" placeholder="Box height" required>
+        </div>
+        <div class="form-group">
+          <label for="inputWebsite" class="label">Box length</label>
+          <input type="number" name="length" class="form-control" id="length" placeholder="Box length" required>
+        </div>
+        <div class="form-group">
+          <label for="inputWebsite" class="label">Box weight</label>
+          <input type="number" name="weight" class="form-control" id="weight" placeholder="Box weight" required>
         </div>
         <div class="submit-button">
           <button type="button" nbButton status="success">Save</button>
@@ -19,8 +83,4 @@
       </form>
     </nb-card-body>
   </nb-card>
-  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
-    <ng2-smart-table [settings]="settings" [source]="source" class="home-table">
-    </ng2-smart-table>
-  </nb-card-body>
 </div>
