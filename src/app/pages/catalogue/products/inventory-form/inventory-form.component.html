@@ -1,0 +1,48 @@
+<div *ngIf="loader" [nbSpinner]="loader" nbSpinnerSize="large" nbSpinnerStatus="primary"></div>
+<form [formGroup]='form' *ngIf="!loader">
+
+  <div class="form-group">
+    <label class="col-sm-10 col-form-label"></label>
+    <div class="col-sm-12">
+            <nb-select *ngIf="stores.length" placeholder="{{ 'product.manufacturer' | translate}}"
+                       formControlName='store'
+                       outline
+                       shape="rectangle">
+              <nb-option *ngFor="let manufacturer of stores"
+                         [value]="manufacturer.code">{{ manufacturer.code }}</nb-option>
+            </nb-select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="owner" class="col-sm-10 col-form-label">{{ 'product.price' | translate}}</label>
+    <div class="col-sm-12">
+      <input type="text" class="form-control" id="owner" formControlName='owner'
+             placeholder="{{ 'product.price' | translate}}" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="price" class="col-sm-10 col-form-label">{{ 'product.price' | translate}}</label>
+    <div class="col-sm-12">
+      <input type="number" class="form-control" id="price" formControlName='price'
+             placeholder="{{ 'product.price' | translate}}" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="quantity" class="col-sm-10 col-form-label">{{ 'product.quantity' | translate}}</label>
+    <div class="col-sm-12">
+      <input type="number" class="form-control" id="quantity" formControlName='quantity'
+             placeholder="{{ 'product.quantity' | translate}}" required>
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class="form-group actions-button">
+    <button type="submit" class="btn btn-primary" (click)="save()">{{ 'common.save' | translate }}</button>
+  </div>
+
+
+</form>

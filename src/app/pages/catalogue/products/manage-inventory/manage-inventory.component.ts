@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+
 import { LocalDataSource } from 'ng2-smart-table';
 import { UserService } from '../../../shared/services/user.service';
 import { ProductService } from '../services/product.service';
 import { NbDialogService } from '@nebular/theme';
 import { StoreService } from '../../../store-management/services/store.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-manage-inventory',
@@ -18,6 +19,7 @@ export class ManageInventoryComponent implements OnInit {
   loadingList = false;
   stores = [];
   isSuperadmin: boolean;
+  product;
 
   // paginator
   perPage = 10;
@@ -38,9 +40,14 @@ export class ManageInventoryComponent implements OnInit {
     private productService: ProductService,
     private dialogService: NbDialogService,
     private storeService: StoreService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private activatedRoute: ActivatedRoute,
   ) {
     const userId = this.userService.getUserId();
+    const id = this.activatedRoute.snapshot.paramMap.get('productId');
+    this.productService.getProductById(id).subscribe(product => {
+      this.product = product;
+    });
     this.userService.getUser(userId)
       .subscribe(user => {
         this.userService.checkForAccess(user.groups);
@@ -140,33 +147,33 @@ export class ManageInventoryComponent implements OnInit {
   }
 
   updateRecord(event) {
-    const product = {
-      available: event.newData.available,
-      price: event.newData.price,
-      quantity: event.newData.quantity
-    };
-    event.confirm.resolve(event.newData);
-    this.productService.updateProductFromTable(event.newData.id, product)
-      .subscribe(res => {
-        console.log(res);
-        event.confirm.resolve(event.newData);
-      }, error => {
-        console.log(error.error.message);
-      });
+    // const product = {
+    //   available: event.newData.available,
+    //   price: event.newData.price,
+    //   quantity: event.newData.quantity
+    // };
+    // event.confirm.resolve(event.newData);
+    // this.productService.updateProductFromTable(event.newData.id, product)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     event.confirm.resolve(event.newData);
+    //   }, error => {
+    //     console.log(error.error.message);
+    //   });
   }
 
   deleteRecord(event) {
-    this.dialogService.open(ShowcaseDialogComponent, {})
-      .onClose.subscribe(res => {
-      if (res) {
-        event.confirm.resolve();
-        this.productService.deleteProduct(event.data.id)
-          .subscribe(result => {
-          });
-      } else {
-        event.confirm.reject();
-      }
-    });
+    // this.dialogService.open(ShowcaseDialogComponent, {})
+    //   .onClose.subscribe(res => {
+    //   if (res) {
+    //     event.confirm.resolve();
+    //     this.productService.deleteProduct(event.data.id)
+    //       .subscribe(result => {
+    //       });
+    //   } else {
+    //     event.confirm.reject();
+    //   }
+    // });
   }
 
   choseStore(event) {

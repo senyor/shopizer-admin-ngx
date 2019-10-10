@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inventory-details.component.scss']
 })
 export class InventoryDetailsComponent implements OnInit {
+  inventory = {};
 
   constructor() { }
 
   ngOnInit() {
+    // TODO get inventory
   }
 
 }

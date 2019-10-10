@@ -11,6 +11,8 @@ import { AvailableButtonComponent } from './products-list/available-button.compo
 import { NgxSummernoteModule } from 'ngx-summernote';
 import { ManageInventoryComponent } from './manage-inventory/manage-inventory.component';
 import { InventoryDetailsComponent } from './inventory-details/inventory-details.component';
+import { InventoryFormComponent } from './inventory-form/inventory-form.component';
+import { InventoryCreationComponent } from './inventory-creation/inventory-creation.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { InventoryDetailsComponent } from './inventory-details/inventory-details
     ProductDetailsComponent,
     AvailableButtonComponent,
     ManageInventoryComponent,
-    InventoryDetailsComponent
+    InventoryDetailsComponent,
+    InventoryCreationComponent,
+    InventoryFormComponent
   ],
   imports: [
     ProductsRoutingModule,

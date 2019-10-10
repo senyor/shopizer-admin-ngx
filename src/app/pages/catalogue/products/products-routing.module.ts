@@ -7,6 +7,7 @@ import { ProductsListComponent } from './products-list/products-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ManageInventoryComponent } from './manage-inventory/manage-inventory.component';
 import { InventoryDetailsComponent } from './inventory-details/inventory-details.component';
+import { InventoryCreationComponent } from './inventory-creation/inventory-creation.component';
 
 
 const routes: Routes = [
@@ -27,12 +28,16 @@ const routes: Routes = [
         component: ProductDetailsComponent,
       },
       {
-        path: 'manage-inventory',
+        path: 'manage-inventory/:productId',
         component: ManageInventoryComponent,
       },
       {
         path: 'inventory-details',
         component: InventoryDetailsComponent,
+      },
+      {
+        path: 'inventory-creation',
+        component: InventoryCreationComponent,
       },
     ],
   }
