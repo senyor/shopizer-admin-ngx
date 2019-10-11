@@ -5,7 +5,7 @@
     <label for="sku" class="col-sm-10 col-form-label">{{ 'product.sku' | translate}} *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="sku" formControlName='sku'
-             placeholder="{{ 'product.sku' | translate}}" required>
+             placeholder="{{ 'product.sku' | translate}}" [readOnly]="isReadonlyCode" required>
       <span *ngIf="(sku.dirty || sku.touched) && sku.invalid && sku"
             class="err-message">
         <span *ngIf="sku.errors.pattern">

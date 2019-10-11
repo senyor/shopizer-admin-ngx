@@ -39,6 +39,7 @@ export class ProductFormComponent implements OnInit {
   };
   productImage = {};
   skuPattern = '^[a-zA-Zа-яА-Я0-9]+$';
+  isReadonlyCode = false;
 
   constructor(
     private fb: FormBuilder,
@@ -125,9 +126,9 @@ export class ProductFormComponent implements OnInit {
       sku: this.product.sku,
       available: this.product.available,
       preOrder: this.product.preOrder,
-      dateAvailable: this.product.dateAvailable,
+      dateAvailable: new Date(this.product.dateAvailable),
       manufacturer: this.product.manufacturer.code,
-      // type: this.product.type.code, // TODO
+      type: ( this.product.type && this.product.type.code === null ) ? this.product.type.code : '' , // TODO
       price: this.product.price,
       quantity: this.product.quantity,
       sortOrder: this.product.sortOrder,
@@ -146,6 +147,7 @@ export class ProductFormComponent implements OnInit {
       length: this.product.productSpecifications.length,
     };
     this.form.patchValue({ productSpecifications: dimension });
+    this.isReadonlyCode = true;
   }
 
   fillFormArray() {

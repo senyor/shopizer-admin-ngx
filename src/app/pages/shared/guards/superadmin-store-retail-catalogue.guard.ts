@@ -17,10 +17,12 @@ export class SuperadminStoreRetailCatalogueGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean {
 
-    if (this.userService.roles.isSuperadmin ||
-      this.userService.roles.isAdminCatalogue ||
-      this.userService.roles.isAdminRetail ||
-      this.userService.roles.isAdminStore) {
+    const roles = JSON.parse(localStorage.getItem('roles'));
+
+    if (roles.isSuperadmin ||
+      roles.isAdminCatalogue ||
+      roles.isAdminRetail ||
+      roles.isAdminStore) {
       return true;
     }
 
