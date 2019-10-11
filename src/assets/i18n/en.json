@@ -37,7 +37,10 @@
     "methods": "Methods",
     "origin": "Origin",
     "options": "Options",
-    "packaging": "Packaging"
+    "packaging": "Packaging",
+    "customers": "Customers",
+    "customerList": "Customer Lists",
+    "options": "Customer Options"
   },
   "home": {
     "storeInformation": "Store information",

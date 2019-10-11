@@ -65,7 +65,6 @@ export class ConfigurationComponent {
         this.loadingList = false;
 
       });
-
   }
 
 }

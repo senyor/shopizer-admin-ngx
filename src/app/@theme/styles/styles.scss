@@ -206,7 +206,7 @@ page-table {
   }
 }
 
-shipping-config {
+ngx-list {
   nb-card-header {}
 
   nb-card-body {
@@ -244,8 +244,53 @@ shipping-config {
             td {
               height: auto !important;
               border: none !important;
-              padding: 1.1em !important;
               padding: 14px 1.25rem;
+
+              // &:first-child {
+              //   border-top-left-radius: 4px;
+              //   border-bottom-left-radius: 4px;
+              // }
+
+              // &:last-child {
+              //   border-top-right-radius: 4px;
+              //   border-bottom-right-radius: 4px;
+              // }
+              ng2-st-tbody-custom {
+                display: inline-flex;
+
+                a.ng2-smart-action {
+                  //   display: inline !important;
+                  border: none !important;
+
+                  .nb-edit {
+                    &:before {
+                      font-size: 24px !important;
+                    }
+                  }
+
+                  .nb-trash {
+                    &:before {
+                      font-size: 24px !important;
+                    }
+                  }
+
+                  .nb-info {
+                    &:before {
+                      // content: '\e908';
+                      color: #a4abb3;
+                      font-size: 16px;
+                      position: absolute;
+                      margin-left: 3px;
+                      margin-top: 3px;
+
+
+                      // position: absolute;
+                      // margin-left: 5px;
+                      // margin-top: 6px;
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -253,6 +298,54 @@ shipping-config {
     }
   }
 }
+
+// shipping-config {
+//   nb-card-header {}
+
+//   nb-card-body {
+//     // padding: 0 !important;
+
+//     .home-table {
+//       table {
+//         border-collapse: separate;
+//         border-spacing: 0 15px;
+
+//         thead {
+//           background: transparent !important;
+
+//           tr {
+//             background: transparent !important;
+
+//             th {
+//               border: none !important;
+//             }
+//           }
+//         }
+
+//         tbody {
+//           tr {
+//             background: #fff !important;
+
+//             &.ng2-smart-row.selected {
+//               background: #fff !important;
+//             }
+
+//             &:hover {
+//               background: #fff !important;
+//             }
+
+//             td {
+//               height: auto !important;
+//               border: none !important;
+//               padding: 1.1em !important;
+//               padding: 14px 1.25rem;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 
 .promotion {
   .q-rule {
@@ -267,4 +360,28 @@ shipping-config {
   .q-ruleset {
     border: 0px !important;
   }
+}
+
+.nb-theme-corporate nb-card.select.primary {
+  border: 2px solid #dadfe6 !important;
+  box-shadow: 3px -3px 5px #66666638;
+  // margin-left: 19px;
+}
+
+.nb-theme-corporate [nbButton].btn-outline.btn-primary {
+  border: 2px solid #dadfe6 !important;
+}
+
+.nb-theme-corporate [nbButton].btn-outline.btn-primary::placeholder {
+  color: #dadfe6 !important
+}
+
+.nb-theme-corporate [nbButton].btn-outline.btn-primary:active {
+  background-color: transparent !important;
+  color: #dadfe6 !important
+}
+
+.nb-theme-corporate [nbButton].btn-outline.btn-primary:hover {
+  background-color: transparent !important;
+  color: #dadfe6 !important
 }

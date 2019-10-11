@@ -1,0 +1,16 @@
+<div class="pages">
+  <nb-card-header>
+    Customers List
+    <div class="buttons-row">
+      <button nbButton (click)="addCustomer()">
+        Create Customer
+      </button>
+    </div>
+  </nb-card-header>
+
+  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+    <ng2-smart-table [settings]="settings" [source]="source" (custom)="onClickAction($event)" class="home-table">
+    </ng2-smart-table>
+  </nb-card-body>
+  <!-- </nb-card> -->
+</div>

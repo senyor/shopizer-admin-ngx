@@ -244,11 +244,23 @@ export const MENU_ITEMS: MenuItem[] = [
   //   // icon: 'fas fa-shopping-cart',
   //   link: '',
   // },
-  // {
-  //   title: 'Customers',
-  //   // icon: 'fas fa-shopping-cart',
-  //   link: '',
-  // },
+  {
+    title: 'Customers',
+    key: 'sideNav.customers',
+    icon: 'fas fa-users',
+    children: [
+      {
+        title: 'Customer List',
+        key: 'sideNav.customerList',
+        link: '/pages/customer/list',
+      },
+      {
+        title: 'Options',
+        key: 'sideNav.options',
+        link: '/pages/customer/option/list',
+      }
+    ]
+  },
   {
     title: 'sideNav.orders',
     key: 'sideNav.orders',
