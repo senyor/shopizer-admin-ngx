@@ -13,8 +13,8 @@ export class BrandService {
   ) {
   }
 
-  getListOfBrands(): Observable<any> {
-    return this.crudService.get(`/v1/manufacturers/`);
+  getListOfBrands(params): Observable<any> {
+    return this.crudService.get(`/v1/manufacturers/`, params);
   }
 
   updateBrand(id, brand): Observable<any> {

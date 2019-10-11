@@ -15,9 +15,20 @@ import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dia
 })
 export class BrandsListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
-  perPage = 10;
   loadingList = false;
   settings = {};
+
+  // paginator
+  perPage = 10;
+  currentPage = 1;
+  totalCount;
+
+  // request params
+  params = {
+    lang: 'en',
+    count: this.perPage,
+    page: 0
+  };
 
   constructor(
     private brandService: BrandService,
@@ -33,11 +44,12 @@ export class BrandsListComponent implements OnInit {
   }
 
   getList() {
+    this.params.page = this.currentPage - 1;
     this.loadingList = true;
-    this.brandService.getListOfBrands()
+    this.brandService.getListOfBrands(this.params)
       .subscribe(brands => {
+        this.totalCount = brands.totalCount;
         this.source.load(brands.manufacturers);
-        this.source.setPaging(1, this.perPage, true);
         this.loadingList = false;
       });
     this.setSettings();
@@ -99,6 +111,33 @@ export class BrandsListComponent implements OnInit {
         }
       });
     }
+  }
+
+  // paginator
+  changePage(event) {
+    switch (event.action) {
+      case 'onPage': {
+        this.currentPage = event.data;
+        break;
+      }
+      case 'onPrev': {
+        this.currentPage--;
+        break;
+      }
+      case 'onNext': {
+        this.currentPage++;
+        break;
+      }
+      case 'onFirst': {
+        this.currentPage = 1;
+        break;
+      }
+      case 'onLast': {
+        this.currentPage = event.data;
+        break;
+      }
+    }
+    this.getList();
   }
 
 }
