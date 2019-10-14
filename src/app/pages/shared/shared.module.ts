@@ -12,6 +12,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { RightSidemenuComponent } from './components/right-sidemenu/right-sidemenu.component';
 import { ImageUploadingComponent } from './components/image-uploading/image-uploading.component';
 import { ShowcaseDialogComponent } from './components/showcase-dialog/showcase-dialog.component';
+import { PasswordPromptComponent } from './components/password-prompt/password-prompt';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 
 
@@ -23,6 +24,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     NotFoundComponent,
     ImageUploadingComponent,
     ShowcaseDialogComponent,
+    PasswordPromptComponent,
     PaginatorComponent
   ],
   imports: [
@@ -46,9 +48,10 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     NotFoundComponent,
     ImageUploadingComponent,
     ShowcaseDialogComponent,
+    PasswordPromptComponent,
     PaginatorComponent
   ],
-  entryComponents: [ShowcaseDialogComponent],
+  entryComponents: [ShowcaseDialogComponent, PasswordPromptComponent],
 })
 export class SharedModule {
 }

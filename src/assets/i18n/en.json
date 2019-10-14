@@ -40,7 +40,9 @@
     "packaging": "Packaging",
     "customers": "Customers",
     "customerList": "Customer Lists",
-    "options": "Customer Options"
+    "options": "Customer Options",
+    "optionValue": "Customer Options Value",
+    "manageoptions": "Manage Options"
   },
   "home": {
     "storeInformation": "Store information",

@@ -258,6 +258,16 @@ export const MENU_ITEMS: MenuItem[] = [
         title: 'Options',
         key: 'sideNav.options',
         link: '/pages/customer/option/list',
+      },
+      {
+        title: 'Options Value',
+        key: 'sideNav.optionValue',
+        link: '/pages/customer/value/list',
+      },
+      {
+        title: 'Manage Options',
+        key: 'sideNav.manageoptions',
+        link: '/pages/customer/manage/list',
       }
     ]
   },

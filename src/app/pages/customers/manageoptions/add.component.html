@@ -1,0 +1,29 @@
+<nb-card>
+  <nb-card-header>Set Customer Option</nb-card-header>
+  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+
+    <form #customerForm="ngForm" role="form">
+
+      <div class="form-group">
+        <label class="label">Customer Option</label>
+        <nb-select placeholder="Select customer option" outline shape="rectangle" required>
+          <nb-option *ngFor="let text of displayText" [value]="text.name">{{ text.name }}</nb-option>
+        </nb-select>
+      </div>
+      <div class="form-group">
+        <label class="label">Customer Option value</label>
+        <nb-select placeholder="Select customer value" outline shape="rectangle" required>
+          <nb-option *ngFor="let text of displayText" [value]="text.name">{{ text.name }}</nb-option>
+        </nb-select>
+      </div>
+      <div class="form-group">
+        <label class="label">Order</label>
+        <input type="number" class="form-control" id="first_name" placeholder="Order" name="firstName" required>
+      </div>
+      <div>
+        <button type="button" nbButton status="success">Save</button>
+      </div>
+
+    </form>
+  </nb-card-body>
+</nb-card>

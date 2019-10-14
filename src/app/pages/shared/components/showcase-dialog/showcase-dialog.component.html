@@ -1,6 +1,7 @@
 <nb-card>
+  <nb-card-header>{{ title | translate}}</nb-card-header>
   <nb-card-body>
-    {{ 'common.removeQuestion' | translate}}
+    {{ body | translate}}
   </nb-card-body>
   <nb-card-footer class="dialog-footer">
     <button nbButton status="danger" (click)="dismiss()">{{ 'common.cancel' | translate}}</button>

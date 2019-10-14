@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../../shared/services/crud.service';
 import { ToastrService } from 'ngx-toastr';
+import { NbDialogService } from '@nebular/theme';
+import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
+import { PasswordPromptComponent } from '../../shared/components/password-prompt/password-prompt';
+// import { PasswordPromptComponent } from '../password-prompt/password-prompt';
 @Component({
   selector: 'ngx-add',
   templateUrl: './add.component.html',
@@ -46,7 +50,8 @@ export class AddComponent implements OnInit {
   title: any = 'Create Customer'
   buttonText: any = 'Save'
   languages: Array<any> = [{ 'code': 'en', 'name': 'English' }, { 'code': 'fr', 'name': 'French' }]
-  constructor(private crudService: CrudService, private toastr: ToastrService) {
+  constructor(private crudService: CrudService, private toastr: ToastrService,
+    private dialogService: NbDialogService) {
     this.getCountry();
     this.getStore();
 
@@ -205,6 +210,30 @@ export class AddComponent implements OnInit {
           // this.router.navigate(['/pages/content/pages/list']);
         }, error => {
           this.loadingList = false;
+        });
+    }
+  }
+  showDialog(value) {
+    console.log(value)
+    if (value == 1) {
+      this.dialogService.open(ShowcaseDialogComponent, {
+        context: {
+          title: 'Please confirm!',
+          body: 'Are you sure you want to reset the customer password?'
+        },
+      })
+        .onClose.subscribe(res => {
+          if (res) {
+            console.log('fsdfsfdf');
+
+          } else {
+
+          }
+        });
+    } else {
+      this.dialogService.open(PasswordPromptComponent)
+        .onClose.subscribe(res => {
+
         });
     }
   }

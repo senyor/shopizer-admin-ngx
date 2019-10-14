@@ -91,7 +91,12 @@ export class PageComponent {
   onDelete(event) {
     this.loadingList = true;
     console.log(event);
-    this.dialogService.open(ShowcaseDialogComponent, {})
+    this.dialogService.open(ShowcaseDialogComponent, {
+      context: {
+        title: 'Are you sure!',
+        body: 'Do you really want to remove this entity?'
+      },
+    })
       .onClose.subscribe(res => {
         if (res) {
           console.log('fsdfsfdf');

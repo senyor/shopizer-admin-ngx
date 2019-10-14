@@ -10,8 +10,9 @@ import { NbDialogRef } from '@nebular/theme';
 export class ShowcaseDialogComponent {
 
   @Input() title: string;
+  @Input() body: string;
 
-  constructor(protected ref: NbDialogRef<ShowcaseDialogComponent>) {}
+  constructor(protected ref: NbDialogRef<ShowcaseDialogComponent>) { }
 
   dismiss() {
     this.ref.close();

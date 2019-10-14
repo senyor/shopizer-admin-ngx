@@ -1,0 +1,42 @@
+<nb-card>
+  <nb-card-header>Create Customer Option</nb-card-header>
+  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+
+    <form #customerForm="ngForm" role="form">
+
+
+      <div class="form-group">
+        <label class="label">Option code</label>
+        <input type="text" class="form-control" id="first_name" placeholder="Option Code" name="firstName" required>
+      </div>
+      <div class="form-group">
+        <label class="label">Option name(en)</label>
+        <input type="text" class="form-control" id="first_name" placeholder="Option name(en)" name="firstName" required>
+      </div>
+      <div class="form-group">
+        <label class="label">Option name(fr)</label>
+        <input type="text" class="form-control" id="first_name" placeholder="Option name(fr)" name="firstName" required>
+      </div>
+      <div class="form-group">
+        <label class="label">Display text</label>
+        <nb-select placeholder="Select text" outline shape="rectangle" required>
+          <nb-option *ngFor="let text of displayText" [value]="text.name">{{ text.name }}</nb-option>
+        </nb-select>
+      </div>
+      <div class="form-group">
+        <nb-checkbox name="visible" status="success">Public</nb-checkbox>
+      </div>
+      <div class="form-group">
+        <nb-checkbox name="visible" status="success">Active</nb-checkbox>
+      </div>
+      <div class="form-group">
+        <label class="label">Order</label>
+        <input type="number" class="form-control" id="first_name" placeholder="Order" name="firstName" required>
+      </div>
+      <div>
+        <button type="button" nbButton status="success">Save</button>
+      </div>
+
+    </form>
+  </nb-card-body>
+</nb-card>

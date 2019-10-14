@@ -1,6 +1,12 @@
 <nb-card>
   <nb-card-header>{{title}}</nb-card-header>
   <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+    <div class="form-group" *ngIf="buttonText == 'Update'">
+      <nb-select placeholder="More Options...." outline shape="rectangle" (selectedChange)="showDialog($event)">
+        <nb-option value="1">Reset Password</nb-option>
+        <nb-option value="2">Set Credentials</nb-option>
+      </nb-select>
+    </div>
     <div class="row label-row">
       <div class="col-sm-6">
         <label><b>Billing information</b></label>

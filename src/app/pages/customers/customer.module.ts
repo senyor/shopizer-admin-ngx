@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CustomersRoutingModule, routedComponents } from './customer-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { NbDialogModule } from '@nebular/theme';
 @NgModule({
   declarations: [
     ...routedComponents
@@ -8,7 +9,8 @@ import { SharedModule } from '../shared/shared.module';
   ],
   imports: [
     CustomersRoutingModule,
-    SharedModule
+    SharedModule,
+    NbDialogModule.forChild()
   ],
   exports: []
 })

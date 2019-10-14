@@ -3,11 +3,11 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { CrudService } from '../../shared/services/crud.service';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'ngx-option-list',
+  selector: 'ngx-value-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class OptionListComponent implements OnInit {
+export class ValueListComponent implements OnInit {
 
   constructor(private crudService: CrudService, public router: Router) { }
   settings = {
@@ -35,26 +35,18 @@ export class OptionListComponent implements OnInit {
         type: 'number',
       },
       firstName: {
-        title: 'Name',
+        title: 'Code',
         type: 'string',
       },
       lastName: {
-        title: 'Type',
-        type: 'string',
-      },
-      emailAddress: {
-        title: 'Active',
-        type: 'string',
-      },
-      public: {
-        title: 'Public',
+        title: 'Name',
         type: 'string',
       }
     },
   };
   ngOnInit() {
   }
-  addOptions() {
-    this.router.navigate(['/pages/customer/option/add']);
+  addOptionsValue() {
+    this.router.navigate(['/pages/customer/value/add']);
   }
 }
