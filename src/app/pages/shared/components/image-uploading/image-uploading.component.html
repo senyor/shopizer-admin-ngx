@@ -1,7 +1,11 @@
-<div id="showImage" #showImage></div>
-<input type="file" id="imageInput" #imageInput (change)='imageChange($event)'/>
+<div class="image-container">
+  <div *ngFor='let image of imageUrls' class="image-item">
+    <img [src]="image?.imageUrl" alt="Image" height="200">
+    <span><i class="fas fa-times" (click)="removeImage(image)"></i></span>
+  </div>
+</div>
 
-<div class="image-actions">
+<input type="file" id="imageInput" #imageInput (change)='onSelectFile($event)'/>
+<div class="image-actions" *ngIf="imageUrls.length < 10">
   <button nbButton size="small" outline status="success" (click)='imageInput.click()'>Upload image</button>
-  <button *ngIf="canRemove" nbButton size="small" outline status="danger" (click)='removeImg()'>Remove</button>
 </div>

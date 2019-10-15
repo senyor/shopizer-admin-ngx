@@ -201,7 +201,7 @@ export class ProductFormComponent implements OnInit {
 
   onImageChanged(event) {
     console.log('event', event);
-    this.productImage = event.files;
+    // this.productImage = event.files;
     // this.productImageService.createImage(this.product.id, this.productImage)
     //   .subscribe(res1 => {
     //     console.log(res1);
@@ -263,28 +263,28 @@ export class ProductFormComponent implements OnInit {
         }
       });
 
-      if (this.product.id) {
-        this.productService.updateProduct(this.product.id, productObject)
-          .subscribe(res => {
-            console.log(res);
-            this.toastr.success(this.translate.instant('product.toastr.productUpdated'));
-            this.router.navigate(['pages/catalogue/products/products-list']);
-            // this.productImageService.createImage(this.product.id, this.productImage)
-            //   .subscribe(res1 => {
-            //     console.log(res1);
-            //   });
-          });
-      } else {
-        this.productService.createProduct(productObject)
-          .subscribe(res => {
-            this.toastr.success(this.translate.instant('product.toastr.productCreated'));
-            this.router.navigate(['pages/catalogue/products/products-list']);
-            // this.productImageService.createImage(res.id, this.productImage)
-            //   .subscribe(res1 => {
-            //     console.log(res1);
-            //   });
-          });
-      }
+      // if (this.product.id) {
+      //   this.productService.updateProduct(this.product.id, productObject)
+      //     .subscribe(res => {
+      //       console.log(res);
+      //       this.toastr.success(this.translate.instant('product.toastr.productUpdated'));
+      //       this.router.navigate(['pages/catalogue/products/products-list']);
+      //       // this.productImageService.createImage(this.product.id, this.productImage)
+      //       //   .subscribe(res1 => {
+      //       //     console.log(res1);
+      //       //   });
+      //     });
+      // } else {
+      //   this.productService.createProduct(productObject)
+      //     .subscribe(res => {
+      //       this.toastr.success(this.translate.instant('product.toastr.productCreated'));
+      //       this.router.navigate(['pages/catalogue/products/products-list']);
+      //       // this.productImageService.createImage(res.id, this.productImage)
+      //       //   .subscribe(res1 => {
+      //       //     console.log(res1);
+      //       //   });
+      //     });
+      // }
     }
   }
 

@@ -226,7 +226,7 @@
   <div class="form-group">
     <label for="height" class="col-sm-10 col-form-label">{{ 'common.image' | translate }}</label>
     <div class="col-sm-12">
-      <ngx-image-uploading [imageUrl]="product?.image?.imageUrl"
+      <ngx-image-uploading [imageUrls]="product?.images"
                            (imageChanged)="onImageChanged($event)"></ngx-image-uploading>
     </div>
   </div>
