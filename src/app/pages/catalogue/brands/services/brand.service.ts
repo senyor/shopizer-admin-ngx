@@ -22,7 +22,10 @@ export class BrandService {
   }
 
   getBrandById(id): Observable<any> {
-    return this.crudService.get(`/v1/manufacturers/${id}`);
+    const params = {
+      lang: '_all'
+    };
+    return this.crudService.get(`/v1/manufacturers/${id}`, params);
   }
 
   createBrand(brand): Observable<any> {
