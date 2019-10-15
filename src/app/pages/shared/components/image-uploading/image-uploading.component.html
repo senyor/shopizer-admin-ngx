@@ -1,11 +1,11 @@
 <div class="image-container">
-  <div *ngFor='let image of imageUrls' class="image-item">
+  <div *ngFor='let image of imagesArray' class="image-item">
     <img [src]="image?.imageUrl" alt="Image" height="200">
     <span><i class="fas fa-times" (click)="removeImage(image)"></i></span>
   </div>
 </div>
 
-<input type="file" id="imageInput" #imageInput (change)='onSelectFile($event)'/>
-<div class="image-actions" *ngIf="imageUrls.length < 10">
+<input type="file" id="imageInput" #imageInput (change)='onSelectFile($event)' multiple/>
+<div class="image-actions" *ngIf="imagesArray.length < 10">
   <button nbButton size="small" outline status="success" (click)='imageInput.click()'>Upload image</button>
 </div>

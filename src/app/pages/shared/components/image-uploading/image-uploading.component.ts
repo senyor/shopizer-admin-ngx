@@ -13,6 +13,7 @@ export class ImageUploadingComponent implements OnInit {
   // acceptedImageTypes = { 'image/png': true, 'image/jpeg': true, 'image/gif': true };
   // image = new Image();
   // canRemove = false;
+  imagesArray = [];
 
   constructor(
     private toastr: ToastrService,
@@ -23,8 +24,8 @@ export class ImageUploadingComponent implements OnInit {
     // this.image.height = 200;
     // this.image.style.display = 'block';
     // this.image.style.marginBottom = '20px';
-
-    console.log(this.imageUrls);
+    this.imagesArray = [...this.imageUrls];
+    console.log(this.imagesArray);
     // if (this.imageUrl) {
     //   this.image.src = this.imageUrl;
     //   this.showImage.nativeElement.appendChild(this.image);
@@ -74,22 +75,20 @@ export class ImageUploadingComponent implements OnInit {
   images = [];
 
   onSelectFile(event) {
-    console.log('123');
     if (event.target.files && event.target.files[0]) {
       const filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
         const reader = new FileReader();
 
         reader.onload = (e: any) => {
-          console.log(e.target.result);
           const img = {
-            id: Math.random(),
+            id: 'img' + Math.floor(Math.random() * 1000),
             files: event.target.files[0],
             imageUrl: reader.result,
             newImage: true
           };
-          this.imageUrls.push(img);
-          this.imageChanged.emit(this.imageUrls);
+          this.imagesArray.push(img);
+          this.imageChanged.emit(this.imagesArray);
         };
 
         reader.readAsDataURL(event.target.files[i]);
@@ -101,7 +100,15 @@ export class ImageUploadingComponent implements OnInit {
 
   removeImage (image) {
     console.log('remove', image.id);
-    // if(image.hasOwnProperty('newImage'))
+    if (!image.hasOwnProperty('newImage')) {
+      this.oldImageIds.push(image.id);
+    }
+    const index = this.imagesArray.findIndex((el) => el.id === image.id);
+    console.log(index);
+    if (index !== -1) {
+      this.imagesArray.splice(index, 1);
+    }
+    this.imageChanged.emit(this.imagesArray);
   }
 
 }
