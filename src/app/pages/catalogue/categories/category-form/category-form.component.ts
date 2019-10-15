@@ -50,15 +50,15 @@ export class CategoryFormComponent implements OnInit {
   ngOnInit() {
     this.categoryService.getListOfCategories()
       .subscribe(res => {
-        res.push({id: 0, code: 'root'});
-        res.sort((a, b) => {
+        res.categories.push({id: 0, code: 'root'});
+        res.categories.sort((a, b) => {
           if (a.code < b.code)
             return -1;
           if (a.code > b.code)
             return 1;
           return 0;
         });
-        this.roots = [...res];
+        this.roots = [...res.categories];
       });
     this.loader = true;
     this.configService.getListOfSupportedLanguages()

@@ -17,10 +17,21 @@ import { ProductService } from '../../products/services/product.service';
 })
 export class CategoriesListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
-  perPage = 10;
   loadingList = false;
   categories = [];
   settings = {};
+
+  // paginator
+  perPage = 10;
+  currentPage = 1;
+  totalCount;
+
+  // request params
+  params = {
+    lang: 'en',
+    count: this.perPage,
+    page: 0
+  };
 
   availableList: any[];
   selectedList: any[];
@@ -57,14 +68,15 @@ export class CategoriesListComponent implements OnInit {
 
   getList() {
     this.categories = [];
+    this.params.page = this.currentPage - 1;
     this.loadingList = true;
-    this.categoryService.getListOfCategories()
+    this.categoryService.getListOfCategories(this.params)
       .subscribe(categories => {
-        categories.forEach((el) => {
+        categories.categories.forEach((el) => {
           this.getChildren(el);
         });
+        this.totalCount = categories.totalCount;
         this.source.load(this.categories);
-        this.source.setPaging(1, this.perPage, true);
         this.loadingList = false;
       });
     this.setSettings();
@@ -153,6 +165,33 @@ export class CategoriesListComponent implements OnInit {
           }
         });
     }
+  }
+
+  // paginator
+  changePage(event) {
+    switch (event.action) {
+      case 'onPage': {
+        this.currentPage = event.data;
+        break;
+      }
+      case 'onPrev': {
+        this.currentPage--;
+        break;
+      }
+      case 'onNext': {
+        this.currentPage++;
+        break;
+      }
+      case 'onFirst': {
+        this.currentPage = 1;
+        break;
+      }
+      case 'onLast': {
+        this.currentPage = event.data;
+        break;
+      }
+    }
+    this.getList();
   }
 
 }
