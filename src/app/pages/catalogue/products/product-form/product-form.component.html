@@ -226,7 +226,7 @@
   <div class="form-group">
     <label for="height" class="col-sm-10 col-form-label">{{ 'common.image' | translate }}</label>
     <div class="col-sm-12">
-      <ngx-image-uploading [imageUrls]="product?.images"
+      <ngx-image-uploading [productImages]="product?.images"
                            (imageChanged)="onImageChanged($event)"></ngx-image-uploading>
     </div>
   </div>
@@ -234,7 +234,7 @@
   <hr/>
 
   <div class="form-group actions-button">
-    <button type="submit" class="btn btn-primary" (click)="save()">{{ 'common.save' | translate }}</button>
+    <button type="submit" class="btn btn-primary" (click)="save()" [nbSpinner]="loadingButton">{{ 'common.save' | translate }}</button>
   </div>
 
 
