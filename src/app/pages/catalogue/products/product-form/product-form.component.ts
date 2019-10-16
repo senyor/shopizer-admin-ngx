@@ -40,6 +40,7 @@ export class ProductFormComponent implements OnInit {
   productImage = {};
   skuPattern = '^[a-zA-Zа-яА-Я0-9]+$';
   isReadonlyCode = false;
+  isCodeUnique = true;
 
   constructor(
     private fb: FormBuilder,
@@ -208,6 +209,13 @@ export class ProductFormComponent implements OnInit {
     //   });
   }
 
+  checkSku(event) {
+    const sku = event.target.value;
+    this.productService.checkProductSku(sku)
+      .subscribe(res => {
+        this.isCodeUnique = !(res.exists && (this.product.sku !== sku));
+      });
+  }
 
   save() {
     const productObject = this.form.value;

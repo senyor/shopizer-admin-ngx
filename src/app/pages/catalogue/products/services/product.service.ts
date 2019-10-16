@@ -41,4 +41,11 @@ export class ProductService {
     return this.crudService.get(`/v1/products/types`);
   }
 
+  checkProductSku(code): Observable<any> {
+    const params = {
+      'code': code,
+    };
+    return this.crudService.get(`/v1/private/product/unique`, params);
+  }
+
 }
