@@ -13,10 +13,12 @@ export class ProductImageService {
   ) {
   }
 
-  createImage(id, file): Observable<any> {
-    const uploadData = new FormData();
-    uploadData.append('files', file, file.name);
-    return this.crudService.post(`/v1/private/products/${ id }/images`, uploadData);
+  removeImage(id): Observable<any> {
+    return this.crudService.delete(`/v1/private/products/images/${id}`);
+  }
+
+  createImage(id, uploadData): Observable<any> {
+    return this.crudService.post(`/v1/private/products/${id}/images`, uploadData);
   }
 
 }

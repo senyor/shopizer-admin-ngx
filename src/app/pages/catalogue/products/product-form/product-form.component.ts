@@ -37,10 +37,11 @@ export class ProductFormComponent implements OnInit {
     ],
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
-  productImage = {};
   skuPattern = '^[a-zA-Zа-яА-Я0-9]+$';
   isReadonlyCode = false;
   isCodeUnique = true;
+  loadingButton = false;
+  uploadData = new FormData();
 
   constructor(
     private fb: FormBuilder,
@@ -201,12 +202,25 @@ export class ProductFormComponent implements OnInit {
   }
 
   onImageChanged(event) {
-    console.log('event', event);
-    this.productImage = event.files;
-    // this.productImageService.createImage(this.product.id, this.productImage)
-    //   .subscribe(res1 => {
-    //     console.log(res1);
-    //   });
+    switch (event.type) {
+      case 'add': {
+        this.uploadData.append('file[]', event.data, event.data.name);
+        if (this.product.id) {
+          this.productImageService.createImage(this.product.id, this.uploadData)
+            .subscribe(res1 => {
+              console.log(res1);
+            });
+        }
+        break;
+      }
+      case 'remove': {
+        this.productImageService.removeImage(event.data)
+          .subscribe(res1 => {
+            console.log(res1);
+          });
+        break;
+      }
+    }
   }
 
   checkSku(event) {
@@ -218,6 +232,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   save() {
+    this.loadingButton = true;
     const productObject = this.form.value;
     productObject.dateAvailable = moment(productObject.dateAvailable).format('YYYY-MM-DD');
     productObject.productSpecifications.manufacturer = productObject.manufacturer;
@@ -275,22 +290,20 @@ export class ProductFormComponent implements OnInit {
         this.productService.updateProduct(this.product.id, productObject)
           .subscribe(res => {
             console.log(res);
+            this.loadingButton = false;
             this.toastr.success(this.translate.instant('product.toastr.productUpdated'));
             this.router.navigate(['pages/catalogue/products/products-list']);
-            // this.productImageService.createImage(this.product.id, this.productImage)
-            //   .subscribe(res1 => {
-            //     console.log(res1);
-            //   });
           });
       } else {
         this.productService.createProduct(productObject)
           .subscribe(res => {
-            this.toastr.success(this.translate.instant('product.toastr.productCreated'));
-            this.router.navigate(['pages/catalogue/products/products-list']);
-            // this.productImageService.createImage(res.id, this.productImage)
-            //   .subscribe(res1 => {
-            //     console.log(res1);
-            //   });
+            this.productImageService.createImage(res.id, this.uploadData)
+              .subscribe(res1 => {
+                console.log(res1);
+                this.loadingButton = false;
+                this.toastr.success(this.translate.instant('product.toastr.productCreated'));
+                this.router.navigate(['pages/catalogue/products/products-list']);
+              });
           });
       }
     }
