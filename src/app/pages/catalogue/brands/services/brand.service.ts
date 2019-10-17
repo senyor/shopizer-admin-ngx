@@ -33,7 +33,7 @@ export class BrandService {
   }
 
   deleteBrand(id): Observable<any> {
-    return this.crudService.delete(`/v1/private/manufacturer/${id}`);
+    return this.crudService.delete(`/v1/manufacturer/${id}`);
   }
 
   checkCategoryCode(code): Observable<any> {

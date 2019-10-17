@@ -180,6 +180,7 @@ export class ProductsListComponent implements OnInit {
         event.confirm.resolve();
         this.productService.deleteProduct(event.data.id)
           .subscribe(result => {
+            this.getList();
           });
       } else {
         event.confirm.reject();
