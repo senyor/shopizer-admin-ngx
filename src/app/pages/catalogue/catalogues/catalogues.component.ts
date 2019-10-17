@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CataloguesComponent implements OnInit {
 
-  path = 'Catalogue / Catalogues';
   constructor() {
   }
 
