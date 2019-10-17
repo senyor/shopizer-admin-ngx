@@ -204,6 +204,7 @@ export class ProductFormComponent implements OnInit {
   onImageChanged(event) {
     switch (event.type) {
       case 'add': {
+        this.uploadData = new FormData();
         this.uploadData.append('file[]', event.data, event.data.name);
         if (this.product.id) {
           this.productImageService.createImage(this.product.id, this.uploadData)
