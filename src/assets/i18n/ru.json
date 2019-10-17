@@ -233,6 +233,10 @@
     "width": "Width",
     "length": "Length",
 
-    "code": "Code"
+    "code": "Code",
+    "codeRequired": "Сode is required.",
+    "codeExists": "This code already exists.",
+
+    "order": "Order"
   }
 }

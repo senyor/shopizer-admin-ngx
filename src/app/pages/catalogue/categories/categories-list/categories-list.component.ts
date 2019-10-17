@@ -115,7 +115,7 @@ export class CategoriesListComponent implements OnInit {
           }
         },
         code: {
-          title: this.translate.instant('category.code'),
+          title: this.translate.instant('common.code'),
           type: 'string',
         },
         parent: {

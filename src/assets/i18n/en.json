@@ -146,17 +146,12 @@
     }
   },
   "category": {
-    "category": "Category",
     "categoryHierarchy": "Category hierarchy",
     "createCategory": "Create category",
     "categoryName": "Category name",
     "parent": "Parent",
 
     "rootCategory": "Root category",
-    "code": "Code",
-    "codeRequired": "Сode is required.",
-    "codeExists": "This code already exists.",
-    "order": "Order",
     "name": "Category name",
     "nameRequired": "Name is required.",
 
@@ -167,7 +162,6 @@
     }
   },
   "product": {
-    "product": "Product",
     "sku": "Sku",
     "skuRequired": "Sku is required.",
     "name": "Product name",
@@ -181,7 +175,6 @@
     "dateAvailable": "Date available",
     "productType": "Product type",
     "manufacturer": "Manufacturer",
-    "order": "Order",
     "productShipeable": "Product will be shipped",
 
     "toastr": {
@@ -191,7 +184,6 @@
     }
   },
   "brand": {
-    "brand": "Brand",
     "brandName": "Brand name"
   },
   "retailer": {
@@ -233,6 +225,10 @@
     "width": "Width",
     "length": "Length",
 
-    "code": "Code"
+    "code": "Code",
+    "codeRequired": "Сode is required.",
+    "codeExists": "This code already exists.",
+
+    "order": "Order"
   }
 }

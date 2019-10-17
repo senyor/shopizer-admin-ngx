@@ -2,25 +2,25 @@
 <form [formGroup]='form' *ngIf="!loader">
 
   <div class="form-group">
-    <label for="code" class="col-sm-10 col-form-label">{{ 'category.code' | translate}}</label>
+    <label for="code" class="col-sm-10 col-form-label">{{ 'common.code' | translate}}</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="code" formControlName='code'
-             placeholder="{{ 'category.code' | translate}}" (change)="checkCode($event)" required>
+             placeholder="{{ 'common.code' | translate}}" (change)="checkCode($event)" required>
       <span *ngIf="(code.dirty || code.touched) && code.invalid && code.errors.required"
             class="err-message">
-        {{ 'category.codeRequired' | translate}}
+        {{ 'common.codeRequired' | translate}}
       </span>
       <span *ngIf="!isCodeUnique" class="err-message">
-        {{ 'category.codeExists' | translate}}
+        {{ 'common.codeExists' | translate}}
       </span>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="sortOrder" class="col-sm-10 col-form-label">{{ 'product.order' | translate }}</label>
+    <label for="sortOrder" class="col-sm-10 col-form-label">{{ 'common.order' | translate }}</label>
     <div class="col-sm-12">
       <input type="number" class="form-control" id="sortOrder" formControlName='order'
-             placeholder="{{ 'product.order' | translate }}" required>
+             placeholder="{{ 'common.order' | translate }}" required>
     </div>
   </div>
 

@@ -1,7 +1,7 @@
 <nb-card size="small" class="page-card pick-list">
   <div class="selector-wrap">
     <div class="selector-element">
-      <nb-select *ngIf="categories.length" placeholder="{{ 'category.category' | translate}}"
+      <nb-select *ngIf="categories.length" placeholder="{{ 'sideNav.category' | translate}}"
                  outline
                  shape="rectangle">
         <nb-option *ngFor="let category of categories" [value]="category.code">{{ category.code }}</nb-option>
