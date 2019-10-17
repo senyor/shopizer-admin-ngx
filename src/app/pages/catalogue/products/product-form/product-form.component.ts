@@ -130,7 +130,7 @@ export class ProductFormComponent implements OnInit {
       preOrder: this.product.preOrder,
       dateAvailable: new Date(this.product.dateAvailable),
       manufacturer: this.product.manufacturer.code,
-      type: ( this.product.type && this.product.type.code === null ) ? this.product.type.code : '' , // TODO
+      type: ( this.product.type && this.product.type.code !== null ) ? this.product.type.code : '' ,
       price: this.product.price,
       quantity: this.product.quantity,
       sortOrder: this.product.sortOrder,
@@ -154,18 +154,20 @@ export class ProductFormComponent implements OnInit {
 
   fillFormArray() {
     this.form.value.descriptions.forEach((desc, index) => {
-      if (desc.language === 'en') {
-        (<FormArray>this.form.get('descriptions')).at(index).patchValue({
-          language: this.form.value.selectedLanguage,
-          name: this.product.description.name,
-          highlights: this.product.description.highlights === null ? '' : this.product.description.highlights,
-          friendlyUrl: this.product.description.friendlyUrl,
-          description: this.product.description.description,
-          title: this.product.description.title,
-          keyWords: this.product.description.keyWords === null ? '' : this.product.description.keyWords,
-          metaDescription: this.product.description.metaDescription,
-        });
-      }
+      this.product.descriptions.forEach((description) => {
+        if (desc.language === description.language) {
+          (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+            language: description.language,
+            name: description.name,
+            highlights: description.highlights,
+            friendlyUrl: description.friendlyUrl,
+            description: description.description,
+            title: description.title,
+            keyWords: description.keyWords,
+            metaDescription: description.metaDescription,
+          });
+        }
+      });
     });
   }
 
