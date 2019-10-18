@@ -28,11 +28,13 @@
     "cataloguesList": "Catalogues list",
 
     "categories": "Categories",
+    "category": "Category",
     "createCategory": "Create category",
     "categoriesList": "Categories list",
     "categoriesHierarchy": "Categories hierarchy",
 
     "products": "Products",
+    "product": "Product",
     "createProduct": "Create product",
     "productsList": "Products list",
     "manageInventory": "Manage inventory",

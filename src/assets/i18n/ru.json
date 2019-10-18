@@ -24,6 +24,7 @@
     "catalogue": "Catalogue ru",
 
     "catalogues": "Catalogues",
+    "category": "Category",
     "createCatalogue": "Create catalogue",
     "cataloguesList": "Catalogues list",
 
@@ -33,6 +34,7 @@
     "categoriesHierarchy": "Categories hierarchy ru",
 
     "products": "Products ru",
+    "product": "Product",
     "createProduct": "Create product ru",
     "productsList": "Products list ru",
     "manageInventory": "Manage inventory",

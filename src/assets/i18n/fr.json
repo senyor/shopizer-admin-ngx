@@ -28,11 +28,13 @@
     "cataloguesList": "Catalogues list",
 
     "categories": "Categories fr",
+    "category": "Category",
     "createCategory": "Create category fr",
     "categoriesList": "Categories list fr",
     "categoriesHierarchy": "Categories hierarchy fr",
 
     "products": "Products fr",
+    "product": "Product",
     "createProduct": "Create product fr",
     "productsList": "Products list fr",
     "manageInventory": "Manage inventory",
