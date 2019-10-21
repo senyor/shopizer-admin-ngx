@@ -7,6 +7,7 @@ import { NbDialogService } from '@nebular/theme';
 import { StoreService } from '../../../store-management/services/store.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
+import { InventoryService } from '../services/inventory.service';
 
 @Component({
   selector: 'ngx-manage-inventory',
@@ -18,7 +19,6 @@ export class ManageInventoryComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   loadingList = false;
   stores = [];
-  isSuperadmin: boolean;
   product;
 
   // paginator
@@ -28,10 +28,8 @@ export class ManageInventoryComponent implements OnInit {
 
   // server params
   params = {
-    store: 'DEFAULT',
-    lang: 'en',
     count: this.perPage,
-    start: 0
+    page: 0
   };
   settings = {};
 
@@ -42,42 +40,27 @@ export class ManageInventoryComponent implements OnInit {
     private storeService: StoreService,
     private translate: TranslateService,
     private activatedRoute: ActivatedRoute,
+    private inventoryService: InventoryService,
   ) {
     const userId = this.userService.getUserId();
     const id = this.activatedRoute.snapshot.paramMap.get('productId');
     this.productService.getProductById(id).subscribe(product => {
       this.product = product;
+      this.getList();
     });
-    this.userService.getUser(userId)
-      .subscribe(user => {
-        this.userService.checkForAccess(user.groups);
-        this.isSuperadmin = this.userService.roles.isSuperadmin;
-        this.params.store = user.merchant;
-      });
   }
 
   ngOnInit() {
-    this.storeService.getListOfStores({start: 0})
-      .subscribe(res => {
-        this.stores = res.data;
-      });
-    this.getList();
   }
 
   getList() {
-    const startFrom = (this.currentPage - 1) * this.perPage;
-    this.params.start = startFrom;
     this.loadingList = true;
-    this.productService.getListOfProducts(this.params)
+    this.inventoryService.getListOfInventories(this.product.id, this.params)
       .subscribe(res => {
-        const inventoryList = res.products;
         this.totalCount = res.totalCount;
-        inventoryList.forEach(el => {
-          el.name = el.description.name;
-        });
-        this.inventoryList = [...inventoryList];
-        console.log(inventoryList);
-        this.source.load(inventoryList);
+        console.log(res.inventory);
+        this.inventoryList = [...res.inventory];
+        this.source.load(this.inventoryList);
         this.loadingList = false;
       });
     this.setSettings();
@@ -108,13 +91,16 @@ export class ManageInventoryComponent implements OnInit {
         sort: true,
       },
       columns: {
-        sku: {
+        store: {
           title: 'Store',
           type: 'string',
-          editable: false
+          editable: false,
+          valuePrepareFunction: (store) => {
+            return store.code;
+          }
         },
         owner: {
-          title: 'owner',
+          title: 'Owner',
           type: 'string',
           editable: false,
           valuePrepareFunction: (owner) => {
@@ -126,10 +112,13 @@ export class ManageInventoryComponent implements OnInit {
           type: 'number',
           editable: true
         },
-        price: {
+        prices: {
           title: this.translate.instant('product.price'),
           type: 'string',
-          editable: true
+          editable: true,
+          valuePrepareFunction: (prices) => {
+            return prices[0].originalPrice;
+          }
         },
         creationDate: {
           title: this.translate.instant('product.creationDate'),
@@ -174,11 +163,6 @@ export class ManageInventoryComponent implements OnInit {
     //     event.confirm.reject();
     //   }
     // });
-  }
-
-  choseStore(event) {
-    this.params.store = event;
-    this.getList();
   }
 
   // paginator
