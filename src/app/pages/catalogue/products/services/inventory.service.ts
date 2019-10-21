@@ -16,6 +16,10 @@ export class InventoryService {
     return this.crudService.get(`/v1/private/product/${idProduct}/inventory`, params);
   }
 
+  createInventory (inventory): Observable<any> {
+    return this.crudService.post(`/v1/private/product/inventory`, inventory);
+  }
+
   // updateProductFromTable(id, product): Observable<any> {
   //   return this.crudService.patch(`/v1/private/product/${ id }`, product);
   // }
@@ -26,10 +30,6 @@ export class InventoryService {
   //
   // getProductById(id): Observable<any> {
   //   return this.crudService.get(`/v1/product/${ id }`);
-  // }
-  //
-  // createProduct (product): Observable<any> {
-  //   return this.crudService.post(`/v1/private/product`, product);
   // }
   //
   // deleteProduct(id): Observable<any> {

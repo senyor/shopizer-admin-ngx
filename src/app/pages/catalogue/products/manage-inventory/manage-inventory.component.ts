@@ -15,11 +15,11 @@ import { InventoryService } from '../services/inventory.service';
   styleUrls: ['./manage-inventory.component.scss']
 })
 export class ManageInventoryComponent implements OnInit {
-  inventoryList = [];
   source: LocalDataSource = new LocalDataSource();
   loadingList = false;
   stores = [];
   product;
+  productId;
 
   // paginator
   perPage = 10;
@@ -42,25 +42,24 @@ export class ManageInventoryComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private inventoryService: InventoryService,
   ) {
-    const userId = this.userService.getUserId();
-    const id = this.activatedRoute.snapshot.paramMap.get('productId');
-    this.productService.getProductById(id).subscribe(product => {
+    this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
+    this.productService.getProductById(this.productId).subscribe(product => {
       this.product = product;
-      this.getList();
     });
   }
 
   ngOnInit() {
+    this.getList();
   }
 
   getList() {
     this.loadingList = true;
-    this.inventoryService.getListOfInventories(this.product.id, this.params)
+    const id = (this.product && this.product.id) || this.productId;
+    this.inventoryService.getListOfInventories(id, this.params)
       .subscribe(res => {
         this.totalCount = res.totalCount;
         console.log(res.inventory);
-        this.inventoryList = [...res.inventory];
-        this.source.load(this.inventoryList);
+        this.source.load(res.inventory);
         this.loadingList = false;
       });
     this.setSettings();
@@ -85,8 +84,8 @@ export class ManageInventoryComponent implements OnInit {
       actions: {
         columnTitle: '',
         add: false,
-        edit: false,
-        delete: false,
+        edit: true,
+        delete: true,
         position: 'right',
         sort: true,
       },
