@@ -151,12 +151,6 @@ export class ProductsListComponent implements OnInit {
     };
   }
 
-
-
-  route(event) {
-    console.log(event);
-  }
-
   updateRecord(event) {
     const product = {
       available: event.newData.available,

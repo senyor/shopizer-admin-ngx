@@ -131,23 +131,10 @@ export class CategoriesListComponent implements OnInit {
           type: 'custom',
           renderComponent: ButtonRenderComponent,
           defaultValue: false,
-          // type: 'html',
-          // valuePrepareFunction: (data) => {
-          //   console.log(data);
-          //   return this._sanitizer.bypassSecurityTrustHtml('<input type="checkbox" [checked]="data">');
-          // }
         },
       },
     };
   }
-
-
-
-  // onUserRowSelect (event) {
-  //   event.data.visible = event.isSelected;
-  //   console.log(event);
-  //   return event.isSelected;
-  // }
 
   route(event) {
     switch (event.action) {
