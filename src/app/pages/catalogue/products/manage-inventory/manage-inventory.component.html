@@ -1,3 +1,8 @@
+<nb-actions size="medium" class="back-button">
+  <nb-action (click)="backToList()">
+    <i class="fas fa-chevron-left"></i>&nbsp;<span>{{ 'common.backToList' | translate }}</span>
+  </nb-action>
+</nb-actions>
 <nb-card size="small" class="page-card">
   <nb-card-header>
     {{product?.description.name}}
@@ -13,9 +18,7 @@
     <ng2-smart-table
       [settings]="settings"
       [source]="source"
-      (custom)="route($event)"
-      (editConfirm)="updateRecord($event)"
-      (deleteConfirm)="deleteRecord($event)">
+      (custom)="route($event)">
     </ng2-smart-table>
 
     <ngx-paginator

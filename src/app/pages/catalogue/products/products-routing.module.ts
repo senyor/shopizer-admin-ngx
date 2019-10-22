@@ -32,7 +32,7 @@ const routes: Routes = [
         component: ManageInventoryComponent,
       },
       {
-        path: 'inventory-details',
+        path: 'product/:productId/inventory-details/:inventoryId',
         component: InventoryDetailsComponent,
       },
       {

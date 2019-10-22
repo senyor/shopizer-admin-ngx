@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { LocalDataSource } from 'ng2-smart-table';
-import { UserService } from '../../../shared/services/user.service';
 import { ProductService } from '../services/product.service';
 import { NbDialogService } from '@nebular/theme';
-import { StoreService } from '../../../store-management/services/store.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ActivatedRoute } from '@angular/router';
 import { InventoryService } from '../services/inventory.service';
+import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
 
 @Component({
   selector: 'ngx-manage-inventory',
@@ -34,13 +35,14 @@ export class ManageInventoryComponent implements OnInit {
   settings = {};
 
   constructor(
-    private userService: UserService,
     private productService: ProductService,
     private dialogService: NbDialogService,
-    private storeService: StoreService,
     private translate: TranslateService,
     private activatedRoute: ActivatedRoute,
     private inventoryService: InventoryService,
+    private _sanitizer: DomSanitizer,
+    private router: Router,
+    private location: Location,
   ) {
     this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
     this.productService.getProductById(this.productId).subscribe(product => {
@@ -70,24 +72,17 @@ export class ManageInventoryComponent implements OnInit {
 
   setSettings() {
     this.settings = {
-      mode: 'inline',
-      edit: {
-        editButtonContent: this.translate.instant('common.edit'),
-        saveButtonContent: '<i class="fas fa-check"></i>',
-        cancelButtonContent: '<i class="fas fa-times"></i>',
-        confirmSave: true
-      },
-      delete: {
-        deleteButtonContent: '<i class="fas fa-trash-alt"></i>',
-        confirmDelete: true
-      },
       actions: {
         columnTitle: '',
         add: false,
-        edit: true,
-        delete: true,
+        edit: false,
+        delete: false,
         position: 'right',
         sort: true,
+        custom: [
+          { name: 'details', title: `${this.translate.instant('common.edit')}` },
+          { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
+        ],
       },
       columns: {
         store: {
@@ -128,40 +123,23 @@ export class ManageInventoryComponent implements OnInit {
     };
   }
 
-
-
   route(event) {
-    console.log(event);
-  }
-
-  updateRecord(event) {
-    // const product = {
-    //   available: event.newData.available,
-    //   price: event.newData.price,
-    //   quantity: event.newData.quantity
-    // };
-    // event.confirm.resolve(event.newData);
-    // this.productService.updateProductFromTable(event.newData.id, product)
-    //   .subscribe(res => {
-    //     console.log(res);
-    //     event.confirm.resolve(event.newData);
-    //   }, error => {
-    //     console.log(error.error.message);
-    //   });
-  }
-
-  deleteRecord(event) {
-    // this.dialogService.open(ShowcaseDialogComponent, {})
-    //   .onClose.subscribe(res => {
-    //   if (res) {
-    //     event.confirm.resolve();
-    //     this.productService.deleteProduct(event.data.id)
-    //       .subscribe(result => {
-    //       });
-    //   } else {
-    //     event.confirm.reject();
-    //   }
-    // });
+    switch (event.action) {
+      case 'details':
+        this.router.navigate([`pages/catalogue/products/product/${this.product.id}/inventory-details/`, event.data.id]);
+        break;
+      case 'remove':
+        this.dialogService.open(ShowcaseDialogComponent, {})
+          .onClose.subscribe(res => {
+          if (res) {
+            console.log('remove');
+            // this.inventoryService.deleteProduct(event.data.id)
+            //   .subscribe((data) => {
+            //     this.getList();
+            //   });
+          }
+        });
+    }
   }
 
   // paginator
@@ -189,5 +167,9 @@ export class ManageInventoryComponent implements OnInit {
       }
     }
     this.getList();
+  }
+
+  backToList() {
+    this.location.back();
   }
 }

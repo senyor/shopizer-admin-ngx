@@ -1,1 +1,14 @@
-<ngx-inventory-form [inventory]="inventory"></ngx-inventory-form>
+<nb-actions size="medium" class="back-button">
+  <nb-action (click)="backToList()">
+    <i class="fas fa-chevron-left"></i>&nbsp;<span>{{ 'common.backToList' | translate }}</span>
+  </nb-action>
+</nb-actions>
+<nb-card size="small" class="page-card">
+  <nb-card-header>
+    Invenory
+  </nb-card-header>
+  <nb-card-body>
+    <ngx-inventory-form [inventory]="inventory"></ngx-inventory-form>
+  </nb-card-body>
+</nb-card>
+

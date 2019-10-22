@@ -1,12 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ManufactureService } from '../../../shared/services/manufacture.service';
-import { ConfigService } from '../../../shared/services/config.service';
-import { ToastrService } from 'ngx-toastr';
-import { ProductService } from '../services/product.service';
-import { ProductImageService } from '../services/product-image.service';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { StoreService } from '../../../store-management/services/store.service';
 
 @Component({
@@ -15,7 +9,6 @@ import { StoreService } from '../../../store-management/services/store.service';
   styleUrls: ['./inventory-form.component.scss']
 })
 export class InventoryFormComponent implements OnInit {
-
   @Input() inventory;
   form: FormGroup;
   stores = [];
@@ -23,14 +16,10 @@ export class InventoryFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private manufactureService: ManufactureService,
-    private configService: ConfigService,
-    private toastr: ToastrService,
-    private productService: ProductService,
-    private productImageService: ProductImageService,
-    private router: Router,
-    private translate: TranslateService,
-    private storeService: StoreService
+    // private toastr: ToastrService,
+    // private router: Router,
+    // private translate: TranslateService,
+    private storeService: StoreService,
   ) {
   }
 
@@ -39,14 +28,16 @@ export class InventoryFormComponent implements OnInit {
     this.loader = true;
     this.storeService.getListOfStores({})
       .subscribe(res => {
-        this.stores = [...res.data];
+        res.data.forEach((store) => {
+          this.stores.push({value: store.code, label: store.code});
+        });
         this.loader = false;
       });
   }
 
   private createForm() {
     this.form = this.fb.group({
-      store: ['', [Validators.required]],
+      store: ['DEFAULT', [Validators.required]],
       owner: ['', [Validators.required]],
       price: [0, [Validators.required]],
       quantity: [0, [Validators.required]]
@@ -79,7 +70,12 @@ export class InventoryFormComponent implements OnInit {
   // }
 
   save() {
-    console.log('save');
+    console.log('save', this.form.value);
+    if (this.inventory.id) {
+      console.log('update');
+    } else {
+      console.log('create');
+    }
   }
 
 }
