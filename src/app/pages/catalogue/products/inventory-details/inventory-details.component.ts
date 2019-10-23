@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
+import { InventoryService } from '../services/inventory.service';
+
 @Component({
   selector: 'ngx-inventory-details',
   templateUrl: './inventory-details.component.html',
@@ -13,15 +15,17 @@ export class InventoryDetailsComponent implements OnInit {
   constructor(
     private location: Location,
     private activatedRoute: ActivatedRoute,
+    private inventoryService: InventoryService
   ) {
     const productId = this.activatedRoute.snapshot.paramMap.get('productId');
     const inventoryId = this.activatedRoute.snapshot.paramMap.get('inventoryId');
-    console.log('productId', productId);
-    console.log('inventoryId', inventoryId);
+    this.inventoryService.getInventoryById(productId, inventoryId).subscribe((res) => {
+      console.log(res);
+      this.inventory = {...res};
+    });
   }
 
   ngOnInit() {
-    // TODO get inventory
   }
 
   backToList() {

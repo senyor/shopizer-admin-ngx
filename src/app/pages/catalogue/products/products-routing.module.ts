@@ -36,7 +36,7 @@ const routes: Routes = [
         component: InventoryDetailsComponent,
       },
       {
-        path: 'inventory-creation',
+        path: 'product/:productId/inventory-creation',
         component: InventoryCreationComponent,
       },
     ],

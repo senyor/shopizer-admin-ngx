@@ -20,8 +20,11 @@ export class InventoryService {
     return this.crudService.post(`/v1/private/product/inventory`, inventory);
   }
 
-  getProductById(id, code): Observable<any> {
-    return this.crudService.get(`/v1/private/product/${id}/inventory/store/${code}`);
+  getInventoryById(id, idInventory): Observable<any> {
+    const params = {
+      lang: '_all'
+    };
+    return this.crudService.get(`/v1/private/product/${id}/inventory/${idInventory}`, params);
   }
 
   deleteProduct(id): Observable<any> {
