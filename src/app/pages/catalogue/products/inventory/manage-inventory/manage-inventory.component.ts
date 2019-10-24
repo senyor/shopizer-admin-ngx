@@ -42,7 +42,6 @@ export class ManageInventoryComponent implements OnInit {
     private inventoryService: InventoryService,
     private _sanitizer: DomSanitizer,
     private router: Router,
-    private location: Location,
   ) {
     this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
     this.productService.getProductById(this.productId).subscribe(product => {
@@ -59,7 +58,7 @@ export class ManageInventoryComponent implements OnInit {
     const id = (this.product && this.product.id) || this.productId;
     this.inventoryService.getListOfInventories(id, this.params)
       .subscribe(res => {
-        this.totalCount = res.totalCount;
+        this.totalCount = res.totalPages;
         console.log(res.inventory);
         this.source.load(res.inventory);
         this.loadingList = false;
@@ -111,7 +110,7 @@ export class ManageInventoryComponent implements OnInit {
           type: 'string',
           editable: true,
           valuePrepareFunction: (prices) => {
-            return prices[0].originalPrice;
+            return (prices.length && prices[0].originalPrice) ? prices[0].originalPrice : 'null';
           }
         },
         creationDate: {
@@ -133,10 +132,11 @@ export class ManageInventoryComponent implements OnInit {
           .onClose.subscribe(res => {
           if (res) {
             console.log('remove');
-            // this.inventoryService.deleteProduct(event.data.id)
-            //   .subscribe((data) => {
-            //     this.getList();
-            //   });
+            this.inventoryService.deleteProduct(event.data.id)
+              .subscribe((data) => {
+                console.log(data);
+                this.getList();
+              });
           }
         });
     }

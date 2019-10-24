@@ -6,6 +6,8 @@ import { StoreService } from '../../../../store-management/services/store.servic
 import { ConfigService } from '../../../../shared/services/config.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { InventoryService } from '../../services/inventory.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'ngx-inventory-form',
@@ -18,22 +20,8 @@ export class InventoryFormComponent implements OnInit {
   stores = [];
   loader = false;
   languages = [];
-  config = {
-    placeholder: '',
-    tabsize: 2,
-    height: 300,
-    uploadImagePath: '',
-    toolbar: [
-      ['misc', ['codeview', 'undo', 'redo']],
-      ['style', ['bold', 'italic', 'underline', 'clear']],
-      ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-      ['fontsize', ['fontname', 'fontsize', 'color']],
-      ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
-      ['insert', ['table', 'picture', 'link', 'video', 'hr']]
-    ],
-    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
-  };
   productId;
+  prices = [];
 
   constructor(
     private fb: FormBuilder,
@@ -43,6 +31,7 @@ export class InventoryFormComponent implements OnInit {
     private storeService: StoreService,
     private configService: ConfigService,
     private activatedRoute: ActivatedRoute,
+    private inventoryService: InventoryService
   ) {
   }
 
@@ -60,7 +49,6 @@ export class InventoryFormComponent implements OnInit {
       .subscribe(res => {
         this.languages = [...res];
         this.createForm();
-        this.addFormArray();
         if (this.inventory.id) {
           this.fillForm();
         }
@@ -72,157 +60,36 @@ export class InventoryFormComponent implements OnInit {
     this.form = this.fb.group({
       store: ['DEFAULT', [Validators.required]],
       owner: ['', [Validators.required]],
-      // price: [0, [Validators.required]],
-      quantity: [0, [Validators.required]],
-      prices: this.fb.group({
-        finalPrice: [0, [Validators.required]],
-        originalPrice: [0, [Validators.required]],
-        selectedLanguage: ['', [Validators.required]],
-        descriptions: this.fb.array([]),
-      }),
-    });
-  }
-
-  addFormArray() {
-    const control = <FormArray>this.form.get('prices').get('descriptions');
-    this.languages.forEach(lang => {
-      control.push(
-        this.fb.group({
-          language: [lang.code, [Validators.required]],
-          name: ['', [Validators.required]],
-          highlights: [''],
-          friendlyUrl: ['', [Validators.required]],
-          description: [''],
-          title: [''],
-          keyWords: [''],
-          metaDescription: [''],
-        })
-      );
+      dateAvailable: [''],
+      quantity: [0, [Validators.required]]
     });
   }
 
   fillForm() {
     this.form.patchValue({
-      store: this.inventory.store,
+      store: this.inventory.store.code,
       owner: this.inventory.owner,
-      // price: this.inventory.price,
+      dateAvailable: this.inventory.dateAvailable,
       quantity: this.inventory.quantity,
     });
-    const prices = {
-      finalPrice: this.inventory.prices.finalPrice,
-      originalPrice: this.inventory.prices.originalPrice,
-      selectedLanguage: 'en',
-      descriptions: [],
-    };
-    this.form.patchValue({ prices: prices });
-    this.fillFormArray();
   }
 
-  fillFormArray() {
-    this.form.value.prices.descriptions.forEach((desc, index) => {
-      this.inventory.descriptions.forEach((description) => {
-        if (desc.language === description.language) {
-          (<FormArray>this.form.get('prices').get('descriptions')).at(index).patchValue({
-            language: description.language,
-            name: description.name,
-            highlights: description.highlights,
-            friendlyUrl: description.friendlyUrl,
-            description: description.description,
-            title: description.title,
-            keyWords: description.keyWords,
-            metaDescription: description.metaDescription,
-          });
-        }
-      });
-    });
-  }
-
-  get selectedLanguage() {
-    return this.form.get('prices').get('selectedLanguage');
-  }
-
-  get descriptions(): FormArray {
-    return <FormArray>this.form.get('prices').get('descriptions');
-  }
-
-  changeName(event, index) {
-    (<FormArray>this.form.get('prices').get('descriptions')).at(index).patchValue({
-      friendlyUrl: this.slugify(event)
-    });
-  }
-
-  slugify(string) {
-    const a = 'àáäâãåăæąçćčđèéėëêęǵḧìíïîįłḿǹńňñòóöôœøṕŕřßśšșťțùúüûǘůűūųẃẍÿýźžż·/_,:;';
-    const b = 'aaaaaaaaacccdeeeeeeghiiiiilmnnnnooooooprrssssttuuuuuuuuuwxyyzzz------';
-    const p = new RegExp(a.split('').join('|'), 'g');
-
-    return string.toString().toLowerCase()
-      .replace(/\s+/g, '-') // Replace spaces with -
-      .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
-      .replace(/&/g, '-and-') // Replace & with 'and'
-      .replace(/\-\-+/g, '-') // Replace multiple - with single -
-      .replace(/^-+/, '') // Trim - from start of text
-      .replace(/-+$/, ''); // Trim - from end of text
-  }
 
   save() {
-    const inventoryObject = { ...this.form.value };
-    inventoryObject.projectId = this.productId;
-    console.log(inventoryObject);
-
-    // save important values for filling empty field in result object
-    const tmpObj = {
-      name: '',
-      friendlyUrl: ''
-    };
-    inventoryObject.prices.descriptions.forEach((el) => {
-      if (tmpObj.name === '' && el.name !== '') {
-        tmpObj.name = el.name;
-      }
-      if (tmpObj.friendlyUrl === '' && el.friendlyUrl !== '') {
-        tmpObj.friendlyUrl = el.friendlyUrl;
-      }
-      for (const elKey in el) {
-        if (el.hasOwnProperty(elKey)) {
-          if (!tmpObj.hasOwnProperty(elKey) && el[elKey] !== '') {
-            tmpObj[elKey] = el[elKey];
-          }
-        }
-      }
-    });
-
-    // check required fields
-    if (tmpObj.name === '' || tmpObj.friendlyUrl === '' || inventoryObject.sku === '') {
-      this.toastr.error(this.translate.instant('common.fillRequiredFields'));
+    const inventoryObj = this.form.value;
+    inventoryObj.dateAvailable = moment(inventoryObj.dateAvailable).format('YYYY-MM-DD');
+    inventoryObj.prices = [...this.prices];
+    inventoryObj.productId = this.productId;
+    console.log(inventoryObj);
+    if (this.inventory.id) {
+      console.log('update');
+      // this.inventoryService.updateInventory(this.inventory.id, inventoryObj).subscribe((res) => {
+      //   console.log(res);
+      // });
     } else {
-      inventoryObject.prices.descriptions.forEach((el) => {
-        // fill empty fields
-        for (const elKey in el) {
-          if (el.hasOwnProperty(elKey)) {
-            if (el[elKey] === '' && tmpObj[elKey] !== '') {
-              el[elKey] = tmpObj[elKey];
-            }
-          }
-        }
+      this.inventoryService.createInventory(inventoryObj).subscribe((res) => {
+        console.log(res);
       });
-      // check for undefined
-      inventoryObject.prices.descriptions.forEach(el => {
-        for (const elKey in el) {
-          if (el.hasOwnProperty(elKey)) {
-            if (typeof el[elKey] === 'undefined') {
-              el[elKey] = '';
-            }
-          }
-        }
-      });
-
-      console.log('save', inventoryObject);
-      console.log('save string', JSON.stringify(inventoryObject));
-      if (this.inventory.id) {
-        console.log('update');
-      } else {
-        console.log('create');
-      }
     }
   }
 

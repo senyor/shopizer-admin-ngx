@@ -19,6 +19,7 @@ export class InventoryDetailsComponent implements OnInit {
     const inventoryId = this.activatedRoute.snapshot.paramMap.get('inventoryId');
     this.inventoryService.getInventoryById(productId, inventoryId).subscribe((res) => {
       this.inventory = { ...res };
+      console.log(this.inventory);
     });
   }
 
