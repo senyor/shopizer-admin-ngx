@@ -10,7 +10,7 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit {
-  product = {};
+  product: any = {};
   loadingInfo = false;
 
   constructor(

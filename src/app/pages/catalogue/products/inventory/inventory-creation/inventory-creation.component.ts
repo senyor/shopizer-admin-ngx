@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class InventoryCreationComponent implements OnInit {
   inventory = {};
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

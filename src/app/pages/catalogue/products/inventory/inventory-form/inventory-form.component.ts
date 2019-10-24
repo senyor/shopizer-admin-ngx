@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { StoreService } from '../../../store-management/services/store.service';
-import { ConfigService } from '../../../shared/services/config.service';
+import { StoreService } from '../../../../store-management/services/store.service';
+import { ConfigService } from '../../../../shared/services/config.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -166,7 +166,7 @@ export class InventoryFormComponent implements OnInit {
   }
 
   save() {
-    const inventoryObject = {...this.form.value};
+    const inventoryObject = { ...this.form.value };
     inventoryObject.projectId = this.productId;
     console.log(inventoryObject);
 

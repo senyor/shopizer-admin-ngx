@@ -4,11 +4,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { LocalDataSource } from 'ng2-smart-table';
-import { ProductService } from '../services/product.service';
+import { ProductService } from '../../services/product.service';
 import { NbDialogService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
-import { InventoryService } from '../services/inventory.service';
-import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
+import { InventoryService } from '../../services/inventory.service';
+import { ShowcaseDialogComponent } from '../../../../shared/components/showcase-dialog/showcase-dialog.component';
 
 @Component({
   selector: 'ngx-manage-inventory',
@@ -126,7 +126,7 @@ export class ManageInventoryComponent implements OnInit {
   route(event) {
     switch (event.action) {
       case 'details':
-        this.router.navigate([`pages/catalogue/products/product/${this.product.id}/inventory-details/`, event.data.id]);
+        this.router.navigate([`pages/catalogue/products/${this.product.id}/inventory-details/${event.data.id}`]);
         break;
       case 'remove':
         this.dialogService.open(ShowcaseDialogComponent, {})
@@ -169,7 +169,4 @@ export class ManageInventoryComponent implements OnInit {
     this.getList();
   }
 
-  backToList() {
-    this.location.back();
-  }
 }
