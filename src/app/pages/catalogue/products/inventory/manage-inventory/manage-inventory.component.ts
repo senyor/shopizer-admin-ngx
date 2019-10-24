@@ -56,10 +56,10 @@ export class ManageInventoryComponent implements OnInit {
   getList() {
     this.loadingList = true;
     const id = (this.product && this.product.id) || this.productId;
+    this.params.page = this.currentPage - 1;
     this.inventoryService.getListOfInventories(id, this.params)
       .subscribe(res => {
-        this.totalCount = res.totalPages;
-        console.log(res.inventory);
+        this.totalCount = res.recordsTotal;
         this.source.load(res.inventory);
         this.loadingList = false;
       });
