@@ -128,9 +128,9 @@ export class ProductFormComponent implements OnInit {
       sku: this.product.sku,
       available: this.product.available,
       preOrder: this.product.preOrder,
-      dateAvailable: new Date(this.product.dateAvailable),
+      dateAvailable: this.product.dateAvailable,
       manufacturer: this.product.manufacturer.code,
-      type: ( this.product.type && this.product.type.code !== null ) ? this.product.type.code : '' ,
+      // type: this.product.type.code, // TODO
       price: this.product.price,
       quantity: this.product.quantity,
       sortOrder: this.product.sortOrder,
