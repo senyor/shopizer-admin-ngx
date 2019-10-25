@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { LocalDataSource } from 'ng2-smart-table';
 import { ProductService } from '../../services/product.service';
@@ -10,16 +10,14 @@ import { InventoryService } from '../../services/inventory.service';
 import { ShowcaseDialogComponent } from '../../../../shared/components/showcase-dialog/showcase-dialog.component';
 
 @Component({
-  selector: 'ngx-manage-inventory',
-  templateUrl: './manage-inventory.component.html',
-  styleUrls: ['./manage-inventory.component.scss']
+  selector: 'ngx-prices-list',
+  templateUrl: './prices-list.component.html',
+  styleUrls: ['./prices-list.component.scss']
 })
-export class ManageInventoryComponent implements OnInit {
+export class PricesListComponent implements OnInit {
+  @Input() prices;
   source: LocalDataSource = new LocalDataSource();
   loadingList = false;
-  stores = [];
-  product;
-  productId;
 
   // paginator
   perPage = 10;
@@ -27,10 +25,10 @@ export class ManageInventoryComponent implements OnInit {
   totalCount;
 
   // server params
-  params = {
-    count: this.perPage,
-    page: 0
-  };
+  // params = {
+  //   count: this.perPage,
+  //   page: 0
+  // };
   settings = {};
 
   constructor(
@@ -40,28 +38,30 @@ export class ManageInventoryComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private inventoryService: InventoryService,
     private _sanitizer: DomSanitizer,
-    private router: Router,
   ) {
-    this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
-    this.productService.getProductById(this.productId).subscribe(product => {
-      this.product = product;
-    });
+    // this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
+    // this.productService.getProductById(this.productId).subscribe(product => {
+    //   this.product = product;
+    // });
   }
 
   ngOnInit() {
+    console.log(this.prices);
     this.getList();
   }
 
   getList() {
-    this.loadingList = true;
-    const id = (this.product && this.product.id) || this.productId;
-    this.params.page = this.currentPage - 1;
-    this.inventoryService.getListOfInventories(id, this.params)
-      .subscribe(res => {
-        this.totalCount = res.recordsTotal;
-        this.source.load(res.inventory);
-        this.loadingList = false;
-      });
+    this.prices = (this.prices && this.prices.length) ? this.prices : [];
+    this.source.load(this.prices);
+    // this.loadingList = true;
+    // const id = (this.product && this.product.id) || this.productId;
+    // this.params.page = this.currentPage - 1;
+    // this.inventoryService.getListOfInventories(id, this.params)
+    //   .subscribe(res => {
+    //     this.totalCount = res.recordsTotal;
+    //     this.source.load(res.inventory);
+    //     this.loadingList = false;
+    //   });
     this.setSettings();
     this.translate.onLangChange.subscribe((event) => {
       this.setSettings();
@@ -124,7 +124,7 @@ export class ManageInventoryComponent implements OnInit {
   route(event) {
     switch (event.action) {
       case 'details':
-        this.router.navigate([`pages/catalogue/products/${this.product.id}/inventory-details/${event.data.id}`]);
+        // this.router.navigate([`pages/catalogue/products/${this.product.id}/inventory-details/${event.data.id}`]);
         break;
       case 'remove':
         this.dialogService.open(ShowcaseDialogComponent, {})

@@ -14,6 +14,9 @@ import { ManageInventoryComponent } from './inventory/manage-inventory/manage-in
 import { InventoryFormComponent } from './inventory/inventory-form/inventory-form.component';
 import { InventoryCreationComponent } from './inventory/inventory-creation/inventory-creation.component';
 import { InventoryDetailsComponent } from './inventory/inventory-details/inventory-details.component';
+import { PricesListComponent } from './price/prices-list/prices-list.component';
+import { PriceRoutingModule } from './price-routing.module';
+import { PriceFormComponent } from './price/price-form/price-form.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +31,15 @@ import { InventoryDetailsComponent } from './inventory/inventory-details/invento
     ManageInventoryComponent,
     InventoryDetailsComponent,
     InventoryCreationComponent,
-    InventoryFormComponent
+    InventoryFormComponent,
+
+    PricesListComponent,
+    PriceFormComponent
   ],
   imports: [
     ProductsRoutingModule,
     InventoryRoutingModule,
+    PriceRoutingModule,
 
     SharedModule,
     NgxSummernoteModule,
