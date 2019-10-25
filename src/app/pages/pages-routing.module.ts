@@ -29,7 +29,7 @@ const routes: Routes = [{
     },
     {
       path: 'catalogue',
-      // canActivate: [SuperadminStoreRetailCatalogueGuard],
+      canActivate: [SuperadminStoreRetailCatalogueGuard],
       loadChildren: 'app/pages/catalogue/catalogue.module#CatalogueModule'
     },
     {
