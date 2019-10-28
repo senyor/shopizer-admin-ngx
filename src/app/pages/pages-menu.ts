@@ -182,6 +182,12 @@ export const MENU_ITEMS: MenuItem[] = [
             link: '/pages/catalogue/products/manage-inventory',
             hidden: false
           },
+          {
+            title: 'sideNav.productToCategory',
+            key: 'sideNav.productToCategory',
+            link: '/pages/catalogue/products/association',
+            hidden: false
+          },
         ],
       },
       {

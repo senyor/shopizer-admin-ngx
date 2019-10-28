@@ -38,6 +38,7 @@
     "createProduct": "Create product ru",
     "productsList": "Products list ru",
     "manageInventory": "Manage inventory",
+    "productToCategory": "productToCategory",
 
     "brands": "Brands",
     "createBrand": "Create brand",

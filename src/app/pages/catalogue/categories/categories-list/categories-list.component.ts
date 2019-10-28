@@ -75,7 +75,7 @@ export class CategoriesListComponent implements OnInit {
         categories.categories.forEach((el) => {
           this.getChildren(el);
         });
-        this.totalCount = categories.totalCount;
+        this.totalCount = categories.totalPages;
         this.source.load(this.categories);
         this.loadingList = false;
       });
