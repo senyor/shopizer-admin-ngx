@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../../../../shared/services/config.service';
 import * as moment from 'moment';
+import { InventoryService } from '../../services/inventory.service';
+import { PriceService } from '../../services/price.service';
 
 @Component({
   selector: 'ngx-price-form',
@@ -34,17 +36,21 @@ export class PriceFormComponent implements OnInit {
     ],
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
+  // inventory = {};
 
   constructor(
     private activatedRoute: ActivatedRoute,
-      private fb: FormBuilder,
-      private toastr: ToastrService,
-      private translate: TranslateService,
-      private configService: ConfigService,
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private translate: TranslateService,
+    private configService: ConfigService,
+    // private inventoryService: InventoryService,
+    // private priceService: PriceService
   ) {
   }
 
   ngOnInit() {
+    // console.log(this.price);
     this.priceId = this.activatedRoute.snapshot.paramMap.get('priceId');
     console.log('price', this.priceId);
     this.createForm();
@@ -63,6 +69,7 @@ export class PriceFormComponent implements OnInit {
         // }
         this.loader = false;
       });
+    // this.inventoryService.getInventoryById()
   }
 
   private createForm() {
@@ -179,25 +186,12 @@ export class PriceFormComponent implements OnInit {
           }
         }
       });
-
-
-      console.log('save', priceObject);
+      console.log('save', JSON.stringify(priceObject));
+      // save as inventory updating
+      // this.inventoryService.updateInventory(this.inventory.id, inventoryObj).subscribe((res) => {
+      //   console.log(res);
+      // });
     }
-    // const inventoryObj = this.form.value;
-    // inventoryObj.dateAvailable = moment(inventoryObj.dateAvailable).format('YYYY-MM-DD');
-    // inventoryObj.prices = [...this.prices];
-    // inventoryObj.productId = this.productId;
-    // console.log(inventoryObj);
-    // if (this.inventory.id) {
-    //   console.log('update');
-    //   // this.inventoryService.updateInventory(this.inventory.id, inventoryObj).subscribe((res) => {
-    //   //   console.log(res);
-    //   // });
-    // } else {
-    //   this.inventoryService.createInventory(inventoryObj).subscribe((res) => {
-    //     console.log(res);
-    //   });
-    // }
   }
 
 }

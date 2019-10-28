@@ -17,10 +17,10 @@ const routes: Routes = [
         path: 'price-details:priceId',
         component: PriceFormComponent,
       },
-      // {
-      //   path: 'product/:id',
-      //   component: ProductDetailsComponent,
-      // }
+      {
+        path: 'price-details',
+        component: PriceFormComponent,
+      }
     ],
   }
 ];
