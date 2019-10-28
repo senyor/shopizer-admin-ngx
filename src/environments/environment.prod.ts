@@ -6,7 +6,7 @@
 export const environment = {
   production: true,
   googleApiKey: '',
-  apiUrl: '99.79.1.102:8080/api',
+  apiUrl: 'http://aws-demo.shopizer.com:8080/api',
   client: {
     language: {
       default: 'en',
