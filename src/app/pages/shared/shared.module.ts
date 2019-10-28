@@ -14,6 +14,8 @@ import { ImageUploadingComponent } from './components/image-uploading/image-uplo
 import { ShowcaseDialogComponent } from './components/showcase-dialog/showcase-dialog.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import {PickListModule} from 'primeng/picklist';
+import {DropdownModule} from 'primeng/dropdown';
+import { BackButtonComponent } from './components/back-button/back-button.component';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import {PickListModule} from 'primeng/picklist';
     NotFoundComponent,
     ImageUploadingComponent,
     ShowcaseDialogComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    BackButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -48,7 +51,10 @@ import {PickListModule} from 'primeng/picklist';
     ImageUploadingComponent,
     ShowcaseDialogComponent,
     PaginatorComponent,
-    PickListModule
+    BackButtonComponent,
+
+    PickListModule,
+    DropdownModule
   ],
   entryComponents: [ShowcaseDialogComponent],
 })

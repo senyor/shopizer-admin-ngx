@@ -75,3 +75,11 @@ ng2-st-tbody-custom {
 .fa-id-card, .home-color {
   color: #0088cc;
 }
+
+.right-card-button {
+  display: block !important;
+  margin-left: auto;
+  a:hover {
+    color: white;
+  }
+}
