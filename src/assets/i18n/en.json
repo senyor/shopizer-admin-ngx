@@ -234,6 +234,57 @@
 
     "order": "Order"
   },
+  "COMPONENTS": {
+    "LOGIN": "Login",
+    "HOME": "Home",
+
+    "USER": "User",
+    "USERS": "Users",
+    "MY_PROFILE": "My profile",
+    "PROFILE": "Profile",
+    "CHANGE_PASSWORD": "Change password",
+    "CREATE_USER": "Create user",
+    "USER_LIST": "Users list",
+
+    "STORE": "Store",
+    "STORE_DETAILS": "Store details",
+    "CREATE_STORE": "Create store",
+    "STORES_LIST": "Stores list",
+    "RETAILER": "Retailer",
+    "RETAILER_LIST": "Retailer list",
+    "CREATE_RETAILER": "Create retailer",
+
+    "CATALOGUE": "Catalogue",
+
+    "CATALOGUES": "Catalogues",
+    "CREATE_CATALOGUE": "Create catalogue",
+    "CATALOGUES_LIST": "Catalogues list",
+
+    "CATEGORIES": "Categories",
+    "CATEGORY": "Category",
+    "CREATE_CATEGORY": "Create category",
+    "CATEGORIES_LIST": "Categories list",
+    "CATEGORIES_HIERARCHY": "Categories hierarchy",
+
+    "PRODUCTS": "Products",
+    "PRODUCT": "Product",
+    "CREATE_PRODUCT": "Create product",
+    "PRODUCTS_LIST": "Products list",
+
+    "MANAGE_INVENTORY": "Manage inventory",
+    "PRODUCT_TO_CATEGORY": "productToCategory",
+
+    "BRANDS": "Brands",
+    "CREATE_BRAND": "Create brand",
+    "BRANDS_LIST": "Brands list",
+
+    "PRODUCTS_GROUPS": "Products groups",
+    "CREATE_PRODUCTS_GROUPS": "Create product group",
+    "LIST_PRODUCTS_GROUPS": "List products groups",
+    "PRODUCTS_GROUPS_LIST": "Product groups list",
+
+    "ORDERS": "Orders"
+  },
   "LOGIN": {
     "INVALID_DATA": "Invalid username or password",
     "USERNAME": "Username",
@@ -250,8 +301,61 @@
     "LAST_ACCESS": "Last access",
     "RECENT_ORDERS": "Recent orders"
   },
+  "USER": {
+    "PASSWORD_CHANGED": "Password successfully changed",
+    "PASSWORD_NOT_MATCH": "Actual password does not match for user"
+  },
+  "USER_CHANGE_PASSWORD": {
+    "NEW_PASSWORD": "New password",
+    "PASSWORD_ERROR_REQUIRED": "Password required.",
+    "PASSWORD_ERROR_NOT_VALID": "Password not valid.",
+    "PASSWORD_ERROR_RULES": "Should contains at least 1 character lower case, at least 1 character uppercase, at least 1 digit, 6 to 12 characters",
+    "REPEAT_NEW_PASSWORD": "Repeat new password",
+    "PASSWORDS_NOT_MATCH": "Passwords do not match."
+  },
+  "USER_FORM": {
+    "FIRST_NAME": "First name",
+    "FIRST_NAME_ERROR_REQUIRED": "First name is required",
+
+    "LAST_NAME": "Last name",
+    "LAST_NAME_ERROR_REQUIRED": "Last name is required",
+
+    "EMAIL_ADDRESS": "Email",
+    "EMAIL_ADDRESS_ERROR_REQUIRED": " Email address is required.",
+    "EMAIL_ADDRESS_ERROR_NOT_VALID": "Value has to be a valid email address.",
+
+    "USER_UPDATED": "User updated",
+    "USER_CREATED": "User created",
+    "USER_REMOVED": "User removed",
+
+    "EMAIL_EXISTS": "Email already exists",
+
+    "PASSWORD_ERROR_REQUIRED": "Password required.",
+    "PASSWORD_ERROR_NOT_VALID": "Password not valid.",
+    "PASSWORD_ERROR_RULES": "Should contains at least 1 character lower case, at least 1 character uppercase, at least 1 digit, 6 to 12 characters",
+    "ACTIVE": "Active",
+    "GROUPS": "Groups"
+  },
   "COMMON": {
-    "LOGIN": "Login",
-    "LANGUAGES": "Languages"
+    "LANGUAGES": "Languages",
+    "PASSWORD": "Password",
+    "SAVE": "Save",
+    "REMOVE": "Remove",
+
+    "ID": "ID",
+    "NAME": "Name",
+    "EMAIL_ADDRESS": "Email",
+    "STATUS": "Status",
+    "DETAILS": "Details",
+
+    "DEFAULT_LANGUAGE": "Default language",
+    "SELECT_LANGUAGE": "Select language",
+
+    "remove": "Remove",
+    "backToList": "Back to list",
+    "details": "Details",
+    "language": "Language",
+    "edit": "Edit",
+    "visible": "Visible"
   }
 }

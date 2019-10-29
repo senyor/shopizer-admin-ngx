@@ -1,5 +1,7 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'ngx-user-management',
   templateUrl: './user-management.component.html',
@@ -11,20 +13,34 @@ export class UserManagementComponent implements OnInit, DoCheck {
   sidemenuValue = 'admin';
   sidemenuLinks = [
     {
-      title: 'My profile',
+      title: 'COMPONENTS.MY_PROFILE',
+      key: 'COMPONENTS.MY_PROFILE',
       link: 'profile'
     },
     {
-      title: 'Change password',
+      title: 'COMPONENTS.CHANGE_PASSWORD',
+      key: 'COMPONENTS.CHANGE_PASSWORD',
       link: 'change-password'
     }
   ];
   showSide = true;
 
-  constructor() {
+  constructor(
+    private translate: TranslateService
+  ) {
+    this.translateArray(this.sidemenuLinks);
+    this.translate.onLangChange.subscribe((event) => {
+      this.translateArray(this.sidemenuLinks);
+    });
   }
 
   ngOnInit() {
+  }
+
+  translateArray(array) {
+    array.forEach((el) => {
+      el.title = this.translate.instant(el.key);
+    });
   }
 
   ngDoCheck() {

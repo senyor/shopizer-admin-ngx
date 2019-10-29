@@ -122,22 +122,22 @@ export class UserFormComponent implements OnInit, OnChanges {
             this.userService.updateUser(+this.user.id, this.form.value)
               .subscribe(res => {
                 console.log(res);
-                this.toastr.success(this.translate.instant('user.toastr.userUpdated'));
+                this.toastr.success(this.translate.instant('USER_FORM.USER_UPDATED'));
                 this.router.navigate(['pages/user-management/users']);
               });
           } else {
-            this.errorMessage = this.translate.instant('user.toastr.emailExists');
+            this.errorMessage = this.translate.instant('USER_FORM.EMAIL_EXISTS');
           }
         } else {
           if (!data.exists) {
             this.userService.createUser(this.form.value)
               .subscribe(res => {
                 console.log(res);
-                this.toastr.success(this.translate.instant('user.toastr.userCreated'));
+                this.toastr.success(this.translate.instant('USER_FORM.USER_CREATED'));
                 this.router.navigate(['pages/user-management/users']);
               });
           } else {
-            this.errorMessage = this.translate.instant('user.toastr.emailExists');
+            this.errorMessage = this.translate.instant('USER_FORM.EMAIL_EXISTS');
           }
         }
       });
@@ -147,7 +147,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     this.userService.deleteUser(this.user.id)
       .subscribe(res => {
         console.log(res);
-        this.toastr.success(this.translate.instant('user.toastr.userRemoved'));
+        this.toastr.success(this.translate.instant('USER_FORM.USER_REMOVED'));
         this.router.navigate(['pages/user-management/users']);
       });
   }
