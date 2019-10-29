@@ -83,14 +83,19 @@ export class AddPageComponent {
   createPages() {
     this.loadingList = true;
     let param = {
-      'code': this.code,
-      'name': this.en.name,
-      'contentType': 'PAGE',
-      'displayedInMenu': this.mainmenu,
-      'metaDetails': this.en.metaDetails,
-      'pageContent': '<div class=\"ad_box\"><img class=\"banner\" src=\"some_ad.png\" alt=\"\" /><h3>Hot Items </h3> <br /> <ul id=\"items\" /></div>',
-      'slug': this.en.slug,
-      'title': this.en.title
+      "code": this.code,
+      "descriptions": [
+        {
+          "contentType": "PAGE",
+          "language": "en",
+          "metaDetails": this.en.metaDetails,
+          "name": this.en.name,
+          "pageContent": this.en.pageContent,
+          "slug": this.en.slug,
+          "title": this.en.title
+        }
+      ],
+      "displayedInMenu": this.mainmenu
     }
     this.crudService.post('/v1/private/content/page', param)
       .subscribe(data => {

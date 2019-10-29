@@ -1,15 +1,31 @@
 <div class="pages">
-  <nb-card-header>
-    Manage Files
-    <!-- <div class="buttons-row">
+  <nb-card>
+    <nb-card-header>
+      Manage Files
+      <!-- <div class="buttons-row">
       <button nbButton (click)="addBoxes()">
         Create Box
       </button>
     </div> -->
-  </nb-card-header>
+    </nb-card-header>
+    <nb-card-body>
+      <form #pagesForm="ngForm" role="form">
+        <div class="row">
+          <div class="col-md-9">
+            <input type="file" name="img" multiple (change)="onChange($event)">
+          </div>
+          <div class="col-md-3">
+            <div class="submit-button">
+              <button type="button" nbButton status="success" [disabled]="!isDisbaled" (click)="uploadFiles()">Upload</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
 
   <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
-    <ng2-smart-table [settings]="settings" [source]="source" class="home-table">
+    <ng2-smart-table [settings]="settings" [source]="source" class="home-table" (custom)="onClickAction($event)">
     </ng2-smart-table>
   </nb-card-body>
 </div>

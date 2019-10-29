@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import {environment} from '../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class CrudService {
 
   constructor(private http: HttpClient) { }
 
-  get(path, params?: { [ param: string ]: string | string[]; }): Observable<any> {
+  get(path, params?: { [param: string]: string | string[]; }): Observable<any> {
     return this.http.get(`${this.url}${path}`, { responseType: 'json', params });
   }
 

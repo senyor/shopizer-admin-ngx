@@ -23,7 +23,7 @@
           <img src="{{images.path}}" class="banner-image">
         </div>
         <div class="card-body" *ngIf="images.contentType != 1">
-          <span class="nb-close" (click)="removeImage()"></span>
+          <span class="nb-close" (click)="removeImage(images.name)"></span>
           <img src="{{images.path}}{{images.name}}" class="banner-image">
         </div>
       </div>
@@ -34,7 +34,7 @@
 
     <div class="containerUpload">
       <div class="contentUpload">
-        <upload [onUpload]="handleUpload" [multi]="false"></upload>
+        <upload [onUpload]="handleUpload" [multi]="true"></upload>
       </div>
     </div>
   </nb-card-body>
