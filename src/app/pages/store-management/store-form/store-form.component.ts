@@ -54,7 +54,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
   showRemoveButton = true;
   isReadonlyCode = false;
   isAdminStore: boolean;
-  establishmentType: string = 'store';
+  establishmentType: string = 'STORE';
 
   fakeRetailerArray = ['ret1', 'ret2'];
 
@@ -78,7 +78,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
   getEstablishmentType() {
     const childRoute = window.location.hash.slice(window.location.hash.indexOf('store-management/') + 17);
     if (childRoute.indexOf('store') === -1) {
-      this.establishmentType = 'retailer';
+      this.establishmentType = 'RETAILER';
     }
   }
 
@@ -271,7 +271,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
   save() {
     this.form.controls['address'].patchValue({ country: this.form.value.address.country });
     this.form.patchValue({ inBusinessSince: moment(this.form.value.inBusinessSince).format('YYYY-MM-DD') });
-    this.establishmentType === 'store' ? this.saveStore() : this.saveRetailer();
+    this.establishmentType === 'STORE' ? this.saveStore() : this.saveRetailer();
   }
 
   saveStore() {
@@ -279,7 +279,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
       this.storeService.updateStore(this.form.value)
         .subscribe(store => {
           console.log(store);
-          this.toastr.success(this.translate.instant('store.toastr.storeUpdated'));
+          this.toastr.success(this.translate.instant('STORE_FORM.STORE_UPDATED'));
           this.router.navigate(['pages/store-management/stores-list']);
         });
     } else {
@@ -291,7 +291,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
             this.storeService.createStore(this.form.value)
               .subscribe(store => {
                 console.log(store);
-                this.toastr.success(this.translate.instant('store.toastr.storeCreated'));
+                this.toastr.success(this.translate.instant('STORE_FORM.STORE_CREATED'));
                 this.router.navigate(['pages/store-management/stores-list']);
               });
           }
@@ -307,7 +307,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
     this.storeService.deleteStore(this.store.code)
       .subscribe(res => {
         console.log(res);
-        this.toastr.success(this.translate.instant('store.toastr.storeRemoved'));
+        this.toastr.success(this.translate.instant('STORE_FORM.STORE_REMOVED'));
         this.router.navigate(['pages/store-management/stores-list']);
       });
   }

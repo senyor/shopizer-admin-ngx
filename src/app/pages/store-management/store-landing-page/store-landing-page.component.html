@@ -1,18 +1,18 @@
 <nb-card size="small" class="page-card">
   <nb-card-header>
-    {{ 'store.storeInfo' | translate}}
+    {{ 'STORE.STORE_INFORMATION' | translate}}
   </nb-card-header>
   <nb-card-body>
     <span>
-      {{ 'store.infoText' | translate}}
+      {{ 'STORE.INFORMATION_TEXT' | translate}}
     </span>
     <div *ngIf="loading" class="loading-block" [nbSpinner]="loading" nbSpinnerSize="large"
          nbSpinnerStatus="primary"></div>
     <form *ngIf="!loading" [formGroup]='form'>
       <div class="form-group">
-        <label class="col-sm-10 col-form-label">{{ 'common.language' | translate}}</label>
+        <label class="col-sm-10 col-form-label">{{ 'COMMON.LANGUAGE' | translate}}</label>
         <div class="col-sm-12">
-          <nb-select *ngIf="languages.length" placeholder="{{ 'user.selectLanguage' | translate}}" formControlName='language' outline
+          <nb-select *ngIf="languages.length" placeholder="{{ 'COMMON.SELECT_LANGUAGE' | translate}}" formControlName='language' outline
                      shape="rectangle">
             <nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>
           </nb-select>
@@ -22,26 +22,26 @@
       <hr/>
 
       <div class="form-group">
-        <label for="title" class="col-sm-10 col-form-label">{{ 'store.landingTitle' | translate}}*</label>
+        <label for="title" class="col-sm-10 col-form-label">{{ 'STORE_LANDING.LANDING_PAGE_TITLE' | translate}}*</label>
         <div class="col-sm-12">
           <input type="text" class="form-control" id="title" formControlName='title'
                  placeholder="Page title" required>
           <span *ngIf="(title.dirty || title.touched) && title.invalid && title.errors.required" class="err-message">
-            {{ 'store.landingTitle' | translate}}
+            {{ 'STORE_LANDING.LANDING_PAGE_TITLE' | translate}}
           </span>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="metaDetails" class="col-sm-10 col-form-label">{{ 'store.tagDescription' | translate}}</label>
+        <label for="metaDetails" class="col-sm-10 col-form-label">{{ 'STORE_LANDING.TAG_DESCRIPTION' | translate}}</label>
         <div class="col-sm-12">
           <input type="text" class="form-control" id="metaDetails" formControlName='metaDetails'
-                 placeholder="Meta tags description" required>
+                 placeholder="{{ 'STORE_LANDING.TAG_DESCRIPTION' | translate}}n" required>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="metaDetails" class="col-sm-10 col-form-label">{{ 'store.landingText' | translate}}</label>
+        <label for="metaDetails" class="col-sm-10 col-form-label">{{ 'STORE_LANDING.LANDING_TEXT' | translate}}</label>
         <div class="col-sm-12">
           <div formControlName="pageContent"
                [ngxSummernote]="config">
@@ -57,7 +57,7 @@
                 [disabled]="!form.valid"
                 nbButton [nbSpinner]="loadingButton"
                 nbSpinnerSize="large"
-                nbSpinnerMessage="">{{ 'common.save' | translate}}
+                nbSpinnerMessage="">{{ 'COMMON.SAVE' | translate}}
         </button>
       </div>
 

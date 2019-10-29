@@ -247,9 +247,13 @@
     "USER_LIST": "Users list",
 
     "STORE": "Store",
+    "STORES": "Stores",
     "STORE_DETAILS": "Store details",
     "CREATE_STORE": "Create store",
     "STORES_LIST": "Stores list",
+    "STORE_BRANDING": "Store branding",
+    "STORE_LANDING": "Store home page",
+
     "RETAILER": "Retailer",
     "RETAILER_LIST": "Retailer list",
     "CREATE_RETAILER": "Create retailer",
@@ -336,26 +340,90 @@
     "ACTIVE": "Active",
     "GROUPS": "Groups"
   },
+  "STORE": {
+    "STORE_INFORMATION": "Store information",
+    "INFORMATION_TEXT": "Shop settings used for various functionality such us and store address. Various details also used for shipping costs and displayed in product details."
+  },
+  "STORE_LANDING": {
+    "LANDING_PAGE_TITLE": "Landing page title",
+    "TAG_DESCRIPTION": "Meta tags description",
+    "LANDING_TEXT": "Landing page main text",
+    "PAGE_ADDED": "Page added"
+  },
+  "STORE_BRANDING": {
+    "STORE_LOGO": "Store logo",
+    "DROP_FILE": "Click or Drop File Here",
+    "NETWORKS_MARKETING": "Social networks and marketing",
+    "NOT_AN_IMAGE": "Not an image",
+    "ONLY_ONE_IMAGE": "Only one image/time",
+    "LOGO_SAVED": "Logo saved.",
+    "NETWORKS_UPDATED": "Social networks updated."
+  },
+  "STORE_FORM": {
+    "STORE_NAME": "Store name",
+    "STORE_NAME_REQUIRED": "Store name is required.",
+
+    "RETAILER_NAME": "Retailer name",
+    "RETAILER_NAME_REQUIRED": "Retailer name is required.",
+
+    "STORE_CODE": "Unique Store Code",
+    "CODE_REQUIRED": "Code is required.",
+
+    "STORE_PHONE": "Store Phone",
+    "RETAILER_PHONE": "Retailer Phone",
+    "PHONE_REQUIRED": "Phone is required.",
+
+    "STORE_EMAIL": "Store email address",
+    "RETAILER_EMAIL": "Retailer email address",
+
+    "ENTER_ADDRESS": "Enter your address",
+    "ADDRESS": "Address",
+    "ADDRESS_REQUIRED": "Address is required.",
+
+    "STATE_PROVINCE": "State / province",
+
+    "POSTAL_CODE": "Postal code",
+    "POSTAL_CODE_REQUIRED": "Postal code is required.",
+
+    "CITY": "City",
+    "CITY_CODE_REQUIRED": "City code is required.",
+
+    "COUNTRY": "Country",
+
+    "SUPPORTED_LANGUAGES": "Supported languages",
+
+    "CURRENCY": "Currency",
+    "CURRENCY_FORMAT": "National currency format",
+    "CURRENCY_FORMAT_RULE": "National currency format ex $1,234.79 or International currency format ex USD1,345.79",
+
+    "WEIGHT_UNITS": "Weight units",
+    "SIZE_UNITS": "Size units",
+    "OPERATING_SINCE": "Web site operating since",
+    "USE_CACHE": "Use cache",
+
+    "SELECT_RETAILER": "Select retailer",
+
+    "STORE_UPDATED": "Store updated.",
+    "STORE_CREATED": "Store created.",
+    "STORE_REMOVED": "Store removed."
+  },
   "COMMON": {
+    "LANGUAGE": "Language",
     "LANGUAGES": "Languages",
-    "PASSWORD": "Password",
-    "SAVE": "Save",
-    "REMOVE": "Remove",
-
-    "ID": "ID",
-    "NAME": "Name",
-    "EMAIL_ADDRESS": "Email",
-    "STATUS": "Status",
-    "DETAILS": "Details",
-
     "DEFAULT_LANGUAGE": "Default language",
     "SELECT_LANGUAGE": "Select language",
 
-    "remove": "Remove",
-    "backToList": "Back to list",
-    "details": "Details",
-    "language": "Language",
-    "edit": "Edit",
-    "visible": "Visible"
+    "PASSWORD": "Password",
+
+    "SAVE": "Save",
+    "REMOVE": "Remove",
+    "EDIT": "Edit",
+
+    "ID": "ID",
+    "NAME": "Name",
+    "STORE_NAME": "Store name",
+    "EMAIL_ADDRESS": "Email",
+    "STATUS": "Status",
+    "DETAILS": "Details"
   }
 }
