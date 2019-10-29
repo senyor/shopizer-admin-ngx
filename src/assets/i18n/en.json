@@ -233,5 +233,15 @@
     "codeExists": "This code already exists.",
 
     "order": "Order"
+  },
+  "LOGIN": {
+    "INVALID_DATA": "Invalid username or password",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "REMEMBER_USERNAME": "Remember my user name",
+    "FORGOT_PASSWORD": "Forgot Password?"
+  },
+  "COMMON": {
+    "LOGIN": "Login"
   }
 }

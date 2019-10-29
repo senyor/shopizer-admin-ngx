@@ -2,38 +2,38 @@
   <div class="col-md-4"></div>
   <div class="col-md-4">
     <nb-card>
-      <nb-card-header>Login</nb-card-header>
+      <nb-card-header>{{ 'COMMON.LOGIN' | translate}}</nb-card-header>
       <nb-card-body>
         <form [formGroup]='form' (ngSubmit)='onSubmit()'>
           <div class="form-group row">
-            <label for="inputUsername1" class="col-sm-3 col-form-label">Username</label>
+            <label for="inputUsername1" class="col-sm-3 col-form-label">{{ 'LOGIN.USERNAME' | translate}}</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" id="inputUsername1" formControlName='username'
-                     placeholder="Username" required>
+                     placeholder="{{ 'LOGIN.USERNAME' | translate}}" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputPassword2" class="col-sm-3 col-form-label">Password</label>
+            <label for="inputPassword2" class="col-sm-3 col-form-label">{{ 'LOGIN.PASSWORD' | translate}}</label>
             <div class="col-sm-9">
               <input type="password" class="form-control" id="inputPassword2" formControlName='password'
-                     placeholder="Password" required>
+                     placeholder="{{ 'LOGIN.PASSWORD' | translate}}" required>
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-3 col-form-label"></div>
             <div class="col-sm-9">
-              <nb-checkbox [value]="false">Remember my user name</nb-checkbox>
+              <nb-checkbox [value]="false">{{ 'LOGIN.REMEMBER_USERNAME' | translate}}</nb-checkbox>
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-3 col-form-label"></div>
             <div class="col-sm-9">
-              Forgot Password?
+              {{ 'LOGIN.FORGOT_PASSWORD' | translate}}
             </div>
           </div>
           <div class="form-group row">
             <div class="offset-sm-3 col-sm-9">
-              <button type="submit" class="btn btn-primary">Logon</button>
+              <button type="submit" class="btn btn-primary">{{ 'COMMON.LOGIN' | translate}}</button>
             </div>
           </div>
 
