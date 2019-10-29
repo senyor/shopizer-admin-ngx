@@ -201,7 +201,7 @@ export class CategoryFormComponent implements OnInit {
 
     // check required fields
     if (tmpObj.name === '' || tmpObj.friendlyUrl === '' || categoryObject.code === '') {
-      this.toastr.error(this.translate.instant('common.fillRequiredFields'));
+      this.toastr.error(this.translate.instant('COMMON.FILL_REQUIRED_FIELDS'));
     } else {
       categoryObject.descriptions.forEach((el) => {
         // fill empty fields
@@ -233,7 +233,7 @@ export class CategoryFormComponent implements OnInit {
               this.categoryService.updateCategory(this.category.id, categoryObject)
                 .subscribe(result => {
                   console.log(result);
-                  this.toastr.success(this.translate.instant('category.toastr.categoryUpdated'));
+                  this.toastr.success(this.translate.instant('CATEGORY_FORM.CATEGORY_UPDATED'));
                 });
             } else {
               this.isCodeUnique = false;
@@ -244,7 +244,7 @@ export class CategoryFormComponent implements OnInit {
               this.categoryService.addCategory(categoryObject)
                 .subscribe(result => {
                   console.log(result);
-                  this.toastr.success(this.translate.instant('category.toastr.categoryCreated'));
+                  this.toastr.success(this.translate.instant('CATEGORY_FORM.CATEGORY_CREATED'));
                 });
             } else {
               this.isCodeUnique = false;
@@ -257,7 +257,7 @@ export class CategoryFormComponent implements OnInit {
   remove() {
     this.categoryService.deleteCategory(this.category.id)
       .subscribe(res => {
-        this.toastr.success(this.translate.instant('category.toastr.categoryRemoved'));
+        this.toastr.success(this.translate.instant('CATEGORY_FORM.CATEGORY_REMOVED'));
         this.router.navigate(['pages/store-management/stores-list']);
       });
   }

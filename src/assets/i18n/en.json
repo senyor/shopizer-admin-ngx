@@ -414,6 +414,17 @@
     "BRAND_CREATED": "Store created.",
     "BRAND_REMOVED": "Store removed."
   },
+  "CATEGORY": {
+    "CATEGORY_NAME": "Category name",
+    "PARENT": "Parent"
+  },
+  "CATEGORY_FORM": {
+    "ROOT_CATEGORY": "Root category",
+
+    "CATEGORY_UPDATED": "Category updated.",
+    "CATEGORY_CREATED": "Category created.",
+    "CATEGORY_REMOVED": "Category removed."
+  },
   "NOT_FOUND": {
     "PAGE_NOT_FOUND": "Page Not Found",
     "PAGE_NOT_FOUND_TEXT": "The page you were looking for doesn't exist",
@@ -433,6 +444,7 @@
     "OK": "Ok",
     "CANCEL": "Cancel",
     "REMOVE_QUESTION": "Do you really want to remove this entity?",
+    "LOGIN": "Login",
 
     "ID": "ID",
     "NAME": "Name",
@@ -456,7 +468,12 @@
 
     "FILL_REQUIRED_FIELDS": "Please, fill required fields.",
 
-    "ORDER": "Order"
+    "ORDER": "Order",
+
+    "SEARCH": "Search",
+    "AVAILABLE": "Available",
+    "SELECTED": "Selected",
+    "VISIBLE": "Visible"
   },
   "DESCRIPTION_FORM": {
     "NAME": "Name",
@@ -471,14 +488,5 @@
     "KEYWORDS_PLACEHOLDER": "Keywords",
     "META_DESCRIPTION": "(Meta tags) Description",
     "IMAGE": "Image"
-  },
-
-  "categoryHierarchy": "Category hierarchy",
-  "createCategory": "Create category",
-  "categoryName": "Category name",
-  "parent": "Parent",
-
-  "rootCategory": "Root category",
-  "name": "Category name",
-  "nameRequired": "Name is required."
+  }
 }

@@ -95,18 +95,18 @@ export class CategoriesListComponent implements OnInit {
         position: 'right',
         sort: true,
         custom: [
-          { name: 'details', title: `${this.translate.instant('common.edit')}` },
+          { name: 'details', title: `${this.translate.instant('COMMON.EDIT')}` },
           { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
         ],
       },
       columns: {
         id: {
           filter: false,
-          title: 'ID',
+          title: this.translate.instant('COMMON.ID'),
           type: 'number',
         },
         description: {
-          title: this.translate.instant('category.categoryName'),
+          title: this.translate.instant('CATEGORY.CATEGORY_NAME'),
           type: 'string',
           valuePrepareFunction: (description) => {
             if (description) {
@@ -115,11 +115,11 @@ export class CategoriesListComponent implements OnInit {
           }
         },
         code: {
-          title: this.translate.instant('common.code'),
+          title: this.translate.instant('COMMON.CODE'),
           type: 'string',
         },
         parent: {
-          title: this.translate.instant('category.parent'),
+          title: this.translate.instant('CATEGORY.PARENT'),
           type: 'string',
           valuePrepareFunction: (parent) => {
             return parent ? parent.code : 'root';
@@ -127,7 +127,7 @@ export class CategoriesListComponent implements OnInit {
         },
         visible: {
           filter: false,
-          title: this.translate.instant('common.visible'),
+          title: this.translate.instant('COMMON.VISIBLE'),
           type: 'custom',
           renderComponent: ButtonRenderComponent,
           defaultValue: false,
