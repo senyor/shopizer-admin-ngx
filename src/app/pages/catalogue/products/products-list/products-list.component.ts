@@ -84,7 +84,7 @@ export class ProductsListComponent implements OnInit {
     this.settings = {
       mode: 'inline',
       edit: {
-        editButtonContent: this.translate.instant('common.edit'),
+        editButtonContent: this.translate.instant('COMMON.EDIT'),
         saveButtonContent: '<i class="fas fa-check"></i>',
         cancelButtonContent: '<i class="fas fa-times"></i>',
         confirmSave: true
@@ -103,17 +103,17 @@ export class ProductsListComponent implements OnInit {
       },
       columns: {
         id: {
-          title: 'ID',
+          title: this.translate.instant('COMMON.ID'),
           type: 'number',
           editable: false
         },
         sku: {
-          title: this.translate.instant('product.sku'),
+          title: this.translate.instant('PRODUCT.SKU'),
           type: 'string',
           editable: false
         },
         name: {
-          title: this.translate.instant('product.name'),
+          title: this.translate.instant('PRODUCT.PRODUCT_NAME'),
           type: 'html',
           editable: false,
           valuePrepareFunction: (name) => {
@@ -122,13 +122,13 @@ export class ProductsListComponent implements OnInit {
           }
         },
         quantity: {
-          title: this.translate.instant('product.qty'),
+          title: this.translate.instant('PRODUCT.QTY'),
           type: 'number',
           editable: true
         },
         available: {
           filter: false,
-          title: this.translate.instant('product.available'),
+          title: this.translate.instant('COMMON.AVAILABLE'),
           type: 'custom',
           renderComponent: AvailableButtonComponent,
           defaultValue: false,
@@ -138,12 +138,12 @@ export class ProductsListComponent implements OnInit {
           }
         },
         price: {
-          title: this.translate.instant('product.price'),
+          title: this.translate.instant('PRODUCT.PRICE'),
           type: 'string',
           editable: true
         },
         creationDate: {
-          title: this.translate.instant('product.creationDate'),
+          title: this.translate.instant('PRODUCT.CREATION_DATE'),
           type: 'string',
           editable: false
         },

@@ -274,8 +274,11 @@
     "CREATE_PRODUCT": "Create product",
     "PRODUCTS_LIST": "Products list",
 
+    "PRODUCT_DETAILS": "Product details",
+    "LIST_INVENTORY": "List inventory",
+    "PRODUCT_TO_CATEGORY": "Product to category",
+    "PRODUCT_ATTRIBUTES": "Product attributes",
     "MANAGE_INVENTORY": "Manage inventory",
-    "PRODUCT_TO_CATEGORY": "productToCategory",
 
     "BRANDS": "Brands",
     "BRAND": "Brand",
@@ -425,6 +428,24 @@
     "CATEGORY_CREATED": "Category created.",
     "CATEGORY_REMOVED": "Category removed."
   },
+  "PRODUCT": {
+    "SKU": "Sku",
+    "SKU_REQUIRED": "Sku is required.",
+    "PRODUCT_NAME": "Product name",
+    "QTY": "Qty",
+    "PRICE": "Price",
+    "CREATION_DATE": "Created",
+    "PRE_ORDER": "Pre-order",
+    "DATE_AVAILABLE": "Date available",
+    "MANUFACTURER": "Manufacturer",
+    "PRODUCT_TYPE": "Product type",
+    "QUANTITY": "Quantity",
+    "PRODUCT_SHIPEABLE": "Product will be shipped",]
+
+    "PRODUCT_UPDATED": "Product updated.",
+    "PRODUCT_CREATED": "Product created.",
+    "PRODUCT_REMOVED": "Product removed."
+  },
   "NOT_FOUND": {
     "PAGE_NOT_FOUND": "Page Not Found",
     "PAGE_NOT_FOUND_TEXT": "The page you were looking for doesn't exist",
@@ -467,18 +488,23 @@
     "CODE_EXISTS": "This code already exists.",
 
     "FILL_REQUIRED_FIELDS": "Please, fill required fields.",
+    "ALPHA_DECIMAL_RULE": "Only letters and numbers are allowed.",
 
     "ORDER": "Order",
 
     "SEARCH": "Search",
     "AVAILABLE": "Available",
     "SELECTED": "Selected",
-    "VISIBLE": "Visible"
+    "VISIBLE": "Visible",
+
+    "WEIGHT": "Weight",
+    "HEIGHT": "Height",
+    "WIDTH": "Width",
+    "LENGTH": "Length"
   },
   "DESCRIPTION_FORM": {
     "NAME": "Name",
     "NAME_REQUIRED": "Name is required.",
-
     "HIGHLIGHT": "Short product highlight",
     "FRIENDLY_URL": "Search engine friendly url",
     "FRIENDLY_URL_REQUIRED": "Friendly Url is required.",

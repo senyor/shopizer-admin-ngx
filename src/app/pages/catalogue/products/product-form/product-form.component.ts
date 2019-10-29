@@ -264,9 +264,9 @@ export class ProductFormComponent implements OnInit {
 
     // check required fields
     if (!(/^[a-zA-Zа-яА-Я0-9]+$/.test(productObject.sku))) {
-      this.toastr.error(this.translate.instant('common.alphaDecimalRule'));
+      this.toastr.error(this.translate.instant('COMMON.ALPHA_DECIMAL_RULE'));
     } else if (tmpObj.name === '' || tmpObj.friendlyUrl === '' || productObject.sku === '') {
-      this.toastr.error(this.translate.instant('common.fillRequiredFields'));
+      this.toastr.error(this.translate.instant('COMMON.FILL_REQUIRED_FIELDS'));
     } else {
       productObject.descriptions.forEach((el) => {
         // fill empty fields
@@ -294,7 +294,7 @@ export class ProductFormComponent implements OnInit {
           .subscribe(res => {
             console.log(res);
             this.loadingButton = false;
-            this.toastr.success(this.translate.instant('product.toastr.productUpdated'));
+            this.toastr.success(this.translate.instant('PRODUCT.PRODUCT_UPDATED'));
           });
       } else {
         this.productService.createProduct(productObject)
@@ -303,7 +303,7 @@ export class ProductFormComponent implements OnInit {
               .subscribe(res1 => {
                 console.log(res1);
                 this.loadingButton = false;
-                this.toastr.success(this.translate.instant('product.toastr.productCreated'));
+                this.toastr.success(this.translate.instant('PRODUCT.PRODUCT_CREATED'));
               });
           });
       }
