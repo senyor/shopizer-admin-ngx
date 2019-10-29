@@ -234,7 +234,6 @@ export class CategoryFormComponent implements OnInit {
                 .subscribe(result => {
                   console.log(result);
                   this.toastr.success(this.translate.instant('category.toastr.categoryUpdated'));
-                  this.router.navigate(['pages/catalogue/categories/categories-list']);
                 });
             } else {
               this.isCodeUnique = false;
@@ -246,7 +245,6 @@ export class CategoryFormComponent implements OnInit {
                 .subscribe(result => {
                   console.log(result);
                   this.toastr.success(this.translate.instant('category.toastr.categoryCreated'));
-                  this.router.navigate(['pages/catalogue/categories/categories-list']);
                 });
             } else {
               this.isCodeUnique = false;

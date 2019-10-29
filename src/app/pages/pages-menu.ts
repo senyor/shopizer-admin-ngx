@@ -176,12 +176,12 @@ export const MENU_ITEMS: MenuItem[] = [
             link: '/pages/catalogue/products/products-list',
             hidden: false
           },
-          {
-            title: 'sideNav.manageInventory',
-            key: 'sideNav.manageInventory',
-            link: '/pages/catalogue/products/manage-inventory',
-            hidden: false
-          },
+          // {
+          //   title: 'sideNav.manageInventory',
+          //   key: 'sideNav.manageInventory',
+          //   link: '/pages/catalogue/products/manage-inventory',
+          //   hidden: false
+          // },
         ],
       },
       {

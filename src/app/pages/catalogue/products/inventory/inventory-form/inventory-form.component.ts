@@ -77,15 +77,15 @@ export class InventoryFormComponent implements OnInit {
 
   save() {
     const inventoryObj = this.form.value;
-    inventoryObj.dateAvailable = moment(inventoryObj.dateAvailable).format('YYYY-MM-DD');
+    inventoryObj.dateAvailable =
+      inventoryObj.dateAvailable ? moment(inventoryObj.dateAvailable).format('YYYY-MM-DD') : '';
     inventoryObj.prices = [...this.prices];
     inventoryObj.productId = this.productId;
-    console.log(inventoryObj);
     if (this.inventory.id) {
-      console.log('update');
-      // this.inventoryService.updateInventory(this.inventory.id, inventoryObj).subscribe((res) => {
-      //   console.log(res);
-      // });
+      inventoryObj.id = this.inventory.id;
+      this.inventoryService.updateInventory(this.inventory.id, inventoryObj).subscribe((res) => {
+        console.log(res);
+      });
     } else {
       this.inventoryService.createInventory(inventoryObj).subscribe((res) => {
         console.log(res);

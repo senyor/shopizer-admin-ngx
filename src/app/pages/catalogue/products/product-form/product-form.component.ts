@@ -295,7 +295,6 @@ export class ProductFormComponent implements OnInit {
             console.log(res);
             this.loadingButton = false;
             this.toastr.success(this.translate.instant('product.toastr.productUpdated'));
-            this.router.navigate(['pages/catalogue/products/products-list']);
           });
       } else {
         this.productService.createProduct(productObject)
@@ -305,7 +304,6 @@ export class ProductFormComponent implements OnInit {
                 console.log(res1);
                 this.loadingButton = false;
                 this.toastr.success(this.translate.instant('product.toastr.productCreated'));
-                this.router.navigate(['pages/catalogue/products/products-list']);
               });
           });
       }

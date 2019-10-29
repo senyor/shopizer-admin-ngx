@@ -9,9 +9,18 @@
   </nb-card-header>
   <nb-card-body [nbSpinner]="loadingInfo" class="loading-block" nbSpinnerSize="large"
                 nbSpinnerStatus="primary">
-    <button nbButton outline [status]="'success'" class="right-card-button">
-      <a [routerLink]="['/pages/catalogue/products/' + product.id + '/inventory-list']">List inventory</a>
-    </button>
+    <nb-select [(selected)]="selectedItem" outline shape="rectangle" class="right-card-select">
+      <nb-option value="0">Product details</nb-option>
+      <nb-option value="1" [routerLink]="['/pages/catalogue/products/' + product.id + '/inventory-list']">
+        List inventory
+      </nb-option>
+      <nb-option value="2" [routerLink]="['/pages/catalogue/products/association']">
+        productToCategory
+      </nb-option>
+      <nb-option value="3">
+        Product attributes
+      </nb-option>
+    </nb-select>
     <ngx-product-form *ngIf="product" [product]="product"></ngx-product-form>
   </nb-card-body>
 </nb-card>

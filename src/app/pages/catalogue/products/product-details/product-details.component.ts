@@ -12,6 +12,7 @@ import { ProductService } from '../services/product.service';
 export class ProductDetailsComponent implements OnInit {
   product: any = {};
   loadingInfo = false;
+  selectedItem = '0';
 
   constructor(
     private activatedRoute: ActivatedRoute,

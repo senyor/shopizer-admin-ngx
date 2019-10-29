@@ -17,6 +17,7 @@ import { InventoryDetailsComponent } from './inventory/inventory-details/invento
 import { PricesListComponent } from './price/prices-list/prices-list.component';
 import { PriceRoutingModule } from './price-routing.module';
 import { PriceFormComponent } from './price/price-form/price-form.component';
+import { ProductToCategoryComponent } from './product-to-category/product-to-category.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { PriceFormComponent } from './price/price-form/price-form.component';
     ProductCreationComponent,
     ProductFormComponent,
     ProductDetailsComponent,
+    ProductToCategoryComponent,
 
     AvailableButtonComponent,
 
