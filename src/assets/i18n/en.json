@@ -407,6 +407,11 @@
     "STORE_CREATED": "Store created.",
     "STORE_REMOVED": "Store removed."
   },
+  "NOT_FOUND": {
+    "PAGE_NOT_FOUND": "Page Not Found",
+    "PAGE_NOT_FOUND_TEXT": "The page you were looking for doesn't exist",
+    "BACK": "Take me home"
+  },
   "COMMON": {
     "LANGUAGE": "Language",
     "LANGUAGES": "Languages",
@@ -418,12 +423,24 @@
     "SAVE": "Save",
     "REMOVE": "Remove",
     "EDIT": "Edit",
+    "OK": "Ok",
+    "CANCEL": "Cancel",
+    "REMOVE_QUESTION": "Do you really want to remove this entity?",
 
     "ID": "ID",
     "NAME": "Name",
     "STORE_NAME": "Store name",
     "EMAIL_ADDRESS": "Email",
     "STATUS": "Status",
-    "DETAILS": "Details"
+    "DETAILS": "Details",
+
+    "BACK_TO_LIST": "Back to list",
+
+    "ADD_IMAGES": "Add images",
+    "PAGINATOR_OF": "of",
+
+    "ERROR": "Error",
+    "ERROR_CODE": "Error",
+    "MESSAGE": "Error"
   }
 }

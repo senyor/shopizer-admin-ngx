@@ -1,6 +1,6 @@
 <div class="pagination" *ngIf="count > 0">
   <div class="description">
-    <span class="page-counts">{{ getMin() }} - {{ getMax() }} of {{ count }}</span>
+    <span class="page-counts">{{ getMin() }} - {{ getMax() }} {{ 'COMMON.PAGINATOR_OF' | translate }} {{ count }}</span>
 <!--    <span class="page-totals">{{ totalPages() }} pages</span>-->
   </div>
   <div class="numbers">
