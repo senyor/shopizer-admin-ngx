@@ -241,7 +241,17 @@
     "REMEMBER_USERNAME": "Remember my user name",
     "FORGOT_PASSWORD": "Forgot Password?"
   },
+  "HEADER": {
+    "PROFILE": "Profile",
+    "LOGOUT": "Log out"
+  },
+  "HOME": {
+    "STORE_INFORMATION": "Store information",
+    "LAST_ACCESS": "Last access",
+    "RECENT_ORDERS": "Recent orders"
+  },
   "COMMON": {
-    "LOGIN": "Login"
+    "LOGIN": "Login",
+    "LANGUAGES": "Languages"
   }
 }
