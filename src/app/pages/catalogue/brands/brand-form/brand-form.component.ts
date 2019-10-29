@@ -181,7 +181,7 @@ export class BrandFormComponent implements OnInit {
 
     // check required fields
     if (tmpObj.name === '' || tmpObj.friendlyUrl === '' || brandObject.code === '') {
-      this.toastr.error(this.translate.instant('common.fillRequiredFields'));
+      this.toastr.error(this.translate.instant('COMMON.FILL_REQUIRED_FIELDS'));
     } else {
       brandObject.descriptions.forEach((el) => {
         // fill empty fields
@@ -213,7 +213,7 @@ export class BrandFormComponent implements OnInit {
             //   this.brandService.updateCategory(this.category.id, brandObject)
             //     .subscribe(result => {
             //       console.log(result);
-            //       this.toastr.success(this.translate.instant('category.toastr.categoryUpdated'));
+            //       this.toastr.success(this.translate.instant('BRAND.BRAND_UPDATED'));
             //       this.router.navigate(['pages/catalogue/categories/categories-list']);
             //     });
             // } else {
@@ -225,7 +225,7 @@ export class BrandFormComponent implements OnInit {
               this.brandService.createBrand(brandObject)
                 .subscribe(result => {
                   console.log(result);
-                  this.toastr.success(this.translate.instant('category.toastr.categoryCreated'));
+                  this.toastr.success(this.translate.instant('BRAND.BRAND_CREATED'));
                   this.router.navigate(['pages/catalogue/brands/brands-list']);
                 });
             } else {

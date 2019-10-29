@@ -279,6 +279,7 @@
     "PRODUCT_TO_CATEGORY": "productToCategory",
 
     "BRANDS": "Brands",
+    "BRAND": "Brand",
     "CREATE_BRAND": "Create brand",
     "BRANDS_LIST": "Brands list",
 
@@ -407,6 +408,13 @@
     "STORE_CREATED": "Store created.",
     "STORE_REMOVED": "Store removed."
   },
+  "BRAND": {
+    "BRAND_NAME": "Brand name",
+
+    "BRAND_UPDATED": "Store updated.",
+    "BRAND_CREATED": "Store created.",
+    "BRAND_REMOVED": "Store removed."
+  },
   "NOT_FOUND": {
     "PAGE_NOT_FOUND": "Page Not Found",
     "PAGE_NOT_FOUND_TEXT": "The page you were looking for doesn't exist",
@@ -441,6 +449,37 @@
 
     "ERROR": "Error",
     "ERROR_CODE": "Error",
-    "MESSAGE": "Error"
-  }
+    "MESSAGE": "Error",
+
+    "CODE": "Code",
+    "CODE_REQUIRED": "Сode is required.",
+    "CODE_EXISTS": "This code already exists.",
+
+    "FILL_REQUIRED_FIELDS": "Please, fill required fields.",
+
+    "ORDER": "Order"
+  },
+  "DESCRIPTION_FORM": {
+    "NAME": "Name",
+    "NAME_REQUIRED": "Name is required.",
+
+    "HIGHLIGHT": "Short product highlight",
+    "FRIENDLY_URL": "Search engine friendly url",
+    "FRIENDLY_URL_REQUIRED": "Friendly Url is required.",
+    "DESCRIPTION": "Description",
+    "TITLE": "Title",
+    "KEYWORDS": "(Meta tags) Keywords",
+    "KEYWORDS_PLACEHOLDER": "Keywords",
+    "META_DESCRIPTION": "(Meta tags) Description",
+    "IMAGE": "Image"
+  },
+
+  "categoryHierarchy": "Category hierarchy",
+  "createCategory": "Create category",
+  "categoryName": "Category name",
+  "parent": "Parent",
+
+  "rootCategory": "Root category",
+  "name": "Category name",
+  "nameRequired": "Name is required."
 }

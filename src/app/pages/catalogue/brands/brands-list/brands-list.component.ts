@@ -68,18 +68,18 @@ export class BrandsListComponent implements OnInit {
         position: 'right',
         sort: true,
         custom: [
-          { name: 'details', title: `${this.translate.instant('common.edit')}` },
+          { name: 'details', title: `${this.translate.instant('COMMON.EDIT')}` },
           { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
         ],
       },
       columns: {
         id: {
           filter: false,
-          title: 'ID',
+          title: this.translate.instant('COMMON.ID'),
           type: 'number',
         },
         description: {
-          title: this.translate.instant('brand.brandName'),
+          title: this.translate.instant('BRAND.BRAND_NAME'),
           type: 'string',
           valuePrepareFunction: (description) => {
             if (description) {
@@ -88,7 +88,7 @@ export class BrandsListComponent implements OnInit {
           }
         },
         code: {
-          title: this.translate.instant('common.code'),
+          title: this.translate.instant('COMMON.CODE'),
           type: 'string',
         },
       },
