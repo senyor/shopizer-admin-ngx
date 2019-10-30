@@ -206,14 +206,18 @@ export class ProductFormComponent implements OnInit {
   onImageChanged(event) {
     switch (event.type) {
       case 'add': {
-        this.uploadData = new FormData();
+        // console.log('1');
+        // this.uploadData = new FormData();
         this.uploadData.append('file[]', event.data, event.data.name);
-        if (this.product.id) {
-          this.productImageService.createImage(this.product.id, this.uploadData)
-            .subscribe(res1 => {
-              console.log(res1);
-            });
-        }
+        this.uploadData.forEach((img) => {
+          console.log(img);
+        });
+        // if (this.product.id) {
+        //   this.productImageService.createImage(this.product.id, this.uploadData)
+        //     .subscribe(res1 => {
+        //       console.log(res1);
+        //     });
+        // }
         break;
       }
       case 'remove': {
@@ -294,11 +298,19 @@ export class ProductFormComponent implements OnInit {
           .subscribe(res => {
             console.log(res);
             this.loadingButton = false;
-            this.toastr.success(this.translate.instant('PRODUCT.PRODUCT_UPDATED'));
+            this.productImageService.createImage(res.id, this.uploadData)
+              .subscribe(res1 => {
+                console.log(res1);
+                this.loadingButton = false;
+                this.toastr.success(this.translate.instant('PRODUCT.PRODUCT_UPDATED'));
+              });
           });
       } else {
         this.productService.createProduct(productObject)
           .subscribe(res => {
+            this.uploadData.forEach(img => {
+              console.log(img);
+            });
             this.productImageService.createImage(res.id, this.uploadData)
               .subscribe(res1 => {
                 console.log(res1);

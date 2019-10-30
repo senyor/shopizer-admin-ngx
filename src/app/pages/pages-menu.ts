@@ -247,6 +247,37 @@ export const MENU_ITEMS: MenuItem[] = [
           },
         ],
       },
+      {
+        title: 'COMPONENTS.OPTIONS',
+        key: 'COMPONENTS.OPTIONS',
+        hidden: false,
+        children: [
+          {
+            title: 'COMPONENTS.OPTIONS_LIST',
+            key: 'COMPONENTS.OPTIONS_LIST',
+            // link: '/pages/catalogue/products-groups/create-products-group',
+            hidden: false
+          },
+          {
+            title: 'COMPONENTS.CREATE_OPTION',
+            key: 'COMPONENTS.CREATE_OPTION',
+            // link: '/pages/catalogue/products-groups/products-groups-list',
+            hidden: false
+          },
+          {
+            title: 'COMPONENTS.OPTIONS_VALUES_LIST',
+            key: 'COMPONENTS.OPTIONS_VALUES_LIST',
+            // link: '/pages/catalogue/products-groups/groups-list',
+            hidden: false
+          },
+          {
+            title: 'COMPONENTS.CREATE_OPTION_VALUE',
+            key: 'COMPONENTS.CREATE_OPTION_VALUE',
+            // link: '/pages/catalogue/products-groups/groups-list',
+            hidden: false
+          },
+        ],
+      },
     ],
   },
   // {

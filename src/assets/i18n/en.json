@@ -58,6 +58,12 @@
     "LIST_PRODUCTS_GROUPS": "List products groups",
     "PRODUCTS_GROUPS_LIST": "Product groups list",
 
+    "OPTIONS": "Options",
+    "OPTIONS_LIST": "Options list",
+    "CREATE_OPTION": "Create option",
+    "OPTIONS_VALUES_LIST": "Options values list",
+    "CREATE_OPTION_VALUE": "Create option value",
+
     "ORDERS": "Orders"
   },
   "LOGIN": {

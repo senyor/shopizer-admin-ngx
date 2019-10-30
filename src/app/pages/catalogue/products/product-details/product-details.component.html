@@ -21,7 +21,7 @@
         {{'COMPONENTS.PRODUCT_ATTRIBUTES' | translate}}
       </nb-option>
     </nb-select>
-    <ngx-product-form *ngIf="product" [product]="product"></ngx-product-form>
+    <ngx-product-form *ngIf="product.id" [product]="product"></ngx-product-form>
   </nb-card-body>
 </nb-card>
 

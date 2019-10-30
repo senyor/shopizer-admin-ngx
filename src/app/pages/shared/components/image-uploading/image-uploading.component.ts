@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 import { ToastrService } from 'ngx-toastr';
 import { NbDialogService } from '@nebular/theme';
@@ -9,7 +9,7 @@ import { ShowcaseDialogComponent } from '../showcase-dialog/showcase-dialog.comp
   templateUrl: './image-uploading.component.html',
   styleUrls: ['./image-uploading.component.scss']
 })
-export class ImageUploadingComponent implements OnInit {
+export class ImageUploadingComponent implements OnInit, OnChanges {
   @Input() productImages;
   @Output() imageChanged = new EventEmitter<any>();
   images = [];
@@ -22,7 +22,12 @@ export class ImageUploadingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.images = this.productImages ? [...this.productImages] : [];
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.productImages.previousValue && changes.productImages.currentValue) {
+      this.images = this.productImages ? [...this.productImages] : [];
+    }
   }
 
   onSelectFile(event) {

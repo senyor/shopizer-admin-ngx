@@ -1,4 +1,4 @@
-<div class="image-container">
+<div class="image-container" *ngIf="images.length">
   <div *ngFor='let image of images' class="image-item">
     <img [src]="image?.imageUrl" alt="Image" height="200">
     <span><i class="fas fa-times" (click)="removeImage(image)"></i></span>

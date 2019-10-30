@@ -92,7 +92,7 @@ export class ManageInventoryComponent implements OnInit {
           }
         },
         owner: {
-          title: this.translate.instant('PRODUCT.INVENTORY_OWNER'),
+          title: this.translate.instant('INVENTORY.INVENTORY_OWNER'),
           type: 'string',
           editable: false,
           valuePrepareFunction: (owner) => {
