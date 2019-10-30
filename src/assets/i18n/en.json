@@ -280,6 +280,8 @@
     "PRODUCT_ATTRIBUTES": "Product attributes",
     "MANAGE_INVENTORY": "Manage inventory",
 
+    "INVENTORY": "Inventory",
+
     "BRANDS": "Brands",
     "BRAND": "Brand",
     "CREATE_BRAND": "Create brand",
@@ -440,11 +442,16 @@
     "MANUFACTURER": "Manufacturer",
     "PRODUCT_TYPE": "Product type",
     "QUANTITY": "Quantity",
-    "PRODUCT_SHIPEABLE": "Product will be shipped",]
+    "PRODUCT_SHIPEABLE": "Product will be shipped",
 
     "PRODUCT_UPDATED": "Product updated.",
     "PRODUCT_CREATED": "Product created.",
     "PRODUCT_REMOVED": "Product removed."
+  },
+  "INVENTORY": {
+    "INVENTORY_STORE": "Store",
+    "INVENTORY_OWNER": "Owner",
+    "ADD_TO_INVENTORY": "Add to inventory"
   },
   "NOT_FOUND": {
     "PAGE_NOT_FOUND": "Page Not Found",

@@ -10,7 +10,7 @@
   <nb-card-body [nbSpinner]="loadingInfo" class="loading-block" nbSpinnerSize="large"
                 nbSpinnerStatus="primary">
     <nb-select [(selected)]="selectedItem" outline shape="rectangle" class="right-card-select">
-      <nb-option value="0">Product details</nb-option>
+      <nb-option value="0">{{'COMPONENTS.PRODUCT_DETAILS' | translate}}</nb-option>
       <nb-option value="1" [routerLink]="['/pages/catalogue/products/' + product.id + '/inventory-list']">
         {{'COMPONENTS.LIST_INVENTORY' | translate}}
       </nb-option>
