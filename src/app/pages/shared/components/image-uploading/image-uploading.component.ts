@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+
 import { ToastrService } from 'ngx-toastr';
+import { NbDialogService } from '@nebular/theme';
+import { ShowcaseDialogComponent } from '../showcase-dialog/showcase-dialog.component';
 
 @Component({
   selector: 'ngx-image-uploading',
@@ -7,66 +10,62 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./image-uploading.component.scss']
 })
 export class ImageUploadingComponent implements OnInit {
-  @Input() imageUrl;
+  @Input() productImages;
   @Output() imageChanged = new EventEmitter<any>();
-  @ViewChild('showImage') showImage;
-  acceptedImageTypes = { 'image/png': true, 'image/jpeg': true, 'image/gif': true };
-  image = new Image();
-  canRemove = false;
+  images = [];
+  maxSize = 10485760;
 
   constructor(
     private toastr: ToastrService,
+    private dialogService: NbDialogService,
   ) {
   }
 
   ngOnInit() {
-    this.image.height = 200;
-    this.image.style.display = 'block';
-    this.image.style.marginBottom = '20px';
-    if (this.imageUrl) {
-      this.image.src = this.imageUrl;
-      this.showImage.nativeElement.appendChild(this.image);
-      this.canRemove = true;
-    }
+    this.images = this.productImages ? [...this.productImages] : [];
   }
 
-  imageChange(event) {
-    this.image.style.display = 'block';
-    this.showImage.innerHTML = '';
-    this.checkfiles(event.target.files);
-  }
-
-  // checkfiles
-  checkfiles(files) {
-    if (this.acceptedImageTypes[files[0].type] !== true) {
-      this.showImage.nativeElement.innerHTML = 'Not an image';
-      return;
-    } else if (files.length > 1) {
-      this.showImage.nativeElement.innerHTML = 'Only one image/time';
-      return;
+  onSelectFile(event) {
+    const quantity = event.target.files.length + this.images.length;
+    if (event.target.files && quantity < 10) {
+      const filesAmount = event.target.files.length;
+      for (let i = 0; i < filesAmount; i++) {
+        this.readfiles(event.target.files[i]);
+      }
     } else {
-      this.readfiles(files);
+      this.toastr.error('You can upload max 10 images');
     }
   }
 
-  // readfiles
   readfiles(files) {
     const reader = new FileReader();
     reader.onload = (event) => {
-      this.showImage.nativeElement.innerHTML = '';
       const fileReader = event.target as FileReader;
-      this.image.src = fileReader.result as string;
-      this.showImage.nativeElement.appendChild(this.image);
-      this.imageChanged.emit({ files: files[0], bytes: this.image.src});
-      this.canRemove = true;
+      const img = {
+        id: 'img' + Math.floor(Math.random() * 1000),
+        imageUrl: fileReader.result as string,
+        newImage: true,
+        bigSize: files.size > this.maxSize
+      };
+      this.images.push(img);
+      this.imageChanged.emit({ type: 'add', data: files });
     };
-    reader.readAsDataURL(files[0]);
+    reader.readAsDataURL(files);
   }
 
-  removeImg() {
-    this.image.src = '';
-    this.image.style.display = 'none';
-    this.canRemove = false;
+  removeImage(image) {
+    this.dialogService.open(ShowcaseDialogComponent, {})
+      .onClose.subscribe(res => {
+      if (res) {
+        if (!image.hasOwnProperty('newImage')) {
+          this.imageChanged.emit({ type: 'remove', data: image.id });
+        }
+        const index = this.images.findIndex((el) => el.id === image.id);
+        if (index !== -1) {
+          this.images.splice(index, 1);
+        }
+      }
+    });
   }
 
 }

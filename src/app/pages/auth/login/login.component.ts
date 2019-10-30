@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import { TokenService } from '../services/token.service';
 import { UserService } from '../../shared/services/user.service';
 import { delay } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private tokenService: TokenService,
-    private userService: UserService
+    private userService: UserService,
+    private translate: TranslateService
   ) {
     this.createForm();
   }
@@ -48,7 +50,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate([ 'pages' ]);
           });
       }, err => {
-        this.errorMessage = 'Invalid username or password';
+        this.errorMessage = this.translate.instant('LOGIN.INVALID_DATA');
       });
   }
 

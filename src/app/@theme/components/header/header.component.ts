@@ -20,8 +20,8 @@ export class HeaderComponent implements OnInit {
   user: string;
 
   userMenu = [
-    { title: 'header.profile', tag: 'profile' },
-    { title: 'header.logout', tag: 'logout' }
+    { title: 'HEADER.PROFILE', tag: 'profile' },
+    { title: 'HEADER.LOGOUT', tag: 'logout' }
   ];
   localedMenu = [...this.userMenu];
 

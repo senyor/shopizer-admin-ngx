@@ -50,10 +50,10 @@ export class StoreBrandingComponent implements OnInit {
   // checkfiles
   checkfiles(files) {
     if (this.acceptedImageTypes[files[0].type] !== true) {
-      this.imageDrop.nativeElement.innerHTML = this.translate.instant('store.notAnImage');
+      this.imageDrop.nativeElement.innerHTML = this.translate.instant('STORE_BRANDING.NOT_AN_IMAGE');
       return;
     } else if (files.length > 1) {
-      this.imageDrop.nativeElement.innerHTML = this.translate.instant('store.onlyOneImage');
+      this.imageDrop.nativeElement.innerHTML = this.translate.instant('STORE_BRANDING.ONLY_ONE_IMAGE');
       return;
     } else {
       this.readfiles(files);
@@ -105,7 +105,7 @@ export class StoreBrandingComponent implements OnInit {
     this.storeService.addStoreLogo(this.logoFile)
       .subscribe(res => {
         console.log(res);
-        this.toastr.success(this.translate.instant('store.logoSaved'));
+        this.toastr.success(this.translate.instant('STORE_BRANDING.LOGO_SAVED'));
         this.loadingButton = false;
       }, error => {
         this.loadingButton = false;
@@ -162,7 +162,7 @@ export class StoreBrandingComponent implements OnInit {
     this.storeService.updateSocialNetworks(this.form.value)
       .subscribe(res => {
         console.log(res);
-        this.toastr.success(this.translate.instant('store.networksUpdated'));
+        this.toastr.success(this.translate.instant('STORE_BRANDING.NETWORKS_UPDATED'));
       });
   }
 

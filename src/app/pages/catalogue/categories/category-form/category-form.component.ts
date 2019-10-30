@@ -50,15 +50,15 @@ export class CategoryFormComponent implements OnInit {
   ngOnInit() {
     this.categoryService.getListOfCategories()
       .subscribe(res => {
-        res.push({id: 0, code: 'root'});
-        res.sort((a, b) => {
+        res.categories.push({id: 0, code: 'root'});
+        res.categories.sort((a, b) => {
           if (a.code < b.code)
             return -1;
           if (a.code > b.code)
             return 1;
           return 0;
         });
-        this.roots = [...res];
+        this.roots = [...res.categories];
       });
     this.loader = true;
     this.configService.getListOfSupportedLanguages()
@@ -116,35 +116,21 @@ export class CategoryFormComponent implements OnInit {
 
   fillFormArray() {
     this.form.value.descriptions.forEach((desc, index) => {
-      if (desc.language === 'en') {
-        (<FormArray>this.form.get('descriptions')).at(index).patchValue({
-          language: this.form.value.selectedLanguage,
-          name: this.category.description.name,
-          highlights: this.category.description.highlights,
-          friendlyUrl: this.category.description.friendlyUrl,
-          description: this.category.description.description,
-          title: this.category.description.title,
-          keyWords: this.category.description.keyWords,
-          metaDescription: this.category.description.metaDescription,
-        });
-      }
+      this.category.descriptions.forEach((description) => {
+        if (desc.language === description.language) {
+          (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+            language: description.language,
+            name: description.name,
+            highlights: description.highlights,
+            friendlyUrl: description.friendlyUrl,
+            description: description.description,
+            title: description.title,
+            keyWords: description.keyWords,
+            metaDescription: description.metaDescription,
+          });
+        }
+      });
     });
-    // this.form.value.descriptions.forEach((desc, index) => {
-    //   this.category.descriptions.forEach((description) => {
-    //     if (desc.language === description.language) {
-    //       (<FormArray>this.form.get('descriptions')).at(index).patchValue({
-    //         language: description.language,
-    //         name: description.name,
-    //         highlights: description.highlights,
-    //         friendlyUrl: description.friendlyUrl,
-    //         description: description.description,
-    //         title: description.title,
-    //         keyWords: description.keyWords,
-    //         metaDescription: description.metaDescription,
-    //       });
-    //     }
-    //   });
-    // });
   }
 
   get code() {
@@ -183,11 +169,7 @@ export class CategoryFormComponent implements OnInit {
     const code = event.target.value;
     this.categoryService.checkCategoryCode(code)
       .subscribe(res => {
-        if (res.exists && (this.category.code !== code)) {
-          this.isCodeUnique = false;
-        } else {
-          this.isCodeUnique = true;
-        }
+        this.isCodeUnique = !(res.exists && (this.category.code !== code));
       });
   }
 
@@ -219,7 +201,7 @@ export class CategoryFormComponent implements OnInit {
 
     // check required fields
     if (tmpObj.name === '' || tmpObj.friendlyUrl === '' || categoryObject.code === '') {
-      this.toastr.error(this.translate.instant('common.fillRequiredFields'));
+      this.toastr.error(this.translate.instant('COMMON.FILL_REQUIRED_FIELDS'));
     } else {
       categoryObject.descriptions.forEach((el) => {
         // fill empty fields
@@ -251,8 +233,7 @@ export class CategoryFormComponent implements OnInit {
               this.categoryService.updateCategory(this.category.id, categoryObject)
                 .subscribe(result => {
                   console.log(result);
-                  this.toastr.success(this.translate.instant('category.toastr.categoryUpdated'));
-                  this.router.navigate(['pages/catalogue/categories/categories-list']);
+                  this.toastr.success(this.translate.instant('CATEGORY_FORM.CATEGORY_UPDATED'));
                 });
             } else {
               this.isCodeUnique = false;
@@ -263,8 +244,7 @@ export class CategoryFormComponent implements OnInit {
               this.categoryService.addCategory(categoryObject)
                 .subscribe(result => {
                   console.log(result);
-                  this.toastr.success(this.translate.instant('category.toastr.categoryCreated'));
-                  this.router.navigate(['pages/catalogue/categories/categories-list']);
+                  this.toastr.success(this.translate.instant('CATEGORY_FORM.CATEGORY_CREATED'));
                 });
             } else {
               this.isCodeUnique = false;
@@ -277,7 +257,7 @@ export class CategoryFormComponent implements OnInit {
   remove() {
     this.categoryService.deleteCategory(this.category.id)
       .subscribe(res => {
-        this.toastr.success(this.translate.instant('category.toastr.categoryRemoved'));
+        this.toastr.success(this.translate.instant('CATEGORY_FORM.CATEGORY_REMOVED'));
         this.router.navigate(['pages/store-management/stores-list']);
       });
   }

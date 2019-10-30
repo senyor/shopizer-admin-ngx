@@ -26,7 +26,10 @@ export class ProductService {
   }
 
   getProductById(id): Observable<any> {
-    return this.crudService.get(`/v1/product/${ id }`);
+    const params = {
+      lang: '_all'
+    };
+    return this.crudService.get(`/v1/product/${ id }`, params);
   }
 
   createProduct (product): Observable<any> {
@@ -35,6 +38,17 @@ export class ProductService {
 
   deleteProduct(id): Observable<any> {
     return this.crudService.delete(`/v1/private/product/${ id }`);
+  }
+
+  getProductTypes(): Observable<any> {
+    return this.crudService.get(`/v1/products/types`);
+  }
+
+  checkProductSku(code): Observable<any> {
+    const params = {
+      'code': code,
+    };
+    return this.crudService.get(`/v1/private/product/unique`, params);
   }
 
 }

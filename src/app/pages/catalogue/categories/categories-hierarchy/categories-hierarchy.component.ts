@@ -43,13 +43,13 @@ export class CategoriesHierarchyComponent implements OnInit {
   getList() {
     this.categoryService.getListOfCategories()
       .subscribe(categories => {
-        categories.forEach((el) => {
+        categories.categories.forEach((el) => {
           this.transformList(el);
         });
         const rootObject = {
           id: 0,
           name: 'root',
-          children: [...categories]
+          children: [...categories.categories]
         };
         this.nodes.push(rootObject);
         this.loader = false;

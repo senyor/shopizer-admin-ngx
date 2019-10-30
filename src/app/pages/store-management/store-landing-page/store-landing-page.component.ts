@@ -105,7 +105,7 @@ export class StoreLandingPageComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         this.loadingButton = false;
-        this.toastrService.success(this.translate.instant('store.pageAdded'));
+        this.toastrService.success(this.translate.instant('STORE_LANDING.PAGE_ADDED'));
       }, error1 => {
         this.loadingButton = false;
       });

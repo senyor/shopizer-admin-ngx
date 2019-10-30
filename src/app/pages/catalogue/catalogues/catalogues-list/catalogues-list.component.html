@@ -1,0 +1,27 @@
+<div class="selector-wrap">
+  <div class="selector-element">
+    <nb-select *ngIf="availableList.length" placeholder="{{ 'product.manufacturer' | translate}}" [(ngModel)]="isRed"
+               outline
+               shape="rectangle">
+      <nb-option *ngFor="let manufacturer of availableList" [value]="manufacturer.code">{{ manufacturer.code }}</nb-option>
+    </nb-select>
+  </div>
+</div>
+
+<p-pickList sourceHeader="Available"
+            targetHeader="Selected"
+            dragdrop="true"
+            [responsive]="true"
+            [source]="availableList"
+            [target]="selectedList"
+            sourceFilterPlaceholder="Search"
+            targetFilterPlaceholder="Search"
+            [showSourceControls]="false"
+            [showTargetControls]="false"
+            filterBy="code">
+  <ng-template let-item pTemplate="item">
+    <div class="ui-helper-clearfix">
+      <div style="font-size:14px;margin:15px 5px 0 0">{{item.code}}</div>
+    </div>
+  </ng-template>
+</p-pickList>

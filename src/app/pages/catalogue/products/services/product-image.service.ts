@@ -13,8 +13,12 @@ export class ProductImageService {
   ) {
   }
 
-  createImage(id, product): Observable<any> {
-    return this.crudService.post(`/v1/private/products/${ id }/images`, product);
+  removeImage(id): Observable<any> {
+    return this.crudService.delete(`/v1/private/products/images/${id}`);
+  }
+
+  createImage(id, uploadData): Observable<any> {
+    return this.crudService.post(`/v1/private/products/${id}/images`, uploadData);
   }
 
 }

@@ -8,6 +8,7 @@ import { ButtonRenderComponent } from './button-render.component';
 import { NbDialogService } from '@nebular/theme';
 import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { ProductService } from '../../products/services/product.service';
 
 @Component({
   selector: 'ngx-categories-list',
@@ -16,22 +17,42 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class CategoriesListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
-  perPage = 10;
   loadingList = false;
   categories = [];
   settings = {};
+
+  // paginator
+  perPage = 10;
+  currentPage = 1;
+  totalCount;
+
+  // request params
+  params = {
+    lang: 'en',
+    count: this.perPage,
+    page: 0
+  };
+
+  availableList: any[];
+  selectedList: any[];
 
   constructor(
     private categoryService: CategoryService,
     private router: Router,
     private _sanitizer: DomSanitizer,
     private dialogService: NbDialogService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private productService: ProductService
   ) {
   }
 
   ngOnInit() {
     this.getList();
+    this.productService.getListOfProducts({})
+      .subscribe(res => {
+        this.availableList = [...res.products];
+        this.selectedList = [];
+      });
   }
 
   getChildren(node) {
@@ -47,14 +68,15 @@ export class CategoriesListComponent implements OnInit {
 
   getList() {
     this.categories = [];
+    this.params.page = this.currentPage - 1;
     this.loadingList = true;
-    this.categoryService.getListOfCategories()
+    this.categoryService.getListOfCategories(this.params)
       .subscribe(categories => {
-        categories.forEach((el) => {
+        categories.categories.forEach((el) => {
           this.getChildren(el);
         });
+        this.totalCount = categories.totalPages;
         this.source.load(this.categories);
-        this.source.setPaging(1, this.perPage, true);
         this.loadingList = false;
       });
     this.setSettings();
@@ -73,18 +95,18 @@ export class CategoriesListComponent implements OnInit {
         position: 'right',
         sort: true,
         custom: [
-          { name: 'details', title: `${this.translate.instant('common.edit')}` },
+          { name: 'details', title: `${this.translate.instant('COMMON.EDIT')}` },
           { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
         ],
       },
       columns: {
         id: {
           filter: false,
-          title: 'ID',
+          title: this.translate.instant('COMMON.ID'),
           type: 'number',
         },
         description: {
-          title: this.translate.instant('category.categoryName'),
+          title: this.translate.instant('CATEGORY.CATEGORY_NAME'),
           type: 'string',
           valuePrepareFunction: (description) => {
             if (description) {
@@ -93,11 +115,11 @@ export class CategoriesListComponent implements OnInit {
           }
         },
         code: {
-          title: this.translate.instant('category.code'),
+          title: this.translate.instant('COMMON.CODE'),
           type: 'string',
         },
         parent: {
-          title: this.translate.instant('category.parent'),
+          title: this.translate.instant('CATEGORY.PARENT'),
           type: 'string',
           valuePrepareFunction: (parent) => {
             return parent ? parent.code : 'root';
@@ -105,27 +127,14 @@ export class CategoriesListComponent implements OnInit {
         },
         visible: {
           filter: false,
-          title: this.translate.instant('common.visible'),
+          title: this.translate.instant('COMMON.VISIBLE'),
           type: 'custom',
           renderComponent: ButtonRenderComponent,
           defaultValue: false,
-          // type: 'html',
-          // valuePrepareFunction: (data) => {
-          //   console.log(data);
-          //   return this._sanitizer.bypassSecurityTrustHtml('<input type="checkbox" [checked]="data">');
-          // }
         },
       },
     };
   }
-
-
-
-  // onUserRowSelect (event) {
-  //   event.data.visible = event.isSelected;
-  //   console.log(event);
-  //   return event.isSelected;
-  // }
 
   route(event) {
     switch (event.action) {
@@ -143,6 +152,33 @@ export class CategoriesListComponent implements OnInit {
           }
         });
     }
+  }
+
+  // paginator
+  changePage(event) {
+    switch (event.action) {
+      case 'onPage': {
+        this.currentPage = event.data;
+        break;
+      }
+      case 'onPrev': {
+        this.currentPage--;
+        break;
+      }
+      case 'onNext': {
+        this.currentPage++;
+        break;
+      }
+      case 'onFirst': {
+        this.currentPage = 1;
+        break;
+      }
+      case 'onLast': {
+        this.currentPage = event.data;
+        break;
+      }
+    }
+    this.getList();
   }
 
 }

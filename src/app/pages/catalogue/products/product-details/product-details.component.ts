@@ -10,8 +10,9 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit {
-  product: {};
+  product: any = {};
   loadingInfo = false;
+  selectedItem = '0';
 
   constructor(
     private activatedRoute: ActivatedRoute,

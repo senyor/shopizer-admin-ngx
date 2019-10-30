@@ -1,14 +1,26 @@
 <nb-actions size="medium" class="back-button">
   <nb-action (click)="backToList()">
-    <i class="fas fa-chevron-left"></i>&nbsp;<span>{{ 'common.backToList' | translate }}</span>
+    <i class="fas fa-chevron-left"></i>&nbsp;<span>{{ 'COMMON.BACK_TO_LIST' | translate }}</span>
   </nb-action>
 </nb-actions>
 <nb-card size="small" class="page-card">
   <nb-card-header>
-    {{ 'product.product' | translate }}
+    {{'COMPONENTS.PRODUCT' | translate}}
   </nb-card-header>
   <nb-card-body [nbSpinner]="loadingInfo" class="loading-block" nbSpinnerSize="large"
                 nbSpinnerStatus="primary">
+    <nb-select [(selected)]="selectedItem" outline shape="rectangle" class="right-card-select">
+      <nb-option value="0">{{'COMPONENTS.PRODUCT_DETAILS' | translate}}</nb-option>
+      <nb-option value="1" [routerLink]="['/pages/catalogue/products/' + product.id + '/inventory-list']">
+        {{'COMPONENTS.LIST_INVENTORY' | translate}}
+      </nb-option>
+      <nb-option value="2" [routerLink]="['/pages/catalogue/products/association']">
+        {{'COMPONENTS.PRODUCT_TO_CATEGORY' | translate}}
+      </nb-option>
+      <nb-option value="3">
+        {{'COMPONENTS.PRODUCT_ATTRIBUTES' | translate}}
+      </nb-option>
+    </nb-select>
     <ngx-product-form *ngIf="product" [product]="product"></ngx-product-form>
   </nb-card-body>
 </nb-card>

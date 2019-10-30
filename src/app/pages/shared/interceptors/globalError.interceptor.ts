@@ -9,11 +9,13 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class GlobalHttpInterceptorService implements HttpInterceptor {
   constructor(
     private toastr: ToastrService,
+    private translate: TranslateService,
   ) {
   }
 
@@ -28,12 +30,13 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
         } else if (error.status !== 401) {
           if (error.error instanceof ErrorEvent) {
             // client-side error
-            errorMessage = `Error: ${ error.error.message }`;
+            errorMessage = `${this.translate.instant('COMMON.ERROR')}: ${ error.error.message }`;
           } else {
             // server-side error
-            errorMessage = `Error Code: ${ error.status }\nMessage: ${ error.message }`;
+            errorMessage = this.translate.instant('COMMON.ERROR_CODE') + `: ${ error.status }\n
+            ${this.translate.instant('COMMON.MESSAGE')}: ${ error.message }`;
           }
-          this.toastr.error(errorMessage, 'Error');
+          this.toastr.error(errorMessage, this.translate.instant('COMMON.ERROR'));
         }
         return throwError(error);
       })

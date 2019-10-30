@@ -83,25 +83,25 @@ export class UsersListComponent implements OnInit {
         custom: [
           {
             name: 'activate',
-            title: `${this.translate.instant('common.details')}`
+            title: `${this.translate.instant('COMMON.DETAILS')}`
           }
         ],
       },
       columns: {
         id: {
-          title: 'ID',
+          title: this.translate.instant('COMMON.ID'),
           type: 'number',
         },
         name: {
-          title: this.translate.instant('user.name'),
+          title: this.translate.instant('COMMON.NAME'),
           type: 'string',
         },
         emailAddress: {
-          title: this.translate.instant('user.emailAddress'),
+          title: this.translate.instant('COMMON.EMAIL_ADDRESS'),
           type: 'string',
         },
         active: {
-          title: this.translate.instant('user.status'),
+          title: this.translate.instant('COMMON.STATUS'),
           type: 'string',
         }
       },

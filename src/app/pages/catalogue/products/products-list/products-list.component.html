@@ -1,6 +1,6 @@
 <nb-card size="small" class="page-card">
   <nb-card-header>
-    {{ 'sideNav.products' | translate }}
+    {{ 'COMPONENTS.PRODUCTS' | translate }}
   </nb-card-header>
   <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
 
@@ -14,7 +14,6 @@
     <ng2-smart-table
       [settings]="settings"
       [source]="source"
-      (custom)="route($event)"
       (editConfirm)="updateRecord($event)"
       (deleteConfirm)="deleteRecord($event)">
     </ng2-smart-table>

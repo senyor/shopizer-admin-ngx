@@ -15,6 +15,18 @@ const routes: Routes = [{
       path: 'products',
       loadChildren: 'app/pages/catalogue/products/products.module#ProductsModule'
     },
+    {
+      path: 'brands',
+      loadChildren: 'app/pages/catalogue/brands/brands.module#BrandsModule'
+    },
+    {
+      path: 'catalogues',
+      loadChildren: 'app/pages/catalogue/catalogues/catalogues.module#CataloguesModule'
+    },
+    {
+      path: 'products-groups',
+      loadChildren: 'app/pages/catalogue/products-groups/products-groups.module#ProductsGroupsModule'
+    },
   ]
 }];
 
