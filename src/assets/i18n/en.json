@@ -224,6 +224,7 @@
   "PRICE": {
     "FINAL_PRICE": "Final price",
     "ORIGINAL_PRICE": "Original price",
+    "DISCOUNTED_PRICE": "Discounted price",
     "DISCOUNTED": "Discounted"
   },
   "NOT_FOUND": {

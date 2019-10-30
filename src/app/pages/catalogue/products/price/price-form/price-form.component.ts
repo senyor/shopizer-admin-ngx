@@ -15,7 +15,7 @@ import { PriceService } from '../../services/price.service';
   styleUrls: ['./price-form.component.scss']
 })
 export class PriceFormComponent implements OnInit {
-  price = {};
+  price;
   priceId;
   form: FormGroup;
   loader = false;
@@ -36,7 +36,11 @@ export class PriceFormComponent implements OnInit {
     ],
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
-  // inventory = {};
+  inventory;
+  params = {
+    productId: '',
+    inventoryId: ''
+  };
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -44,38 +48,37 @@ export class PriceFormComponent implements OnInit {
     private toastr: ToastrService,
     private translate: TranslateService,
     private configService: ConfigService,
-    // private inventoryService: InventoryService,
-    // private priceService: PriceService
+    private inventoryService: InventoryService
   ) {
   }
 
   ngOnInit() {
-    // console.log(this.price);
-    this.priceId = this.activatedRoute.snapshot.paramMap.get('priceId');
-    console.log('price', this.priceId);
+    this.params.productId = this.activatedRoute.snapshot.paramMap.get('productId');
+    this.params.inventoryId = this.activatedRoute.snapshot.paramMap.get('inventoryId');
+    this.priceId = +this.activatedRoute.snapshot.paramMap.get('priceId');
     this.createForm();
-    if (this.priceId) {
-      console.log('get price');
-    } else {
-      console.log('create new');
-    }
     this.loader = true;
-    this.configService.getListOfSupportedLanguages()
+    this.inventoryService.getInventoryById(this.params.productId, this.params.inventoryId)
       .subscribe(res => {
-        this.languages = [...res];
-        this.addFormArray();
-        // if (this.product.id) {
-        //   this.fillForm();
-        // }
-        this.loader = false;
+        this.inventory = res;
+        this.configService.getListOfSupportedLanguages()
+          .subscribe(ln => {
+            this.languages = [...ln];
+            this.addFormArray();
+            if (this.priceId) {
+              this.price = this.inventory.prices.find((r) => r.id && r.id === this.priceId);
+              this.fillForm();
+            }
+            this.loader = false;
+          });
       });
-    // this.inventoryService.getInventoryById()
   }
 
   private createForm() {
     this.form = this.fb.group({
       finalPrice: ['', [Validators.required]],
       originalPrice: ['', [Validators.required]],
+      discountedPrice: [''],
       discounted: ['', [Validators.required]],
       selectedLanguage: ['', [Validators.required]],
       descriptions: this.fb.array([]),
@@ -100,15 +103,36 @@ export class PriceFormComponent implements OnInit {
     });
   }
 
-  // fillForm() {
-  //   this.form.patchValue({
-  //     store: this.inventory.store.code,
-  //     owner: this.inventory.owner,
-  //     dateAvailable: this.inventory.dateAvailable,
-  //     quantity: this.inventory.quantity,
-  //     selectedLanguage: 'en',
-  //   });
-  // }
+  fillForm() {
+    this.form.patchValue({
+      finalPrice: this.price.finalPrice.slice(3),
+      originalPrice: this.price.originalPrice.slice(3),
+      discountedPrice: this.price.discountedPrice ? this.price.discountedPrice.slice(3) : '',
+      discounted: this.price.discounted,
+      descriptions: [],
+      selectedLanguage: 'en',
+    });
+    this.fillFormArray();
+  }
+
+  fillFormArray() {
+    this.form.value.descriptions.forEach((desc, index) => {
+      this.price.descriptions.forEach((description) => {
+        if (desc.language === description.language) {
+          (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+            language: description.language,
+            name: description.name,
+            highlights: description.highlights,
+            friendlyUrl: description.friendlyUrl,
+            description: description.description,
+            title: description.title,
+            keyWords: description.keyWords,
+            metaDescription: description.metaDescription,
+          });
+        }
+      });
+    });
+  }
 
   get selectedLanguage() {
     return this.form.get('selectedLanguage');
@@ -186,11 +210,15 @@ export class PriceFormComponent implements OnInit {
           }
         }
       });
-      console.log('save', JSON.stringify(priceObject));
+
+      this.inventory.store = this.inventory.store.name;
+      this.inventory.prices = [...this.inventory.prices, priceObject];
+      console.log('save', this.inventory);
       // save as inventory updating
-      // this.inventoryService.updateInventory(this.inventory.id, inventoryObj).subscribe((res) => {
-      //   console.log(res);
-      // });
+      this.inventoryService.updateInventory(this.params.productId, this.inventory.id, this.inventory)
+        .subscribe((res) => {
+        console.log(res);
+      });
     }
   }
 

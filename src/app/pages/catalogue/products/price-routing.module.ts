@@ -10,15 +10,11 @@ const routes: Routes = [
     component: ProductsComponent,
     children: [
       {
-        path: 'create-price',
+        path: ':productId/inventory/:inventoryId/create-price',
         component: PriceFormComponent,
       },
       {
-        path: 'price-details:priceId',
-        component: PriceFormComponent,
-      },
-      {
-        path: 'price-details',
+        path: ':productId/inventory/:inventoryId/price/:priceId',
         component: PriceFormComponent,
       }
     ],

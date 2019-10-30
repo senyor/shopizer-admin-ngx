@@ -4,7 +4,7 @@
     <nb-actions size="medium" class="back-button">
       <nb-action>
         <i class="fas fa-plus"></i>&nbsp;
-        <a [routerLink]="['/pages/catalogue/products/create-price']">
+        <a [routerLink]="['/pages/catalogue/products/'+ params.productId +'/inventory/'+params.inventoryId+'/create-price']">
           {{ 'INVENTORY.ADD_PRICE' | translate}}
         </a>
       </nb-action>
