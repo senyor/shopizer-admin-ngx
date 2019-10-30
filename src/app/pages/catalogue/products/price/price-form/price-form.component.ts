@@ -164,7 +164,7 @@ export class PriceFormComponent implements OnInit {
     });
 
     if (tmpObj.name === '' || tmpObj.friendlyUrl === '' || priceObject.sku === '') {
-      this.toastr.error(this.translate.instant('common.fillRequiredFields'));
+      this.toastr.error(this.translate.instant('COMMON.FILL_REQUIRED_FIELDS'));
     } else {
       priceObject.descriptions.forEach((el) => {
         // fill empty fields

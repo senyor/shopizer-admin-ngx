@@ -81,13 +81,13 @@ export class PricesListComponent implements OnInit {
         position: 'right',
         sort: true,
         custom: [
-          { name: 'details', title: `${this.translate.instant('common.edit')}` },
+          { name: 'details', title: `${this.translate.instant('COMMON.EDIT')}` },
           { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
         ],
       },
       columns: {
         store: {
-          title: 'Store',
+          title: this.translate.instant('INVENTORY.INVENTORY_STORE'),
           type: 'string',
           editable: false,
           valuePrepareFunction: (store) => {
@@ -95,7 +95,7 @@ export class PricesListComponent implements OnInit {
           }
         },
         owner: {
-          title: 'Owner',
+          title: this.translate.instant('INVENTORY.INVENTORY_OWNER'),
           type: 'string',
           editable: false,
           valuePrepareFunction: (owner) => {
@@ -103,12 +103,12 @@ export class PricesListComponent implements OnInit {
           }
         },
         quantity: {
-          title: this.translate.instant('product.qty'),
+          title: this.translate.instant('PRODUCT.QTY'),
           type: 'number',
           editable: true
         },
         prices: {
-          title: this.translate.instant('product.price'),
+          title: this.translate.instant('PRODUCT.PRICE'),
           type: 'string',
           editable: true,
           valuePrepareFunction: (prices) => {
@@ -116,7 +116,7 @@ export class PricesListComponent implements OnInit {
           }
         },
         creationDate: {
-          title: this.translate.instant('product.creationDate'),
+          title: this.translate.instant('PRODUCT.CREATION_DATE'),
           type: 'string',
           editable: false
         },

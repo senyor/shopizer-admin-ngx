@@ -281,6 +281,7 @@
     "MANAGE_INVENTORY": "Manage inventory",
 
     "INVENTORY": "Inventory",
+    "PRICE": "Price",
 
     "BRANDS": "Brands",
     "BRAND": "Brand",
@@ -451,7 +452,14 @@
   "INVENTORY": {
     "INVENTORY_STORE": "Store",
     "INVENTORY_OWNER": "Owner",
-    "ADD_TO_INVENTORY": "Add to inventory"
+    "ADD_TO_INVENTORY": "Add to inventory",
+
+    "ADD_PRICE": "Add price"
+  },
+  "PRICE": {
+    "FINAL_PRICE": "Final price",
+    "ORIGINAL_PRICE": "Original price",
+    "DISCOUNTED": "Discounted"
   },
   "NOT_FOUND": {
     "PAGE_NOT_FOUND": "Page Not Found",
