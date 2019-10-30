@@ -2,71 +2,77 @@
   <nb-card-header>Create Manage Page</nb-card-header>
   <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
     <form #pagesForm="ngForm" role="form">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-            <nb-checkbox [(ngModel)]="visible" name="visible" status="success">Visible</nb-checkbox>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="form-group">
-            <nb-checkbox [(ngModel)]="mainmenu" name="mainmenu" status="success">Display this page in main menu</nb-checkbox>
-          </div>
-        </div>
+      <!-- <div class="row"> -->
+      <!-- <div class="col-sm-6"> -->
+      <div class="form-group">
+        <nb-checkbox [(ngModel)]="visible" name="visible" status="success">Visible</nb-checkbox>
       </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-            <label for="inputWebsite" class="label">Code</label>
-            <input type="text" [(ngModel)]="code" name="code" class="form-control" id="code" placeholder="Code"
-              (focusout)="focusOutFunction()" required>
-            <span *ngIf="codeExits" class="err-message">{{message}}</span>
-            <span *ngIf="!codeExits" class="err-message-success">{{message}}</span>
-          </div>
-        </div>
-        <div class="
-              col-sm-6">
-          <div class="form-group">
-            <label for="exampleInputPassword1" class="label">Order</label>
-            <input type="number" [(ngModel)]="order" name="order" class="form-control" id="order" placeholder="Order">
-          </div>
-        </div>
+      <!-- </div>
+        <div class="col-sm-6"> -->
+      <div class="form-group">
+        <nb-checkbox [(ngModel)]="mainmenu" name="mainmenu" status="success">Display this page in main menu</nb-checkbox>
       </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-            <label for="exampleInputPassword1" class="label">Page name (en)</label>
-            <input type="text" [(ngModel)]="en.name" name="name" class="form-control" id="page_name" placeholder="Page Name"
-              (keyup)="urlTitle($event)" required>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1" class="label">Search engine friendly url (en)</label>
-            <input type="text" [(ngModel)]="en.slug" name="slug" class="form-control" id="url" placeholder="Url">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1" class="label">Page content (en)</label>
-            <ngx-tiny-mce [(ngModel)]="en.pageContent" name="pageContent"></ngx-tiny-mce>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1" class="label">Title (en)</label>
-            <input type="text" [(ngModel)]="en.title" name="title" class="form-control" id="title" placeholder="Title">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1" class="label">Keywords (en)</label>
-            <input type="text" [(ngModel)]="en.keyword" name="keyword" class="form-control" id="keyword" placeholder="keyword">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1" class="label">Product group</label>
-            <input type="text" [(ngModel)]="en.productGroup" name="productGroup" class="form-control" id="product_group"
-              placeholder="Product group">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1" class="label">Description metatag (en)</label>
-            <input type="text" [(ngModel)]="en.metaDetails" name="metaDetails" class="form-control" id="description"
-              placeholder="Description metatag">
-          </div>
-        </div>
-        <div class="col-sm-6">
+      <!-- </div>
+      </div> -->
+      <!-- <div class="row">
+        <div class="col-sm-6"> -->
+      <div class="form-group">
+        <label for="inputWebsite" class="label">Code</label>
+        <input type="text" [(ngModel)]="code" name="code" class="form-control" id="code" placeholder="Code" (focusout)="focusOutFunction()"
+          required>
+        <span *ngIf="codeExits" class="err-message">{{message}}</span>
+        <span *ngIf="!codeExits" class="err-message-success">{{message}}</span>
+      </div>
+      <!-- </div> -->
+      <!-- <div class="
+              col-sm-6"> -->
+      <div class="form-group">
+        <label for="exampleInputPassword1" class="label">Order</label>
+        <input type="number" [(ngModel)]="order" name="order" class="form-control" id="order" placeholder="Order">
+      </div>
+      <div class="form-group">
+        <label class="label">Language</label>
+        <nb-select placeholder="Language" outline shape="rectangle" [(ngModel)]="language" name="language" [selected]="'en'">
+          <nb-option *ngFor="let lan of languages" [value]="lan.code">{{ lan.name }}</nb-option>
+        </nb-select>
+      </div>
+      <!-- </div>
+      </div> -->
+      <!-- <div class="row">
+        <div class="col-sm-6"> -->
+      <div class="form-group">
+        <label for="exampleInputPassword1" class="label">Page name</label>
+        <input type="text" [(ngModel)]="en.name" name="name" class="form-control" id="page_name" placeholder="Page Name"
+          (keyup)="urlTitle($event)" required>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1" class="label">Search engine friendly url</label>
+        <input type="text" [(ngModel)]="en.slug" name="slug" class="form-control" id="url" placeholder="Url">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1" class="label">Page content</label>
+        <ngx-tiny-mce [(ngModel)]="en.pageContent" value="en.pageContent" name="pageContent"></ngx-tiny-mce>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1" class="label">Title</label>
+        <input type="text" [(ngModel)]="en.title" name="title" class="form-control" id="title" placeholder="Title">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1" class="label">Keywords</label>
+        <input type="text" [(ngModel)]="en.keyword" name="keyword" class="form-control" id="keyword" placeholder="keyword">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1" class="label">Product group</label>
+        <input type="text" [(ngModel)]="en.productGroup" name="productGroup" class="form-control" id="product_group"
+          placeholder="Product group">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1" class="label">Description metatag</label>
+        <input type="text" [(ngModel)]="en.metaDetails" name="metaDetails" class="form-control" id="description"
+          placeholder="Description metatag">
+      </div>
+      <!-- </div> -->
+      <!-- <div class="col-sm-6">
           <div class="form-group">
             <label for="exampleInputPassword1" class="label">Page name (fr)</label>
             <input type="text" [(ngModel)]="fr.name" name="fr.name" class="form-control" id="page_name" placeholder="Page Name">
@@ -97,9 +103,9 @@
             <input type="text" [(ngModel)]="fr.metaDetails" name="fr.metaDetails" class="form-control" id="description"
               placeholder="Description metatag">
           </div>
-        </div>
+        </div> -->
 
-      </div>
+      <!-- </div> -->
       <div>
         <button type="button" nbButton status="success" [disabled]="!pagesForm.form.valid" (click)="createPages()">Submit</button>
       </div>

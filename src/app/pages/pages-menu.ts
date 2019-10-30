@@ -220,7 +220,7 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         title: 'Methods',
         key: 'sideNav.methods',
-        link: '/pages/shipping/config',
+        link: '/pages/content/promotion',
       },
       {
         title: 'Origin',

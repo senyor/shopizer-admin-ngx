@@ -9,21 +9,26 @@ export class PromotionComponent implements OnInit {
     query = {
         condition: 'and',
         rules: [
-            { field: 'age', operator: '<=', value: 'Bob' },
-            { field: 'gender', operator: '>=', value: 'm' }
+            { field: 'shippingDistance', operator: '=', value: '10' },
+            // { field: 'totalWeight', operator: '>', value: '50' }
         ]
     };
 
     config: QueryBuilderConfig = {
         fields: {
-            age: { name: 'Age', type: 'number' },
-            gender: {
-                name: 'Gender',
-                type: 'category',
-                options: [
-                    { name: 'Male', value: 'm' },
-                    { name: 'Female', value: 'f' }
-                ]
+            shippingDistance: {
+                "name": "Shipping distance",
+                "operators": ["=", ">"],
+                "type": "string"
+            },
+
+            totalWeight: {
+                name: 'Total weight	of order',
+                type: 'string',
+                operators: [">"],
+            },
+            birthday: {
+                name: 'Birthday', type: 'date', operators: ['=', '<=', '>'], defaultValue: (() => new Date())
             }
         }
     }

@@ -39,7 +39,7 @@
       </div>
       <div class="form-group">
         <label for="inputWebsite" class="label">Promotion Type</label>
-        <nb-select placeholder="Please select type" outline shape="rectangle" formControlName='selectedLanguage'>
+        <nb-select placeholder="Please select type" outline shape="rectangle">
           <nb-option value="1">Option 1</nb-option>
           <nb-option value="2">Option 2</nb-option>
         </nb-select>
@@ -47,11 +47,11 @@
       </div>
       <div class="form-group">
         <label for="inputWebsite" class="label">Rules condition expression builder</label>
-        <query-builder [(ngModel)]='query' [config]='config'></query-builder>
+        <query-builder [(ngModel)]='query' [config]='config' name="config"></query-builder>
       </div>
       <div class="form-group">
         <label for="inputWebsite" class="label">Promotion awards</label>
-        <nb-select placeholder="Please select rules" outline shape="rectangle" formControlName='selectedLanguage'>
+        <nb-select placeholder="Please select rules" outline shape="rectangle">
           <nb-option value="1">Option 1</nb-option>
           <nb-option value="2">Option 2</nb-option>
         </nb-select>

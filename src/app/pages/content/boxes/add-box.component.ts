@@ -10,26 +10,19 @@ import { LocalDataSource } from 'ng2-smart-table';
   styleUrls: ['./add-box.component.scss'],
 })
 export class AddBoxComponent {
-
+  languages: Array<any> = [{ 'code': 'en', 'name': 'English' }, { 'code': 'fr', 'name': 'French' }]
   page = {
     visible: false,
     mainmenu: false,
     code: '',
     order: '',
+    language: 'en',
     ePagename: '',
-    fPagename: '',
+    // fPagename: '',
     // eUrl: '',
     // fUrl: '',
     ePagecontent: '',
-    fPagecontent: '',
-    // eTitle: '',
-    // fTitle: '',
-    // eKeyword: '',
-    // fKeyword: '',
-    // eProduct_group: '',
-    // fProduct_group: '',
-    // eDescription: '',
-    // fDescription: ''
+    // fPagecontent: ''
   }
   constructor(
     // private appService: AppService

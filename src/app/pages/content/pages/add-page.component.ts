@@ -14,6 +14,7 @@ export class AddPageComponent {
   mainmenu: any = false;
   code: string = '';
   order: number = 0;
+  language: string = 'en';
   en = {
     metaDetails: '',
     name: '',
@@ -24,16 +25,17 @@ export class AddPageComponent {
     keyword: '',
     productGroup: ''
   }
-  fr = {
-    metaDetails: '',
-    name: '',
-    pageContent: '',
-    path: '',
-    slug: '',
-    title: '',
-    keyword: '',
-    productGroup: ''
-  }
+  // fr = {
+  //   metaDetails: '',
+  //   name: '',
+  //   pageContent: '',
+  //   path: '',
+  //   slug: '',
+  //   title: '',
+  //   keyword: '',
+  //   productGroup: ''
+  // }
+  languages: Array<any> = [{ 'code': 'en', 'name': 'English' }, { 'code': 'fr', 'name': 'French' }]
   codeExits: any;
   message: string = '';
   constructor(
@@ -87,7 +89,7 @@ export class AddPageComponent {
       "descriptions": [
         {
           "contentType": "PAGE",
-          "language": "en",
+          "language": this.language,
           "metaDetails": this.en.metaDetails,
           "name": this.en.name,
           "pageContent": this.en.pageContent,
