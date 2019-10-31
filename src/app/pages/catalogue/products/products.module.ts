@@ -18,6 +18,7 @@ import { PricesListComponent } from './price/prices-list/prices-list.component';
 import { PriceRoutingModule } from './price-routing.module';
 import { PriceFormComponent } from './price/price-form/price-form.component';
 import { ProductToCategoryComponent } from './product-to-category/product-to-category.component';
+import { ProductAttributesComponent } from './product-attributes/product-attributes.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ProductToCategoryComponent } from './product-to-category/product-to-cat
     ProductFormComponent,
     ProductDetailsComponent,
     ProductToCategoryComponent,
+    ProductAttributesComponent,
 
     AvailableButtonComponent,
 

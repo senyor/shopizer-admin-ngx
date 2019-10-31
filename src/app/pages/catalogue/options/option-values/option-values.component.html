@@ -1,0 +1,45 @@
+<ngx-back-button></ngx-back-button>
+<nb-card size="small" class="page-card">
+  <nb-card-header>
+    {{ 'COMPONENTS.PRICE' | translate}}
+  </nb-card-header>
+  <nb-card-body>
+    <div *ngIf="loader" [nbSpinner]="loader" nbSpinnerSize="large" nbSpinnerStatus="primary"></div>
+    <form [formGroup]='form'>
+
+      <div class="form-group">
+        <label for="code" class="col-sm-10 col-form-label">{{ 'COMMON.CODE' | translate}}</label>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" id="code" formControlName='code'
+                 placeholder="{{ 'COMMON.CODE' | translate}}" required>
+        </div>
+      </div>
+
+<!--      <div class="form-group">-->
+<!--        <label class="col-sm-10 col-form-label">{{ 'COMMON.TYPE' | translate}}</label>-->
+<!--        <div class="col-sm-12">-->
+<!--          <nb-select *ngIf="types.length" placeholder="{{ 'COMMON.TYPE' | translate}}" formControlName='type'-->
+<!--                     outline-->
+<!--                     shape="rectangle">-->
+<!--            <nb-option *ngFor="let type of types" [value]="type">{{ type }}</nb-option>-->
+<!--          </nb-select>-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <div class="form-group">
+        <label for="name" class="col-sm-10 col-form-label">{{ 'COMMON.NAME' | translate}}</label>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" id="name" formControlName='name'
+                 placeholder="{{ 'COMMON.NAME' | translate}}" required>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="form-group actions-button">
+        <button type="submit" class="btn btn-primary" (click)="save()">{{ 'COMMON.SAVE' | translate }}</button>
+      </div>
+
+    </form>
+  </nb-card-body>
+</nb-card>

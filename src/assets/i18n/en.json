@@ -260,6 +260,8 @@
     "EMAIL_ADDRESS": "Email",
     "STATUS": "Status",
     "DETAILS": "Details",
+    "LAST_MODIFIED": "Details",
+    "TYPE": "Type",
 
     "BACK_TO_LIST": "Back to list",
 
