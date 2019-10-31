@@ -42,6 +42,7 @@ export class ProductFormComponent implements OnInit {
   isCodeUnique = true;
   loadingButton = false;
   uploadData = new FormData();
+  removedImagesArray = [];
 
   constructor(
     private fb: FormBuilder,
@@ -221,10 +222,11 @@ export class ProductFormComponent implements OnInit {
         break;
       }
       case 'remove': {
-        this.productImageService.removeImage(event.data)
-          .subscribe(res1 => {
-            console.log(res1);
-          });
+        this.removedImagesArray.push(event.data);
+        // this.productImageService.removeImage(event.data)
+        //   .subscribe(res1 => {
+        //     console.log(res1);
+        //   });
         break;
       }
     }
@@ -236,6 +238,17 @@ export class ProductFormComponent implements OnInit {
       .subscribe(res => {
         this.isCodeUnique = !(res.exists && (this.product.sku !== sku));
       });
+  }
+
+  removeImages(array) {
+    array.forEach((el) => {
+      this.productImageService.removeImage(el)
+        .subscribe(res1 => {
+          console.log(res1);
+        }, error => {
+          console.log('Something went wrong');
+        });
+    });
   }
 
   save() {
@@ -294,6 +307,7 @@ export class ProductFormComponent implements OnInit {
       });
 
       if (this.product.id) {
+        this.removeImages(this.removedImagesArray);
         this.productService.updateProduct(this.product.id, productObject)
           .subscribe(res => {
             console.log(res);
