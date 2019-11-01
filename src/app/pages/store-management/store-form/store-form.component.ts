@@ -57,6 +57,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
   establishmentType: string = 'STORE';
 
   fakeRetailerArray = ['ret1', 'ret2'];
+  retailerArray = [];
 
   constructor(
     private fb: FormBuilder,
@@ -103,7 +104,15 @@ export class StoreFormComponent implements OnInit, OnChanges {
         this.weightList = [...measures.weights];
         this.sizeList = [...measures.measures];
       });
-
+    this.storeService.getListOfStores({start: 0, length: 1000})
+      .subscribe(res => {
+        res.data.forEach(el => {
+          if (el.retailer) {
+            this.retailerArray.push(el);
+          }
+        });
+        this.retailerArray = res.data;
+      });
     if (this.env.googleApiKey) {
       this.addressAutocomplete();
     }
