@@ -53,7 +53,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
   loading = false;
   showRemoveButton = true;
   isReadonlyCode = false;
-  isAdminStore: boolean;
+  isSuperadmin: boolean;
   establishmentType: string = 'STORE';
 
   fakeRetailerArray = ['ret1', 'ret2'];
@@ -71,7 +71,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
     private translate: TranslateService
   ) {
     this.createForm();
-    this.isAdminStore = this.userService.roles.isAdminStore;
+    this.isSuperadmin = JSON.parse(localStorage.getItem('roles')).isSuperadmin;
     this.getEstablishmentType();
   }
 
