@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ThemeModule } from '../../@theme/theme.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { OrderListComponent } from '../orders/order-list/order-list.component';
-import { NbInputModule, NbSpinnerModule } from '@nebular/theme';
+import { NbSpinnerModule, NbTreeGridComponent, NbTreeGridModule } from '@nebular/theme';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
@@ -33,6 +33,7 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
     CommonModule,
     RouterModule,
 
+    NbTreeGridModule,
     Ng2SmartTableModule,
     ThemeModule,
     NbSpinnerModule,
@@ -53,6 +54,8 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
     PaginatorComponent,
     BackButtonComponent,
 
+    NbTreeGridModule,
+    NbTreeGridComponent,
     PickListModule,
     DropdownModule
   ],
