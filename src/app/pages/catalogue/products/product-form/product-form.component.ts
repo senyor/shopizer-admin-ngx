@@ -207,26 +207,23 @@ export class ProductFormComponent implements OnInit {
   onImageChanged(event) {
     switch (event.type) {
       case 'add': {
-        // console.log('1');
-        // this.uploadData = new FormData();
         this.uploadData.append('file[]', event.data, event.data.name);
-        this.uploadData.forEach((img) => {
-          console.log(img);
-        });
-        // if (this.product.id) {
-        //   this.productImageService.createImage(this.product.id, this.uploadData)
-        //     .subscribe(res1 => {
-        //       console.log(res1);
-        //     });
-        // }
         break;
       }
       case 'remove': {
         this.removedImagesArray.push(event.data);
-        // this.productImageService.removeImage(event.data)
-        //   .subscribe(res1 => {
-        //     console.log(res1);
-        //   });
+        break;
+      }
+      case 'remove-one': {
+        const fd = new FormData();
+        this.uploadData.delete(event.data.name);
+        this.uploadData.forEach((img) => {
+          if (img['name'] !== event.data.name) {
+            fd.append('file[]', img, img['name']);
+          }
+        });
+        this.uploadData = new FormData();
+        this.uploadData = fd;
         break;
       }
     }
@@ -322,9 +319,6 @@ export class ProductFormComponent implements OnInit {
       } else {
         this.productService.createProduct(productObject)
           .subscribe(res => {
-            this.uploadData.forEach(img => {
-              console.log(img);
-            });
             this.productImageService.createImage(res.id, this.uploadData)
               .subscribe(res1 => {
                 console.log(res1);
