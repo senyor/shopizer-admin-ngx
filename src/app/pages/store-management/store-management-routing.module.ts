@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { StoreManagementComponent } from './store-management.component';
 import { RetailerComponent } from './retailer/retailer.component';
 import { RetailerListComponent } from './retailer-list/retailer-list.component';
-import { RetailerCreationComponent } from './retailer-creation/retailer-creation.component';
 import { SuperuserAdminGuard } from '../shared/guards/superuser-admin.guard';
 import { SuperuserAdminRetailGuard } from '../shared/guards/superuser-admin-retail.guard';
 import { SuperuserAdminRetailStoreGuard } from '../shared/guards/superuser-admin-retail-store.guard';
@@ -62,11 +61,6 @@ const routes: Routes = [
       {
         path: 'retailer-list',
         component: RetailerListComponent,
-        canActivate: [SuperuserAdminGuard]
-      },
-      {
-        path: 'create-retailer',
-        component: RetailerCreationComponent,
         canActivate: [SuperuserAdminGuard]
       },
       {

@@ -54,10 +54,9 @@ export class StoreFormComponent implements OnInit, OnChanges {
   showRemoveButton = true;
   isReadonlyCode = false;
   isSuperadmin: boolean;
-  establishmentType: string = 'STORE';
-
-  fakeRetailerArray = ['ret1', 'ret2'];
   retailerArray = [];
+  roles: any = {};
+  isCodeUnique = true;
 
   constructor(
     private fb: FormBuilder,
@@ -72,15 +71,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
     private translate: TranslateService
   ) {
     this.createForm();
-    this.isSuperadmin = JSON.parse(localStorage.getItem('roles')).isSuperadmin;
-    this.getEstablishmentType();
-  }
-
-  getEstablishmentType() {
-    const childRoute = window.location.hash.slice(window.location.hash.indexOf('store-management/') + 17);
-    if (childRoute.indexOf('store') === -1) {
-      this.establishmentType = 'RETAILER';
-    }
+    this.roles = JSON.parse(localStorage.getItem('roles'));
   }
 
   ngOnInit() {
@@ -198,9 +189,8 @@ export class StoreFormComponent implements OnInit, OnChanges {
       dimension: ['', [Validators.required]],
       inBusinessSince: [''],
       useCache: [false],
-      /// TODO make according api
-      isRetailer: [false],
-      retailer: [''],
+      retailer: [false],
+      retailerStore: [''],
     });
   }
 
@@ -273,21 +263,24 @@ export class StoreFormComponent implements OnInit, OnChanges {
     return this.form.get('inBusinessSince');
   }
 
-  get isRetailer() {
-    return this.form.get('isRetailer');
+  get retailer() {
+    return this.form.get('retailer');
+  }
+
+  get retailerStore() {
+    return this.form.get('retailerStore');
   }
 
   save() {
     this.form.controls['address'].patchValue({ country: this.form.value.address.country });
     this.form.patchValue({ inBusinessSince: moment(this.form.value.inBusinessSince).format('YYYY-MM-DD') });
-    this.establishmentType === 'STORE' ? this.saveStore() : this.saveRetailer();
+    this.saveStore();
   }
 
   saveStore() {
     if (this.store.id) {
       this.storeService.updateStore(this.form.value)
         .subscribe(store => {
-          console.log(store);
           this.toastr.success(this.translate.instant('STORE_FORM.STORE_UPDATED'));
           this.router.navigate(['pages/store-management/stores-list']);
         });
@@ -295,11 +288,10 @@ export class StoreFormComponent implements OnInit, OnChanges {
       this.storeService.checkIfStoreExist(this.form.value.code)
         .subscribe(res => {
           if (res.exist) {
-            console.log('this code already exist');
+            this.toastr.success(this.translate.instant('COMMON.CODE_EXISTS'));
           } else {
             this.storeService.createStore(this.form.value)
               .subscribe(store => {
-                console.log(store);
                 this.toastr.success(this.translate.instant('STORE_FORM.STORE_CREATED'));
                 this.router.navigate(['pages/store-management/stores-list']);
               });
@@ -308,14 +300,9 @@ export class StoreFormComponent implements OnInit, OnChanges {
     }
   }
 
-  saveRetailer() {
-    // console.log('saveRetailer');
-  }
-
   remove() {
     this.storeService.deleteStore(this.store.code)
       .subscribe(res => {
-        console.log(res);
         this.toastr.success(this.translate.instant('STORE_FORM.STORE_REMOVED'));
         this.router.navigate(['pages/store-management/stores-list']);
       });
@@ -331,6 +318,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
           this.stateProvince.enable();
         }
       }, error1 => {
+        this.toastr.success(this.translate.instant('STORE_FORM.ERROR_STATE_PROVINCE'));
       });
   }
 
@@ -353,7 +341,14 @@ export class StoreFormComponent implements OnInit, OnChanges {
   }
 
   showRetailers(event) {
-    event ? this.form.controls['retailer'].disable() : this.form.controls['retailer'].enable();
+    event ? this.form.controls['retailerStore'].disable() : this.form.controls['retailerStore'].enable();
   }
 
+  checkCode(event) {
+    const code = event.target.value;
+    this.storeService.checkIfStoreExist(this.form.value.code)
+      .subscribe(res => {
+        this.isCodeUnique = !(res.exists && (this.store.code !== code));
+      });
+  }
 }

@@ -45,7 +45,7 @@ export class StoresListComponent implements OnInit {
     this.loadingList = true;
     this.storeService.getListOfStores(this.params)
       .subscribe(res => {
-        this.totalCount = res.totalCount;
+        this.totalCount = res.totalPages;
         this.source.load(res.data);
         this.loadingList = false;
       });
