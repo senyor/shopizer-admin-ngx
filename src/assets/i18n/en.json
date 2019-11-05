@@ -113,7 +113,8 @@
   },
   "STORE": {
     "STORE_INFORMATION": "Store information",
-    "INFORMATION_TEXT": "Shop settings used for various functionality such us and store address. Various details also used for shipping costs and displayed in product details."
+    "INFORMATION_TEXT": "Shop settings used for various functionality such us and store address. Various details also used for shipping costs and displayed in product details.",
+    "MERCHANT_STORE": "Merchant store"
   },
   "STORE_LANDING": {
     "LANDING_PAGE_TITLE": "Landing page title",
@@ -134,24 +135,20 @@
     "STORE_NAME": "Store name",
     "STORE_NAME_REQUIRED": "Store name is required.",
 
-    "RETAILER_NAME": "Retailer name",
-    "RETAILER_NAME_REQUIRED": "Retailer name is required.",
-
     "STORE_CODE": "Unique Store Code",
     "CODE_REQUIRED": "Code is required.",
 
     "STORE_PHONE": "Store Phone",
-    "RETAILER_PHONE": "Retailer Phone",
     "PHONE_REQUIRED": "Phone is required.",
 
     "STORE_EMAIL": "Store email address",
-    "RETAILER_EMAIL": "Retailer email address",
 
     "ENTER_ADDRESS": "Enter your address",
     "ADDRESS": "Address",
     "ADDRESS_REQUIRED": "Address is required.",
 
     "STATE_PROVINCE": "State / province",
+    "ERROR_STATE_PROVINCE": "Error while getting provinces",
 
     "POSTAL_CODE": "Postal code",
     "POSTAL_CODE_REQUIRED": "Postal code is required.",

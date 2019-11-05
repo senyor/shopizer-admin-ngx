@@ -91,20 +91,6 @@ export const MENU_ITEMS: MenuItem[] = [
         guards: [IsSuperadmin, IsAdmin, IsAdminRetail]
       },
       {
-        title: 'COMPONENTS.RETAILER_LIST',
-        key: 'COMPONENTS.RETAILER_LIST',
-        link: '/pages/store-management/retailer-list',
-        hidden: false,
-        guards: [IsSuperadmin, IsAdmin]
-      },
-      {
-        title: 'COMPONENTS.CREATE_RETAILER',
-        key: 'COMPONENTS.CREATE_RETAILER',
-        link: '/pages/store-management/create-retailer',
-        hidden: false,
-        guards: [IsSuperadmin, IsAdmin]
-      },
-      {
         title: 'COMPONENTS.STORE_DETAILS',
         key: 'COMPONENTS.STORE_DETAILS',
         link: '/pages/store-management/store-details',
@@ -112,11 +98,11 @@ export const MENU_ITEMS: MenuItem[] = [
         guards: [IsSuperadmin, IsAdmin, IsAdminRetail, IsAdminStore]
       },
       {
-        title: 'COMPONENTS.CREATE_STORE',
-        key: 'COMPONENTS.CREATE_STORE',
-        link: '/pages/store-management/create-store',
+        title: 'COMPONENTS.RETAILER_LIST',
+        key: 'COMPONENTS.RETAILER_LIST',
+        link: '/pages/store-management/retailer-list',
         hidden: false,
-        guards: [IsSuperadmin, IsAdmin, IsAdminRetail]
+        guards: [IsSuperadmin, IsAdmin]
       },
       {
         title: 'COMPONENTS.STORES_LIST',
@@ -124,6 +110,13 @@ export const MENU_ITEMS: MenuItem[] = [
         link: '/pages/store-management/stores-list',
         hidden: false,
         guards: [IsSuperadmin, IsAdmin]
+      },
+      {
+        title: 'COMPONENTS.CREATE_STORE',
+        key: 'COMPONENTS.CREATE_STORE',
+        link: '/pages/store-management/create-store',
+        hidden: false,
+        guards: [IsSuperadmin, IsAdmin, IsAdminRetail]
       },
     ],
   },

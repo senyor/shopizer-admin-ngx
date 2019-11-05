@@ -15,7 +15,7 @@ import { StoreDetailInfoComponent } from './store-detail-info/store-detail-info.
 import { StoreBrandingComponent } from './store-branding/store-branding.component';
 import { RetailerComponent } from './retailer/retailer.component';
 import { RetailerListComponent } from './retailer-list/retailer-list.component';
-import { RetailerCreationComponent } from './retailer-creation/retailer-creation.component';
+import { RetailerStoresComponent } from './retailer-stores/retailer-stores.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { RetailerCreationComponent } from './retailer-creation/retailer-creation
     StoreDetailInfoComponent,
     RetailerComponent,
     RetailerListComponent,
-    RetailerCreationComponent
+    RetailerStoresComponent
   ],
   imports: [
     StoreManagementRoutingModule,

@@ -18,9 +18,9 @@ export class SuperuserAdminRetailGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean {
 
-    if (this.userService.roles.isSuperadmin ||
-      this.userService.roles.isAdmin ||
-      this.userService.roles.isAdminRetail) {
+    const roles = JSON.parse(localStorage.getItem('roles'));
+
+    if (roles.isSuperadmin || roles.isAdmin || roles.isAdminRetail) {
       return true;
     }
 
