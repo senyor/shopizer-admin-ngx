@@ -17,6 +17,10 @@ export class OptionService {
     return this.crudService.get(`/v1/private/product/options`, params);
   }
 
+  createOption (option): Observable<any> {
+    return this.crudService.post(`/v1/private/product/option`, option);
+  }
+
   // updateProductFromTable(id, product): Observable<any> {
   //   return this.crudService.patch(`/v1/private/product/${ id }`, product);
   // }
@@ -32,9 +36,7 @@ export class OptionService {
   //   return this.crudService.get(`/v1/product/${ id }`, params);
   // }
   //
-  // createProduct (product): Observable<any> {
-  //   return this.crudService.post(`/v1/private/product`, product);
-  // }
+
   //
   // deleteProduct(id): Observable<any> {
   //   return this.crudService.delete(`/v1/private/product/${ id }`);

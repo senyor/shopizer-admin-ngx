@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
+import { ConfigService } from './pages/shared/services/config.service';
 
 @Component({
   selector: 'ngx-app',
@@ -15,8 +16,10 @@ import { environment } from '../environments/environment';
 export class AppComponent implements OnInit {
 
   constructor(
-    private translate: TranslateService
+    private translate: TranslateService,
+    private configService: ConfigService
   ) {
+    this.configService.getListOfSupportedLanguages1();
     if (!localStorage.getItem('lang')) {
       localStorage.setItem('lang', environment.client.language.default);
     }

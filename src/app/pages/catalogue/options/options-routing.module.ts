@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ProductCreationComponent } from '../products/product-creation/product-creation.component';
-import { ProductsListComponent } from '../products/products-list/products-list.component';
-import { ProductDetailsComponent } from '../products/product-details/product-details.component';
-import { ProductToCategoryComponent } from '../products/product-to-category/product-to-category.component';
 import { OptionsComponent } from './options.component';
 import { OptionsListComponent } from './options-list/options-list.component';
 import { OptionComponent } from './option/option.component';

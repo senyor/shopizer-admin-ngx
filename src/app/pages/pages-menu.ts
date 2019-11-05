@@ -258,24 +258,24 @@ export const MENU_ITEMS: MenuItem[] = [
             link: '/pages/catalogue/options/options-list',
             hidden: false
           },
-          {
-            title: 'COMPONENTS.CREATE_OPTION',
-            key: 'COMPONENTS.CREATE_OPTION',
-            link: '/pages/catalogue/options/create-option',
-            hidden: false
-          },
+          // {
+          //   title: 'COMPONENTS.CREATE_OPTION',
+          //   key: 'COMPONENTS.CREATE_OPTION',
+          //   link: '/pages/catalogue/options/create-option',
+          //   hidden: false
+          // },
           {
             title: 'COMPONENTS.OPTIONS_VALUES_LIST',
             key: 'COMPONENTS.OPTIONS_VALUES_LIST',
             link: '/pages/catalogue/options/options-values-list',
             hidden: false
           },
-          {
-            title: 'COMPONENTS.CREATE_OPTION_VALUE',
-            key: 'COMPONENTS.CREATE_OPTION_VALUE',
-            link: '/pages/catalogue/options/create-option-value',
-            hidden: false
-          },
+          // {
+          //   title: 'COMPONENTS.CREATE_OPTION_VALUE',
+          //   key: 'COMPONENTS.CREATE_OPTION_VALUE',
+          //   link: '/pages/catalogue/options/create-option-value',
+          //   hidden: false
+          // },
         ],
       },
     ],

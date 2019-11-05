@@ -233,6 +233,11 @@
     "DISCOUNTED_PRICE": "Discounted price",
     "DISCOUNTED": "Discounted"
   },
+  "OPTION": {
+    "OPTION_UPDATED": "Option updated.",
+    "OPTION_CREATED": "Option created.",
+    "OPTION_REMOVED": "Option removed."
+  },
   "NOT_FOUND": {
     "PAGE_NOT_FOUND": "Page Not Found",
     "PAGE_NOT_FOUND_TEXT": "The page you were looking for doesn't exist",

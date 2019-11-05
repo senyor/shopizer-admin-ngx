@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { ConfigService } from '../../../shared/services/config.service';
+import { Option } from '../models/option';
+import { OptionService } from '../services/option.service';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-option',
@@ -10,17 +16,24 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class OptionComponent implements OnInit {
   form: FormGroup;
   loader = false;
+  option = new Option();
+  languages = [];
   types = [
     'radio',
     'checkbox',
     'text'
   ];
-  option = { 'display': false, 'code': 'Color', 'name': 'Color', 'id': 1, 'type': 'radio', lastModif: '123'};
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
-  ) { }
+    private configService: ConfigService,
+    private optionService: OptionService,
+    private toastr: ToastrService,
+    private translate: TranslateService
+  ) {
+    this.languages = [...this.configService.languages];
+  }
 
   ngOnInit() {
     const optionId = this.activatedRoute.snapshot.paramMap.get('optionId');
@@ -31,11 +44,35 @@ export class OptionComponent implements OnInit {
     }
   }
 
+  get selectedLanguage() {
+    return this.form.get('selectedLanguage');
+  }
+
+  get descriptions(): FormArray {
+    return <FormArray>this.form.get('descriptions');
+  }
+
   private createForm() {
     this.form = this.fb.group({
       code: ['', [Validators.required]],
       type: ['', [Validators.required]],
-      name: ['', [Validators.required]]
+      order: ['', [Validators.required]],
+      selectedLanguage: ['', [Validators.required]],
+      descriptions: this.fb.array([])
+    });
+    this.addFormArray();
+  }
+
+  addFormArray() {
+    const control = <FormArray>this.form.controls.descriptions;
+    this.languages.forEach(lang => {
+      control.push(
+        this.fb.group({
+          language: [lang.code, [Validators.required]],
+          name: ['', [Validators.required]],
+          selectedLanguage: 'en'
+        })
+      );
     });
   }
 
@@ -43,13 +80,20 @@ export class OptionComponent implements OnInit {
     this.form.patchValue({
       code: this.option.code,
       type: this.option.type,
-      name: this.option.name,
+      order: this.option.order,
     });
   }
 
-
   save() {
-    console.log('save');
+    // console.log('save', this.form.value);
+    if (this.option.id) {
+      // update
+    } else {
+      this.optionService.createOption(this.form.value).subscribe(res => {
+        // console.log(res);
+        this.toastr.success(this.translate.instant('OPTION.OPTION_CREATED'));
+      });
+    }
   }
 
 }

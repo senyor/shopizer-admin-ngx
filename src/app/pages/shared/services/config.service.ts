@@ -6,6 +6,7 @@ import { CrudService } from './crud.service';
   providedIn: 'root'
 })
 export class ConfigService {
+  languages = [];
 
   constructor(
     private crudService: CrudService
@@ -14,6 +15,13 @@ export class ConfigService {
 
   getListOfSupportedLanguages() {
     return this.crudService.get(`/v1/languages`);
+  }
+
+  getListOfSupportedLanguages1() {
+    return this.crudService.get(`/v1/languages`).subscribe((languages) => {
+      this.languages = [...languages];
+      // console.log(this.languages);
+    });
   }
 
   getListOfGroups() {
