@@ -37,13 +37,13 @@ export class UserFormComponent implements OnInit, OnChanges {
       rules: [
         { key: 'ADMIN_STORE', checked: false, disabled: true },
         { key: 'ADMIN_RETAIL', checked: false, disabled: false }
-        ]
+      ]
     },
     'ADMIN_STORE': {
       rules: [
         { key: 'ADMIN_STORE', checked: false, disabled: false },
         { key: 'ADMIN_RETAIL', checked: false, disabled: true }
-        ]
+      ]
     }
   };
 
@@ -107,13 +107,13 @@ export class UserFormComponent implements OnInit, OnChanges {
     this.form = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      store: ['DEFAULT', [Validators.required]],
+      store: ['DEFAULT'],
       userName: [''],
       emailAddress: ['', [Validators.required, Validators.email, Validators.pattern(this.emailPattern)]],
       password: ['', [Validators.required, Validators.pattern(this.pwdPattern)]],
-      active: [false, [Validators.required]],
+      active: [false],
       defaultLanguage: ['', [Validators.required]],
-      groups: ['', [Validators.required]],
+      groups: [[]],
     });
   }
 
@@ -151,7 +151,7 @@ export class UserFormComponent implements OnInit, OnChanges {
       emailAddress: this.user.emailAddress,
       active: this.user.active,
       defaultLanguage: this.user.defaultLanguage,
-      groups: this.user.groups,
+      groups: [...this.user.groups],
     });
     (this.roles.isSuperadmin || this.roles.isRetailerAdmin) ?
       this.form.controls['store'].enable() : this.form.controls['store'].disable();
@@ -162,11 +162,15 @@ export class UserFormComponent implements OnInit, OnChanges {
     const newGroups = [];
     this.groups.forEach((el) => {
       if (el.checked) {
-        newGroups.push({id: el.id, name: el.name});
+        newGroups.push({ id: el.id, name: el.name });
       }
     });
     this.form.patchValue({ groups: newGroups });
     this.form.patchValue({ userName: this.form.value.emailAddress });
+    if (this.form.value.groups.length === 0) {
+      this.toastr.warning( this.translate.instant('COMMON.ADDING_USER_GROUPS_ERROR'));
+      return;
+    }
     this.userService.checkIfUserExist(this.form.value.userName)
       .subscribe(data => {
         if (this.user && this.user.id) {
@@ -209,7 +213,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     this.checkRules(role);
   }
 
-  checkRules (role) {
+  checkRules(role) {
     if (this.rules[role].rules.length !== 0) {
       this.rules[role].rules.forEach((el) => {
         this.groups.forEach((group) => {

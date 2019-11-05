@@ -257,8 +257,11 @@
     "PAGINATOR_OF": "of",
 
     "ERROR": "Error",
-    "ERROR_CODE": "Error",
-    "MESSAGE": "Error",
+    "ERROR_CODE": "Error Code",
+    "MESSAGE": "Message",
+
+    "ADDING_USER_GROUPS_ERROR": "User should belongs to at least one group",
+
 
     "CODE": "Code",
     "CODE_REQUIRED": "Сode is required.",
