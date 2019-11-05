@@ -14,7 +14,31 @@ export class AddPageComponent {
   mainmenu: any = false;
   code: string = '';
   order: number = 0;
+  buttonText: string = 'Submit';
+  titleText: string = 'Create Manage Page';
   language: string = 'en';
+  ckeConfig = {
+
+    uiColor: '#d1d1d1',
+    height: 400,
+    language: "en",
+    allowedContent: true,
+    filebrowserImageBrowseUrl: 'http://localhost:4200/#/pages/content/images/list',
+    filebrowserImageUploadUrl: '/uploader/upload.php?type=Images',
+    toolbar: [
+      { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
+      {
+        name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv',
+          '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl']
+      },
+      '/',
+      { name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize'] },
+      { name: 'colors', items: ['TextColor', 'BGColor'] },
+      { name: 'links', items: ['Link', 'Unlink', 'Anchor'] },
+      { name: "insert", items: ["Image", "Table", "HorizontalRule", "SpecialChar", "Iframe", "imageExplorer"] }
+
+    ]
+  };
   en = {
     metaDetails: '',
     name: '',
@@ -25,16 +49,7 @@ export class AddPageComponent {
     keyword: '',
     productGroup: ''
   }
-  // fr = {
-  //   metaDetails: '',
-  //   name: '',
-  //   pageContent: '',
-  //   path: '',
-  //   slug: '',
-  //   title: '',
-  //   keyword: '',
-  //   productGroup: ''
-  // }
+
   languages: Array<any> = [{ 'code': 'en', 'name': 'English' }, { 'code': 'fr', 'name': 'French' }]
   codeExits: any;
   message: string = '';
@@ -47,6 +62,7 @@ export class AddPageComponent {
       this.getContentDetails()
     }
   }
+
   getContentDetails() {
 
     this.crudService.get('/v1/content/pages/' + localStorage.getItem('contentpageid'))
@@ -104,7 +120,10 @@ export class AddPageComponent {
         console.log(data);
         this.loadingList = false;
         this.toastr.success('Page added successfully');
-        this.router.navigate(['/pages/content/pages/list']);
+        this.buttonText = 'Update';
+        this.titleText = 'Update Manage Page';
+        // this.getContentDetails();
+        // this.router.navigate(['/pages/content/pages/list']);
       }, error => {
         this.loadingList = false;
       });
