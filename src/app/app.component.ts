@@ -11,7 +11,7 @@ import { ConfigService } from './pages/shared/services/config.service';
 
 @Component({
   selector: 'ngx-app',
-  template: '<router-outlet></router-outlet>',
+  template: '<div *ngIf="configService.languages.length!==0"><router-outlet></router-outlet></div>',
 })
 export class AppComponent implements OnInit {
 

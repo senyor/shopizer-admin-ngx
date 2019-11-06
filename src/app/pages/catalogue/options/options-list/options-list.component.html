@@ -15,7 +15,7 @@
 
     <ng2-smart-table [settings]="settings"
                      [source]="source"
-                     (custom)="route($event)">
+                     (deleteConfirm)="deleteRecord($event)">
     </ng2-smart-table>
 
     <ngx-paginator

@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { OptionService } from '../services/option.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { TranslateService } from '@ngx-translate/core';
+import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
+import { NbDialogService } from '@nebular/theme';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-options-list',
@@ -29,7 +33,10 @@ export class OptionsListComponent implements OnInit {
 
   constructor(
     private optionService: OptionService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router,
+    private dialogService: NbDialogService,
+    private toastr: ToastrService,
   ) {
   }
 
@@ -91,32 +98,29 @@ export class OptionsListComponent implements OnInit {
           type: 'html',
           editable: false,
           valuePrepareFunction: (description) => {
-            // TODO should to be DESCRIPTIONS ARRAY
             const name = description.name;
             const id = this.options.find(el => el.description.name === name).id;
-            return `<a href="#/pages/catalogue/options/option/${ id }">${ name }</a>`;
+            return `<a href="#/pages/catalogue/options/option/${id}">${name}</a>`;
           }
         }
       },
     };
   }
 
-  route(event) {
-    // switch (event.action) {
-    //   case 'details':
-    //     this.router.navigate(['pages/catalogue/categories/category/', event.data.id]);
-    //     break;
-    //   case 'remove':
-    //     this.dialogService.open(ShowcaseDialogComponent, {})
-    //       .onClose.subscribe(res => {
-    //       if (res) {
-    //         this.categoryService.deleteCategory(event.data.id)
-    //           .subscribe(data => {
-    //             this.getList();
-    //           });
-    //       }
-    //     });
-    // }
+  deleteRecord(event) {
+    this.dialogService.open(ShowcaseDialogComponent, {})
+      .onClose.subscribe(res => {
+      if (res) {
+        event.confirm.resolve();
+        this.optionService.deleteOption(event.data.id)
+          .subscribe(result => {
+            this.toastr.success(this.translate.instant('OPTION.OPTION_REMOVED'));
+            this.getList();
+          });
+      } else {
+        event.confirm.reject();
+      }
+    });
   }
 
   // paginator

@@ -4,6 +4,8 @@ export class Option {
   id?: number;
   code: string;
   type: string;
-  order: string;
-  descriptions: Description[];
+  order: number;
+  descriptions?: Description[];
+  readOnly?: boolean;
+  description?: Description;
 }
