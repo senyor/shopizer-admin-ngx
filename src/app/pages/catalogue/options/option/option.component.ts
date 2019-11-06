@@ -19,9 +19,7 @@ export class OptionComponent implements OnInit {
   option = new Option();
   languages = [];
   types = [
-    'radio',
-    'checkbox',
-    'text'
+    'Select', 'Radio', 'Checkbox', 'Text'
   ];
 
   constructor(
