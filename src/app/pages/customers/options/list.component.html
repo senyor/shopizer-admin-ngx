@@ -1,12 +1,27 @@
 <div class="pages">
-  <nb-card-header>
-    Customer options
+
+
+  <h1 class="page_title">Customer options</h1>
+
+  <nb-card-header class="header_full">
+    <div class="table_search">
+      <input type="text" name="code" class="form-control" placeholder="Search">
+    </div>
+
     <div class="buttons-row">
       <button nbButton (click)="addOptions()">
         Create Options
       </button>
     </div>
+
   </nb-card-header>
+
+  <!-- <nb-card-header>
+
+    <div class="buttons-row">
+
+    </div>
+  </nb-card-header> -->
 
   <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
     <ng2-smart-table [settings]="settings" [source]="source" (custom)="onClickAction($event)" class="home-table">

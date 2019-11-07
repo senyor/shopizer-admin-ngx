@@ -1,15 +1,36 @@
 <div>
-  <nb-card-header>
-    Content Boxes
-    <div class="buttons-row">
-      <button nbButton (click)="addBoxes()">
-        Create Box
-      </button>
+
+  <!-- <nb-card-header class="header_full">
+
+    <h6>Content Boxes</h6>
+
+    <div class="table_search">
+      <input type="text" name="code" class="form-control" placeholder="Search">
     </div>
+
+    <button nbButton (click)="addBoxes()">
+      Create Box
+    </button>
+
+  </nb-card-header> -->
+
+  <h1 class="page_title">Content Boxes</h1>
+
+  <nb-card-header class="header_full">
+
+    <div class="table_search">
+      <input type="text" name="code" class="form-control" placeholder="Search">
+    </div>
+
+    <button nbButton (click)="addBoxes()">
+      Create Box
+    </button>
+
   </nb-card-header>
 
   <nb-card-body>
-    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" class="home-table">
+    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
+      class="home-table">
     </ng2-smart-table>
   </nb-card-body>
 </div>

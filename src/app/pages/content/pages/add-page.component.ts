@@ -23,8 +23,7 @@ export class AddPageComponent {
     height: 400,
     language: "en",
     allowedContent: true,
-    filebrowserImageBrowseUrl: 'http://localhost:4200/#/pages/content/images/list',
-    filebrowserImageUploadUrl: '/uploader/upload.php?type=Images',
+    filebrowserBrowseUrl: 'http://localhost:4200/#/gallery',
     toolbar: [
       { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
       {
@@ -59,13 +58,15 @@ export class AddPageComponent {
     private toastr: ToastrService,
   ) {
     if (localStorage.getItem('contentpageid')) {
+      this.buttonText = 'Update';
+      this.titleText = 'Update Manage Page';
       this.getContentDetails()
     }
   }
 
   getContentDetails() {
 
-    this.crudService.get('/v1/content/pages/' + localStorage.getItem('contentpageid'))
+    this.crudService.get('/v1/content/pages/' + localStorage.getItem('contentpageid') + '?lang=' + this.language)
       .subscribe(data => {
         console.log(data, '************')
         this.en = data;
@@ -105,7 +106,16 @@ export class AddPageComponent {
       "descriptions": [
         {
           "contentType": "PAGE",
-          "language": this.language,
+          "language": 'en',
+          "metaDetails": this.en.metaDetails,
+          "name": this.en.name,
+          "pageContent": this.en.pageContent,
+          "slug": this.en.slug,
+          "title": this.en.title
+        },
+        {
+          "contentType": "PAGE",
+          "language": 'fr',
           "metaDetails": this.en.metaDetails,
           "name": this.en.name,
           "pageContent": this.en.pageContent,

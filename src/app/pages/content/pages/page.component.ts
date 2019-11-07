@@ -40,12 +40,16 @@ export class PageComponent {
         type: 'number',
       },
       code: {
-        title: 'Code',
+        title: 'Page Code',
         type: 'string',
       },
       name: {
-        title: 'Name',
+        title: 'Page Name',
         type: 'string',
+      },
+      path: {
+        title: 'Page Url',
+        type: 'string'
       }
     },
   };
@@ -61,12 +65,14 @@ export class PageComponent {
     this.getPages()
   }
   getPages() {
-
+    this.loadingList = true;
     this.crudService.get('/v1/content/pages')
       .subscribe(data => {
         console.log(data, '************')
         this.source = data;
+        this.loadingList = false;
       }, error => {
+        this.loadingList = false;
       });
   }
   addPages() {

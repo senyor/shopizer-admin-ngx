@@ -1,0 +1,13 @@
+<nb-card>
+    <nb-card-body>
+
+        <div class="row">
+            <div *ngFor="let images of uploadedFiles" class="col-md-2">
+                <div class="card-body" *ngIf="images.contentType != 1">
+                    <img src="{{images.path}}{{images.name}}" class="banner-image" (click)="openImage(images)">
+                </div>
+            </div>
+        </div>
+
+    </nb-card-body>
+</nb-card>

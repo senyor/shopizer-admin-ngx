@@ -1,6 +1,18 @@
 @import './custom/overrided-styles';
 @import './custom/errors';
 
+a:hover,
+a:active,
+a:focus {
+  outline: none !important;
+}
+
+.nb-theme-corporate a:hover,
+.nb-theme-corporate a:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 .page-header {
   font-size: 30px;
   color: black;
@@ -37,6 +49,7 @@
   width: 100%;
   height: 100px;
 }
+
 // back to list button
 .back-button {
   cursor: pointer;
@@ -46,4 +59,291 @@
 ng2-st-tbody-custom {
   display: flex;
   flex-direction: row;
+}
+
+.page_title {
+  margin: 0;
+  font-size: 22px;
+}
+
+nb-card-header {
+  padding: 0px !important;
+  margin-top: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+
+  .table_search {
+    width: 100%;
+    padding-right: 30px;
+
+    input {
+      border: 0px !important;
+      padding: 8px 15px !important;
+      height: 45px;
+      font-size: 16px !important;
+      color: #212529;
+
+      &:focus {
+        border: 0px !important;
+      }
+
+      &::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #f79827;
+        opacity: 1;
+        font-size: 16px !important;
+        /* Firefox */
+      }
+
+      &:-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: #f79827;
+        font-size: 16px !important;
+      }
+
+      &::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: #f79827;
+        font-size: 16px !important;
+      }
+    }
+  }
+
+  button {
+    border-radius: 5px !important;
+    min-width: 150px;
+    padding: 13px 20px 11px 20px !important;
+    background-color: #f79827 !important;
+    cursor: pointer !important;
+  }
+
+}
+
+.home-table {
+  table {
+    border: 0px;
+    border-collapse: inherit !important;
+    border-spacing: 0 5px !important;
+
+    tbody {
+      tr {
+        td {
+          ng2-st-tbody-custom {
+            a.ng2-smart-action:not(:last-child) {
+              padding-right: 7px;
+              margin-right: 7px;
+            }
+
+            a.ng2-smart-action {
+              .nb-edit {
+                &:before {
+                  font-size: 24px !important;
+                  color: #ffbe00;
+                }
+              }
+
+              .nb-trash {
+                &:before {
+                  font-size: 24px !important;
+                  color: #ff0018;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    thead,
+    tbody {
+      tr {
+        background-color: #ffffff !important;
+        -moz-box-shadow: 0 0 8px #eeeeee;
+        -ms-box-shadow: 0 0 8px #eeeeee;
+        -o-box-shadow: 0 0 8px #eeeeee;
+        -webkit-box-shadow: 0 0 8px #eeeeee;
+        box-shadow: 0 0 8px #eeeeee;
+      }
+    }
+
+    thead {
+      border: 0px;
+
+      tr {
+        border-bottom: 1px solid #cdd5dc;
+
+        td,
+        th {
+          border: 0;
+          padding: 16px 20px !important;
+
+          &:first-child {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+          }
+
+          &:last-child {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+          }
+
+        }
+      }
+    }
+
+    tbody {
+      border: 0px;
+
+      tr {
+
+        td,
+        th {
+          padding: 12px 20px !important;
+          border: 0;
+
+          &:first-child {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+          }
+
+          &:last-child {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+          }
+
+        }
+      }
+
+      // tr:nth-of-type(even) {
+      //   background-color: red;
+      // }
+    }
+  }
+}
+
+.nb-theme-corporate nb-menu .menu-item .menu-icon {
+  font-size: 18px !important;
+  width: auto;
+  margin-left: 0px;
+  margin-right: 15px !important;
+}
+
+.nb-theme-corporate nb-menu .menu-item a {
+  padding: 12px 15px !important;
+}
+
+.nb-theme-corporate nb-card {
+  border: 0px;
+}
+
+.nb-theme-corporate nb-sidebar.compacted nb-menu .menu-items>.menu-item i {
+  margin-right: 0px !important;
+}
+
+.nb-theme-corporate nb-menu .menu-item>.menu-items>.menu-item {
+  padding: 0;
+}
+
+// .nb-theme-corporate {
+//   ng2-smart-table {
+//     nav.ng2-smart-pagination-nav {
+//       .pagination {
+//         -webkit-box-shadow: 0 0 8px #eeeeee;
+//         -moz-box-shadow: 0 0 8px #eeeeee;
+//         -ms-box-shadow: 0 0 8px #eeeeee;
+//         -o-box-shadow: 0 0 8px #eeeeee;
+//         box-shadow: 0 0 8px #eeeeee;
+//         margin: 0px;
+//         border-radius: 5px;
+//         overflow: hidden;
+//         border: 0;
+//       }
+//     }
+//   }
+// }
+
+// .nb-theme-corporate {
+//   ng2-smart-table {
+//     nav.ng2-smart-pagination-nav {
+//       .pagination {
+//         li {
+//           background-color: #ffffff;
+//           border-right: 1px solid #f1f5f8 !important;
+
+//           a {
+//             &:hover {
+//               background-color: #e3e9ee !important;
+//             }
+//           }
+
+//           span {
+//             &:hover {
+//               background-color: #e3e9ee !important;
+//             }
+//           }
+
+//           &.active {
+//             span {
+//               background-color: #e3e9ee !important;
+
+//             }
+//           }
+//         }
+//       }
+
+//       .ng2-smart-pagination {
+//         .page-item.disabled {
+//           .page-link {}
+//         }
+//       }
+//     }
+//   }
+// }
+
+
+.nb-theme-corporate {
+  ng2-smart-table {
+    nav.ng2-smart-pagination-nav {
+      .pagination {
+        -webkit-box-shadow: 0 0 8px #eeeeee;
+        -moz-box-shadow: 0 0 8px #eeeeee;
+        -ms-box-shadow: 0 0 8px #eeeeee;
+        -o-box-shadow: 0 0 8px #eeeeee;
+        box-shadow: 0 0 8px #eeeeee;
+        -webkit-box-shadow: 0 0 8px #eeeeee;
+        margin: 0px;
+        border-radius: 5px;
+        overflow: hidden;
+        border: 0;
+
+        li {
+          background-color: #ffffff;
+          border-right: 1px solid #f1f5f8 !important;
+
+          a {
+            padding: 12px 16px 10px 16px;
+          }
+
+          &.active {
+            span {
+              background-color: #f79828;
+              padding: 12px 16px 10px 16px;
+
+              &:hover {
+                background-color: #f79828;
+              }
+            }
+          }
+        }
+
+        .page-item.disabled {
+          .page-link {
+            background-color: #e3e9ee;
+          }
+        }
+      }
+    }
+  }
 }

@@ -1,15 +1,24 @@
 <div class="pages">
-  <nb-card-header>
-    Content Pages
+
+  <h1 class="page_title">Content Pages</h1>
+
+  <nb-card-header class="header_full">
+    <div class="table_search">
+      <input type="text" name="code" class="form-control" placeholder="Search">
+    </div>
+
     <div class="buttons-row">
       <button nbButton (click)="addPages()">
         Create Page
       </button>
     </div>
+
   </nb-card-header>
 
   <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
-    <ng2-smart-table [settings]="settings" [source]="source" (custom)="onClickAction($event)" class="home-table">
+
+    <ng2-smart-table [settings]="settings" [source]="source" (custom)="onClickAction($event)"
+      class="table_design home-table">
     </ng2-smart-table>
   </nb-card-body>
   <!-- </nb-card> -->

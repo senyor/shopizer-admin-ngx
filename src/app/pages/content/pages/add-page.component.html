@@ -1,9 +1,21 @@
 <nb-card>
-  <nb-card-header>{{titleText}}</nb-card-header>
+  <nb-card-header>
+    {{titleText}}
+    <div style="float: right;">
+      <button type="button" nbButton status="success" [disabled]="!pagesForm.form.valid" (click)="createPages()">{{buttonText}}</button>
+    </div>
+  </nb-card-header>
   <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
     <form #pagesForm="ngForm" role="form">
       <!-- <div class="row"> -->
       <!-- <div class="col-sm-6"> -->
+      <div class="form-group">
+        <label class="label">Language</label>
+        <nb-select placeholder="Language" outline shape="rectangle" [(ngModel)]="language" (ngModelChange)="getContentDetails()"
+          name="language" [selected]="'en'">
+          <nb-option *ngFor="let lan of languages" [value]="lan.code">{{ lan.name }}</nb-option>
+        </nb-select>
+      </div>
       <div class="form-group">
         <nb-checkbox [(ngModel)]="visible" name="visible" status="success">Visible</nb-checkbox>
       </div>
@@ -30,12 +42,7 @@
         <label for="exampleInputPassword1" class="label">Order</label>
         <input type="number" [(ngModel)]="order" name="order" class="form-control" id="order" placeholder="Order">
       </div>
-      <div class="form-group">
-        <label class="label">Language</label>
-        <nb-select placeholder="Language" outline shape="rectangle" [(ngModel)]="language" name="language" [selected]="'en'">
-          <nb-option *ngFor="let lan of languages" [value]="lan.code">{{ lan.name }}</nb-option>
-        </nb-select>
-      </div>
+
       <!-- </div>
       </div> -->
       <!-- <div class="row">
@@ -52,7 +59,6 @@
       <div class="form-group">
         <label for="exampleInputPassword1" class="label">Page content</label>
         <ckeditor [(ngModel)]="en.pageContent" name="pageContent" [config]="ckeConfig" debounce="500" #ckeditor>
-
         </ckeditor>
       </div>
       <div class="form-group">
@@ -108,9 +114,7 @@
         </div> -->
 
       <!-- </div> -->
-      <div>
-        <button type="button" nbButton status="success" [disabled]="!pagesForm.form.valid" (click)="createPages()">{{buttonText}}</button>
-      </div>
+
 
     </form>
   </nb-card-body>
