@@ -21,6 +21,7 @@ export class OptionComponent implements OnInit {
   types = [
     'Select', 'Radio', 'Checkbox', 'Text'
   ];
+  isCodeUnique = true;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -37,36 +38,11 @@ export class OptionComponent implements OnInit {
     const optionId = this.activatedRoute.snapshot.paramMap.get('optionId');
     this.createForm();
     if (optionId) {
-      // TODO remove mock object
-      this.option = {
-        'id': 301,
-        'code': 'test11',
-        'type': 'radio',
-        'readOnly': false,
-        'order': 0,
-        'descriptions': [
-          {
-            'language': 'en',
-            'name': 'test11en',
-            'description': null,
-            'friendlyUrl': null,
-            'keyWords': null,
-            'highlights': null,
-            'metaDescription': null,
-            'title': null
-          },
-          {
-            'language': 'fr',
-            'name': 'test11fr',
-            'description': null,
-            'friendlyUrl': null,
-            'keyWords': null,
-            'highlights': null,
-            'metaDescription': null,
-            'title': null
-          }]
-      };
-      this.fillForm();
+      this.optionService.getOptionById(optionId).subscribe(res => {
+        console.log(res);
+        this.option = res;
+        this.fillForm();
+      });
     }
   }
 
@@ -78,12 +54,16 @@ export class OptionComponent implements OnInit {
     return <FormArray>this.form.get('descriptions');
   }
 
+  get code() {
+    return this.form.get('code');
+  }
+
   private createForm() {
     this.form = this.fb.group({
       code: ['', [Validators.required]],
       type: ['', [Validators.required]],
       order: ['', [Validators.required]],
-      selectedLanguage: ['', [Validators.required]],
+      selectedLanguage: [''],
       descriptions: this.fb.array([])
     });
     this.addFormArray();
@@ -95,8 +75,7 @@ export class OptionComponent implements OnInit {
       control.push(
         this.fb.group({
           language: [lang.code, [Validators.required]],
-          name: ['', [Validators.required]],
-          selectedLanguage: 'en'
+          name: ['', [Validators.required]]
         })
       );
     });
@@ -123,6 +102,14 @@ export class OptionComponent implements OnInit {
         }
       });
     });
+  }
+
+  checkCode(event) {
+    const code = event.target.value;
+    this.optionService.checkOptionCode(code)
+      .subscribe(res => {
+        this.isCodeUnique = !(res.exists && (this.option.code !== code));
+      });
   }
 
   save() {

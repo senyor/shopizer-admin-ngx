@@ -29,10 +29,17 @@ export class OptionService {
     return this.crudService.delete(`/v1/private/product/option/${id}`);
   }
 
-  // getOptionById(id): Observable<any> {
-  //   const params = {
-  //     lang: '_all'
-  //   };
-  //   return this.crudService.get(`/v1/product/${ id }`, params);
-  // }
+  getOptionById(id): Observable<any> {
+    const params = {
+      lang: '_all'
+    };
+    return this.crudService.get(`/v1/private/product/option/${ id }`, params);
+  }
+
+  checkOptionCode(code): Observable<any> {
+    const params = {
+      'code': code,
+    };
+    return this.crudService.get(`/v1/private/product/option/unique`, params);
+  }
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import { LocalDataSource } from 'ng2-smart-table';
 import { OptionService } from '../services/option.service';
 import { TranslateService } from '@ngx-translate/core';
+import { OptionValuesService } from '../services/option-values.service';
 
 @Component({
   selector: 'ngx-options-values-list',
@@ -17,8 +19,12 @@ export class OptionsValuesListComponent implements OnInit {
 
   constructor(
     private optionService: OptionService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private optionValuesService: OptionValuesService,
   ) {
+    this.optionValuesService.getListOfOptions({}).subscribe(res => {
+      console.log(res);
+    });
   }
 
   ngOnInit() {
