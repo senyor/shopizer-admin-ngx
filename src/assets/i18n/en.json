@@ -10,6 +10,7 @@
     "CHANGE_PASSWORD": "Change password",
     "CREATE_USER": "Create user",
     "USER_LIST": "Users list",
+    "USER_DETAILS": "User details",
 
     "STORE": "Store",
     "STORES": "Stores",

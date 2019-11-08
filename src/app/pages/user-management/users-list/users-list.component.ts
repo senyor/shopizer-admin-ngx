@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UserService } from '../../shared/services/user.service';
 import { LocalDataSource } from 'ng2-smart-table';
-import { User } from '../../shared/models/user';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -13,7 +12,6 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class UsersListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
-  path = 'User';
   loadingList = false;
 
   // paginator
@@ -45,14 +43,13 @@ export class UsersListComponent implements OnInit {
     this.userService.getUsersList('DEFAULT', this.params)
       .subscribe(res => {
         const usersArray = [...res.data];
-        // todo change recordsTotal to totalCount
         this.totalCount = res.recordsTotal;
 
         // remove current user from list
         // const index = usersArray.findIndex(el => el.id === +this.userService.getUserId());
         // usersArray.splice(index, 1);
 
-        // create 'name' property for displaying in the table
+        // creating 'name' property for displaying in the table
         usersArray.map(user => {
           user.name = user.firstName + ' ' + user.lastName;
           return user;
@@ -108,7 +105,7 @@ export class UsersListComponent implements OnInit {
 
 
   route(event) {
-    this.router.navigate(['pages/user-management/user-details/', event.data.id]);
+    this.router.navigate(['pages/user-management/user/', event.data.id]);
   }
 
   // paginator

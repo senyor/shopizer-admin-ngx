@@ -22,12 +22,13 @@ export class HomeComponent implements OnInit {
     phone: ''
   };
   canAccessToOrder: boolean;
+  userId;
 
   constructor(
     private userService: UserService
   ) {
-    const userId = this.userService.getUserId();
-    this.userService.getUser(userId)
+    this.userId = this.userService.getUserId();
+    this.userService.getUser(this.userId)
       .subscribe(user => {
         this.userService.checkForAccess(user.groups);
         this.canAccessToOrder = this.userService.roles.canAccessToOrder;
@@ -36,8 +37,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    const userId = this.userService.getUserId();
-    forkJoin(this.userService.getUser(userId), this.userService.getMerchant())
+    const store = localStorage.getItem('merchant');
+    forkJoin(this.userService.getUser(this.userId), this.userService.getMerchant(store))
       .subscribe(([user, merchant]) => {
         this.user.userName = user.userName;
         this.user.lastAccess = user.lastAccess;

@@ -15,7 +15,6 @@ import { TranslateService } from '@ngx-translate/core';
 export class ChangePasswordComponent implements OnInit {
   form: FormGroup;
   user: User;
-  path = 'User';
   pwdPattern = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$';
   errorMessage = '';
 
@@ -70,7 +69,6 @@ export class ChangePasswordComponent implements OnInit {
     };
     this.userService.updatePassword(this.userService.getUserId(), passwords)
       .subscribe(res => {
-        console.log(res);
         this.toastr.success(this.translate.instant('USER.PASSWORD_CHANGED'));
         this.router.navigate(['pages/user-management/profile']);
       }, err => {

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-
 import { RouterModule, Routes } from '@angular/router';
+
 import { UserManagementComponent } from './user-management.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { CreateNewUserComponent } from './create-new-user/create-new-user.component';
-import { AdminGuard } from '../shared/guards/admin.guard';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { SuperuserAdminGuard } from '../shared/guards/superuser-admin.guard';
 
 const routes: Routes = [
   {
@@ -27,17 +27,17 @@ const routes: Routes = [
       },
       {
         path: 'create-user',
-        canActivate: [AdminGuard],
+        canActivate: [SuperuserAdminGuard],
         component: CreateNewUserComponent,
       },
       {
         path: 'users',
-        canActivate: [AdminGuard],
+        canActivate: [SuperuserAdminGuard],
         component: UsersListComponent,
       },
       {
-        path: 'user-details/:id',
-        canActivate: [AdminGuard],
+        path: 'user/:id',
+        canActivate: [SuperuserAdminGuard],
         component: UserDetailsComponent,
       },
     ],

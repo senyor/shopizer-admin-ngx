@@ -1,7 +1,14 @@
 <div class="page-header">
   {{ "COMPONENTS.USER" | translate }}
 </div>
-<ngx-breadcrumb [path]="path"></ngx-breadcrumb>
+
+<div class="page-breadcrumbs">
+  <i class="fas fa-id-card"></i>
+  <span class="home-color">
+    {{'COMPONENTS.HOME' | translate}}
+  </span>
+  / {{'COMPONENTS.USER' | translate}}
+</div>
 
 <div class="page-content">
 

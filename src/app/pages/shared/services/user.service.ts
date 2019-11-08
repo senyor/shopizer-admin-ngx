@@ -31,16 +31,11 @@ export class UserService {
     return this.crudService.get(`/v1/private/users/${ id }`);
   }
 
-  checkIfUserExist(userName): Observable<any> {
-    const body = {
-      unique: userName,
-      merchant: ''
-    };
+  checkIfUserExist(body): Observable<any> {
     return this.crudService.post(`/v1/private/user/unique`, body);
   }
 
-  getMerchant(): Observable<any> {
-    const storeCode = 'DEFAULT';
+  getMerchant(storeCode?): Observable<any> {
     return this.crudService.get(`/v1/store/${storeCode}`);
   }
 
@@ -81,25 +76,24 @@ export class UserService {
     });
   }
 
+  // TODO CHECK STORE PARAM
   getUsersList(store, params): Observable<any> {
     return this.crudService.get(`/v1/private/${store}/user`, params);
   }
+
   createUser(user: any, params): Observable<any> {
     return this.crudService.post(`/v1/private/${params}/user/`, user);
   }
 
   updateUser(id: any, user: any): Observable<any> {
     const params = {
-      'store': 'DEFAULT'
+      'store': user.store
     };
     return this.crudService.put(`/v1/private/user/${ id }`, user, { params });
   }
 
   deleteUser(id: any): Observable<any> {
-    const params = {
-      'store': 'DEFAULT'
-    };
-    return this.crudService.delete(`/v1/private/users/${ id }`, { params });
+    return this.crudService.delete(`/v1/private/user/${ id }`);
   }
 
   updatePassword(id: any, passwords: any): Observable<any> {

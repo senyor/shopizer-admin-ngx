@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./user-management.component.scss']
 })
 export class UserManagementComponent implements OnInit, DoCheck {
-  path = 'User';
+
   sidemenuTitle = 'User profile';
   sidemenuValue = 'admin';
   sidemenuLinks = [

@@ -31,7 +31,9 @@ export class UserFormComponent implements OnInit, OnChanges {
   emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
   errorMessage = '';
   stores = [];
+  // user's roles
   roles;
+  // rules for user's group
   rules = {
     'ADMIN_RETAIL': {
       rules: [
@@ -141,13 +143,14 @@ export class UserFormComponent implements OnInit, OnChanges {
     return this.form.get('groups');
   }
 
-
   fillForm() {
+    this.form.get('password').clearValidators();
     this.form.patchValue({
       firstName: this.user.firstName,
       lastName: this.user.lastName,
       store: this.user.merchant,
       userName: '',
+      password: '',
       emailAddress: this.user.emailAddress,
       active: this.user.active,
       defaultLanguage: this.user.defaultLanguage,
@@ -171,15 +174,13 @@ export class UserFormComponent implements OnInit, OnChanges {
       this.toastr.warning( this.translate.instant('COMMON.ADDING_USER_GROUPS_ERROR'));
       return;
     }
-    this.userService.checkIfUserExist(this.form.value.userName)
+    this.userService.checkIfUserExist({ unique: this.form.value.userName, merchant: this.form.value.store})
       .subscribe(data => {
         if (this.user && this.user.id) {
           if (!data.exists || (data.exists && this.user.userName === this.form.value.userName)) {
             this.userService.updateUser(+this.user.id, this.form.value)
               .subscribe(res => {
-                console.log(res);
                 this.toastr.success(this.translate.instant('USER_FORM.USER_UPDATED'));
-                this.router.navigate(['pages/user-management/users']);
               });
           } else {
             this.errorMessage = this.translate.instant('USER_FORM.EMAIL_EXISTS');
@@ -188,7 +189,6 @@ export class UserFormComponent implements OnInit, OnChanges {
           if (!data.exists) {
             this.userService.createUser(this.form.value, this.form.value.store)
               .subscribe(res => {
-                console.log(res);
                 this.toastr.success(this.translate.instant('USER_FORM.USER_CREATED'));
                 this.router.navigate(['pages/user-management/users']);
               });
@@ -202,14 +202,13 @@ export class UserFormComponent implements OnInit, OnChanges {
   remove() {
     this.userService.deleteUser(this.user.id)
       .subscribe(res => {
-        console.log(res);
         this.toastr.success(this.translate.instant('USER_FORM.USER_REMOVED'));
         this.router.navigate(['pages/user-management/users']);
       });
   }
 
   chooseMerchant(merchant) {
-    const role = merchant.retailer ? 'ADMIN_RETAIL' : 'ADMIN_STORE';
+    const role = (merchant && merchant.retailer) ? 'ADMIN_RETAIL' : 'ADMIN_STORE';
     this.checkRules(role);
   }
 

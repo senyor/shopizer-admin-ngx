@@ -50,6 +50,7 @@ export class StoreLandingPageComponent implements OnInit {
         this.page = res;
         this.fillForm();
       });
+    // TODO ADD MERCHANT
     this.userService.getMerchant()
       .subscribe(res => {
         this.store = res;

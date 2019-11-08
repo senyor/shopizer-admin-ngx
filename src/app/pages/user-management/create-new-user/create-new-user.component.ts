@@ -8,7 +8,6 @@ import { User } from '../../shared/models/user';
   styleUrls: ['./create-new-user.component.scss']
 })
 export class CreateNewUserComponent implements OnInit {
-  path = 'User';
   user: User;
 
   constructor() {

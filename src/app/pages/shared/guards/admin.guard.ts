@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+
 import { Observable } from 'rxjs';
-import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +9,15 @@ import { UserService } from '../services/user.service';
 export class AdminGuard implements CanActivate {
 
   constructor(
-    private router: Router,
-    private userService: UserService
+    private router: Router
   ) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean {
+    const roles = JSON.parse(localStorage.getItem('roles'));
 
-    if (this.userService.roles.isAdmin) {
+    if (roles.isAdmin) {
       return true;
     }
 
@@ -25,5 +25,5 @@ export class AdminGuard implements CanActivate {
     return false;
 
   }
-  
+
 }
