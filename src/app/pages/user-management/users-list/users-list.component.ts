@@ -14,7 +14,6 @@ import { TranslateService } from '@ngx-translate/core';
 export class UsersListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   path = 'User';
-  user = User;
   loadingList = false;
 
   // paginator
@@ -24,7 +23,6 @@ export class UsersListComponent implements OnInit {
 
   // server params
   params = {
-    store: 'DEFAULT',
     lang: 'en',
     length: this.perPage,
     start: 0
@@ -44,7 +42,7 @@ export class UsersListComponent implements OnInit {
     const startFrom = (this.currentPage - 1) * this.perPage;
     this.params.start = startFrom;
     this.loadingList = true;
-    this.userService.getUsersList(this.params)
+    this.userService.getUsersList('DEFAULT', this.params)
       .subscribe(res => {
         const usersArray = [...res.data];
         // todo change recordsTotal to totalCount

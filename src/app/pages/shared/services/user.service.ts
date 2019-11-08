@@ -81,8 +81,8 @@ export class UserService {
     });
   }
 
-  getUsersList(params): Observable<any> {
-    return this.crudService.get(`/v1/private/users/`, params);
+  getUsersList(store, params): Observable<any> {
+    return this.crudService.get(`/v1/private/${store}/user`, params);
   }
   createUser(user: any, params): Observable<any> {
     return this.crudService.post(`/v1/private/${params}/user/`, user);
