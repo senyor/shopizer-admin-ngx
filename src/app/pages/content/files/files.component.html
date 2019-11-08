@@ -1,29 +1,32 @@
 <div class="pages">
   <h1 class="page_title">Manage Files</h1>
-  <nb-card>
-    <nb-card-header>
-      <!-- <div class="buttons-row">
-      <button nbButton (click)="addBoxes()">
+  <nb-card-header class="header_full">
+
+    <div class="table_search">
+      <input type="text" name="code" class="form-control" placeholder="Search">
+    </div>
+
+    <!-- <button nbButton (click)="addBoxes()">
         Create Box
-      </button>
-    </div> -->
-    </nb-card-header>
-    <nb-card-body>
-      <form #pagesForm="ngForm" role="form">
-        <div class="row">
-          <div class="col-md-9">
-            <input type="file" name="img" multiple (change)="onChange($event)">
-          </div>
-          <div class="col-md-3">
-            <div class="submit-button">
-              <button type="button" nbButton status="success" [disabled]="!isDisbaled"
-                (click)="uploadFiles()">Upload</button>
-            </div>
+      </button> -->
+
+  </nb-card-header>
+
+  <nb-card-body>
+    <form #pagesForm="ngForm" role="form">
+      <div class="row">
+        <div class="col-md-9">
+          <input type="file" name="img" multiple (change)="onChange($event)">
+        </div>
+        <div class="col-md-3">
+          <div class="submit-button">
+            <button type="button" nbButton status="success" [disabled]="!isDisbaled"
+              (click)="uploadFiles()">Upload</button>
           </div>
         </div>
-      </form>
-    </nb-card-body>
-  </nb-card>
+      </div>
+    </form>
+  </nb-card-body>
 
   <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
     <ng2-smart-table [settings]="settings" [source]="source" class="home-table" (custom)="onClickAction($event)">

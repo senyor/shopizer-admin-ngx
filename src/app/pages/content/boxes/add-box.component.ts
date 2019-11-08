@@ -49,7 +49,6 @@ export class AddBoxComponent {
     }
     this.crudService.post('/v1/private/content/page', param)
       .subscribe(data => {
-        console.log(data);
         this.loadingList = false;
         this.toastr.success('Boxe added successfully');
         // this.buttonText = 'Update';

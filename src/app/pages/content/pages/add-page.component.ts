@@ -3,6 +3,9 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { CrudService } from '../../shared/services/crud.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+declare var CKEDITOR: any;
+
+CKEDITOR.plugins.addExternal('imagebrowser', '../imagebrowser/', 'plugin.js');
 @Component({
   selector: 'add-page',
   templateUrl: './add-page.component.html',
@@ -23,7 +26,11 @@ export class AddPageComponent {
     height: 400,
     language: "en",
     allowedContent: true,
-    filebrowserBrowseUrl: 'http://localhost:4200/#/gallery',
+    // ckfinder: {
+    // 	uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+    // },
+    filebrowserBrowseUrl: '/ckfinder/ckfinder.html',
+    filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
     toolbar: [
       { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
       {
