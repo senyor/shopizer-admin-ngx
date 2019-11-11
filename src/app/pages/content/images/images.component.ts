@@ -8,6 +8,7 @@ import { CrudService } from '../../shared/services/crud.service';
 import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
+import { Lightbox } from 'ngx-lightbox';
 @Component({
   selector: 'images-table',
   templateUrl: './images.component.html',
@@ -15,12 +16,14 @@ import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog
 })
 export class ImagesComponent {
   uploadedFiles: any[] = [];
+  _albums: any[] = [];
   loadingList = false;
   constructor(
     private crudService: CrudService,
     public router: Router,
     private sanitization: DomSanitizer,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private _lightbox: Lightbox
   ) {
     this.getImages()
   }
@@ -31,6 +34,17 @@ export class ImagesComponent {
       .subscribe(data => {
         this.loadingList = false;
         this.uploadedFiles = data.content;
+        for (let i = 0; i < this.uploadedFiles.length; i++) {
+          const src = this.uploadedFiles[i].path + this.uploadedFiles[i].name;
+          const caption = this.uploadedFiles[i].name;
+          // const thumb = this.uploadedFiles[i].path + this.uploadedFiles[i].name;
+          const album = {
+            src: src,
+            caption: caption,
+            // thumb: thumb
+          };
+          this._albums.push(album);
+        }
       }, error => {
         this.loadingList = false;
 
@@ -54,7 +68,6 @@ export class ImagesComponent {
       formData.append('file', files[i]);
       this.crudService.post('/v1/private/file', formData)
         .subscribe(data => {
-          console.log(data);
           this.loadingList = false;
           // this.uploadedFiles = data.content;
         }, error => {
@@ -63,7 +76,15 @@ export class ImagesComponent {
         });
     }
 
-
+  }
+  openImage(index: number): void {
+    // open lightbox
+    console.log(this._albums)
+    this._lightbox.open(this._albums, index);
+  }
+  close(): void {
+    // close lightbox programmatically
+    this._lightbox.close();
   }
   removeImage(name) {
     this.loadingList = true;

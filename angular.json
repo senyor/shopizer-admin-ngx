@@ -39,7 +39,8 @@
               "node_modules/leaflet/dist/leaflet.css",
               "src/app/@theme/styles/styles.scss",
               "node_modules/summernote/dist/summernote-lite.css",
-              "node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"
+              "node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css",
+              "node_modules/ngx-lightbox/lightbox.css"
             ],
             "scripts": [
               "node_modules/pace-js/pace.min.js",
@@ -67,10 +68,12 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.prod.ts"
-              }]
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
             }
           }
         },

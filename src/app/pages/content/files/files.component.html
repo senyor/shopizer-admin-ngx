@@ -1,35 +1,28 @@
 <div class="pages">
   <h1 class="page_title">Manage Files</h1>
   <nb-card-header class="header_full">
-
-    <div class="table_search">
+    <div class="table_search padd_0">
       <input type="text" name="code" class="form-control" placeholder="Search">
     </div>
-
-    <!-- <button nbButton (click)="addBoxes()">
-        Create Box
-      </button> -->
-
   </nb-card-header>
-
   <nb-card-body>
     <form #pagesForm="ngForm" role="form">
       <div class="row">
-        <div class="col-md-9">
-          <input type="file" name="img" multiple (change)="onChange($event)">
-        </div>
-        <div class="col-md-3">
-          <div class="submit-button">
-            <button type="button" nbButton status="success" [disabled]="!isDisbaled"
-              (click)="uploadFiles()">Upload</button>
-          </div>
+        <div class="col-lg-12">
+          <ngx-dropzone class="dropzone_custom" (change)="onSelect($event)">
+            <ngx-dropzone-label>Drop files here or click to upload.</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+          </ngx-dropzone>
         </div>
       </div>
     </form>
-  </nb-card-body>
-
-  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
-    <ng2-smart-table [settings]="settings" [source]="source" class="home-table" (custom)="onClickAction($event)">
-    </ng2-smart-table>
+    <div class="row">
+      <div class="col-lg-12">
+        <ng2-smart-table [settings]="settings" [source]="source" class="home-table" (custom)="onClickAction($event)">
+        </ng2-smart-table>
+      </div>
+    </div>
   </nb-card-body>
 </div>

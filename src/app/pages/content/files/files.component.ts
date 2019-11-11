@@ -3,15 +3,29 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { CrudService } from '../../shared/services/crud.service';
 import { NbDialogService } from '@nebular/theme';
 import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
+
 @Component({
   selector: 'files-content',
   templateUrl: './files.component.html',
   styleUrls: ['./files.component.scss'],
 })
 export class FilesComponent {
+
+  files: File[] = [];
+
+  onSelect(event) {
+    //console.log(event);
+    //this.files.push(...event.addedFiles);
+  }
+
+  onRemove(event) {
+    //console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+
   loadingList = false;
   isDisbaled = false;
-  files: any;
+  //files: any;
   settings = {
     mode: 'external',
     hideSubHeader: true,
@@ -36,7 +50,7 @@ export class FilesComponent {
         title: 'URL',
         type: 'string',
         valuePrepareFunction: (cell, row) => {
-          console.log(row);
+          //console.log(row);
           return row.path + row.name
         }
       }
@@ -55,9 +69,7 @@ export class FilesComponent {
     switch (event.action) {
       case 'delete':
         this.onDelete(event);
-
     }
-
   }
   getFiles() {
     this.loadingList = true;
@@ -115,5 +127,4 @@ export class FilesComponent {
         }
       });
   }
-
 }

@@ -34,16 +34,6 @@
 // CUSTOM STYLES
 @import 'custom';
 
-.nb-theme-corporate nb-card.select.primary {
-  border: 2px solid #dadfe6 !important;
-  box-shadow: 3px -3px 5px #66666638;
-  // margin-left: 19px;
-}
-
-.nb-theme-corporate [nbButton].btn-outline.btn-primary {
-  border: 2px solid #dadfe6 !important;
-}
-
 .nb-theme-corporate [nbButton].btn-outline.btn-primary::placeholder {
   color: #dadfe6 !important
 }
