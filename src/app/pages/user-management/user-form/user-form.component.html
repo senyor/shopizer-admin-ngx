@@ -27,14 +27,14 @@
     <div class="col-sm-12">
       <nb-select *ngIf="stores.length" placeholder="{{ 'STORE.MERCHANT_STORE' | translate }}" formControlName='store' outline
                  shape="rectangle">
-        <nb-option *ngFor="let store of stores" [value]="store.code" (click) ="chooseMerchant(store)">{{ store.code }}</nb-option>
+        <nb-option *ngFor="let store of stores" [value]="store.code" (click)="chooseMerchant(store)">{{ store.code }}</nb-option>
       </nb-select>
     </div>
   </div>
   <div class="form-group">
     <label for="email" class="col-sm-3 col-form-label">{{ 'USER_FORM.EMAIL_ADDRESS' | translate }} *</label>
     <div class="col-sm-12">
-      <input type="email" class="form-control" id="email" formControlName='emailAddress' (change)="errorMessage = ''"
+      <input type="email" class="form-control" id="email" formControlName='emailAddress' (change)="checkEmail($event)"
              placeholder="{{ 'USER_FORM.EMAIL_ADDRESS' | translate }}" required>
       <span *ngIf="(emailAddress.dirty || emailAddress.touched) && emailAddress.invalid && emailAddress"
             class="err-message">
@@ -45,8 +45,8 @@
           {{ 'USER_FORM.EMAIL_ADDRESS_ERROR_NOT_VALID' | translate }}
         </span>
       </span>
-      <span *ngIf="errorMessage !==''" class="err-message">
-        {{errorMessage}}
+      <span *ngIf="!isCodeUnique" class="err-message">
+          {{ 'USER_FORM.EMAIL_EXISTS' | translate }}
       </span>
     </div>
   </div>

@@ -29,7 +29,6 @@ export class UserFormComponent implements OnInit, OnChanges {
   showRemoveButton = true;
   pwdPattern = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$';
   emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
-  errorMessage = '';
   stores = [];
   // user's roles
   roles;
@@ -48,6 +47,7 @@ export class UserFormComponent implements OnInit, OnChanges {
       ]
     }
   };
+  isCodeUnique = true;
 
   constructor(
     private fb: FormBuilder,
@@ -183,7 +183,7 @@ export class UserFormComponent implements OnInit, OnChanges {
                 this.toastr.success(this.translate.instant('USER_FORM.USER_UPDATED'));
               });
           } else {
-            this.errorMessage = this.translate.instant('USER_FORM.EMAIL_EXISTS');
+            this.isCodeUnique = false;
           }
         } else {
           if (!data.exists) {
@@ -193,7 +193,7 @@ export class UserFormComponent implements OnInit, OnChanges {
                 this.router.navigate(['pages/user-management/users']);
               });
           } else {
-            this.errorMessage = this.translate.instant('USER_FORM.EMAIL_EXISTS');
+            this.isCodeUnique = false;
           }
         }
       });
@@ -210,6 +210,15 @@ export class UserFormComponent implements OnInit, OnChanges {
   chooseMerchant(merchant) {
     const role = (merchant && merchant.retailer) ? 'ADMIN_RETAIL' : 'ADMIN_STORE';
     this.checkRules(role);
+  }
+
+  checkEmail(event) {
+    const email = event.target.value;
+    const store = (this.form.value && this.form.value.store) || (this.user && this.user.merchant);
+    this.userService.checkIfUserExist({unique: email, merchant: store})
+      .subscribe(res => {
+        this.isCodeUnique = !(res.exists && (this.user.emailAddress !== email));
+      });
   }
 
   checkRules(role) {
