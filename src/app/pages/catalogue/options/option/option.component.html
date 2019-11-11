@@ -25,8 +25,6 @@
       <div class="form-group">
         <label for="type" class="col-sm-10 col-form-label">{{ 'COMMON.TYPE' | translate}}</label>
         <div class="col-sm-12">
-<!--          <input type="text" class="form-control" id="type" formControlName='type'-->
-<!--                 placeholder="{{ 'COMMON.TYPE' | translate}}" required>-->
           <nb-select *ngIf="types.length" placeholder="{{ 'COMMON.TYPE' | translate}}" id="type" formControlName='type'
                      outline
                      shape="rectangle">
@@ -38,7 +36,7 @@
       <div class="form-group">
         <label for="order" class="col-sm-10 col-form-label">{{ 'COMMON.ORDER' | translate}}</label>
         <div class="col-sm-12">
-          <input type="text" class="form-control" id="order" formControlName='order'
+          <input type="number" class="form-control" id="order" formControlName='order'
                  placeholder="{{ 'COMMON.ORDER' | translate}}" required>
         </div>
       </div>

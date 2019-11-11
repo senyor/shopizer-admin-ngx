@@ -45,12 +45,11 @@ export class OptionsListComponent implements OnInit {
   }
 
   getList() {
-    this.options = [];
     this.params.page = this.currentPage - 1;
     this.loadingList = true;
     this.optionService.getListOfOptions(this.params).subscribe((res) => {
       // console.log(res);
-      this.totalCount = res.totalPages;
+      this.totalCount = res.recordsTotal;
       this.options = [...res.options];
       this.source.load(this.options);
       this.loadingList = false;
