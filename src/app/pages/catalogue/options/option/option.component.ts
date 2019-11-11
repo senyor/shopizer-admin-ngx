@@ -22,6 +22,7 @@ export class OptionComponent implements OnInit {
     'Select', 'Radio', 'Checkbox', 'Text'
   ];
   isCodeUnique = true;
+  validation = '^[a-zA-Z0-9_]*$';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -60,7 +61,7 @@ export class OptionComponent implements OnInit {
 
   private createForm() {
     this.form = this.fb.group({
-      code: ['', [Validators.required]],
+      code: ['', [Validators.required, Validators.pattern(this.validation)]],
       type: ['', [Validators.required]],
       order: ['', [Validators.required]],
       selectedLanguage: [''],
@@ -105,7 +106,7 @@ export class OptionComponent implements OnInit {
   }
 
   checkCode(event) {
-    const code = event.target.value;
+    const code = event.target.value.trim();
     this.optionService.checkOptionCode(code)
       .subscribe(res => {
         this.isCodeUnique = !(res.exists && (this.option.code !== code));

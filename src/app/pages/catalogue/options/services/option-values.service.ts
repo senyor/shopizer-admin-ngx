@@ -13,7 +13,7 @@ export class OptionValuesService {
   ) {
   }
 
-  getListOfOptions(params): Observable<any> {
+  getListOfOptionValues(params): Observable<any> {
     return this.crudService.get(`/v1/private/product/options/values`, params);
   }
 

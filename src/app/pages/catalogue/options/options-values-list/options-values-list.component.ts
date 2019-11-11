@@ -15,6 +15,18 @@ export class OptionsValuesListComponent implements OnInit {
   data;
   loadingList = false;
 
+  // paginator
+  perPage = 10;
+  currentPage = 1;
+  totalCount;
+
+  // request params
+  params = {
+    lang: 'en',
+    count: this.perPage,
+    page: 0
+  };
+
   settings = {};
 
   constructor(
@@ -22,7 +34,8 @@ export class OptionsValuesListComponent implements OnInit {
     private translate: TranslateService,
     private optionValuesService: OptionValuesService,
   ) {
-    this.optionValuesService.getListOfOptions({}).subscribe(res => {
+    this.params.page = this.currentPage - 1;
+    this.optionValuesService.getListOfOptionValues(this.params).subscribe(res => {
       console.log(res);
     });
   }

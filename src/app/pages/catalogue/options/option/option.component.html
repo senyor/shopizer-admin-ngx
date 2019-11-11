@@ -12,10 +12,14 @@
         <div class="col-sm-12">
           <input type="text" class="form-control" id="code" formControlName='code' (change)="checkCode($event)"
                  [readOnly]="option.id" placeholder="{{ 'COMMON.CODE' | translate}}" required>
-          <span *ngIf="(code.dirty || code.touched) && code.invalid && code.errors.required"
-                class="err-message">
+          <div class="err-message" *ngIf="(code.dirty || code.touched) && code.invalid && code">
+            <span *ngIf="code.errors.required">
             {{ 'COMMON.CODE_REQUIRED' | translate}}
-          </span>
+            </span>
+            <span *ngIf="code.errors.pattern">
+              {{ 'COMMON.ALPHA_DECIMAL_RULE' | translate}}
+            </span>
+          </div>
           <span *ngIf="!isCodeUnique" class="err-message">
             {{ 'COMMON.CODE_EXISTS' | translate}}
           </span>
