@@ -1,28 +1,30 @@
 <nb-card>
+  <nb-card-header>{{'PRODUCT_ATTRIBUTES.PRODUCT_OPTIONS_ATTRIBUTES' | translate}}</nb-card-header>
   <nb-card-body>
-
-    <table [nbTreeGrid]="data" equalColumnsWidth>
-
-      <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
-
-      <ng-container [nbTreeGridColumnDef]="customColumn">
-        <td nbTreeGridCell *nbTreeGridCellDef="let row">
-
-          <nb-tree-grid-row-toggle
-            [expanded]="row.expanded"
-            *ngIf="row.data.kind === 'dir'">
-          </nb-tree-grid-row-toggle>
-
-          {{row.data.name}}
-
-        </td>
-      </ng-container>
-
-      <ng-container *ngFor="let column of defaultColumns" [nbTreeGridColumnDef]="column">
-        <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column]}}</td>
-      </ng-container>
-
-    </table>
-
+    <p-treeTable [value]="files">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>Size</th>
+          <th>Type</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr *ngIf="!rowData.parent">
+          <td>
+            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+            {{rowData.name}}
+          </td>
+          <td>{{rowData.size}}</td>
+          <td>{{rowData.type}}</td>
+        </tr>
+        <tr *ngIf="rowData.parent">
+          <td colspan="3">
+            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+            {{rowData.name}}
+          </td>
+        </tr>
+      </ng-template>
+    </p-treeTable>
   </nb-card-body>
 </nb-card>

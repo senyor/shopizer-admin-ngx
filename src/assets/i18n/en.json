@@ -220,6 +220,9 @@
     "PRODUCT_CREATED": "Product created.",
     "PRODUCT_REMOVED": "Product removed."
   },
+  "PRODUCT_ATTRIBUTES": {
+    "PRODUCT_OPTIONS_ATTRIBUTES": "Product options / attributes"
+  },
   "INVENTORY": {
     "INVENTORY_STORE": "Store",
     "INVENTORY_OWNER": "Owner",
