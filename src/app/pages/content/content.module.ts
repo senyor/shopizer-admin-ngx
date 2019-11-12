@@ -7,6 +7,7 @@ import { NbDialogModule } from '@nebular/theme';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { LightboxModule } from 'ngx-lightbox';
+import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
 
 // import { ContentComponent } from './content.component';
 // import { PageComponent } from './pages/page.component';
@@ -24,6 +25,7 @@ import { LightboxModule } from 'ngx-lightbox';
     CKEditorModule,
     NgxDropzoneModule,
     LightboxModule,
+    MalihuScrollbarModule.forRoot()
   ],
   exports: [ngfModule]
 })

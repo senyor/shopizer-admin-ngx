@@ -89,7 +89,6 @@ export class ListComponent implements OnInit {
     }
   }
   onEdit(event) {
-    console.log(event)
     localStorage.setItem('customerid', event.data.id);
     this.router.navigate(['/pages/customer/add']);
   }

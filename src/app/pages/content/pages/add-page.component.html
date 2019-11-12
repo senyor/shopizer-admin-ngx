@@ -1,7 +1,7 @@
 <div class="inner_pages create_manage_page">
-  <h1 class="page_title">{{titleText}}</h1>
   <form #pagesForm="ngForm" role="form">
     <nb-card-header class="main_header">
+      <h1 class="page_title">{{titleText}}</h1>
       <div class="content_spacing">
         <nb-select placeholder="Language" outline shape="rectangle" [(ngModel)]="language"
           (ngModelChange)="getContentDetails()" name="language" [selected]="'en'">

@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-// import { LocalDataSource } from 'ng2-smart-table';
-// import { SmartTableData } from '../../../@core/data/smart-table';
-// import { AppService } from '../../../directive/app.service';
-// import { Action } from '../../../directive/app.constants';
 import { CrudService } from '../../shared/services/crud.service';
 import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
 import { Lightbox } from 'ngx-lightbox';
+import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
+
 @Component({
   selector: 'images-table',
   templateUrl: './images.component.html',
@@ -23,7 +21,8 @@ export class ImagesComponent {
     public router: Router,
     private sanitization: DomSanitizer,
     private dialogService: NbDialogService,
-    private _lightbox: Lightbox
+    private _lightbox: Lightbox,
+    private mScrollbarService: MalihuScrollbarService,
   ) {
     this.getImages()
   }
@@ -78,8 +77,6 @@ export class ImagesComponent {
 
   }
   openImage(index: number): void {
-    // open lightbox
-    console.log(this._albums)
     this._lightbox.open(this._albums, index);
   }
   close(): void {
@@ -87,8 +84,6 @@ export class ImagesComponent {
     this._lightbox.close();
   }
   removeImage(name) {
-    this.loadingList = true;
-    console.log(event);
     this.dialogService.open(ShowcaseDialogComponent, {
       context: {
         title: 'Are you sure!',
@@ -97,7 +92,7 @@ export class ImagesComponent {
     })
       .onClose.subscribe(res => {
         if (res) {
-          console.log('fsdfsfdf');
+          this.loadingList = true;
           this.crudService.delete('/v1/private/content/?contentType=IMAGE&name=' + name)
             .subscribe(data => {
               this.loadingList = false;
@@ -111,4 +106,15 @@ export class ImagesComponent {
         }
       });
   }
+  ngAfterViewInit() {
+    this.mScrollbarService.initScrollbar('.gallery_listing_main', { axis: 'y', theme: 'minimal-dark', scrollButtons: { enable: true } });
+  }
+
+  files: File[] = [];
+
+  onSelect(event) {
+    //console.log(event);
+    //this.files.push(...event.addedFiles);
+  }
+
 }

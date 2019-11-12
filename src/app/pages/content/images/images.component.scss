@@ -13,6 +13,11 @@
   padding: 0 !important;
   display: block;
   float: left;
+  height: calc(100vh - 225px);
+  height: -webkit-calc(100vh - 225px);
+  height: -ms-calc(100vh - 225px);
+  height: -moz-calc(100vh - 225px);
+  height: -o-calc(100vh - 225px);
 
   li {
     padding: 0 15px;
@@ -69,7 +74,7 @@
           color: #ffffff;
           font-weight: 500;
           margin: 0;
-          padding: 5px 0;
+          padding: 5px 10px;
           font-size: 16px;
           position: absolute;
           left: 50%;
@@ -82,10 +87,53 @@
           -o-transform: translate(-50%, -50%);
         }
 
-        span {
-          position: absolute;
+      }
+
+      .close_main {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: -40px;
+        transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -ms-transition: all 0.5s ease;
+        -webkit-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+
+        i {
+          width: 35px;
+          height: 35px;
+          background-color: #ffffff;
+          border-radius: 35px;
+          display: inline-block;
+          line-height: 35px;
+          cursor: pointer;
         }
 
+        .fa-eye {
+          float: left;
+          margin-left: 12px;
+          font-size: 16px !important;
+          color: #f79726 !important;
+        }
+
+        .fa-trash {
+          float: right;
+          margin-right: 12px;
+          font-size: 15px !important;
+          color: #ff0018 !important;
+        }
+
+      }
+
+      .image_box {
+        height: 200px;
+        width: 100%;
+
+        img {
+          height: 100%;
+          width: 100%;
+        }
       }
 
       &:hover {
@@ -96,61 +144,109 @@
           -ms-transform: translateY(0%);
           -o-transform: translateY(0%);
         }
+
+        .close_main {
+          bottom: 10px;
+          transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+          -ms-transition: all 0.5s ease;
+          -webkit-transition: all 0.5s ease;
+          -o-transition: all 0.5s ease;
+        }
+
       }
+    }
+
+    .dropzone_custom {
+      margin: 0;
+      height: 200px;
     }
 
   }
 }
 
-// .buttons-row {
-//   float: right
-// }
+@media (max-width: 767px) {
+  .gallery_listing_main {
+    text-align: center;
 
-// .banner-image {
-//   width: 100%;
-//   height: inherit;
-// }
+    li {
+      width: 150px;
+      display: inline-block;
+      float: none;
 
-// .image-title {
-//   text-align: center;
-// }
+      .gallery_listing_box,
+      .dropzone_custom {
+        height: 120px;
+      }
 
-// .card-body {
-//   padding: 10px 10px 10px 2px;
-// }
+      .dropzone_custom {
+        display: block;
+      }
 
-// .row {
-//   height: 70vh;
-// }
+    }
+  }
+}
 
-// .nb-close {
-//   font-size: 19px;
-//   position: absolute;
-//   right: 17px;
-//   top: 20px;
-//   height: 20px;
-//   background-color: #0088cc;
-//   color: #fff;
-//   border-radius: 23px;
-//   width: 20px;
-//   z-index: 1;
-// }
+@media (min-width: 768px) and (max-width: 991px) {
+  .gallery_listing_main {
+    li {
+      width: 25%;
 
+      .gallery_listing_box,
+      .dropzone_custom {
+        height: 150px;
+      }
 
-// /deep/ upload {
-//   .dropzone {
-//     position: absolute !important;
-//     top: 0px !important;
-//     left: 0 !important;
-//     height: 100% !important;
-//     width: 100% !important;
-//     // border: 2px dashed #ddd;
-//     // border-radius: 4px;
-//     display: flex;
-//     cursor: pointer;
-//     justify-content: center;
-//     align-items: center;
-//     padding: 10%;
-//     transition: height 0.2s ease;
-//   }
-// }
+    }
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1099px) {
+  .gallery_listing_main {
+    li {
+      width: 25%;
+
+      .gallery_listing_box,
+      .dropzone_custom {
+        height: 150px;
+      }
+
+    }
+  }
+}
+
+@media (min-width: 1100px) and (max-width: 1299px) {
+  .gallery_listing_main {
+    li {
+      width: 20%;
+
+      .gallery_listing_box,
+      .dropzone_custom {
+        height: 175px;
+      }
+
+    }
+  }
+}
+
+@media (min-width: 1300px) and (max-width: 1499px) {
+  .gallery_listing_main {
+    li {
+      width: 20%;
+
+      .gallery_listing_box,
+      .dropzone_custom {
+        height: 180px;
+      }
+
+    }
+  }
+}
+
+@media (min-width: 1500px) and (max-width: 1600px) {
+  .gallery_listing_main {
+    li {
+      width: 20%;
+    }
+  }
+}

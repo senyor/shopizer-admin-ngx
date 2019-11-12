@@ -348,14 +348,21 @@ nb-menu {
   .page_title {
     margin: 0;
     font-size: 22px;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    margin-top: -14px;
   }
 
   .page_title_marg {
     margin-bottom: 20px !important;
+    margin: 0;
+    font-size: 22px;
   }
 
 
   .main_header {
+    position: relative;
     padding: 0 20px 20px 20px;
     flex-direction: row;
     justify-content: flex-end;
@@ -423,7 +430,7 @@ nb-menu {
       border-top-right-radius: .25rem;
       color: #192038;
       font-family: Open Sans, sans-serif;
-      font-size: .9375rem;
+      font-size: 15px;
       font-weight: 600;
       line-height: 1.5rem;
       background-color: transparent !important;
@@ -507,6 +514,10 @@ nb-menu {
       font-weight: 300 !important;
       padding: 0.90rem 1.125rem !important;
     }
+  }
+
+  nb-radio {
+    display: inline-block;
   }
 
 }

@@ -1,7 +1,7 @@
 <div class="inner_pages">
-  <h1 class="page_title">Create Manage Box</h1>
   <form #boxForm="ngForm" role="form" [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
     <nb-card-header class="main_header">
+      <h1 class="page_title">Create Manage Box</h1>
       <div class="content_spacing">
         <nb-select placeholder="Language" outline shape="rectangle" [(ngModel)]="page.language" name="language"
           [selected]="'en'">

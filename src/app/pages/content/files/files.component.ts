@@ -3,6 +3,8 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { CrudService } from '../../shared/services/crud.service';
 import { NbDialogService } from '@nebular/theme';
 import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
+import { Lightbox } from 'ngx-lightbox';
+import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
 
 @Component({
   selector: 'files-content',
@@ -10,82 +12,102 @@ import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog
   styleUrls: ['./files.component.scss'],
 })
 export class FilesComponent {
-
+  name: string;
+  copyText(val: string) {
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+  }
   files: File[] = [];
-
+  _albums: any[] = [];
   onSelect(event) {
-    //console.log(event);
-    //this.files.push(...event.addedFiles);
   }
-
-  onRemove(event) {
-    //console.log(event);
-    this.files.splice(this.files.indexOf(event), 1);
-  }
-
+  // onRemove(event) {
+  //   this.files.splice(this.files.indexOf(event), 1);
+  // }
+  data: Array<any> = [];
   loadingList = false;
   isDisbaled = false;
-  //files: any;
-  settings = {
-    mode: 'external',
-    hideSubHeader: true,
-    actions: {
-      add: false,
-      edit: false,
-      delete: false,
-      position: 'right',
-      custom: [
-        {
-          name: 'delete',
-          title: '<i class="nb-trash"></i>'
-        }
-      ]
-    },
-    columns: {
-      name: {
-        title: 'Name',
-        type: 'string',
-      },
-      path: {
-        title: 'URL',
-        type: 'string',
-        valuePrepareFunction: (cell, row) => {
-          //console.log(row);
-          return row.path + row.name
-        }
-      }
-    },
-  };
+  // settings = {
+  //   mode: 'external',
+  //   hideSubHeader: true,
+  //   actions: {
+  //     add: false,
+  //     edit: false,
+  //     delete: false,
+  //     position: 'right',
+  //     custom: [
+  //       {
+  //         name: 'delete',
+  //         title: '<i class="nb-trash"></i>'
+  //       }
+  //     ]
+  //   },
+  //   columns: {
+  //     name: {
+  //       title: 'Name',
+  //       type: 'string',
+  //     },
+  //     path: {
+  //       title: 'URL',
+  //       type: 'string',
+  //       valuePrepareFunction: (cell, row) => {
+  //         return row.path + row.name
+  //       }
+  //     }
+  //   },
+  // };
 
-  source: LocalDataSource = new LocalDataSource();
+  // source: LocalDataSource = new LocalDataSource();
 
   constructor(
     private crudService: CrudService,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private _lightbox: Lightbox,
+    private mScrollbarService: MalihuScrollbarService,
   ) {
     this.getFiles()
   }
-  onClickAction(event) {
-    switch (event.action) {
-      case 'delete':
-        this.onDelete(event);
-    }
-  }
+  // onClickAction(event) {
+  //   switch (event.action) {
+  //     case 'delete':
+  //       this.onDelete(event);
+  //   }
+  // }
   getFiles() {
     this.loadingList = true;
     this.crudService.get('/v1/content/folder')
       .subscribe(data => {
         this.loadingList = false;
-        this.source = data.content;
+        this.data = data.content;
+        for (let i = 0; i < this.data.length; i++) {
+          const src = this.data[i].path + this.data[i].name;
+          const caption = this.data[i].name;
+          // const thumb = this.uploadedFiles[i].path + this.uploadedFiles[i].name;
+          const album = {
+            src: src,
+            caption: caption,
+            // thumb: thumb
+          };
+          this._albums.push(album);
+        }
       }, error => {
         this.loadingList = false;
 
       });
   }
-  onChange(event) {
-    this.isDisbaled = true;
-    this.files = event.srcElement.files;
-  }
+  // onChange(event) {
+  //   this.isDisbaled = true;
+  //   this.files = event.srcElement.files;
+  // }
   uploadFiles() {
     for (var i = 0; i < this.files.length; i++) {
       let formData = new FormData();
@@ -102,9 +124,8 @@ export class FilesComponent {
         });
     }
   }
-  onDelete(e) {
-    // console.log(e);
-    this.loadingList = true;
+  removeImage(e) {
+    // this.loadingList = true;
     this.dialogService.open(ShowcaseDialogComponent, {
       context: {
         title: 'Are you sure!',
@@ -113,8 +134,8 @@ export class FilesComponent {
     })
       .onClose.subscribe(res => {
         if (res) {
-          console.log('fsdfsfdf');
-          this.crudService.delete('/v1/private/content/?contentType=IMAGE&name=' + e.data.name)
+          this.loadingList = true;
+          this.crudService.delete('/v1/private/content/?contentType=IMAGE&name=' + e)
             .subscribe(data => {
               this.loadingList = false;
               // this.toastr.success('Page deleted successfully');
@@ -126,5 +147,14 @@ export class FilesComponent {
           this.loadingList = false;
         }
       });
+  }
+  ngAfterViewInit() {
+    this.mScrollbarService.initScrollbar('.file_listing_scroll', { axis: 'y', theme: 'minimal-dark', scrollButtons: { enable: true } });
+  }
+  openImage(index: number): void {
+    this._lightbox.open(this._albums, index);
+  }
+  close(): void {
+    this._lightbox.close();
   }
 }
