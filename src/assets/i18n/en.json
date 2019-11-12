@@ -223,6 +223,10 @@
     "ORIGINAL_PRICE": "Original price",
     "DISCOUNTED": "Discounted"
   },
+  "PRODUCT_GROUP": {
+    "CREATE_PRODUCT_GROUP": "Create group",
+    "SELECT_PRODUCT_GROUP": "Select group"
+  },
   "NOT_FOUND": {
     "PAGE_NOT_FOUND": "Page Not Found",
     "PAGE_NOT_FOUND_TEXT": "The page you were looking for doesn't exist",

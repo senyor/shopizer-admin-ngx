@@ -81,3 +81,11 @@ ng2-st-tbody-custom {
   margin-bottom: 10px;
   margin-left: 10px;
 }
+
+//styles for pick-list
+.item-picklist {
+  display: flex;
+  div {
+    width: 50%;
+  }
+}
