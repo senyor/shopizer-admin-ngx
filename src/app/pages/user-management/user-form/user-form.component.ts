@@ -215,10 +215,18 @@ export class UserFormComponent implements OnInit, OnChanges {
   checkEmail(event) {
     const email = event.target.value;
     const store = (this.form.value && this.form.value.store) || (this.user && this.user.merchant);
-    this.userService.checkIfUserExist({unique: email, merchant: store})
-      .subscribe(res => {
-        this.isCodeUnique = !(res.exists && (this.user.emailAddress !== email));
-      });
+    if (email !== '') {
+      this.userService.checkIfUserExist({ unique: email, merchant: store })
+        .subscribe(res => {
+          if (this.user && this.user.emailAddress === email) {
+            this.isCodeUnique = true;
+          } else {
+            this.isCodeUnique = !res.exists;
+          }
+        });
+    } else {
+      this.isCodeUnique = true;
+    }
   }
 
   checkRules(role) {
