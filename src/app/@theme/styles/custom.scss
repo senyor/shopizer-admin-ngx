@@ -477,7 +477,7 @@ nb-menu {
           }
 
           .cke_contents {
-            height: 250px !important;
+            height: 205px !important;
           }
 
           .cke_bottom {
@@ -640,4 +640,25 @@ nb-menu {
       // }
     }
   }
+}
+
+.nb-theme-corporate {
+  nb-layout {
+    .layout {
+      .layout-container {
+        .content {
+          .columns {
+            nb-layout-column {
+              padding: 1.5rem 2.25rem 0.75rem 2.25rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.nb-theme-corporate nb-card.select.primary nb-option.selected,
+.nb-theme-corporate nb-card.select.primary nb-option:hover {
+  background-color: #0088cc;
 }

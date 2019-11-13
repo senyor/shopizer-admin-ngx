@@ -9,6 +9,7 @@ import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
+  search_text: string = '';
   settings = {
     mode: 'external',
     hideSubHeader: true,
@@ -55,13 +56,15 @@ export class ListComponent implements OnInit {
     },
   };
   //public scrollbarOptions = { axis: 'yx', theme: 'minimal-dark' };
-  source: LocalDataSource = new LocalDataSource();
+  source: any = new LocalDataSource();
+  tempData: Array<any> = [];
   loadingList = false;
   constructor(private crudService: CrudService, public router: Router, private mScrollbarService: MalihuScrollbarService, ) { }
 
   ngOnInit() {
     this.getCustomers();
   }
+
   ngAfterViewInit() {
     this.mScrollbarService.initScrollbar('.table_scroll', { axis: 'y', theme: 'minimal-dark', scrollButtons: { enable: true } });
   }
@@ -71,10 +74,21 @@ export class ListComponent implements OnInit {
       .subscribe(data => {
         console.log(data, '************')
         this.source = data.customers;
+        this.tempData = data.customers;
         this.loadingList = false
       }, error => {
         this.loadingList = false
       });
+  }
+  search() {
+    const val = this.search_text.toLowerCase();
+    const temp = this.tempData.filter(function (d) {
+      return d.firstName.toLowerCase().indexOf(val) !== -1 || !val ||
+        d.lastName.toLowerCase().indexOf(val) !== -1 || !val ||
+        d.emailAddress.toLowerCase().indexOf(val) !== -1 || !val;
+      d.billing.country.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.source = temp;
   }
   addCustomer() {
     localStorage.setItem('customerid', '');

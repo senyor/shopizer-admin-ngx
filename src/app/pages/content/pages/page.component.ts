@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./page.component.scss'],
 })
 export class PageComponent {
+  search_text: string = '';
   settings = {
     mode: 'external',
     hideSubHeader: true,
@@ -54,7 +55,8 @@ export class PageComponent {
     },
   };
 
-  source: LocalDataSource = new LocalDataSource();
+  source: any = new LocalDataSource();
+  tempData: Array<any> = [];
   loadingList = false;
   constructor(
     private crudService: CrudService,
@@ -70,10 +72,20 @@ export class PageComponent {
       .subscribe(data => {
         console.log(data, '************')
         this.source = data;
+        this.tempData = data;
         this.loadingList = false;
       }, error => {
         this.loadingList = false;
       });
+  }
+  search() {
+    const val = this.search_text.toLowerCase();
+    const temp = this.tempData.filter(function (d) {
+      return d.name.toLowerCase().indexOf(val) !== -1 || !val ||
+        d.code.toLowerCase().indexOf(val) !== -1 || !val ||
+        d.path.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.source = temp;
   }
   addPages() {
     localStorage.setItem('contentpageid', '');
@@ -95,7 +107,7 @@ export class PageComponent {
     this.router.navigate(['/pages/content/pages/add']);
   }
   onDelete(event) {
-    this.loadingList = true;
+
     console.log(event);
     this.dialogService.open(ShowcaseDialogComponent, {
       context: {
@@ -105,7 +117,7 @@ export class PageComponent {
     })
       .onClose.subscribe(res => {
         if (res) {
-          console.log('fsdfsfdf');
+          this.loadingList = true;
           this.crudService.delete('/v1/private/content/page/' + event.data.id + '?id=' + event.data.id)
             .subscribe(data => {
               this.loadingList = false;
@@ -119,11 +131,4 @@ export class PageComponent {
         }
       });
   }
-  // onDeleteConfirm(event): void {
-  //   if (window.confirm('Are you sure you want to delete?')) {
-  //     event.confirm.resolve();
-  //   } else {
-  //     event.confirm.reject();
-  //   }
-  // }
 }

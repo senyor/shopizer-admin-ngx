@@ -4,7 +4,7 @@
 
   <nb-card-header class="header_full">
     <div class="table_search">
-      <input type="text" name="code" class="form-control" placeholder="Search">
+      <input type="text" name="search_text" [(ngModel)]="search_text" class="form-control" placeholder="Search" (keyup)="search()">
     </div>
 
     <div class="buttons-row">
@@ -17,8 +17,7 @@
 
   <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
 
-    <ng2-smart-table [settings]="settings" [source]="source" (custom)="onClickAction($event)"
-      class="table_design home-table">
+    <ng2-smart-table [settings]="settings" [source]="source" (custom)="onClickAction($event)" class="table_design home-table">
     </ng2-smart-table>
   </nb-card-body>
   <!-- </nb-card> -->
