@@ -221,7 +221,16 @@
     "PRODUCT_REMOVED": "Product removed."
   },
   "PRODUCT_ATTRIBUTES": {
-    "PRODUCT_OPTIONS_ATTRIBUTES": "Product options / attributes"
+    "PRODUCT_OPTIONS_ATTRIBUTES": "Product options / attributes",
+    "OPTIONS_ATTRIBUTES": "Options / attributes",
+
+    "ATTRIBUTE_NAME": "Option/attribute name",
+    "DISPLAY_ONLY": "Use attribute for display only",
+    "PRODUCT_OPTION": "Product option value",
+    "OPTION_PRICE": "Option price",
+    "DEFAULT_OPTION": "Default option",
+    "REQUIRED_OPTION": "Required option",
+    "ADDITIONAL_WEIGHT": "Additional weight"
   },
   "INVENTORY": {
     "INVENTORY_STORE": "Store",
