@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+
+import { ConfigService } from '../../../shared/services/config.service';
+import { OptionValuesService } from '../services/option-values.service';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
+import { OptionValue } from '../models/optionValue';
 
 @Component({
   selector: 'ngx-option-values',
@@ -10,46 +16,114 @@ import { ActivatedRoute } from '@angular/router';
 export class OptionValuesComponent implements OnInit {
   form: FormGroup;
   loader = false;
+  optionValue = new OptionValue();
+  languages = [];
   types = [
-    'radio',
-    'checkbox',
-    'text'
+    'Select', 'Radio', 'Checkbox', 'Text'
   ];
-  option = { 'display': false, 'code': 'Color', 'name': 'Color', 'id': 1, 'type': 'radio', lastModif: '123'};
+  isCodeUnique = true;
+  validation = '^[a-zA-Z0-9_]*$';
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
-  ) { }
+    private configService: ConfigService,
+    private optionValuesService: OptionValuesService,
+    private toastr: ToastrService,
+    private translate: TranslateService
+  ) {
+    this.languages = [...this.configService.languages];
+  }
 
   ngOnInit() {
-    const optionId = this.activatedRoute.snapshot.paramMap.get('optionValueId');
-    console.log(optionId);
+    const optionValueId = this.activatedRoute.snapshot.paramMap.get('optionValueId');
     this.createForm();
-    if (optionId) {
-      this.fillForm();
+    if (optionValueId) {
+      this.optionValuesService.getOptionValueById(optionValueId).subscribe(res => {
+        this.optionValue = res;
+        this.fillForm();
+      });
     }
+  }
+
+  get selectedLanguage() {
+    return this.form.get('selectedLanguage');
+  }
+
+  get descriptions(): FormArray {
+    return <FormArray>this.form.get('descriptions');
+  }
+
+  get code() {
+    return this.form.get('code');
   }
 
   private createForm() {
     this.form = this.fb.group({
-      code: ['', [Validators.required]], // check for uniqueness
-      name: ['', [Validators.required]],
-      type: ['', [Validators.required]]
+      code: ['', [Validators.required, Validators.pattern(this.validation)]],
+      order: ['', [Validators.required]],
+      selectedLanguage: [''],
+      descriptions: this.fb.array([])
+    });
+    this.addFormArray();
+  }
+
+  addFormArray() {
+    const control = <FormArray>this.form.controls.descriptions;
+    this.languages.forEach(lang => {
+      control.push(
+        this.fb.group({
+          language: [lang.code, [Validators.required]],
+          name: ['', [Validators.required]]
+        })
+      );
     });
   }
 
   fillForm() {
     this.form.patchValue({
-      code: this.option.code,
-      name: this.option.name,
-      type: this.option.type,
+      code: this.optionValue.code,
+      order: this.optionValue.order,
+      selectedLanguage: 'en',
+    });
+    this.fillFormArray();
+  }
+
+  fillFormArray() {
+    this.form.value.descriptions.forEach((desc, index) => {
+      this.optionValue.descriptions.forEach((description) => {
+        if (desc.language === description.language) {
+          (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+            language: description.language,
+            name: description.name,
+          });
+        }
+      });
     });
   }
 
-
-  save() {
-    console.log('save');
+  checkCode(event) {
+    const code = event.target.value.trim();
+    this.optionValuesService.checkOptionValueCode(code)
+      .subscribe(res => {
+        this.isCodeUnique = !(res.exists && (this.optionValue.code !== code));
+      });
   }
 
+  save() {
+    if (!this.isCodeUnique) {
+      this.toastr.error(this.translate.instant('COMMON.CODE_EXISTS'));
+      return;
+    }
+    if (this.optionValue.id) {
+      const optionObj = { ...this.form.value, id: this.optionValue.id };
+      this.optionValuesService.updateOptionValue(this.optionValue.id, optionObj).subscribe(res => {
+        this.toastr.success(this.translate.instant('OPTION_VALUE.OPTION_VALUE_UPDATED'));
+      });
+    } else {
+      this.optionValuesService.createOptionValue(this.form.value).subscribe(res => {
+        this.toastr.success(this.translate.instant('OPTION_VALUE.OPTION_VALUE_CREATED'));
+      });
+    }
+  }
 }

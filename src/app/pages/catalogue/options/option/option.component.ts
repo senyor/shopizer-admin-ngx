@@ -114,7 +114,10 @@ export class OptionComponent implements OnInit {
   }
 
   save() {
-    console.log('save', this.form.value);
+    if (!this.isCodeUnique) {
+      this.toastr.error(this.translate.instant('COMMON.CODE_EXISTS'));
+      return;
+    }
     if (this.option.id) {
       const optionObj = { ...this.form.value, id: this.option.id };
       this.optionService.updateOption(this.option.id, optionObj).subscribe(res => {

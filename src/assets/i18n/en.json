@@ -250,6 +250,11 @@
     "OPTION_CREATED": "Option created.",
     "OPTION_REMOVED": "Option removed."
   },
+  "OPTION_VALUE": {
+    "OPTION_VALUE_UPDATED": "Option value updated.",
+    "OPTION_VALUE_CREATED": "Option value created.",
+    "OPTION_VALUE_REMOVED": "Option value removed."
+  },
   "NOT_FOUND": {
     "PAGE_NOT_FOUND": "Page Not Found",
     "PAGE_NOT_FOUND_TEXT": "The page you were looking for doesn't exist",
@@ -277,7 +282,7 @@
     "EMAIL_ADDRESS": "Email",
     "STATUS": "Status",
     "DETAILS": "Details",
-    "LAST_MODIFIED": "Details",
+    "LAST_MODIFIED": "Last modified",
     "TYPE": "Type",
 
     "BACK_TO_LIST": "Back to list",

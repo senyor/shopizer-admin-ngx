@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { LocalDataSource } from 'ng2-smart-table';
-import { OptionService } from '../services/option.service';
 import { TranslateService } from '@ngx-translate/core';
 import { OptionValuesService } from '../services/option-values.service';
+import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
+import { NbDialogService } from '@nebular/theme';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-options-values-list',
@@ -12,11 +15,11 @@ import { OptionValuesService } from '../services/option-values.service';
 })
 export class OptionsValuesListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
-  data;
+  optionValues = [];
   loadingList = false;
 
   // paginator
-  perPage = 10;
+  perPage = 20;
   currentPage = 1;
   totalCount;
 
@@ -26,47 +29,40 @@ export class OptionsValuesListComponent implements OnInit {
     count: this.perPage,
     page: 0
   };
-
   settings = {};
 
   constructor(
-    private optionService: OptionService,
     private translate: TranslateService,
     private optionValuesService: OptionValuesService,
+    private router: Router,
+    private dialogService: NbDialogService,
+    private toastr: ToastrService,
   ) {
-    this.params.page = this.currentPage - 1;
-    this.optionValuesService.getListOfOptionValues(this.params).subscribe(res => {
-      console.log(res);
-    });
   }
 
   ngOnInit() {
     this.getList();
+  }
+
+  getList() {
+    this.loadingList = true;
+    this.params.page = this.currentPage - 1;
+    this.optionValuesService.getListOfOptionValues(this.params)
+      .subscribe(res => {
+        this.totalCount = res.recordsTotal;
+        this.optionValues = [...res.optionValues];
+        this.source.load(res.optionValues);
+        this.loadingList = false;
+      });
     this.setSettings();
     this.translate.onLangChange.subscribe((event) => {
       this.setSettings();
     });
   }
 
-  getList() {
-    // this.optionService.getListOfOptions({})
-    this.data = [
-      { 'display': false, 'code': 'Color', 'name': 'Color', 'id': 1, 'type': 'radio', lastModif: '123'},
-      { 'display': false, 'code': 'Size', 'name': 'Size', 'id': 2, 'type': 'select', lastModif: '123' }
-    ];
-
-    this.source.load(this.data);
-  }
-
   setSettings() {
     this.settings = {
       mode: 'inline',
-      // edit: {
-      //   editButtonContent: this.translate.instant('COMMON.EDIT'),
-      //   saveButtonContent: '<i class="fas fa-check"></i>',
-      //   cancelButtonContent: '<i class="fas fa-times"></i>',
-      //   confirmSave: true
-      // },
       delete: {
         deleteButtonContent: '<i class="fas fa-trash-alt"></i>',
         confirmDelete: true
@@ -90,22 +86,60 @@ export class OptionsValuesListComponent implements OnInit {
           type: 'string',
           editable: false
         },
-        name: {
+        description: {
           title: this.translate.instant('COMMON.NAME'),
           type: 'html',
           editable: false,
-          valuePrepareFunction: (name) => {
-            const id = this.data.find(el => el.name === name).id;
-            return `<a href="#/pages/catalogue/options/option-value/${ id }">${ name }</a>`;
+          valuePrepareFunction: (description) => {
+            const id = this.optionValues.find(el => el.description.name === description.name).id;
+            return `<a href="#/pages/catalogue/options/option-value/${id}">${description.name}</a>`;
           }
-        },
-        lastModif: {
-          title: this.translate.instant('COMMON.LAST_MODIFIED'),
-          type: 'string',
-          editable: false,
         }
       },
     };
+  }
+
+  route(event) {
+    switch (event.action) {
+      case 'remove':
+        this.dialogService.open(ShowcaseDialogComponent, {})
+          .onClose.subscribe(res => {
+          if (res) {
+            this.optionValuesService.deleteOptionValue(event.data.id)
+              .subscribe((data) => {
+                this.toastr.success(this.translate.instant('OPTION_VALUE.OPTION_VALUE_REMOVED'));
+                this.getList();
+              });
+          }
+        });
+    }
+  }
+
+  // paginator
+  changePage(event) {
+    switch (event.action) {
+      case 'onPage': {
+        this.currentPage = event.data;
+        break;
+      }
+      case 'onPrev': {
+        this.currentPage--;
+        break;
+      }
+      case 'onNext': {
+        this.currentPage++;
+        break;
+      }
+      case 'onFirst': {
+        this.currentPage = 1;
+        break;
+      }
+      case 'onLast': {
+        this.currentPage = event.data;
+        break;
+      }
+    }
+    this.getList();
   }
 
 }
