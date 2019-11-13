@@ -99,20 +99,20 @@ export class OptionsValuesListComponent implements OnInit {
     };
   }
 
-  route(event) {
-    switch (event.action) {
-      case 'remove':
-        this.dialogService.open(ShowcaseDialogComponent, {})
-          .onClose.subscribe(res => {
-          if (res) {
-            this.optionValuesService.deleteOptionValue(event.data.id)
-              .subscribe((data) => {
-                this.toastr.success(this.translate.instant('OPTION_VALUE.OPTION_VALUE_REMOVED'));
-                this.getList();
-              });
-          }
-        });
-    }
+  deleteRecord(event) {
+    this.dialogService.open(ShowcaseDialogComponent, {})
+      .onClose.subscribe(res => {
+      if (res) {
+        event.confirm.resolve();
+        this.optionValuesService.deleteOptionValue(event.data.id)
+          .subscribe(result => {
+            this.toastr.success(this.translate.instant('OPTION_VALUE.OPTION_VALUE_REMOVED'));
+            this.getList();
+          });
+      } else {
+        event.confirm.reject();
+      }
+    });
   }
 
   // paginator

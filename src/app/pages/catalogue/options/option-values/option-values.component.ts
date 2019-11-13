@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ConfigService } from '../../../shared/services/config.service';
 import { OptionValuesService } from '../services/option-values.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { OptionValue } from '../models/optionValue';
+import { validators } from '../../../shared/validation/validators';
 
 @Component({
   selector: 'ngx-option-values',
@@ -22,7 +23,6 @@ export class OptionValuesComponent implements OnInit {
     'Select', 'Radio', 'Checkbox', 'Text'
   ];
   isCodeUnique = true;
-  validation = '^[a-zA-Z0-9_]*$';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -30,7 +30,8 @@ export class OptionValuesComponent implements OnInit {
     private configService: ConfigService,
     private optionValuesService: OptionValuesService,
     private toastr: ToastrService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router,
   ) {
     this.languages = [...this.configService.languages];
   }
@@ -60,8 +61,7 @@ export class OptionValuesComponent implements OnInit {
 
   private createForm() {
     this.form = this.fb.group({
-      code: ['', [Validators.required, Validators.pattern(this.validation)]],
-      order: ['', [Validators.required]],
+      code: ['', [Validators.required, Validators.pattern(validators.alphanumeric)]],
       selectedLanguage: [''],
       descriptions: this.fb.array([])
     });
@@ -83,7 +83,6 @@ export class OptionValuesComponent implements OnInit {
   fillForm() {
     this.form.patchValue({
       code: this.optionValue.code,
-      order: this.optionValue.order,
       selectedLanguage: 'en',
     });
     this.fillFormArray();
@@ -123,6 +122,7 @@ export class OptionValuesComponent implements OnInit {
     } else {
       this.optionValuesService.createOptionValue(this.form.value).subscribe(res => {
         this.toastr.success(this.translate.instant('OPTION_VALUE.OPTION_VALUE_CREATED'));
+        this.router.navigate(['pages/catalogue/options/options-values-list']);
       });
     }
   }

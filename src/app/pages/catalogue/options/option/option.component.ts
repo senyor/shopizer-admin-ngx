@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ConfigService } from '../../../shared/services/config.service';
@@ -7,6 +7,7 @@ import { Option } from '../models/option';
 import { OptionService } from '../services/option.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { validators } from '../../../shared/validation/validators';
 
 @Component({
   selector: 'ngx-option',
@@ -22,7 +23,6 @@ export class OptionComponent implements OnInit {
     'Select', 'Radio', 'Checkbox', 'Text'
   ];
   isCodeUnique = true;
-  validation = '^[a-zA-Z0-9_]*$';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -30,7 +30,8 @@ export class OptionComponent implements OnInit {
     private configService: ConfigService,
     private optionService: OptionService,
     private toastr: ToastrService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router,
   ) {
     this.languages = [...this.configService.languages];
   }
@@ -40,7 +41,6 @@ export class OptionComponent implements OnInit {
     this.createForm();
     if (optionId) {
       this.optionService.getOptionById(optionId).subscribe(res => {
-        console.log(res);
         this.option = res;
         this.fillForm();
       });
@@ -61,9 +61,8 @@ export class OptionComponent implements OnInit {
 
   private createForm() {
     this.form = this.fb.group({
-      code: ['', [Validators.required, Validators.pattern(this.validation)]],
+      code: ['', [Validators.required, Validators.pattern(validators.alphanumeric)]],
       type: ['', [Validators.required]],
-      order: ['', [Validators.required]],
       selectedLanguage: [''],
       descriptions: this.fb.array([])
     });
@@ -86,7 +85,6 @@ export class OptionComponent implements OnInit {
     this.form.patchValue({
       code: this.option.code,
       type: this.option.type,
-      order: this.option.order,
       selectedLanguage: 'en',
     });
     this.fillFormArray();
@@ -121,12 +119,12 @@ export class OptionComponent implements OnInit {
     if (this.option.id) {
       const optionObj = { ...this.form.value, id: this.option.id };
       this.optionService.updateOption(this.option.id, optionObj).subscribe(res => {
-        // console.log(res);
         this.toastr.success(this.translate.instant('OPTION.OPTION_UPDATED'));
       });
     } else {
       this.optionService.createOption(this.form.value).subscribe(res => {
         this.toastr.success(this.translate.instant('OPTION.OPTION_CREATED'));
+        this.router.navigate(['pages/catalogue/options/options-list']);
       });
     }
   }
