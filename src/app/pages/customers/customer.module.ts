@@ -3,6 +3,7 @@ import { CustomersRoutingModule, routedComponents } from './customer-routing.mod
 import { SharedModule } from '../shared/shared.module';
 import { NbDialogModule } from '@nebular/theme';
 import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
+
 @NgModule({
   declarations: [
     ...routedComponents

@@ -20,6 +20,7 @@ export class AddBoxComponent {
     ePagename: '',
     ePagecontent: '',
   }
+  public scrollbarOptions = { axis: 'y', theme: 'minimal-dark' };
   constructor(
     private crudService: CrudService,
     public router: Router,

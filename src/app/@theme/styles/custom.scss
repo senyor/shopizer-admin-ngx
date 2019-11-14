@@ -28,6 +28,23 @@ a:focus {
   outline: none !important;
 }
 
+.custom_scroll {
+  .mCustomScrollBox {
+    max-height: calc(100vh - 280px) !important;
+    max-height: -webkit-calc(100vh - 280px) !important;
+    max-height: -moz-calc(100vh - 280px) !important;
+    max-height: -ms-calc(100vh - 280px) !important;
+    max-height: -o-calc(100vh - 280px) !important;
+  }
+
+  .mCSB_scrollTools {
+    opacity: 0 !important;
+    width: 0px !important;
+    margin: 0 !important;
+    position: absolute !important;
+  }
+}
+
 .nb-theme-corporate a:hover,
 .nb-theme-corporate a:focus {
   outline: none !important;
@@ -324,26 +341,10 @@ nb-menu {
 
   }
 
-  .table_scroll {
-    .mCustomScrollBox {
-      max-height: calc(100vh - 300px) !important;
-      max-height: -webkit-calc(100vh - 300px) !important;
-      max-height: -moz-calc(100vh - 300px) !important;
-      max-height: -ms-calc(100vh - 300px) !important;
-      max-height: -o-calc(100vh - 300px) !important;
-    }
-
-    .mCSB_scrollTools {
-      opacity: 0 !important;
-      width: 0px !important;
-      margin: 0 !important;
-      position: absolute !important;
-    }
-  }
-
 }
 
 .inner_pages {
+  position: relative;
 
   .page_title {
     margin: 0;
@@ -355,11 +356,9 @@ nb-menu {
   }
 
   .page_title_marg {
-    margin-bottom: 20px !important;
-    margin: 0;
+    margin: 30px 0 50px 0 !important;
     font-size: 22px;
   }
-
 
   .main_header {
     position: relative;
@@ -520,6 +519,28 @@ nb-menu {
     display: inline-block;
   }
 
+}
+
+.custom_dropzone_click {
+  position: absolute;
+  right: 0;
+  top: -28px;
+  margin: 0;
+  border: 2px dashed #d1e9ff !important;
+  font-size: 15px !important;
+  height: 80px !important;
+  width: 300px;
+}
+
+.custom_dropzone_full {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  border: 0 !important;
+  height: 100% !important;
+  width: 100% !important;
+  background-color: transparent !important;
 }
 
 .dropzone_custom {

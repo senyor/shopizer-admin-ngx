@@ -9,9 +9,6 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { LightboxModule } from 'ngx-lightbox';
 import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
 
-// import { ContentComponent } from './content.component';
-// import { PageComponent } from './pages/page.component';
-
 @NgModule({
   declarations: [
     ...routedComponents

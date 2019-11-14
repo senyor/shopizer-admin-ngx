@@ -50,8 +50,9 @@ export class ImagesComponent {
       });
   }
   handleUpload = (files: any) => {
+    console.log(files)
     this.loadingList = true;
-    files.forEach(element => {
+    files.addedFiles.forEach(element => {
       let reader = new FileReader();
       reader.onload = (e: any) => {
         this.uploadedFiles.push({
@@ -62,9 +63,10 @@ export class ImagesComponent {
       }
       reader.readAsDataURL(element);
     });
-    for (var i = 0; i < files.length; i++) {
+    for (var i = 0; i < files.addedFiles.length; i++) {
+
       let formData = new FormData();
-      formData.append('file', files[i]);
+      formData.append('file', files.addedFiles[i]);
       this.crudService.post('/v1/private/file', formData)
         .subscribe(data => {
           this.loadingList = false;
@@ -113,7 +115,7 @@ export class ImagesComponent {
   files: File[] = [];
 
   onSelect(event) {
-    //console.log(event);
+    console.log(event);
     //this.files.push(...event.addedFiles);
   }
 

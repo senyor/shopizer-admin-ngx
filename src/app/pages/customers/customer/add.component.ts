@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NbDialogService } from '@nebular/theme';
 import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
 import { PasswordPromptComponent } from '../../shared/components/password-prompt/password-prompt';
-// import { PasswordPromptComponent } from '../password-prompt/password-prompt';
+
 @Component({
   selector: 'ngx-add',
   templateUrl: './add.component.html',
@@ -18,6 +18,7 @@ export class AddComponent implements OnInit {
   groups: Array<any> = []
   selectedGroups: Array<any> = []
   loadingList = false;
+  public scrollbarOptions = { axis: 'y', theme: 'minimal-dark' };
   info = {
     userName: '',
     language: '',

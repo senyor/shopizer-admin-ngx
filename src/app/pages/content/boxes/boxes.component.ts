@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { CrudService } from '../../shared/services/crud.service';
 import { Router } from '@angular/router';
+import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
+
 @Component({
   selector: 'boxes-table',
   templateUrl: './boxes.component.html',
@@ -51,7 +53,8 @@ export class BoxesComponent {
 
   constructor(
     private crudService: CrudService,
-    public router: Router
+    public router: Router,
+    private mScrollbarService: MalihuScrollbarService
   ) {
     this.getBox()
   }
@@ -76,4 +79,7 @@ export class BoxesComponent {
   //     event.confirm.reject();
   //   }
   // }
+  ngAfterViewInit() {
+    this.mScrollbarService.initScrollbar('.custom_scroll', { axis: 'y', theme: 'minimal-dark', scrollButtons: { enable: true } });
+  }
 }

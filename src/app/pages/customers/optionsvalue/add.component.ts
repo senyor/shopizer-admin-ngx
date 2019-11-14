@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ValueAddComponent implements OnInit {
   displayText: Array<any> = [{ 'name': 'text' }, { 'name': 'select' }, { 'name': 'radio' }, { 'name': 'Checkbox' }]
+  public scrollbarOptions = { axis: 'y', theme: 'minimal-dark' };
   constructor(
     private crudService: CrudService,
     private toastr: ToastrService

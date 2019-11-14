@@ -3,6 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { LocalDataSource } from 'ng2-smart-table';
 import { CrudService } from '../../shared/services/crud.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'shipping-config',
   templateUrl: './configuration.component.html',
@@ -19,13 +20,12 @@ export class ConfigurationComponent {
   code = "code";
   label = "label";
   loadingList = false;
+  public scrollbarOptions = { axis: 'y', theme: 'minimal-dark' };
   constructor(
-    private crudService: CrudService
-  ) {
+    private crudService: CrudService,
+  ){
     this.getCountry()
-
   }
-
 
   // source: LocalDataSource = new LocalDataSource();
   settings = {
@@ -59,7 +59,6 @@ export class ConfigurationComponent {
           value.push({ 'code': item.id, 'label': item.name })
         });
         this.leftAreaItems = value
-        console.log(this.leftAreaItems)
         // this.source = data;
       }, error => {
         this.loadingList = false;

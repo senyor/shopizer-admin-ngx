@@ -7,13 +7,16 @@
 }
 
 .file_listing_scroll {
-  height: calc(100vh - 225px);
-  height: -webkit-calc(100vh - 225px);
-  height: -ms-calc(100vh - 225px);
-  height: -moz-calc(100vh - 225px);
-  height: -o-calc(100vh - 225px);
+  position: relative;
   display: block;
-
+  height: calc(100vh - 275px);
+  height: -webkit-calc(100vh - 275px);
+  height: -ms-calc(100vh - 275px);
+  height: -moz-calc(100vh - 275px);
+  height: -o-calc(100vh - 275px);
+  margin-bottom: 0;
+  top: -20px;
+  
   .file_listing_main {
     margin-left: -15px;
     margin-right: -15px;

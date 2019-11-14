@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { CrudService } from '../../shared/services/crud.service';
 import { Router } from '@angular/router';
+import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
+
 @Component({
   selector: 'ngx-option-list',
   templateUrl: './list.component.html',
@@ -9,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class OptionListComponent implements OnInit {
 
-  constructor(private crudService: CrudService, public router: Router) { }
+  constructor(private crudService: CrudService, public router: Router, private mScrollbarService: MalihuScrollbarService) { }
   settings = {
     mode: 'external',
     hideSubHeader: true,
@@ -53,6 +55,9 @@ export class OptionListComponent implements OnInit {
     },
   };
   ngOnInit() {
+  }
+  ngAfterViewInit() {
+    this.mScrollbarService.initScrollbar('.custom_scroll', { axis: 'y', theme: 'minimal-dark', scrollButtons: { enable: true } });
   }
   addOptions() {
     this.router.navigate(['/pages/customer/option/add']);

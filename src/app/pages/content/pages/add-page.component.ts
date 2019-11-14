@@ -20,6 +20,7 @@ export class AddPageComponent {
   buttonText: string = 'Submit';
   titleText: string = 'Create Manage Page';
   language: string = 'en';
+  public scrollbarOptions = { axis: 'y', theme: 'minimal-dark' };
   ckeConfig = {
 
     uiColor: '#d1d1d1',

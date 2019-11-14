@@ -108,22 +108,51 @@ export class FilesComponent {
   //   this.isDisbaled = true;
   //   this.files = event.srcElement.files;
   // }
-  uploadFiles() {
-    for (var i = 0; i < this.files.length; i++) {
+  handleUpload = (files: any) => {
+    console.log(files)
+    this.loadingList = true;
+    files.addedFiles.forEach(element => {
+      let reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.data.push({
+          name: element.name,
+          contentType: 1,
+          path: e.target.result
+        });
+      }
+      reader.readAsDataURL(element);
+    });
+    for (var i = 0; i < files.addedFiles.length; i++) {
+
       let formData = new FormData();
-      formData.append('file', this.files[i]);
+      formData.append('file', files.addedFiles[i]);
       this.crudService.post('/v1/private/file', formData)
         .subscribe(data => {
-          console.log(data);
           this.loadingList = false;
-          this.getFiles();
           // this.uploadedFiles = data.content;
         }, error => {
           this.loadingList = false;
 
         });
     }
+
   }
+  // uploadFiles() {
+  //   for (var i = 0; i < this.files.length; i++) {
+  //     let formData = new FormData();
+  //     formData.append('file', this.files[i]);
+  //     this.crudService.post('/v1/private/file', formData)
+  //       .subscribe(data => {
+  //         console.log(data);
+  //         this.loadingList = false;
+  //         this.getFiles();
+  //         // this.uploadedFiles = data.content;
+  //       }, error => {
+  //         this.loadingList = false;
+
+  //       });
+  //   }
+  // }
   removeImage(e) {
     // this.loadingList = true;
     this.dialogService.open(ShowcaseDialogComponent, {

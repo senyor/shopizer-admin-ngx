@@ -3,6 +3,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { CrudService } from '../../shared/services/crud.service';
 import { Router } from '@angular/router';
 import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
+
 @Component({
   selector: 'ngx-list',
   templateUrl: './list.component.html',
@@ -59,14 +60,12 @@ export class ListComponent implements OnInit {
   source: any = new LocalDataSource();
   tempData: Array<any> = [];
   loadingList = false;
-  constructor(private crudService: CrudService, public router: Router, private mScrollbarService: MalihuScrollbarService, ) { }
-
+  constructor(private crudService: CrudService, public router: Router, private mScrollbarService: MalihuScrollbarService) {}
   ngOnInit() {
     this.getCustomers();
   }
-
   ngAfterViewInit() {
-    this.mScrollbarService.initScrollbar('.table_scroll', { axis: 'y', theme: 'minimal-dark', scrollButtons: { enable: true } });
+    this.mScrollbarService.initScrollbar('.custom_scroll', { axis: 'y', theme: 'minimal-dark', scrollButtons: { enable: true } });
   }
   getCustomers() {
     this.loadingList = true

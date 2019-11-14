@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
 import { ToastrService } from 'ngx-toastr';
+import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
+
 @Component({
   selector: 'page-table',
   templateUrl: './page.component.html',
@@ -62,7 +64,8 @@ export class PageComponent {
     private crudService: CrudService,
     public router: Router,
     private dialogService: NbDialogService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private mScrollbarService: MalihuScrollbarService
   ) {
     this.getPages()
   }
@@ -130,5 +133,8 @@ export class PageComponent {
           this.loadingList = false;
         }
       });
+  }
+  ngAfterViewInit() {
+    this.mScrollbarService.initScrollbar('.custom_scroll', { axis: 'y', theme: 'minimal-dark', scrollButtons: { enable: true } });
   }
 }
