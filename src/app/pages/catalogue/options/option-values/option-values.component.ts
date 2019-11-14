@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { OptionValue } from '../models/optionValue';
 import { validators } from '../../../shared/validation/validators';
+import { OptionValueImageService } from '../services/option-value-image.service';
 
 @Component({
   selector: 'ngx-option-values',
@@ -23,6 +24,7 @@ export class OptionValuesComponent implements OnInit {
     'Select', 'Radio', 'Checkbox', 'Text'
   ];
   isCodeUnique = true;
+  uploadImage = new FormData();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -32,6 +34,7 @@ export class OptionValuesComponent implements OnInit {
     private toastr: ToastrService,
     private translate: TranslateService,
     private router: Router,
+    private optionValueImageService: OptionValueImageService
   ) {
     this.languages = [...this.configService.languages];
   }
@@ -109,6 +112,20 @@ export class OptionValuesComponent implements OnInit {
       });
   }
 
+  onImageChanged(event) {
+    switch (event.type) {
+      case 'add': {
+        this.uploadImage = new FormData();
+        this.uploadImage.append('file', event.data, event.data.name);
+        break;
+      }
+      case 'remove': {
+        this.uploadImage.delete('file');
+        break;
+      }
+    }
+  }
+
   save() {
     if (!this.isCodeUnique) {
       this.toastr.error(this.translate.instant('COMMON.CODE_EXISTS'));
@@ -121,8 +138,10 @@ export class OptionValuesComponent implements OnInit {
       });
     } else {
       this.optionValuesService.createOptionValue(this.form.value).subscribe(res => {
-        this.toastr.success(this.translate.instant('OPTION_VALUE.OPTION_VALUE_CREATED'));
-        this.router.navigate(['pages/catalogue/options/options-values-list']);
+        this.optionValueImageService.createImage(res.id, this.uploadImage).subscribe(r => {
+          this.toastr.success(this.translate.instant('OPTION_VALUE.OPTION_VALUE_CREATED'));
+          this.router.navigate(['pages/catalogue/options/options-values-list']);
+        });
       });
     }
   }

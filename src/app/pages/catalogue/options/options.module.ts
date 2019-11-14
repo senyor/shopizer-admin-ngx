@@ -7,6 +7,7 @@ import { OptionsListComponent } from './options-list/options-list.component';
 import { OptionsValuesListComponent } from './options-values-list/options-values-list.component';
 import { OptionsRoutingModule } from './options-routing.module';
 import { OptionsComponent } from './options.component';
+import { OptionValueImageComponent } from './option-value-image/option-value-image.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { OptionsComponent } from './options.component';
     OptionComponent,
     OptionsListComponent,
     OptionValuesComponent,
-    OptionsValuesListComponent
+    OptionsValuesListComponent,
+    OptionValueImageComponent
   ],
   imports: [
     OptionsRoutingModule,
