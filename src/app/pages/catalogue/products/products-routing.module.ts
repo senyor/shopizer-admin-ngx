@@ -6,7 +6,6 @@ import { ProductCreationComponent } from './product-creation/product-creation.co
 import { ProductsListComponent } from './products-list/products-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductToCategoryComponent } from './product-to-category/product-to-category.component';
-import { ProductAttributesComponent } from './product-attributes/product-attributes.component';
 
 const routes: Routes = [
   {
@@ -28,10 +27,6 @@ const routes: Routes = [
       {
         path: 'association',
         component: ProductToCategoryComponent,
-      },
-      {
-        path: ':productId/product-attributes',
-        component: ProductAttributesComponent,
       }
     ],
   }

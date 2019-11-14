@@ -43,6 +43,7 @@
     "LIST_INVENTORY": "List inventory",
     "PRODUCT_TO_CATEGORY": "Product to category",
     "PRODUCT_ATTRIBUTES": "Product attributes",
+    "CREATE_PRODUCT_ATTRIBUTES": "Create product option / attribute",
     "MANAGE_INVENTORY": "Manage inventory",
 
     "INVENTORY": "Inventory",
@@ -313,7 +314,9 @@
     "WEIGHT": "Weight",
     "HEIGHT": "Height",
     "WIDTH": "Width",
-    "LENGTH": "Length"
+    "LENGTH": "Length",
+
+    "NO_ITEMS": "No items to show"
   },
   "DESCRIPTION_FORM": {
     "NAME": "Name",

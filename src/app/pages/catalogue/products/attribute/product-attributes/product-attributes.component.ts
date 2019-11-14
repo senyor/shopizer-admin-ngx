@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { TreeNode } from 'primeng/primeng';
-import { ProductAttributesService } from '../services/product-attributes.service';
+import { ProductAttributesService } from '../../services/product-attributes.service';
 
 export interface TreeNode {
   data?: any;
@@ -17,9 +17,10 @@ export interface TreeNode {
   styleUrls: ['./product-attributes.component.scss']
 })
 export class ProductAttributesComponent implements OnInit {
-
-  files: TreeNode[];
-  data = [
+  productId;
+  loader = false;
+  data: TreeNode[] = [];
+  dataMock: TreeNode[] = [
     {
       'data': {
         'name': 'Documents',
@@ -31,6 +32,7 @@ export class ProductAttributesComponent implements OnInit {
       'children': [
         {
           'data': {
+            id: 1,
             'name': 'Work',
             'size': '55kb',
             'type': 'Folder'
@@ -38,6 +40,7 @@ export class ProductAttributesComponent implements OnInit {
         },
         {
           'data': {
+            id: 2,
             'name': 'Home',
             'size': '20kb',
             'type': 'Folder'
@@ -56,6 +59,7 @@ export class ProductAttributesComponent implements OnInit {
       'children': [
         {
           'data': {
+            id: 3,
             'name': 'barcelona.jpg',
             'size': '90kb',
             'type': 'Picture'
@@ -63,6 +67,7 @@ export class ProductAttributesComponent implements OnInit {
         },
         {
           'data': {
+            id: 4,
             'name': 'primeui.png',
             'size': '30kb',
             'type': 'Picture'
@@ -70,6 +75,7 @@ export class ProductAttributesComponent implements OnInit {
         },
         {
           'data': {
+            id: 5,
             'name': 'optimus.jpg',
             'size': '30kb',
             'type': 'Picture'
@@ -83,14 +89,17 @@ export class ProductAttributesComponent implements OnInit {
     private productAttributesService: ProductAttributesService,
     private activatedRoute: ActivatedRoute
   ) {
-    const productId = this.activatedRoute.snapshot.paramMap.get('productId');
-    this.productAttributesService.getListOfProductsAttributes(productId, {}).subscribe(res => {
+    this.loader = true;
+    this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
+    this.productAttributesService.getListOfProductsAttributes(this.productId, {}).subscribe(res => {
       console.log(res);
+      // this.data = [...res.attributes];
+      this.data = [...this.dataMock];
+      this.loader = false;
     });
   }
 
   ngOnInit() {
-   this.files = this.data;
   }
 
 }

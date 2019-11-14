@@ -17,6 +17,7 @@ import { PickListModule } from 'primeng/picklist';
 import { DropdownModule } from 'primeng/dropdown';
 import { BackButtonComponent } from './components/back-button/back-button.component';
 import { TreeModule, TreeTableModule } from 'primeng/primeng';
+import { ValidateNumberDirective } from './validation/validate-number.directive';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { TreeModule, TreeTableModule } from 'primeng/primeng';
     ShowcaseDialogComponent,
     PaginatorComponent,
     BackButtonComponent,
+    ValidateNumberDirective,
   ],
   imports: [
     CommonModule,
@@ -62,7 +64,8 @@ import { TreeModule, TreeTableModule } from 'primeng/primeng';
     NbTreeGridModule,
     NbTreeGridComponent,
     PickListModule,
-    DropdownModule
+    DropdownModule,
+    ValidateNumberDirective
   ],
   entryComponents: [ShowcaseDialogComponent],
 })

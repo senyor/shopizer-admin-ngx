@@ -18,7 +18,9 @@ import { PricesListComponent } from './price/prices-list/prices-list.component';
 import { PriceRoutingModule } from './price-routing.module';
 import { PriceFormComponent } from './price/price-form/price-form.component';
 import { ProductToCategoryComponent } from './product-to-category/product-to-category.component';
-import { ProductAttributesComponent } from './product-attributes/product-attributes.component';
+import { ProductAttributesComponent } from './attribute/product-attributes/product-attributes.component';
+import { AttributeFormComponent } from './attribute/attribute-form/attribute-form.component';
+import { AttributeRoutingModule } from './routing/attribute-routing.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,6 @@ import { ProductAttributesComponent } from './product-attributes/product-attribu
     ProductFormComponent,
     ProductDetailsComponent,
     ProductToCategoryComponent,
-    ProductAttributesComponent,
 
     AvailableButtonComponent,
 
@@ -38,12 +39,16 @@ import { ProductAttributesComponent } from './product-attributes/product-attribu
     InventoryFormComponent,
 
     PricesListComponent,
-    PriceFormComponent
+    PriceFormComponent,
+
+    ProductAttributesComponent,
+    AttributeFormComponent,
   ],
   imports: [
     ProductsRoutingModule,
     InventoryRoutingModule,
     PriceRoutingModule,
+    AttributeRoutingModule,
 
     SharedModule,
     NgxSummernoteModule,
