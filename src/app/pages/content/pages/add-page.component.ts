@@ -30,8 +30,8 @@ export class AddPageComponent {
     // ckfinder: {
     // 	uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
     // },
-    filebrowserBrowseUrl: '/ckfinder/ckfinder.html',
-    filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+    filebrowserBrowseUrl: 'http://localhost:4200/#/gallery',
+    // filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
     toolbar: [
       { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
       {

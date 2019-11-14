@@ -20,6 +20,31 @@ export class AddBoxComponent {
     ePagename: '',
     ePagecontent: '',
   }
+  ckeConfig = {
+
+    uiColor: '#d1d1d1',
+    height: 400,
+    language: "en",
+    allowedContent: true,
+    // ckfinder: {
+    // 	uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+    // },
+    filebrowserBrowseUrl: 'http://localhost:4200/#/gallery',
+    // filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+    toolbar: [
+      { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
+      {
+        name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv',
+          '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl']
+      },
+      '/',
+      { name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize'] },
+      { name: 'colors', items: ['TextColor', 'BGColor'] },
+      { name: 'links', items: ['Link', 'Unlink', 'Anchor'] },
+      { name: "insert", items: ["Image", "Table", "HorizontalRule", "SpecialChar", "Iframe", "imageExplorer"] }
+
+    ]
+  };
   public scrollbarOptions = { axis: 'y', theme: 'minimal-dark' };
   constructor(
     private crudService: CrudService,
