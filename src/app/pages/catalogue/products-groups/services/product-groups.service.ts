@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { CrudService } from '../../../shared/services/crud.service';
 import { Observable } from 'rxjs';
 
@@ -11,41 +12,16 @@ export class ProductGroupsService {
   ) {
   }
 
-  // getListOfProducts(params): Observable<any> {
-  //   return this.crudService.get(`/v1/products`, params);
-  // }
-  //
-  // updateProductFromTable(id, product): Observable<any> {
-  //   return this.crudService.patch(`/v1/private/product/${ id }`, product);
-  // }
-  //
-  // updateProduct(id, product): Observable<any> {
-  //   return this.crudService.put(`/v1/private/product/${ id }`, product);
-  // }
-  //
-  // getProductById(id): Observable<any> {
-  //   const params = {
-  //     lang: '_all'
-  //   };
-  //   return this.crudService.get(`/v1/product/${ id }`, params);
-  // }
-  //
-  // createProduct (product): Observable<any> {
-  //   return this.crudService.post(`/v1/private/product`, product);
-  // }
-  //
-  // deleteProduct(id): Observable<any> {
-  //   return this.crudService.delete(`/v1/private/product/${ id }`);
-  // }
-  //
-  // getProductTypes(): Observable<any> {
-  //   return this.crudService.get(`/v1/products/types`);
-  // }
-  //
-  // checkProductSku(code): Observable<any> {
+  // TODO
+  // checkGroupCode(code): Observable<any> {
   //   const params = {
   //     'code': code,
   //   };
   //   return this.crudService.get(`/v1/private/product/unique`, params);
   // }
+
+  createProductGroup (group): Observable<any> {
+    return this.crudService.post(`/v1/private/products/group`, group);
+  }
+
 }

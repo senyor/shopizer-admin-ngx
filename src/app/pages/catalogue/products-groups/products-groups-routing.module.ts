@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ProductsGroupsCreationComponent } from './products-groups-creation/products-groups-creation.component';
 import { ProductsGroupsListComponent } from './products-groups-list/products-groups-list.component';
 import { GroupsListComponent } from './groups-list/groups-list.component';
 import { ProductsGroupsComponent } from './products-groups.component';
+import { ProductGroupFormComponent } from './product-group-form/product-group-form.component';
 
 const routes: Routes = [
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       {
         path: 'create-products-group',
-        component: ProductsGroupsCreationComponent,
+        component: ProductGroupFormComponent,
       },
       {
         path: 'products-groups-list',
@@ -31,4 +31,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProductsGroupsRoutingModule { }
+export class ProductsGroupsRoutingModule {
+}
