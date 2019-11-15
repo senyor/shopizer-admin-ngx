@@ -13,30 +13,39 @@
     <p-treeTable [value]="data" *ngIf="!loader">
       <ng-template pTemplate="header">
         <tr>
-          <th>Name</th>
-          <th>Size</th>
-          <th>Type</th>
-          <th>Details</th>
+          <th>{{ 'COMMON.ID' | translate}}</th>
+          <th>{{ 'PRODUCT_ATTRIBUTES.OPTION_NAME' | translate}}</th>
+          <th>{{ 'PRODUCT_ATTRIBUTES.PRODUCT_OPTION' | translate}}</th>
+          <th>{{ 'PRODUCT_ATTRIBUTES.DISPLAY_ONLY' | translate}}</th>
+          <th>{{ 'PRODUCT_ATTRIBUTES.PRICE' | translate}}</th>
+          <th>{{ 'COMMON.ORDER' | translate}}</th>
+          <th class="short-header">{{ 'COMMON.DETAILS' | translate}}</th>
+          <th class="short-header"></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr *ngIf="!rowData.parent">
+          <td>{{rowData.id}}</td>
+          <td>{{rowData.option}}</td>
+          <td>{{rowData.optionValue}}</td>
           <td>
-            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-            {{rowData.name}}
+            <nb-checkbox status="success" [value]="rowData.attributeDisplayOnly"></nb-checkbox>
           </td>
-          <td>{{rowData.size}}</td>
-          <td>{{rowData.type}}</td>
+          <td>{{rowData.productAttributePrice}}</td>
+          <td>{{rowData.sortOrder}}</td>
           <td>
             <a [routerLink]="['/pages/catalogue/products/' + productId + '/attribute/' + rowData.id]">
               {{ 'COMMON.DETAILS' | translate}}
             </a>
           </td>
+          <td class="remove-button">
+            <i class="fas fa-trash-alt"></i>
+          </td>
         </tr>
         <tr *ngIf="rowData.parent">
-          <td colspan="3">
+          <td colspan="8">
             <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-            {{rowData.name}}
+            {{rowData.parentName}}
           </td>
         </tr>
       </ng-template>

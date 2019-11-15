@@ -22,63 +22,71 @@ export class ProductAttributesComponent implements OnInit {
   data: TreeNode[] = [];
   dataMock: TreeNode[] = [
     {
-      'data': {
-        'name': 'Documents',
-        'size': '',
-        'type': '',
-        'parent': true,
+      data: {
+        id: 0,
+        parentName: 'Group1',
+        option: '',
+        optionValue: '',
+        attributeDisplayOnly: true,
+        productAttributePrice: 0,
+        sortOrder: 0,
+        parent: true,
       },
-      'expanded': true,
-      'children': [
+      expanded: true,
+      children: [
         {
-          'data': {
-            id: 1,
-            'name': 'Work',
-            'size': '55kb',
-            'type': 'Folder'
+          data: {
+            id: 123,
+            option: 'option',
+            optionValue: 'optionValue',
+            attributeDisplayOnly: true,
+            productAttributePrice: 123,
+            sortOrder: 0,
           }
         },
         {
-          'data': {
-            id: 2,
-            'name': 'Home',
-            'size': '20kb',
-            'type': 'Folder'
+          data: {
+            id: 123,
+            option: 'option',
+            optionValue: 'optionValue',
+            attributeDisplayOnly: true,
+            productAttributePrice: 123,
+            sortOrder: 0,
           }
         }
       ]
     },
     {
-      'data': {
-        'name': 'Pictures',
-        'size': '150kb',
-        'type': 'Folder',
-        'parent': true,
+      data: {
+        id: 123,
+        parentName: 'Group2',
+        option: 'option',
+        optionValue: 'optionValue',
+        attributeDisplayOnly: true,
+        productAttributePrice: 123,
+        sortOrder: 0,
+        parent: true,
       },
-      'expanded': true,
-      'children': [
+      expanded: true,
+      children: [
         {
-          'data': {
-            id: 3,
-            'name': 'barcelona.jpg',
-            'size': '90kb',
-            'type': 'Picture'
+          data: {
+            id: 123,
+            option: 'option',
+            optionValue: 'optionValue',
+            attributeDisplayOnly: true,
+            productAttributePrice: 123,
+            sortOrder: 0,
           }
         },
         {
-          'data': {
-            id: 4,
-            'name': 'primeui.png',
-            'size': '30kb',
-            'type': 'Picture'
-          }
-        },
-        {
-          'data': {
-            id: 5,
-            'name': 'optimus.jpg',
-            'size': '30kb',
-            'type': 'Picture'
+          data: {
+            id: 123,
+            option: 'option',
+            optionValue: 'optionValue',
+            attributeDisplayOnly: true,
+            productAttributePrice: 123,
+            sortOrder: 0,
           }
         }
       ]

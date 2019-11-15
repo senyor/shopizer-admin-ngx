@@ -227,12 +227,15 @@
     "OPTIONS_ATTRIBUTES": "Options / attributes",
 
     "ATTRIBUTE_NAME": "Option/attribute name",
-    "DISPLAY_ONLY": "Use attribute for display only",
+    "DISPLAY_ONLY_TEXT": "Use attribute for display only",
     "PRODUCT_OPTION": "Product option value",
     "OPTION_PRICE": "Option price",
     "DEFAULT_OPTION": "Default option",
     "REQUIRED_OPTION": "Required option",
-    "ADDITIONAL_WEIGHT": "Additional weight"
+    "ADDITIONAL_WEIGHT": "Additional weight",
+    "OPTION_NAME": "Option name",
+    "DISPLAY_ONLY": "Display only",
+    "PRICE": "Price"
   },
   "INVENTORY": {
     "INVENTORY_STORE": "Store",
