@@ -91,8 +91,8 @@ export const MENU_ITEMS: MenuItem[] = [
         guards: [IsSuperadmin, IsAdmin, IsAdminRetail]
       },
       {
-        title: 'COMPONENTS.STORE_DETAILS',
-        key: 'COMPONENTS.STORE_DETAILS',
+        title: 'COMPONENTS.STORE',
+        key: 'COMPONENTS.STORE',
         link: '/pages/store-management/store-details',
         hidden: false,
         guards: [IsSuperadmin, IsAdmin, IsAdminRetail, IsAdminStore]

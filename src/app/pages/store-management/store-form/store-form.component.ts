@@ -10,7 +10,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ConfigService } from '../../shared/services/config.service';
 import { MapsAPILoader } from '@agm/core';
@@ -68,13 +68,17 @@ export class StoreFormComponent implements OnInit, OnChanges {
     private userService: UserService,
     private router: Router,
     private toastr: ToastrService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private activatedRoute: ActivatedRoute,
   ) {
     this.createForm();
     this.roles = JSON.parse(localStorage.getItem('roles'));
   }
 
   ngOnInit() {
+    // TODO
+    const optionId = this.activatedRoute.snapshot.paramMap.get('optionId');
+    // console.log();
     this.configService.getListOfCountries()
       .subscribe(countries => {
         this.countries = [...countries];

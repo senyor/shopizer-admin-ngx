@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +9,15 @@ import { UserService } from '../services/user.service';
 export class SuperuserAdminRetailStoreGuard implements CanActivate {
 
   constructor(
-    private router: Router,
-    private userService: UserService
+    private router: Router
   ) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean {
+    const roles = JSON.parse(localStorage.getItem('roles'));
 
-    if (this.userService.roles.isSuperadmin ||
-      this.userService.roles.isAdmin ||
-      this.userService.roles.isAdminRetail ||
-      this.userService.roles.isAdminStore) {
+    if (roles.isSuperadmin || roles.isAdmin || roles.isAdminRetail || roles.isAdminStore) {
       return true;
     }
 
