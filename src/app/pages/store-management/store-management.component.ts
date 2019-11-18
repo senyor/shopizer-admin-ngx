@@ -25,7 +25,7 @@ export class StoreManagementComponent implements OnInit, DoCheck {
     {
       title: 'Store details',
       key: 'COMPONENTS.STORE_DETAILS',
-      link: 'store-details'
+      link: 'store'
     }
   ];
   showSide = true;

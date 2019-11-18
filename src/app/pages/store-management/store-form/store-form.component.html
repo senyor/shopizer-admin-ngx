@@ -18,10 +18,14 @@
       <input type="text" class="form-control" id="code" formControlName='code'
              placeholder="{{ 'STORE_FORM.STORE_CODE' | translate }}" [readOnly]="isReadonlyCode"
              (change)="checkCode($event)" required>
-      <span *ngIf="(code.dirty || code.touched) && code.invalid && code.errors.required"
-            class="err-message">
-        {{ 'STORE_FORM.CODE_REQUIRED' | translate }}
-      </span>
+      <div *ngIf="(code.dirty || code.touched) && code.invalid && code" class="err-message">
+         <span *ngIf="code.errors.required">
+            {{ 'COMMON.CODE_REQUIRED' | translate}}
+            </span>
+            <span *ngIf="code.errors.pattern">
+              {{ 'COMMON.ALPHA_DECIMAL_RULE' | translate}}
+            </span>
+      </div>
       <span *ngIf="!isCodeUnique" class="err-message">
         {{ 'COMMON.CODE_EXISTS' | translate}}
       </span>

@@ -19,7 +19,7 @@ const routes: Routes = [
   {
     path: '', component: StoreManagementComponent, children: [
       {
-        path: 'store-details',
+        path: 'store',
         component: StoreDetailsComponent,
         canActivate: [SuperuserAdminRetailStoreGuard]
       },

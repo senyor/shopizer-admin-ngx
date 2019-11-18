@@ -93,7 +93,7 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         title: 'COMPONENTS.STORE',
         key: 'COMPONENTS.STORE',
-        link: '/pages/store-management/store-details',
+        link: '/pages/store-management/store',
         hidden: false,
         guards: [IsSuperadmin, IsAdmin, IsAdminRetail, IsAdminStore]
       },

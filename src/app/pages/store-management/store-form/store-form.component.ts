@@ -20,6 +20,7 @@ import { UserService } from '../../shared/services/user.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { validators } from '../../shared/validation/validators';
 
 @Component({
   selector: 'ngx-store-form',
@@ -49,7 +50,6 @@ export class StoreFormComponent implements OnInit, OnChanges {
     postal_code: 'short_name',
     sublocality_level_1: 'long_name'
   };
-  emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
   loading = false;
   showRemoveButton = true;
   isReadonlyCode = false;
@@ -73,20 +73,13 @@ export class StoreFormComponent implements OnInit, OnChanges {
   ) {
     this.createForm();
     this.roles = JSON.parse(localStorage.getItem('roles'));
+    this.supportedLanguages = [...this.configService.languages];
   }
 
   ngOnInit() {
-    // TODO
-    const optionId = this.activatedRoute.snapshot.paramMap.get('optionId');
-    // console.log();
     this.configService.getListOfCountries()
       .subscribe(countries => {
         this.countries = [...countries];
-      });
-
-    this.configService.getListOfSupportedLanguages()
-      .subscribe(languages => {
-        this.supportedLanguages = [...languages];
       });
 
     this.configService.getListOfSupportedCurrency()
@@ -174,9 +167,9 @@ export class StoreFormComponent implements OnInit, OnChanges {
   private createForm() {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
-      code: [{ value: '', disabled: false }, [Validators.required]],
+      code: [{ value: '', disabled: false }, [Validators.required, Validators.pattern(validators.alphanumeric)]],
       phone: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
+      email: ['', [Validators.required, Validators.pattern(validators.emailPattern)]],
       address: this.fb.group({
         searchControl: [''],
         stateProvince: [{ value: '', disabled: true }],
@@ -278,10 +271,6 @@ export class StoreFormComponent implements OnInit, OnChanges {
   save() {
     this.form.controls['address'].patchValue({ country: this.form.value.address.country });
     this.form.patchValue({ inBusinessSince: moment(this.form.value.inBusinessSince).format('YYYY-MM-DD') });
-    this.saveStore();
-  }
-
-  saveStore() {
     if (this.store.id) {
       this.storeService.updateStore(this.form.value)
         .subscribe(store => {

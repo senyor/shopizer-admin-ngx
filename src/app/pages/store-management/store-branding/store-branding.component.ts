@@ -12,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./store-branding.component.scss']
 })
 export class StoreBrandingComponent implements OnInit {
-  storeCode = 'DEFAULT';
+  storeCode = '';
   loading = false;
   loadingButton = false;
 
@@ -37,6 +37,7 @@ export class StoreBrandingComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+    this.storeCode = JSON.parse(localStorage.getItem('merchant'));
     this.storeService.getBrandingDetails(this.storeCode)
       .subscribe(res => {
         this.logo = res.logo;

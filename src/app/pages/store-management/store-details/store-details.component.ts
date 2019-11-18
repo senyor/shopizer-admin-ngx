@@ -15,7 +15,8 @@ export class StoreDetailsComponent implements OnInit {
     private storeService: StoreService,
   ) {
     this.loading = true;
-    this.storeService.getStore('DEFAULT')
+    const code = JSON.parse(localStorage.getItem('merchant'));
+    this.storeService.getStore(code)
       .subscribe(res => {
         this.store = res;
         this.loading = false;
