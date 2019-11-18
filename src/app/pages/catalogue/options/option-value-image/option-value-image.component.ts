@@ -1,19 +1,26 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'ngx-option-value-image',
   templateUrl: './option-value-image.component.html',
   styleUrls: ['./option-value-image.component.scss']
 })
-export class OptionValueImageComponent implements OnInit {
-  // @Input() image = ;
+export class OptionValueImageComponent implements OnInit, OnChanges {
+  @Input() imageUrl;
   @Output() imageChanged = new EventEmitter<any>();
   image: any = {};
 
   constructor() {
+    console.log(this.imageUrl);
   }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.imageUrl.previousValue && changes.imageUrl.currentValue) {
+      this.image.url = this.imageUrl;
+    }
   }
 
   onSelectFile(event) {

@@ -64,6 +64,7 @@
         <label class="col-sm-10 col-form-label">{{ 'DESCRIPTION_FORM.IMAGE' | translate }}</label>
         <div class="col-sm-12">
           <ngx-option-value-image
+            [imageUrl]="optionValue.image"
             (imageChanged)="onImageChanged($event)">
           </ngx-option-value-image>
         </div>

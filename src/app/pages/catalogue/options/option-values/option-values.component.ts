@@ -134,7 +134,15 @@ export class OptionValuesComponent implements OnInit {
     if (this.optionValue.id) {
       const optionObj = { ...this.form.value, id: this.optionValue.id };
       this.optionValuesService.updateOptionValue(this.optionValue.id, optionObj).subscribe(res => {
-        this.toastr.success(this.translate.instant('OPTION_VALUE.OPTION_VALUE_UPDATED'));
+        if (this.uploadImage.get('file')) {
+          this.optionValueImageService.createImage(this.optionValue.id, this.uploadImage).subscribe(r => {
+            this.toastr.success(this.translate.instant('OPTION_VALUE.OPTION_VALUE_UPDATED'));
+          });
+        } else {
+          this.optionValueImageService.deleteImage(this.optionValue.id).subscribe(r => {
+            this.toastr.success(this.translate.instant('OPTION_VALUE.OPTION_VALUE_UPDATED'));
+          });
+        }
       });
     } else {
       this.optionValuesService.createOptionValue(this.form.value).subscribe(res => {
