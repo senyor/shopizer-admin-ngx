@@ -27,8 +27,8 @@ export class UserService {
   ) {
   }
 
-  getUser(id: any): Observable<any> {
-    return this.crudService.get(`/v1/private/users/${ id }`);
+  getUser(): Observable<any> {
+    return this.crudService.get(`/v1/private/user/profile`);
   }
 
   checkIfUserExist(body): Observable<any> {
