@@ -9,7 +9,6 @@ import { UserService } from '../../shared/services/user.service';
   providedIn: 'root'
 })
 export class AuthService {
-  loginUserUrl = '/v1/private/login';
 
   constructor(
     private tokenService: TokenService,
@@ -19,7 +18,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<any> {
-    return this.crudService.post(this.loginUserUrl, { username, password });
+    return this.crudService.post('/v1/private/login', { username, password });
   }
 
   logout() {
