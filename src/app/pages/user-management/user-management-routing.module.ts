@@ -8,6 +8,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { CreateNewUserComponent } from './create-new-user/create-new-user.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { SuperuserAdminGuard } from '../shared/guards/superuser-admin.guard';
+import { SuperuserAdminRetailGuard } from '../shared/guards/superuser-admin-retail.guard';
 
 const routes: Routes = [
   {
@@ -27,7 +28,7 @@ const routes: Routes = [
       },
       {
         path: 'create-user',
-        canActivate: [SuperuserAdminGuard],
+        canActivate: [SuperuserAdminRetailGuard],
         component: CreateNewUserComponent,
       },
       {

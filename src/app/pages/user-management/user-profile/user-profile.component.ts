@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     const id = this.userService.getUserId();
     this.loading = true;
-    this.userService.getUser(id)
+    this.userService.getUser(this.userService.getUserId())
       .subscribe(user => {
         this.user = user;
         this.loading = false;

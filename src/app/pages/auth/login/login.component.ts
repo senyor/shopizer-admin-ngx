@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       .subscribe(res => {
         this.tokenService.saveToken(res.token);
         this.userService.saveUserId(res.id);
-        this.userService.getUser(res.id)
+        this.userService.getUserProfile()
           .subscribe(user => {
             this.userService.checkForAccess(user.groups);
             localStorage.setItem('roles', JSON.stringify(this.userService.roles));

@@ -57,8 +57,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.localedMenu = this.translateMenu(this.localedMenu);
-    const userId = localStorage.getItem('userId');
-    this.userService.getUser(userId)
+    this.userService.getUser(this.userService.getUserId())
       .subscribe((user: any) => {
         this.user = user.firstName + ' ' + user.lastName;
       });
