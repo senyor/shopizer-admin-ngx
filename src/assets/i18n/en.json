@@ -176,7 +176,20 @@
 
     "STORE_UPDATED": "Store updated.",
     "STORE_CREATED": "Store created.",
-    "STORE_REMOVED": "Store removed."
+    "STORE_REMOVED": "Store removed.",
+
+
+    "RETAILER_NAME": "Retailer name",
+    "RETAILER_NAME_REQUIRED": "Retailer name is required.",
+
+    "RETAILER_CODE": "Unique Retailer Code",
+    "RETAILER_PHONE": "Retailer Phone",
+    "RETAILER_EMAIL": "Retailer email address",
+
+    "RETAILER_UPDATED": "Retailer updated.",
+    "RETAILER_CREATED": "Retailer created.",
+    "RETAILER_REMOVED": "Retailer removed."
+
   },
   "BRAND": {
     "BRAND_NAME": "Brand name",

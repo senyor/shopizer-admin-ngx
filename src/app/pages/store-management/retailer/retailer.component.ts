@@ -8,12 +8,15 @@ import { StoreService } from '../services/store.service';
   styleUrls: ['./retailer.component.scss']
 })
 export class RetailerComponent implements OnInit {
-  store: any;
+  store: any = {};
   loading = false;
 
   constructor(
     private storeService: StoreService,
   ) {
+  }
+
+  ngOnInit() {
     this.loading = true;
     const code = localStorage.getItem('merchant');
     this.storeService.getStore(code)
@@ -21,8 +24,5 @@ export class RetailerComponent implements OnInit {
         this.store = res;
         this.loading = false;
       });
-  }
-
-  ngOnInit() {
   }
 }

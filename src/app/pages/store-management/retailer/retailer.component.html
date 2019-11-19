@@ -9,6 +9,6 @@
     <span>
        {{ 'STORE.INFORMATION_TEXT' | translate}}
     </span>
-    <ngx-store-form [store]="store"></ngx-store-form>
+    <ngx-store-form *ngIf="store.id" [store]="store"></ngx-store-form>
   </nb-card-body>
 </nb-card>
