@@ -46,7 +46,10 @@ export class StoreService {
   // PAGE CONTENT
 
   getPageContent(code: string, pageCode: string): Observable<any> {
-    return this.crudService.get(`/v1/${code}/content/pages/${pageCode}`);
+    // const params = {
+    //   lang: 'all'
+    // };
+    return this.crudService.get(`/v1/content/pages/${pageCode}`);
   }
 
   updatePageContent(code: string, content: any): Observable<any> {

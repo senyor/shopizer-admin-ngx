@@ -45,7 +45,7 @@ export class StoreLandingPageComponent implements OnInit {
   ) {
     this.createForm();
     this.loading = true;
-    const code = JSON.parse(localStorage.getItem('merchant'));
+    const code = localStorage.getItem('merchant');
     this.storeService.getPageContent(code, 'LANDING_PAGE')
       .subscribe(res => {
         this.page = res;

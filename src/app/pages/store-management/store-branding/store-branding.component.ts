@@ -37,7 +37,7 @@ export class StoreBrandingComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.storeCode = JSON.parse(localStorage.getItem('merchant'));
+    this.storeCode = localStorage.getItem('merchant');
     this.storeService.getBrandingDetails(this.storeCode)
       .subscribe(res => {
         this.logo = res.logo;

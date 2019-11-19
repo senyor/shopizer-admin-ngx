@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
           .subscribe(user => {
             this.userService.checkForAccess(user.groups);
             localStorage.setItem('roles', JSON.stringify(this.userService.roles));
-            localStorage.setItem('merchant', JSON.stringify(user.merchant));
+            localStorage.setItem('merchant', user.merchant);
             delay(1000);
             this.router.navigate([ 'pages' ]);
           });

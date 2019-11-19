@@ -18,9 +18,11 @@
     "STORES_LIST": "Stores list",
     "STORE_BRANDING": "Store branding",
     "STORE_LANDING": "Store home page",
+    "ADD_STORE": "Add store",
 
     "RETAILER": "Retailer",
     "RETAILER_LIST": "Retailer list",
+    "RETAILER_STORE_LIST": "Retailer stores list",
     "CREATE_RETAILER": "Create retailer",
 
     "CATALOGUE": "Catalogue",
@@ -112,6 +114,7 @@
     "GROUPS": "Groups"
   },
   "STORE": {
+    "RETAILER_INFORMATION": "Retailer information",
     "STORE_INFORMATION": "Store information",
     "INFORMATION_TEXT": "Shop settings used for various functionality such us and store address. Various details also used for shipping costs and displayed in product details.",
     "MERCHANT_STORE": "Merchant store"
