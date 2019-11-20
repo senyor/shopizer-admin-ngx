@@ -63,12 +63,6 @@ export class OptionsListComponent implements OnInit {
   setSettings() {
     this.settings = {
       mode: 'inline',
-      // edit: {
-      //   editButtonContent: this.translate.instant('COMMON.EDIT'),
-      //   saveButtonContent: '<i class="fas fa-check"></i>',
-      //   cancelButtonContent: '<i class="fas fa-times"></i>',
-      //   confirmSave: true
-      // },
       delete: {
         deleteButtonContent: '<i class="fas fa-trash-alt"></i>',
         confirmDelete: true
@@ -80,6 +74,9 @@ export class OptionsListComponent implements OnInit {
         delete: true,
         position: 'right',
         sort: true,
+      },
+      pager: {
+        display: false
       },
       columns: {
         id: {

@@ -11,7 +11,6 @@ export class OptionValueImageComponent implements OnInit, OnChanges {
   image: any = {};
 
   constructor() {
-    console.log(this.imageUrl);
   }
 
   ngOnInit() {

@@ -75,6 +75,9 @@ export class OptionsValuesListComponent implements OnInit {
         position: 'right',
         sort: true,
       },
+      pager: {
+        display: false
+      },
       columns: {
         id: {
           title: this.translate.instant('COMMON.ID'),
