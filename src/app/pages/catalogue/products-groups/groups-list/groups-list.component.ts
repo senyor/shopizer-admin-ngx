@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { LocalDataSource } from 'ng2-smart-table';
-import { UserService } from '../../../shared/services/user.service';
-import { ProductService } from '../../products/services/product.service';
 import { NbDialogService } from '@nebular/theme';
-import { StoreService } from '../../../store-management/services/store.service';
 import { TranslateService } from '@ngx-translate/core';
-import { AvailableButtonComponent } from '../../products/products-list/available-button.component';
 import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
+import { ProductGroupsService } from '../services/product-groups.service';
+import { ActiveButtonComponent } from './active-button.component';
 
 @Component({
   selector: 'ngx-groups-list',
@@ -21,59 +19,65 @@ export class GroupsListComponent implements OnInit {
   stores = [];
   isSuperadmin: boolean;
 
-  // paginator
-  perPage = 10;
-  currentPage = 1;
-  totalCount;
-
-  // server params
-  params = {
-    store: 'DEFAULT',
-    lang: 'en',
-    count: this.perPage,
-    start: 0
-  };
+  // // paginator
+  // perPage = 10;
+  // currentPage = 1;
+  // totalCount;
+  //
+  // // server params
+  // params = {
+  //   store: 'DEFAULT',
+  //   lang: 'en',
+  //   count: this.perPage,
+  //   start: 0
+  // };
   settings = {};
 
   constructor(
-    private userService: UserService,
-    private productService: ProductService,
+    // private userService: UserService,
+    // private productService: ProductService,
     private dialogService: NbDialogService,
-    private storeService: StoreService,
-    private translate: TranslateService
+    // private storeService: StoreService,
+    private translate: TranslateService,
+    private productGroupsService: ProductGroupsService
   ) {
-    const userId = this.userService.getUserId();
-    this.userService.getUser(userId)
-      .subscribe(user => {
-        this.userService.checkForAccess(user.groups);
-        this.isSuperadmin = this.userService.roles.isSuperadmin;
-        this.params.store = user.merchant;
-      });
+    // const userId = this.userService.getUserId();
+    // this.userService.getUser(userId)
+    //   .subscribe(user => {
+    //     this.userService.checkForAccess(user.groups);
+    //     this.isSuperadmin = this.userService.roles.isSuperadmin;
+    //     this.params.store = user.merchant;
+    //   });
   }
 
   ngOnInit() {
-    this.storeService.getListOfStores({ start: 0 })
-      .subscribe(res => {
-        this.stores = res.data;
-      });
+    // this.storeService.getListOfStores({ start: 0 })
+    //   .subscribe(res => {
+    //     this.stores = res.data;
+    //   });
     this.getList();
   }
 
   getList() {
-    const startFrom = (this.currentPage - 1) * this.perPage;
-    this.params.start = startFrom;
+    // const startFrom = (this.currentPage - 1) * this.perPage;
+    // this.params.start = startFrom;
     this.loadingList = true;
-    this.productService.getListOfProducts(this.params)
-      .subscribe(res => {
-        const products = res.products;
-        this.totalCount = res.totalPages;
-        products.forEach(el => {
-          el.name = el.description.name;
-        });
-        this.products = [...products];
-        this.source.load(products);
-        this.loadingList = false;
-      });
+    this.productGroupsService.getListOfProductGroups({}).subscribe(res => {
+      console.log(res);
+      this.source.load(res);
+      this.loadingList = false;
+    });
+    // this.productService.getListOfProducts(this.params)
+    //   .subscribe(res => {
+    //     const products = res.products;
+    //     this.totalCount = res.totalPages;
+    //     products.forEach(el => {
+    //       el.name = el.description.name;
+    //     });
+    //     this.products = [...products];
+    //     this.source.load(products);
+    //     this.loadingList = false;
+    //   });
     this.setSettings();
     this.translate.onLangChange.subscribe((event) => {
       this.setSettings();
@@ -102,50 +106,21 @@ export class GroupsListComponent implements OnInit {
         sort: true,
       },
       columns: {
-        id: {
-          title: this.translate.instant('COMMON.ID'),
-          type: 'number',
-          editable: false
-        },
-        sku: {
-          title: this.translate.instant('PRODUCT.SKU'),
+        code: {
+          title: this.translate.instant('COMMON.CODE'),
           type: 'string',
           editable: false
-        },
-        name: {
-          title: this.translate.instant('PRODUCT.PRODUCT_NAME'),
-          type: 'html',
-          editable: false,
-          valuePrepareFunction: (name) => {
-            const id = this.products.find(el => el.name === name).id;
-            return `<a href="#/pages/catalogue/products/product/${id}">${name}</a>`;
-          }
-        },
-        quantity: {
-          title: this.translate.instant('PRODUCT.QTY'),
-          type: 'number',
-          editable: true
         },
         available: {
           filter: false,
           title: this.translate.instant('COMMON.AVAILABLE'),
           type: 'custom',
-          renderComponent: AvailableButtonComponent,
+          renderComponent: ActiveButtonComponent,
           defaultValue: false,
           editable: true,
           editor: {
             type: 'checkbox'
           }
-        },
-        price: {
-          title: this.translate.instant('PRODUCT.PRICE'),
-          type: 'string',
-          editable: true
-        },
-        creationDate: {
-          title: this.translate.instant('PRODUCT.CREATION_DATE'),
-          type: 'string',
-          editable: false
         },
       },
     };
@@ -158,13 +133,13 @@ export class GroupsListComponent implements OnInit {
       quantity: event.newData.quantity
     };
     event.confirm.resolve(event.newData);
-    this.productService.updateProductFromTable(event.newData.id, product)
-      .subscribe(res => {
-        console.log(res);
-        event.confirm.resolve(event.newData);
-      }, error => {
-        console.log(error.error.message);
-      });
+    // this.productService.updateProductFromTable(event.newData.id, product)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     event.confirm.resolve(event.newData);
+    //   }, error => {
+    //     console.log(error.error.message);
+    //   });
   }
 
   deleteRecord(event) {
@@ -172,7 +147,7 @@ export class GroupsListComponent implements OnInit {
       .onClose.subscribe(res => {
       if (res) {
         event.confirm.resolve();
-        this.productService.deleteProduct(event.data.id)
+        this.productGroupsService.removeProductGroup(event.data.id)
           .subscribe(result => {
             this.getList();
           });
@@ -182,36 +157,37 @@ export class GroupsListComponent implements OnInit {
     });
   }
 
-  choseStore(event) {
-    this.params.store = event;
-    this.getList();
-  }
+  //
+  // choseStore(event) {
+  //   this.params.store = event;
+  //   this.getList();
+  // }
 
-  // paginator
-  changePage(event) {
-    switch (event.action) {
-      case 'onPage': {
-        this.currentPage = event.data;
-        break;
-      }
-      case 'onPrev': {
-        this.currentPage--;
-        break;
-      }
-      case 'onNext': {
-        this.currentPage++;
-        break;
-      }
-      case 'onFirst': {
-        this.currentPage = 1;
-        break;
-      }
-      case 'onLast': {
-        this.currentPage = event.data;
-        break;
-      }
-    }
-    this.getList();
-  }
+  // // paginator
+  // changePage(event) {
+  //   switch (event.action) {
+  //     case 'onPage': {
+  //       this.currentPage = event.data;
+  //       break;
+  //     }
+  //     case 'onPrev': {
+  //       this.currentPage--;
+  //       break;
+  //     }
+  //     case 'onNext': {
+  //       this.currentPage++;
+  //       break;
+  //     }
+  //     case 'onFirst': {
+  //       this.currentPage = 1;
+  //       break;
+  //     }
+  //     case 'onLast': {
+  //       this.currentPage = event.data;
+  //       break;
+  //     }
+  //   }
+  //   this.getList();
+  // }
 
 }

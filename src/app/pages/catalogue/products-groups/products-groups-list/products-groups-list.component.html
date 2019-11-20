@@ -11,7 +11,8 @@
       <nb-select *ngIf="groups.length" placeholder="{{ 'PRODUCT_GROUP.SELECT_PRODUCT_GROUP' | translate}}"
                  outline
                  shape="rectangle">
-        <nb-option *ngFor="let category of groups" [value]="category">{{ category }}</nb-option>
+        <nb-option *ngFor="let group of groups" [value]="group.code"
+                   (click)="selectGroup(group.code)">{{ group.code }}</nb-option>
       </nb-select>
     </div>
   </div>
@@ -26,6 +27,10 @@
               targetFilterPlaceholder="{{ 'COMMON.SEARCH' | translate}}"
               [showSourceControls]="false"
               [showTargetControls]="false"
+              (onMoveToTarget)="moveEvent($event, 'toTarget')"
+              (onMoveToSource)="moveEvent($event, 'toSource')"
+              (onMoveAllToTarget)="moveEvent($event, 'allToTarget')"
+              (onMoveAllToSource)="moveEvent($event, 'allToSource')"
               filterBy="code">
     <ng-template let-item pTemplate="item">
       <div class="ui-helper-clearfix item-picklist">
