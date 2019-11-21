@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { CrudService } from '../../shared/services/crud.service';
 import { Observable } from 'rxjs';
+import { StorageService } from '../../shared/services/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,9 @@ import { Observable } from 'rxjs';
 export class StoreService {
 
   constructor(
-    private crudService: CrudService) {
+    private crudService: CrudService,
+    private storageService: StorageService
+  ) {
   }
 
   getStore(code): Observable<any> {
@@ -20,7 +23,8 @@ export class StoreService {
     return this.crudService.get(`/v1/private/stores`, params);
   }
 
-  getListOfMerchantStores(merchant, params): Observable<any> {
+  getListOfMerchantStores(params): Observable<any> {
+    const merchant = this.storageService.getMerchant();
     return this.crudService.get(`/v1/merchant/${merchant}/stores`, params);
   }
 
@@ -45,18 +49,19 @@ export class StoreService {
 
   // PAGE CONTENT
 
-  getPageContent(code: string, pageCode: string): Observable<any> {
-    // const params = {
-    //   lang: 'all'
-    // };
-    return this.crudService.get(`/v1/content/pages/${pageCode}`);
+  getPageContent(pageCode: string): Observable<any> {
+    const params = {
+      lang: '_all'
+    };
+    return this.crudService.get(`/v1/private/content/any/${pageCode}`, params);
   }
 
-  updatePageContent(code: string, content: any): Observable<any> {
-    const params = {
-      lang: content.language
-    };
-    return this.crudService.post(`/v1/private/${code}/content/pages/${content.code}`, content, {params});
+  updatePageContent(content: any): Observable<any> {
+    const code = this.storageService.getMerchant();
+    // const params = {
+    //   lang: content.language
+    // };
+    return this.crudService.post(`/v1/private/${code}/content/any/${content.code}`, content);
   }
 
   // end PAGE CONTENT
@@ -67,15 +72,13 @@ export class StoreService {
     return this.crudService.get(`/v1/private/store/${code}/marketing`);
   }
 
-  // todo fix default code
   updateSocialNetworks(body: any): Observable<any> {
-    const code = 'DEFAULT';
+    const code = this.storageService.getMerchant();
     return this.crudService.post(`/v1/private/store/${code}/marketing`, body);
   }
 
-  // todo fix default code
   addStoreLogo(file: any): Observable<any> {
-    const code = 'DEFAULT';
+    const code = this.storageService.getMerchant();
     const uploadData = new FormData();
     uploadData.append('file', file, file.name);
     return this.crudService.post(`/v1/private/store/${code}/marketing/logo`, uploadData);

@@ -37,9 +37,9 @@ export class RetailerStoresComponent implements OnInit {
 
   ngOnInit() {
     this.getList();
-    // this.storeService.getListOfMerchantStores('DEFAULT', {}).subscribe(res => {
-    //   console.log(res);
-    // });
+    this.storeService.getListOfMerchantStores({}).subscribe(res => {
+      console.log(res);
+    });
 
   }
 

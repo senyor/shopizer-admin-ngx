@@ -23,7 +23,7 @@
              (change)='imageChange($event)'>
 
       <div class="form-group actions-button">
-        <button type="submit" class="btn btn-danger"
+        <button type="submit" class="btn btn-danger" *ngIf="showRemoveButton"
                 (click)="removeLogo()">{{ 'COMMON.REMOVE' | translate}}</button>
         <button type="submit" class="btn btn-primary"
                 (click)="saveLogo()"

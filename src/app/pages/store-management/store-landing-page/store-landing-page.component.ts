@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ConfigService } from '../../shared/services/config.service';
 import { StoreService } from '../services/store.service';
-import { UserService } from '../../shared/services/user.service';
-import { ToastrService } from 'ngx-toastr';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-store-landing-page',
@@ -32,84 +29,109 @@ export class StoreLandingPageComponent implements OnInit {
   };
   loadingButton = false;
   loading = false;
-  store: any = {};
   page: any;
 
   constructor(
     private fb: FormBuilder,
     private configService: ConfigService,
     private storeService: StoreService,
-    private userService: UserService,
-    private toastrService: ToastrService,
-    private translate: TranslateService
+    // private toastrService: ToastrService,
+    // private translate: TranslateService,
+    // private storageService: StorageService
   ) {
     this.createForm();
-    this.loading = true;
-    const code = localStorage.getItem('merchant');
-    this.storeService.getPageContent(code, 'LANDING_PAGE')
+    this.configService.getListOfSupportedLanguages()
+      .subscribe(languages => {
+        this.languages = [...languages];
+        this.createForm();
+      });
+    this.storeService.getPageContent('LANDING_PAGE')
       .subscribe(res => {
         this.page = res;
-        this.fillForm();
-      });
-    this.userService.getMerchant()
-      .subscribe(res => {
-        this.store = res;
+        // this.fillForm();
       });
   }
 
   ngOnInit() {
-    this.configService.getListOfSupportedLanguages()
-      .subscribe(languages => {
-        this.languages = [...languages];
-      });
-  }
-
-  get title() {
-    return this.form.get('title');
   }
 
   private createForm() {
     this.form = this.fb.group({
-      language: ['', [Validators.required]],
-      name: [''],
-      contentType: ['PAGE'],
-      path: [''],
-      slug: [''],
-      code: ['LANDING_PAGE'],
-      metaDetails: [''],
-      title: ['', [Validators.required]],
-      pageContent: ['', [Validators.required]],
-      displayedInMenu: [false]
+      descriptions: this.fb.array([]),
+      selectedLanguage: [(this.languages[0] && this.languages[0].code) || '', [Validators.required]],
+    });
+    this.addFormArray();
+  }
+
+  addFormArray() {
+    const control = <FormArray>this.form.controls.descriptions;
+    this.languages.forEach(lang => {
+      control.push(
+        this.fb.group({
+          language: [lang.code, [Validators.required]],
+          name: ['', [Validators.required]],
+          contentType: ['PAGE'],
+          path: [''],
+          slug: [''],
+          code: ['LANDING_PAGE'],
+          metaDetails: [''],
+          title: ['', [Validators.required]],
+          pageContent: ['', [Validators.required]],
+          // displayedInMenu: [false]
+        })
+      );
     });
   }
 
   fillForm() {
     this.form.patchValue({
-      language: 'en',
-      name: this.page.name,
-      contentType: this.page.contentType,
-      path: this.page.path,
-      slug: this.page.slug,
-      code: this.page.code,
-      metaDetails: this.page.metaDetails,
-      title: this.page.title,
-      pageContent: this.page.pageContent,
-      displayedInMenu: this.page.displayedInMenu
+      descriptions: [],
+      selectedLanguage: 'en',
     });
-    this.loading = false;
+    this.fillFormArray();
+  }
+
+  fillFormArray() {
+    this.form.value.descriptions.forEach((desc, index) => {
+      this.page.descriptions.forEach((description) => {
+        if (desc.language === description.language) {
+          (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+            language: description.language,
+            name: description.name,
+            contentType: description.contentType,
+            path: description.path,
+            slug: description.slug,
+            code: description.code,
+            metaDetails: description.metaDetails,
+            title: description.title,
+            pageContent: description.pageContent,
+            displayedInMenu: description.displayedInMenu
+          });
+        }
+      });
+    });
+  }
+
+  get selectedLanguage() {
+    return this.form.get('selectedLanguage');
+  }
+
+  get descriptions(): FormArray {
+    return <FormArray>this.form.get('descriptions');
   }
 
   save() {
-    this.loadingButton = true;
-    this.form.patchValue({ name: this.store.name });
-    this.storeService.updatePageContent(this.store.code, this.form.value)
-      .subscribe(res => {
-        console.log(res);
-        this.loadingButton = false;
-        this.toastrService.success(this.translate.instant('STORE_LANDING.PAGE_ADDED'));
-      }, error1 => {
-        this.loadingButton = false;
-      });
+    console.log(this.form.value);
+    // this.loadingButton = true;
+    // this.form.patchValue({ name: this.storageService.getMerchant() });
+    // this.storeService.updatePageContent(this.form.value)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     this.loadingButton = false;
+    //     this.toastrService.success(this.translate.instant('STORE_LANDING.PAGE_ADDED'));
+    //   }, error1 => {
+    //     this.loadingButton = false;
+    //   });
   }
 
 }

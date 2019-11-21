@@ -24,6 +24,7 @@ export class StoreBrandingComponent implements OnInit {
   logoFile: any;
   logo: Logo;
   form: FormGroup;
+  showRemoveButton = false;
 
 
   constructor(
@@ -41,6 +42,9 @@ export class StoreBrandingComponent implements OnInit {
     this.storeService.getBrandingDetails(this.storeCode)
       .subscribe(res => {
         this.logo = res.logo;
+        if (this.logo) {
+          this.showRemoveButton = true;
+        }
         this.fillForm(res.socialNetworks);
         this.loading = false;
       });
@@ -64,6 +68,7 @@ export class StoreBrandingComponent implements OnInit {
   // readfiles
   readfiles(files) {
     this.logoFile = files[0];
+    this.showRemoveButton = true;
     const reader = new FileReader();
     const image = new Image();
     reader.onload = (event) => {
@@ -114,6 +119,7 @@ export class StoreBrandingComponent implements OnInit {
   }
 
   removeLogo() {
+    this.showRemoveButton = false;
     this.logoFile = null;
     const image = document.getElementsByClassName('appendedImage')[0];
     const node = document.getElementById('imageDrop');
