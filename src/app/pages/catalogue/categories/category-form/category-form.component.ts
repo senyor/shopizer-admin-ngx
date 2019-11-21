@@ -254,6 +254,7 @@ export class CategoryFormComponent implements OnInit {
     }
   }
 
+  // TODO remove this code, removing from table
   remove() {
     this.categoryService.deleteCategory(this.category.id)
       .subscribe(res => {

@@ -9,6 +9,8 @@ import { NbDialogService } from '@nebular/theme';
 import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ProductService } from '../../products/services/product.service';
+import { StorageService } from '../../../shared/services/storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-categories-list',
@@ -28,7 +30,7 @@ export class CategoriesListComponent implements OnInit {
 
   // request params
   params = {
-    lang: 'en',
+    lang: this.storageService.getLanguage(),
     count: this.perPage,
     page: 0
   };
@@ -42,7 +44,9 @@ export class CategoriesListComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     private dialogService: NbDialogService,
     private translate: TranslateService,
-    private productService: ProductService
+    private toastr: ToastrService,
+    private productService: ProductService,
+    private storageService: StorageService
   ) {
   }
 
@@ -51,10 +55,16 @@ export class CategoriesListComponent implements OnInit {
     this.productService.getListOfProducts({})
       .subscribe(res => {
         this.availableList = [...res.products];
+        // TODO what the aim of selectedList?
         this.selectedList = [];
       });
+    this.translate.onLangChange.subscribe((lang) => {
+      this.params.lang = this.storageService.getLanguage();
+      this.getList();
+    });
   }
 
+  // creating array of categories include children
   getChildren(node) {
     if (node.children && node.children.length !== 0) {
       this.categories.push(node);
@@ -80,9 +90,6 @@ export class CategoriesListComponent implements OnInit {
         this.loadingList = false;
       });
     this.setSettings();
-    this.translate.onLangChange.subscribe((event) => {
-      this.setSettings();
-    });
   }
 
   setSettings() {
@@ -147,6 +154,7 @@ export class CategoriesListComponent implements OnInit {
           if (res) {
             this.categoryService.deleteCategory(event.data.id)
               .subscribe(data => {
+                this.toastr.success(this.translate.instant('CATEGORY_FORM.CATEGORY_REMOVED'));
                 this.getList();
               });
           }

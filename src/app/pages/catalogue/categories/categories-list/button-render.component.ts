@@ -1,21 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   template: `
-    <input type="checkbox" [checked]="value" disabled (click)="clicked($event) "/>
+    <input type="checkbox" [checked]="value" disabled/>
   `,
 })
-export class ButtonRenderComponent implements OnInit {
+export class ButtonRenderComponent {
   @Input() value: string | number;
 
   constructor() {
-  }
-
-  ngOnInit() {
-  }
-
-  clicked(name) {
-    console.log(name);
   }
 
 }
