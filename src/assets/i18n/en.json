@@ -193,7 +193,8 @@
   },
   "CATEGORY": {
     "CATEGORY_NAME": "Category name",
-    "PARENT": "Parent"
+    "PARENT": "Parent",
+    "HIERARCHY_UPDATED": "Hierarchy successfully updated"
   },
   "CATEGORY_FORM": {
     "ROOT_CATEGORY": "Root category",

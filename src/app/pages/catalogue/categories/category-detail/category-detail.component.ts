@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
 import { CategoryService } from '../services/category.service';
 
@@ -10,14 +9,13 @@ import { CategoryService } from '../services/category.service';
   styleUrls: ['./category-detail.component.scss']
 })
 export class CategoryDetailComponent implements OnInit {
-  category: any;
+  category: any = {};
   loadingInfo = false;
 
   constructor(
     private categoryService: CategoryService,
-    private activatedRoute: ActivatedRoute,
-    private location: Location,
-    ) {
+    private activatedRoute: ActivatedRoute
+  ) {
   }
 
   ngOnInit() {
@@ -28,10 +26,6 @@ export class CategoryDetailComponent implements OnInit {
         this.category = res;
         this.loadingInfo = false;
       });
-  }
-
-  backToList() {
-    this.location.back();
   }
 
 }

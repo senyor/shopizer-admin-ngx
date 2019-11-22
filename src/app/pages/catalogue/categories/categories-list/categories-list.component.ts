@@ -52,10 +52,10 @@ export class CategoriesListComponent implements OnInit {
 
   ngOnInit() {
     this.getList();
+    // TODO what the aim of getting products?
     this.productService.getListOfProducts({})
       .subscribe(res => {
         this.availableList = [...res.products];
-        // TODO what the aim of selectedList?
         this.selectedList = [];
       });
     this.translate.onLangChange.subscribe((lang) => {
@@ -105,6 +105,9 @@ export class CategoriesListComponent implements OnInit {
           { name: 'details', title: `${this.translate.instant('COMMON.EDIT')}` },
           { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
         ],
+      },
+      pager: {
+        display: false
       },
       columns: {
         id: {
