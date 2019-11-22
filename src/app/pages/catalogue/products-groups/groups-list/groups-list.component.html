@@ -7,17 +7,8 @@
     <ng2-smart-table
       [settings]="settings"
       [source]="source"
-      (editConfirm)="updateRecord($event)"
       (deleteConfirm)="deleteRecord($event)">
     </ng2-smart-table>
-
-    <!--    <ngx-paginator-->
-    <!--      (changePage)="changePage($event)"-->
-    <!--      [pagesToShow]="5"-->
-    <!--      [currentPage]="currentPage"-->
-    <!--      [perPage]="perPage"-->
-    <!--      [count]="totalCount">-->
-    <!--    </ngx-paginator>-->
 
   </nb-card-body>
 </nb-card>

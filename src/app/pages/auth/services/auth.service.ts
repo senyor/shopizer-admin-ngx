@@ -37,6 +37,7 @@ export class AuthService {
       isAdminRetail: false,
     };
     localStorage.removeItem('roles');
+    localStorage.removeItem('merchant');
   }
 
   refresh(): Observable<any> {

@@ -31,7 +31,7 @@ export class ProductsGroupsListComponent implements OnInit {
         console.log(res.products);
         this.availableList = [...res.products];
       });
-    this.productGroupsService.getListOfProductGroups({}).subscribe(res => {
+    this.productGroupsService.getListOfProductGroups().subscribe(res => {
       console.log(res);
       this.groups = [...res];
     });
