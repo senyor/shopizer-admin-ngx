@@ -19,7 +19,7 @@ export class BrandsListComponent implements OnInit {
   settings = {};
 
   // paginator
-  perPage = 10;
+  perPage = 30;
   currentPage = 1;
   totalCount;
 

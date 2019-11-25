@@ -138,6 +138,7 @@ export const MENU_ITEMS: MenuItem[] = [
         title: 'COMPONENTS.CATEGORIES',
         key: 'COMPONENTS.CATEGORIES',
         hidden: false,
+        guards: [IsSuperadmin, IsAdmin, IsAdminCatalogue],
         children: [
           {
             title: 'COMPONENTS.CREATE_CATEGORY',

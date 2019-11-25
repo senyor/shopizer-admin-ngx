@@ -6,12 +6,16 @@
     <div class="col-sm-12">
       <input type="text" class="form-control" id="code" formControlName='code'
              placeholder="{{ 'COMMON.CODE' | translate}}" (change)="checkCode($event)" required>
-      <span *ngIf="(code.dirty || code.touched) && code.invalid && code.errors.required"
-            class="err-message">
-        {{ 'COMMON.CODE_REQUIRED' | translate}}
-      </span>
+      <div class="err-message" *ngIf="(code.dirty || code.touched) && code.invalid && code">
+            <span *ngIf="code.errors.required">
+            {{ 'COMMON.CODE_REQUIRED' | translate}}
+            </span>
+        <span *ngIf="code.errors.pattern">
+              {{ 'COMMON.ALPHA_DECIMAL_RULE' | translate}}
+            </span>
+      </div>
       <span *ngIf="!isCodeUnique" class="err-message">
-        {{ 'COMMON.CODE_EXISTS' | translate}}
+            {{ 'COMMON.CODE_EXISTS' | translate}}
       </span>
     </div>
   </div>
@@ -19,7 +23,7 @@
   <div class="form-group">
     <label for="sortOrder" class="col-sm-10 col-form-label">{{ 'COMMON.ORDER' | translate }}</label>
     <div class="col-sm-12">
-      <input type="number" class="form-control" id="sortOrder" formControlName='order'
+      <input type="text" class="form-control" id="sortOrder" formControlName='order' ngxValidateNumber
              placeholder="{{ 'COMMON.ORDER' | translate }}" required>
     </div>
   </div>

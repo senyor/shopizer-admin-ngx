@@ -6,6 +6,7 @@ import { ConfigService } from '../../../shared/services/config.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { validators } from '../../../shared/validation/validators';
 
 @Component({
   selector: 'ngx-brand-form',
@@ -61,8 +62,8 @@ export class BrandFormComponent implements OnInit {
 
   createForm() {
     this.form = this.fb.group({
-      code: ['', [Validators.required]],
-      order: ['', [Validators.required]],
+      code: ['', [Validators.required, Validators.pattern(validators.alphanumeric)]],
+      order: ['', [Validators.required, Validators.pattern(validators.number)]],
       selectedLanguage: ['', [Validators.required]],
       descriptions: this.fb.array([]),
     });
