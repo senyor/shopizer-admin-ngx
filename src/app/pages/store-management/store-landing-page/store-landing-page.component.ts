@@ -3,6 +3,9 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ConfigService } from '../../shared/services/config.service';
 import { StoreService } from '../services/store.service';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
+import { StorageService } from '../../shared/services/storage.service';
 
 @Component({
   selector: 'ngx-store-landing-page',
@@ -35,9 +38,9 @@ export class StoreLandingPageComponent implements OnInit {
     private fb: FormBuilder,
     private configService: ConfigService,
     private storeService: StoreService,
-    // private toastrService: ToastrService,
-    // private translate: TranslateService,
-    // private storageService: StorageService
+    private toastrService: ToastrService,
+    private translate: TranslateService,
+    private storageService: StorageService
   ) {
     this.createForm();
     this.configService.getListOfSupportedLanguages()
@@ -122,9 +125,9 @@ export class StoreLandingPageComponent implements OnInit {
 
   save() {
     console.log(this.form.value);
-    // this.loadingButton = true;
-    // this.form.patchValue({ name: this.storageService.getMerchant() });
-    // this.storeService.updatePageContent(this.form.value)
+    this.loadingButton = true;
+    this.form.patchValue({ name: this.storageService.getMerchant() });
+    // this.storeService.updatePageContent(this.page.id, this.form.value)
     //   .subscribe(res => {
     //     console.log(res);
     //     this.loadingButton = false;

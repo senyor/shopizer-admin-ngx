@@ -25,7 +25,7 @@ export class StoreService {
 
   getListOfMerchantStores(params): Observable<any> {
     const merchant = this.storageService.getMerchant();
-    return this.crudService.get(`/v1/merchant/${merchant}/stores`, params);
+    return this.crudService.get(`/v1/private/merchant/${merchant}/stores`, params);
   }
 
   checkIfStoreExist(code): Observable<any> {
@@ -56,12 +56,12 @@ export class StoreService {
     return this.crudService.get(`/v1/private/content/any/${pageCode}`, params);
   }
 
-  updatePageContent(content: any): Observable<any> {
+  updatePageContent(id, content: any): Observable<any> {
     const code = this.storageService.getMerchant();
     // const params = {
     //   lang: content.language
     // };
-    return this.crudService.post(`/v1/private/${code}/content/any/${content.code}`, content);
+    return this.crudService.put(`/v1/private/content/${id}`, content);
   }
 
   // end PAGE CONTENT
