@@ -19,6 +19,7 @@ const routes: Routes = [{
     },
     {
       path: 'brands',
+      canActivate: [SuperAdminCatalogueGuard],
       loadChildren: 'app/pages/catalogue/brands/brands.module#BrandsModule'
     },
     {

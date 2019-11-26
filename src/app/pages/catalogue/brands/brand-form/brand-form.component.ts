@@ -198,6 +198,8 @@ export class BrandFormComponent implements OnInit {
       brandObject.descriptions.forEach(el => {
         for (const elKey in el) {
           if (el.hasOwnProperty(elKey)) {
+            // trim name
+            el.name = el.name.trim();
             if (typeof el[elKey] === 'undefined') {
               el[elKey] = '';
             }

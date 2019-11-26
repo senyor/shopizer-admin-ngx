@@ -4,7 +4,7 @@
   <div class="form-group">
     <label for="code" class="col-sm-10 col-form-label">{{ 'COMMON.CODE' | translate}}</label>
     <div class="col-sm-12">
-      <input type="text" class="form-control" id="code" formControlName='code'
+      <input type="text" class="form-control" id="code" formControlName='code' [readOnly]="brand.id"
              placeholder="{{ 'COMMON.CODE' | translate}}" (change)="checkCode($event)" required>
       <div class="err-message" *ngIf="(code.dirty || code.touched) && code.invalid && code">
             <span *ngIf="code.errors.required">

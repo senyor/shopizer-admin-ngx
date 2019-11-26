@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
 import { BrandService } from '../services/brand.service';
 
@@ -16,7 +15,6 @@ export class BrandDetailsComponent implements OnInit {
   constructor(
     private brandService: BrandService,
     private activatedRoute: ActivatedRoute,
-    private location: Location,
   ) {
   }
 
@@ -28,10 +26,6 @@ export class BrandDetailsComponent implements OnInit {
         this.brand = brand;
         this.loadingInfo = false;
       });
-  }
-
-  backToList() {
-    this.location.back();
   }
 
 }

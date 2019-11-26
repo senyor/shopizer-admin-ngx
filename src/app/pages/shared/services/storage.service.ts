@@ -35,4 +35,8 @@ export class StorageService {
     return localStorage.getItem('lang') || environment.client.language.default;
   }
 
+  getUserRoles () {
+    return JSON.parse(localStorage.getItem('roles'));
+  }
+
 }

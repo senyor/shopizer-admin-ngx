@@ -7,6 +7,8 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { TranslateService } from '@ngx-translate/core';
 import { NbDialogService } from '@nebular/theme';
 import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
+import { StorageService } from '../../../shared/services/storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-brands-list',
@@ -25,7 +27,7 @@ export class BrandsListComponent implements OnInit {
 
   // request params
   params = {
-    lang: 'en',
+    lang: this.storageService.getLanguage(),
     count: this.perPage,
     page: 0
   };
@@ -35,12 +37,18 @@ export class BrandsListComponent implements OnInit {
     private router: Router,
     private _sanitizer: DomSanitizer,
     private dialogService: NbDialogService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private storageService: StorageService,
+    private toastr: ToastrService,
   ) {
   }
 
   ngOnInit() {
     this.getList();
+    this.translate.onLangChange.subscribe((lang) => {
+      this.params.lang = this.storageService.getLanguage();
+      this.getList();
+    });
   }
 
   getList() {
@@ -53,9 +61,6 @@ export class BrandsListComponent implements OnInit {
         this.loadingList = false;
       });
     this.setSettings();
-    this.translate.onLangChange.subscribe((event) => {
-      this.setSettings();
-    });
   }
 
   setSettings() {
@@ -72,6 +77,7 @@ export class BrandsListComponent implements OnInit {
           { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
         ],
       },
+      pager: { display: false },
       columns: {
         id: {
           filter: false,
@@ -101,15 +107,16 @@ export class BrandsListComponent implements OnInit {
         this.router.navigate(['pages/catalogue/brands/brand/', event.data.id]);
         break;
       case 'remove':
-      this.dialogService.open(ShowcaseDialogComponent, {})
-        .onClose.subscribe(res => {
-        if (res) {
-          this.brandService.deleteBrand(event.data.id)
-            .subscribe(data => {
-              this.getList();
-            });
-        }
-      });
+        this.dialogService.open(ShowcaseDialogComponent, {})
+          .onClose.subscribe(res => {
+          if (res) {
+            this.brandService.deleteBrand(event.data.id)
+              .subscribe(data => {
+                this.toastr.success(this.translate.instant('BRAND.BRAND_REMOVED'));
+                this.getList();
+              });
+          }
+        });
     }
   }
 
