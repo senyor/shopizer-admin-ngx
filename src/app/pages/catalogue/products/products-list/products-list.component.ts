@@ -8,6 +8,9 @@ import { NbDialogService } from '@nebular/theme';
 import { StoreService } from '../../../store-management/services/store.service';
 import { UserService } from '../../../shared/services/user.service';
 import { TranslateService } from '@ngx-translate/core';
+import { StorageService } from '../../../shared/services/storage.service';
+import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'ngx-products-list',
@@ -28,8 +31,8 @@ export class ProductsListComponent implements OnInit {
 
   // server params
   params = {
-    store: 'DEFAULT',
-    lang: 'en',
+    store: this.storageService.getMerchant(),
+    lang: this.storageService.getLanguage(),
     count: this.perPage,
     start: 0
   };
@@ -40,23 +43,23 @@ export class ProductsListComponent implements OnInit {
     private productService: ProductService,
     private dialogService: NbDialogService,
     private storeService: StoreService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private storageService: StorageService,
+    private toastr: ToastrService,
   ) {
-    const userId = this.userService.getUserId();
-    this.userService.getUser(userId)
-      .subscribe(user => {
-        this.userService.checkForAccess(user.groups);
-        this.isSuperadmin = this.userService.roles.isSuperadmin;
-        this.params.store = user.merchant;
-      });
+    this.isSuperadmin = this.storageService.getUserRoles().isSuperadmin;
   }
 
   ngOnInit() {
-    this.storeService.getListOfStores({start: 0})
+    this.storeService.getListOfStores({ start: 0 })
       .subscribe(res => {
         this.stores = res.data;
       });
     this.getList();
+    this.translate.onLangChange.subscribe((lang) => {
+      this.params.lang = this.storageService.getLanguage();
+      this.getList();
+    });
   }
 
   getList() {
@@ -75,9 +78,6 @@ export class ProductsListComponent implements OnInit {
         this.loadingList = false;
       });
     this.setSettings();
-    this.translate.onLangChange.subscribe((event) => {
-      this.setSettings();
-    });
   }
 
   setSettings() {
@@ -101,6 +101,7 @@ export class ProductsListComponent implements OnInit {
         position: 'right',
         sort: true,
       },
+      pager: { display: false },
       columns: {
         id: {
           title: this.translate.instant('COMMON.ID'),
@@ -118,7 +119,7 @@ export class ProductsListComponent implements OnInit {
           editable: false,
           valuePrepareFunction: (name) => {
             const id = this.products.find(el => el.name === name).id;
-            return `<a href="#/pages/catalogue/products/product/${ id }">${ name }</a>`;
+            return `<a href="#/pages/catalogue/products/product/${id}">${name}</a>`;
           }
         },
         quantity: {
@@ -160,8 +161,8 @@ export class ProductsListComponent implements OnInit {
     event.confirm.resolve(event.newData);
     this.productService.updateProductFromTable(event.newData.id, product)
       .subscribe(res => {
-        console.log(res);
         event.confirm.resolve(event.newData);
+        this.toastr.success(this.translate.instant('PRODUCT.PRODUCT_UPDATED'));
       }, error => {
         console.log(error.error.message);
       });
@@ -171,9 +172,9 @@ export class ProductsListComponent implements OnInit {
     this.dialogService.open(ShowcaseDialogComponent, {})
       .onClose.subscribe(res => {
       if (res) {
-        event.confirm.resolve();
         this.productService.deleteProduct(event.data.id)
           .subscribe(result => {
+            event.confirm.resolve();
             this.getList();
           });
       } else {

@@ -274,6 +274,7 @@
     "CODE": "Code",
     "CODE_REQUIRED": "Сode is required.",
     "CODE_EXISTS": "This code already exists.",
+    "SKU_EXISTS": "This sku already exists.",
 
     "FILL_REQUIRED_FIELDS": "Please, fill required fields.",
     "ALPHA_DECIMAL_RULE": "Only letters and numbers are allowed.",

@@ -9,6 +9,8 @@ import { ProductService } from '../services/product.service';
 import { ProductImageService } from '../services/product-image.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { validators } from '../../../shared/validation/validators';
+import { slugify } from '../../../shared/utils/slugifying';
 
 @Component({
   selector: 'ngx-product-form',
@@ -37,10 +39,7 @@ export class ProductFormComponent implements OnInit {
     ],
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
-  skuPattern = '^[a-zA-Zа-яА-Я0-9]+$';
-  isReadonlyCode = false;
   isCodeUnique = true;
-  loadingButton = false;
   uploadData = new FormData();
   removedImagesArray = [];
 
@@ -81,25 +80,23 @@ export class ProductFormComponent implements OnInit {
 
   private createForm() {
     this.form = this.fb.group({
-      // uniqueCode: ['', [Validators.required]], // ???
-      sku: ['', [Validators.required, Validators.pattern(this.skuPattern)]],
+      sku: ['', [Validators.required, Validators.pattern(validators.alphanumeric)]],
       available: [false],
       preOrder: [false],
       dateAvailable: [new Date()],
       manufacturer: ['DEFAULT'],
       type: [''],
       price: [0],
-      quantity: [0, [Validators.required]],
-      sortOrder: [0, [Validators.required]],
+      quantity: [0, [Validators.required, Validators.pattern(validators.number)]],
+      sortOrder: [0, [Validators.required, Validators.pattern(validators.number)]],
       productShipeable: [false, [Validators.required]],
       productSpecifications: this.fb.group({
-        weight: [0],
-        height: [0],
-        width: [0],
-        length: [0],
+        weight: [0, [Validators.pattern(validators.number)]],
+        height: [0, [Validators.pattern(validators.number)]],
+        width: [0, [Validators.pattern(validators.number)]],
+        length: [0, [Validators.pattern(validators.number)]],
       }),
       // placementOrder: [0, [Validators.required]],  // ???
-      // image: [0, [Validators.required]],  // ???
       // taxClass: [0, [Validators.required]], // ???
       selectedLanguage: ['', [Validators.required]],
       descriptions: this.fb.array([]),
@@ -137,7 +134,6 @@ export class ProductFormComponent implements OnInit {
       sortOrder: this.product.sortOrder,
       productShipeable: this.product.productShipeable,
       // placementOrder: [0, [Validators.required]],  // ???
-      // image: [0, [Validators.required]],  // ???
       // taxClass: [0, [Validators.required]], // ???
       selectedLanguage: 'en',
       descriptions: [],
@@ -150,7 +146,6 @@ export class ProductFormComponent implements OnInit {
       length: this.product.productSpecifications.length,
     };
     this.form.patchValue({ productSpecifications: dimension });
-    this.isReadonlyCode = true;
   }
 
   fillFormArray() {
@@ -184,23 +179,9 @@ export class ProductFormComponent implements OnInit {
     return <FormArray>this.form.get('descriptions');
   }
 
-  slugify(string) {
-    const a = 'àáäâãåăæąçćčđèéėëêęǵḧìíïîįłḿǹńňñòóöôœøṕŕřßśšșťțùúüûǘůűūųẃẍÿýźžż·/_,:;';
-    const b = 'aaaaaaaaacccdeeeeeeghiiiiilmnnnnooooooprrssssttuuuuuuuuuwxyyzzz------';
-    const p = new RegExp(a.split('').join('|'), 'g');
-
-    return string.toString().toLowerCase()
-      .replace(/\s+/g, '-') // Replace spaces with -
-      .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
-      .replace(/&/g, '-and-') // Replace & with 'and'
-      .replace(/\-\-+/g, '-') // Replace multiple - with single -
-      .replace(/^-+/, '') // Trim - from start of text
-      .replace(/-+$/, ''); // Trim - from end of text
-  }
-
   changeName(event, index) {
     (<FormArray>this.form.get('descriptions')).at(index).patchValue({
-      friendlyUrl: this.slugify(event)
+      friendlyUrl: slugify(event)
     });
   }
 
@@ -249,7 +230,11 @@ export class ProductFormComponent implements OnInit {
   }
 
   save() {
-    this.loadingButton = true;
+    if (!this.isCodeUnique) {
+      this.toastr.error(this.translate.instant('COMMON.CODE_EXISTS'));
+      return;
+    }
+
     const productObject = this.form.value;
     productObject.dateAvailable = moment(productObject.dateAvailable).format('YYYY-MM-DD');
     productObject.productSpecifications.manufacturer = productObject.manufacturer;
@@ -277,9 +262,7 @@ export class ProductFormComponent implements OnInit {
     });
 
     // check required fields
-    if (!(/^[a-zA-Zа-яА-Я0-9]+$/.test(productObject.sku))) {
-      this.toastr.error(this.translate.instant('COMMON.ALPHA_DECIMAL_RULE'));
-    } else if (tmpObj.name === '' || tmpObj.friendlyUrl === '' || productObject.sku === '') {
+    if (tmpObj.name === '' || tmpObj.friendlyUrl === '' || productObject.sku === '') {
       this.toastr.error(this.translate.instant('COMMON.FILL_REQUIRED_FIELDS'));
     } else {
       productObject.descriptions.forEach((el) => {
@@ -308,11 +291,9 @@ export class ProductFormComponent implements OnInit {
         this.productService.updateProduct(this.product.id, productObject)
           .subscribe(res => {
             console.log(res);
-            this.loadingButton = false;
             this.productImageService.createImage(res.id, this.uploadData)
               .subscribe(res1 => {
                 console.log(res1);
-                this.loadingButton = false;
                 this.toastr.success(this.translate.instant('PRODUCT.PRODUCT_UPDATED'));
               });
           });
@@ -322,8 +303,8 @@ export class ProductFormComponent implements OnInit {
             this.productImageService.createImage(res.id, this.uploadData)
               .subscribe(res1 => {
                 console.log(res1);
-                this.loadingButton = false;
                 this.toastr.success(this.translate.instant('PRODUCT.PRODUCT_CREATED'));
+                this.router.navigate(['pages/catalogue/products/products-list']);
               });
           });
       }
