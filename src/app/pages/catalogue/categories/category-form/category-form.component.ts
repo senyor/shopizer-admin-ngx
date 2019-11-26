@@ -210,6 +210,7 @@ export class CategoryFormComponent implements OnInit {
       categoryObject.descriptions.forEach(el => {
         for (const elKey in el) {
           if (el.hasOwnProperty(elKey)) {
+            el.name = el.name.trim(); // trim name
             if (typeof el[elKey] === 'undefined') {
               el[elKey] = '';
             }
