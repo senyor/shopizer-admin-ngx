@@ -18,6 +18,7 @@ import { PricesListComponent } from './price/prices-list/prices-list.component';
 import { PriceRoutingModule } from './price-routing.module';
 import { PriceFormComponent } from './price/price-form/price-form.component';
 import { ProductToCategoryComponent } from './product-to-category/product-to-category.component';
+import { ExitGuard } from '../../shared/guards/exit.guard';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ProductToCategoryComponent } from './product-to-category/product-to-cat
     SharedModule,
     NgxSummernoteModule,
   ],
+  providers: [ExitGuard],
   entryComponents: [AvailableButtonComponent]
 })
 

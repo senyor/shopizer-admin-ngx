@@ -289,7 +289,9 @@
     "WEIGHT": "Weight",
     "HEIGHT": "Height",
     "WIDTH": "Width",
-    "LENGTH": "Length"
+    "LENGTH": "Length",
+
+    "UNSAVED_DATA": "You have unsaved data. Are you sure you want to leave this page?"
   },
   "DESCRIPTION_FORM": {
     "NAME": "Name",

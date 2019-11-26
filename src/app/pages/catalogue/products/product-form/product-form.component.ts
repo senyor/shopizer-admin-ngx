@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ManufactureService } from '../../../shared/services/manufacture.service';
@@ -42,6 +42,7 @@ export class ProductFormComponent implements OnInit {
   isCodeUnique = true;
   uploadData = new FormData();
   removedImagesArray = [];
+  saved = false;
 
   constructor(
     private fb: FormBuilder,
@@ -280,6 +281,7 @@ export class ProductFormComponent implements OnInit {
         for (const elKey in el) {
           if (el.hasOwnProperty(elKey)) {
             if (typeof el[elKey] === 'undefined') {
+              el.name = el.name.trim(); // trim name
               el[elKey] = '';
             }
           }
@@ -287,6 +289,7 @@ export class ProductFormComponent implements OnInit {
       });
 
       if (this.product.id) {
+        this.saved = true;
         this.removeImages(this.removedImagesArray);
         this.productService.updateProduct(this.product.id, productObject)
           .subscribe(res => {
@@ -298,6 +301,7 @@ export class ProductFormComponent implements OnInit {
               });
           });
       } else {
+        this.saved = true;
         this.productService.createProduct(productObject)
           .subscribe(res => {
             this.productImageService.createImage(res.id, this.uploadData)

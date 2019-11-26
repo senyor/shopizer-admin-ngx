@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { CrudService } from '../../../shared/services/crud.service';
 import { Observable } from 'rxjs';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import { Observable } from 'rxjs';
 export class ProductService {
 
   constructor(
-    private crudService: CrudService
+    private crudService: CrudService,
+    private storageService: StorageService,
   ) {
   }
 
@@ -22,7 +24,8 @@ export class ProductService {
   }
 
   updateProduct(id, product): Observable<any> {
-    return this.crudService.put(`/v1/private/product/${ id }`, product);
+    return this.crudService.put(`/v1/private/product/${ id }`, product,
+      {params: {store: this.storageService.getMerchant()}});
   }
 
   getProductById(id): Observable<any> {
@@ -33,7 +36,7 @@ export class ProductService {
   }
 
   createProduct (product): Observable<any> {
-    return this.crudService.post(`/v1/private/product`, product);
+    return this.crudService.post(`/v1/private/product`, product, {params: {store: this.storageService.getMerchant()}});
   }
 
   deleteProduct(id): Observable<any> {

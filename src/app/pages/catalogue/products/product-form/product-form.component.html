@@ -47,16 +47,16 @@
     </div>
   </div>
 
-<!--  <div class="form-group">-->
-<!--    <label class="col-sm-10 col-form-label">{{ 'PRODUCT.MANUFACTURER' | translate}}</label>-->
-<!--    <div class="col-sm-12">-->
-<!--      <nb-select *ngIf="manufacturers.length" placeholder="{{ 'PRODUCT.MANUFACTURER' | translate}}" formControlName='manufacturer'-->
-<!--                 outline-->
-<!--                 shape="rectangle">-->
-<!--        <nb-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.code">{{ manufacturer.code }}</nb-option>-->
-<!--      </nb-select>-->
-<!--    </div>-->
-<!--  </div>-->
+  <div class="form-group">
+    <label class="col-sm-10 col-form-label">{{ 'PRODUCT.MANUFACTURER' | translate}}</label>
+    <div class="col-sm-12">
+      <nb-select *ngIf="manufacturers.length" placeholder="{{ 'PRODUCT.MANUFACTURER' | translate}}" formControlName='manufacturer'
+                 outline
+                 shape="rectangle">
+        <nb-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.code">{{ manufacturer.code }}</nb-option>
+      </nb-select>
+    </div>
+  </div>
 
   <div class="form-group">
     <label class="col-sm-10 col-form-label">{{ 'PRODUCT.PRODUCT_TYPE' | translate}}</label>
