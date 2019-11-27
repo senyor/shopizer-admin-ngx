@@ -10,7 +10,6 @@ import { UserService } from '../../../shared/services/user.service';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from '../../../shared/services/storage.service';
 import { ToastrService } from 'ngx-toastr';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'ngx-products-list',

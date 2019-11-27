@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { ManufactureService } from '../../../shared/services/manufacture.service';
 import { ConfigService } from '../../../shared/services/config.service';
@@ -7,7 +8,6 @@ import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '../services/product.service';
 import { ProductImageService } from '../services/product-image.service';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { validators } from '../../../shared/validation/validators';
 import { slugify } from '../../../shared/utils/slugifying';
@@ -220,9 +220,8 @@ export class ProductFormComponent implements OnInit {
     array.forEach((el) => {
       this.productImageService.removeImage(el)
         .subscribe(res1 => {
-          console.log(res1);
         }, error => {
-          console.log('Something went wrong');
+          console.log('Something went wrong', error);
         });
     });
   }
@@ -290,10 +289,8 @@ export class ProductFormComponent implements OnInit {
         this.removeImages(this.removedImagesArray);
         this.productService.updateProduct(this.product.id, productObject)
           .subscribe(res => {
-            console.log(res);
             this.productImageService.createImage(res.id, this.uploadData)
               .subscribe(res1 => {
-                console.log(res1);
                 this.toastr.success(this.translate.instant('PRODUCT.PRODUCT_UPDATED'));
               });
           });
@@ -303,7 +300,6 @@ export class ProductFormComponent implements OnInit {
           .subscribe(res => {
             this.productImageService.createImage(res.id, this.uploadData)
               .subscribe(res1 => {
-                console.log(res1);
                 this.toastr.success(this.translate.instant('PRODUCT.PRODUCT_CREATED'));
                 this.router.navigate(['pages/catalogue/products/products-list']);
               });
