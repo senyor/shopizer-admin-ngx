@@ -16,7 +16,6 @@ export class ExitGuard implements CanDeactivate<CanComponentDeactivate> {
                 currentState: RouterStateSnapshot,
                 nextState?: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    console.log(component);
     return component.canDeactivate ? component.canDeactivate() : true;
   }
 }

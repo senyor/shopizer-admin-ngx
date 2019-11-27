@@ -6,7 +6,6 @@ import { ProductCreationComponent } from './product-creation/product-creation.co
 import { ProductsListComponent } from './products-list/products-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductToCategoryComponent } from './product-to-category/product-to-category.component';
-import { ExitGuard } from '../../shared/guards/exit.guard';
 
 const routes: Routes = [
   {
@@ -15,7 +14,7 @@ const routes: Routes = [
     children: [
       {
         path: 'create-product',
-        canDeactivate: [ExitGuard],
+        // canDeactivate: [ExitGuard],
         component: ProductCreationComponent,
       },
       {
@@ -24,7 +23,7 @@ const routes: Routes = [
       },
       {
         path: 'product/:id',
-        canDeactivate: [ExitGuard],
+        // canDeactivate: [ExitGuard],
         component: ProductDetailsComponent,
       },
       {

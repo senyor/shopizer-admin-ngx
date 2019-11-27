@@ -20,27 +20,32 @@ export class ProductService {
   }
 
   updateProductFromTable(id, product): Observable<any> {
-    return this.crudService.patch(`/v1/private/product/${ id }`, product);
+    return this.crudService.patch(`/v1/private/product/${id}`, product);
   }
 
   updateProduct(id, product): Observable<any> {
-    return this.crudService.put(`/v1/private/product/${ id }`, product,
-      {params: {store: this.storageService.getMerchant()}});
+    const params = {
+      store: this.storageService.getMerchant()
+    };
+    return this.crudService.put(`/v1/private/product/${id}`, product, { params });
   }
 
   getProductById(id): Observable<any> {
     const params = {
       lang: '_all'
     };
-    return this.crudService.get(`/v1/product/${ id }`, params);
+    return this.crudService.get(`/v1/product/${id}`, params);
   }
 
-  createProduct (product): Observable<any> {
-    return this.crudService.post(`/v1/private/product`, product, {params: {store: this.storageService.getMerchant()}});
+  createProduct(product): Observable<any> {
+    const params = {
+      store: this.storageService.getMerchant()
+    };
+    return this.crudService.post(`/v1/private/product`, product, { params });
   }
 
   deleteProduct(id): Observable<any> {
-    return this.crudService.delete(`/v1/private/product/${ id }`);
+    return this.crudService.delete(`/v1/private/product/${id}`);
   }
 
   getProductTypes(): Observable<any> {

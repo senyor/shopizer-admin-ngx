@@ -291,7 +291,8 @@
     "WIDTH": "Width",
     "LENGTH": "Length",
 
-    "UNSAVED_DATA": "You have unsaved data. Are you sure you want to leave this page?"
+    "UNSAVED_DATA": "You have unsaved data. Are you sure you want to leave this page?",
+    "ONLY_TEN_IMAGES": "You can upload max 10 images"
   },
   "DESCRIPTION_FORM": {
     "NAME": "Name",

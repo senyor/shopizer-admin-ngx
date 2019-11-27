@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { validators } from '../../../shared/validation/validators';
 import { slugify } from '../../../shared/utils/slugifying';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'ngx-product-form',
@@ -57,19 +58,15 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createForm();
-    this.manufactureService.getManufacturers()
-      .subscribe(res => {
-        this.manufacturers = [...res.manufacturers];
-      });
-    this.productService.getProductTypes()
-      .subscribe(res => {
-        this.productTypes = [...res];
-      });
     this.loader = true;
-    this.configService.getListOfSupportedLanguages()
-      .subscribe(res => {
-        this.languages = [...res];
+    const manufacture$ = this.manufactureService.getManufacturers();
+    const product$ = this.productService.getProductTypes();
+    const config$ = this.configService.getListOfSupportedLanguages();
+    forkJoin(manufacture$, product$, config$)
+      .subscribe(([manufacturers, productTypes, languages]) => {
+        this.manufacturers = [...manufacturers.manufacturers];
+        this.productTypes = [...productTypes];
+        this.languages = [...languages];
         this.createForm();
         this.addFormArray();
         if (this.product.id) {
@@ -87,15 +84,15 @@ export class ProductFormComponent implements OnInit {
       dateAvailable: [new Date()],
       manufacturer: ['DEFAULT'],
       type: [''],
-      price: [0],
-      quantity: [0, [Validators.required, Validators.pattern(validators.number)]],
-      sortOrder: [0, [Validators.required, Validators.pattern(validators.number)]],
+      price: [''],
+      quantity: ['', [Validators.required, Validators.pattern(validators.number)]],
+      sortOrder: ['', [Validators.required, Validators.pattern(validators.number)]],
       productShipeable: [false, [Validators.required]],
       productSpecifications: this.fb.group({
-        weight: [0, [Validators.pattern(validators.number)]],
-        height: [0, [Validators.pattern(validators.number)]],
-        width: [0, [Validators.pattern(validators.number)]],
-        length: [0, [Validators.pattern(validators.number)]],
+        weight: ['', [Validators.pattern(validators.number)]],
+        height: ['', [Validators.pattern(validators.number)]],
+        width: ['', [Validators.pattern(validators.number)]],
+        length: ['', [Validators.pattern(validators.number)]],
       }),
       // placementOrder: [0, [Validators.required]],  // ???
       // taxClass: [0, [Validators.required]], // ???
@@ -280,7 +277,7 @@ export class ProductFormComponent implements OnInit {
       productObject.descriptions.forEach(el => {
         for (const elKey in el) {
           if (el.hasOwnProperty(elKey)) {
-            if (typeof el[elKey] === 'undefined') {
+            if (typeof el[elKey] === 'undefined' || !el[elKey]) {
               el.name = el.name.trim(); // trim name
               el[elKey] = '';
             }
