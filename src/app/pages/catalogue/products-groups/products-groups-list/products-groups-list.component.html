@@ -27,6 +27,7 @@
               targetFilterPlaceholder="{{ 'COMMON.SEARCH' | translate}}"
               [showSourceControls]="false"
               [showTargetControls]="false"
+              [disabled]="!selectedGroup"
               (onMoveToTarget)="moveEvent($event, 'toTarget')"
               (onMoveToSource)="moveEvent($event, 'toSource')"
               (onMoveAllToTarget)="moveEvent($event, 'allToTarget')"

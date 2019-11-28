@@ -27,14 +27,10 @@ export class ProductsGroupsListComponent implements OnInit {
       count: -1,
       start: 0
     };
-    this.productService.getListOfProducts(params)
-      .subscribe(res => {
-        console.log(res.products);
-        this.availableList = [...res.products];
-      });
-    this.productGroupsService.getListOfProductGroups().subscribe(res => {
-      console.log(res);
-      this.groups = [...res];
+    forkJoin(this.productService.getListOfProducts(params), this.productGroupsService.getListOfProductGroups())
+      .subscribe(([products, groups]) => {
+        this.availableList = [...products.products];
+        this.groups = [...groups];
     });
   }
 
@@ -42,7 +38,6 @@ export class ProductsGroupsListComponent implements OnInit {
   }
 
   moveEvent(e, type) {
-    console.log(e.items[0].id, type);
     switch (type) {
       case 'toTarget':
         this.addProductToGroup(e.items[0].id, this.selectedGroup);
@@ -53,23 +48,22 @@ export class ProductsGroupsListComponent implements OnInit {
       case 'allToTarget':
         const addArray = [];
         e.items.forEach((el) => {
-          const req = this.addProductToGroup(el.id, this.selectedGroup);
+          const req = this.productGroupsService.addProductToGroup(el.id, this.selectedGroup);
           addArray.push(req);
         });
         console.log(addArray);
         forkJoin(addArray).subscribe(res => {
-          console.log(res);
+          // console.log(res);
         });
         break;
       case 'allToSource':
         const removeArr = [];
         e.items.forEach((el) => {
-          const req = this.removeProductFromGroup(el.id, this.selectedGroup);
+          const req = this.productGroupsService.removeProductFromGroup(el.id, this.selectedGroup);
           removeArr.push(req);
         });
-        console.log(removeArr);
         forkJoin(removeArr).subscribe(res => {
-          console.log(res);
+          // console.log(res);
         });
         break;
     }
