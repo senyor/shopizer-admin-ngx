@@ -7,6 +7,7 @@ import { OptionValuesService } from '../services/option-values.service';
 import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
 import { NbDialogService } from '@nebular/theme';
 import { ToastrService } from 'ngx-toastr';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Component({
   selector: 'ngx-options-values-list',
@@ -25,7 +26,7 @@ export class OptionsValuesListComponent implements OnInit {
 
   // request params
   params = {
-    lang: 'en',
+    lang: this.storageService.getLanguage(),
     count: this.perPage,
     page: 0
   };
@@ -37,11 +38,16 @@ export class OptionsValuesListComponent implements OnInit {
     private router: Router,
     private dialogService: NbDialogService,
     private toastr: ToastrService,
+    private storageService: StorageService,
   ) {
   }
 
   ngOnInit() {
     this.getList();
+    this.translate.onLangChange.subscribe((lang) => {
+      this.params.lang = this.storageService.getLanguage();
+      this.getList();
+    });
   }
 
   getList() {
@@ -55,9 +61,6 @@ export class OptionsValuesListComponent implements OnInit {
         this.loadingList = false;
       });
     this.setSettings();
-    this.translate.onLangChange.subscribe((event) => {
-      this.setSettings();
-    });
   }
 
   setSettings() {

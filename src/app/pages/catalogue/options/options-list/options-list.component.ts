@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
 import { NbDialogService } from '@nebular/theme';
 import { ToastrService } from 'ngx-toastr';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Component({
   selector: 'ngx-options-list',
@@ -26,7 +27,7 @@ export class OptionsListComponent implements OnInit {
 
   // request params
   params = {
-    lang: 'en',
+    lang: this.storageService.getLanguage(),
     count: this.perPage,
     page: 0
   };
@@ -37,27 +38,28 @@ export class OptionsListComponent implements OnInit {
     private router: Router,
     private dialogService: NbDialogService,
     private toastr: ToastrService,
+    private storageService: StorageService,
   ) {
   }
 
   ngOnInit() {
     this.getList();
+    this.translate.onLangChange.subscribe((lang) => {
+      this.params.lang = this.storageService.getLanguage();
+      this.getList();
+    });
   }
 
   getList() {
     this.params.page = this.currentPage - 1;
     this.loadingList = true;
     this.optionService.getListOfOptions(this.params).subscribe((res) => {
-      // console.log(res);
       this.totalCount = res.recordsTotal;
       this.options = [...res.options];
       this.source.load(this.options);
       this.loadingList = false;
     });
     this.setSettings();
-    this.translate.onLangChange.subscribe((event) => {
-      this.setSettings();
-    });
   }
 
   setSettings() {

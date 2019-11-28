@@ -43,9 +43,11 @@ export class OptionValuesComponent implements OnInit {
     const optionValueId = this.activatedRoute.snapshot.paramMap.get('optionValueId');
     this.createForm();
     if (optionValueId) {
+      this.loader = true;
       this.optionValuesService.getOptionValueById(optionValueId).subscribe(res => {
         this.optionValue = res;
         this.fillForm();
+        this.loader = false;
       });
     }
   }
