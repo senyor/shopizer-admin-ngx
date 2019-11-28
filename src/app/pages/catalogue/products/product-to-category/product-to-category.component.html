@@ -4,7 +4,9 @@
       <nb-select *ngIf="categories.length" placeholder="{{ 'COMPONENTS.CATEGORY' | translate}}"
                  outline
                  shape="rectangle">
-        <nb-option *ngFor="let category of categories" [value]="category.code">{{ category.code }}</nb-option>
+        <nb-option *ngFor="let category of categories" [value]="category.code" (click)="selectGroup(category.code)">
+          {{ category.code }}
+        </nb-option>
       </nb-select>
     </div>
   </div>
@@ -19,6 +21,10 @@
               targetFilterPlaceholder="Search"
               [showSourceControls]="false"
               [showTargetControls]="false"
+              (onMoveToTarget)="moveEvent($event, 'toTarget')"
+              (onMoveToSource)="moveEvent($event, 'toSource')"
+              (onMoveAllToTarget)="moveEvent($event, 'allToTarget')"
+              (onMoveAllToSource)="moveEvent($event, 'allToSource')"
               filterBy="code">
     <ng-template let-item pTemplate="item">
       <div class="ui-helper-clearfix item-picklist">
