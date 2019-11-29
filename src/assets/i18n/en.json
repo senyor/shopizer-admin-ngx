@@ -203,6 +203,13 @@
     "CATEGORY_CREATED": "Category created.",
     "CATEGORY_REMOVED": "Category removed."
   },
+  "CATALOG": {
+    "MANAGE_ENTRY": "Manage entry",
+
+    "CATALOG_UPDATED": "Catalogue updated.",
+    "CATALOG_CREATED": "Catalogue created.",
+    "CATALOG_REMOVED": "Catalogue removed."
+  },
   "PRODUCT": {
     "SKU": "Sku",
     "SKU_REQUIRED": "Sku is required.",
@@ -288,7 +295,9 @@
     "WEIGHT": "Weight",
     "HEIGHT": "Height",
     "WIDTH": "Width",
-    "LENGTH": "Length"
+    "LENGTH": "Length",
+
+    "CREATION_DATE": "Creation date"
   },
   "DESCRIPTION_FORM": {
     "NAME": "Name",
