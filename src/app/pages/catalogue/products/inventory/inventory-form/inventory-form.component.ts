@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { StoreService } from '../../../../store-management/services/store.service';
@@ -60,7 +60,7 @@ export class InventoryFormComponent implements OnInit {
     this.form = this.fb.group({
       store: ['DEFAULT', [Validators.required]],
       owner: ['', [Validators.required]],
-      dateAvailable: [''],
+      dateAvailable: [new Date()],
       quantity: [0, [Validators.required]]
     });
   }
@@ -84,11 +84,12 @@ export class InventoryFormComponent implements OnInit {
     if (this.inventory.id) {
       inventoryObj.id = this.inventory.id;
       this.inventoryService.updateInventory(this.productId, this.inventory.id, inventoryObj).subscribe((res) => {
-        console.log(res);
+        this.toastr.success(this.translate.instant('INVENTORY.INVENTORY_UPDATED'));
       });
     } else {
       this.inventoryService.createInventory(inventoryObj).subscribe((res) => {
-        console.log(res);
+        this.toastr.success(this.translate.instant('INVENTORY.INVENTORY_CREATED'));
+        this.inventory = res;
       });
     }
   }

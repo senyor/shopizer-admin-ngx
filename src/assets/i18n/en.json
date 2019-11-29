@@ -226,7 +226,11 @@
     "INVENTORY_OWNER": "Owner",
     "ADD_TO_INVENTORY": "Add to inventory",
 
-    "ADD_PRICE": "Add price"
+    "ADD_PRICE": "Add price",
+
+    "INVENTORY_UPDATED": "Inventory updated.",
+    "INVENTORY_CREATED": "Inventory created.",
+    "INVENTORY_REMOVED": "Inventory removed."
   },
   "PRICE": {
     "FINAL_PRICE": "Final price",
