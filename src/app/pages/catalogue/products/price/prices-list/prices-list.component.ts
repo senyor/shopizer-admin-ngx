@@ -124,11 +124,12 @@ export class PricesListComponent implements OnInit {
           .onClose.subscribe(res => {
           if (res) {
             console.log('remove');
-            this.inventoryService.deleteProduct(event.data.id)
-              .subscribe((data) => {
-                console.log(data);
-                this.getList();
-              });
+            // todo remove here item from list
+            // this.inventoryService.deleteProduct(event.data.id)
+            //   .subscribe((data) => {
+            //     console.log(data);
+            //     this.getList();
+            //   });
           }
         });
     }
