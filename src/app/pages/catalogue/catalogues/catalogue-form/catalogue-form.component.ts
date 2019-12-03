@@ -76,27 +76,22 @@ export class CatalogueFormComponent implements OnInit {
 
   checkCode(event) {
     const code = event.target.value.trim();
-    // this.catalogService.checkCatalogCode(code)
-    //   .subscribe(res => {
-    //     this.isCodeUnique = !(res.exists && (this.catalog.code !== code));
-    //   });
+    this.catalogService.checkCatalogCode(code)
+      .subscribe(res => {
+        this.isCodeUnique = !(res.exists && (this.catalog.code !== code));
+      });
   }
 
   save() {
-    console.log(this.form.value);
-    // let catalogObj = this.form.value;
-    // catalogObj.default
-    // if (this.catalog) {
-    //   this.catalogService.updateCategory(this.catalog.id, this.form.value).subscribe(res => {
-    //     console.log(res);
-    //     this.toastr.success(this.translate.instant('CATALOG.CATALOG_UPDATED'));
-    //   });
-    // } else {
-    //   this.catalogService.createCatalog(this.form.value).subscribe(res => {
-    //     console.log(res);
-    //     this.toastr.success(this.translate.instant('CATALOG.CATALOG_CREATED'));
-    //   });
-    // }
+    if (this.catalog) {
+      this.catalogService.updateCategory(this.catalog.id, this.form.value).subscribe(res => {
+        this.toastr.success(this.translate.instant('CATALOG.CATALOG_UPDATED'));
+      });
+    } else {
+      this.catalogService.createCatalog(this.form.value).subscribe(res => {
+        this.toastr.success(this.translate.instant('CATALOG.CATALOG_CREATED'));
+      });
+    }
   }
 
   remove() {
