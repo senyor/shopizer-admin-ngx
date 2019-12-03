@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { TranslateService } from '@ngx-translate/core';
+import { StorageService } from '../../shared/services/storage.service';
 
 @Component({
   selector: 'ngx-users-list',
@@ -21,7 +22,7 @@ export class UsersListComponent implements OnInit {
 
   // server params
   params = {
-    lang: 'en',
+    lang: this.storageService.getMerchant(),
     length: this.perPage,
     start: 0
   };
@@ -32,6 +33,7 @@ export class UsersListComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private translate: TranslateService,
+    private storageService: StorageService,
   ) {
     this.getList();
   }
@@ -40,7 +42,7 @@ export class UsersListComponent implements OnInit {
     const startFrom = (this.currentPage - 1) * this.perPage;
     this.params.start = startFrom;
     this.loadingList = true;
-    this.userService.getUsersList('DEFAULT', this.params)
+    this.userService.getUsersList(this.storageService.getMerchant(), this.params)
       .subscribe(res => {
         const usersArray = [...res.data];
         this.totalCount = res.recordsTotal;
@@ -82,6 +84,7 @@ export class UsersListComponent implements OnInit {
           }
         ],
       },
+      pager: { display: false },
       columns: {
         id: {
           title: this.translate.instant('COMMON.ID'),
