@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ProductGroupsService } from '../services/product-groups.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-product-group-form',
@@ -15,7 +16,8 @@ export class ProductGroupFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private productGroupsService: ProductGroupsService
+    private productGroupsService: ProductGroupsService,
+    private router: Router,
   ) {
   }
 
@@ -43,9 +45,8 @@ export class ProductGroupFormComponent implements OnInit {
   }
 
   save() {
-    console.log(this.form.value);
     this.productGroupsService.createProductGroup(this.form.value).subscribe(res => {
-      console.log(res);
+      this.router.navigate(['pages/catalogue/products-groups/groups-list']);
     });
   }
 

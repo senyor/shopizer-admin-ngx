@@ -45,12 +45,6 @@ export class GroupsListComponent implements OnInit {
   setSettings() {
     this.settings = {
       mode: 'inline',
-      edit: {
-        editButtonContent: this.translate.instant('COMMON.EDIT'),
-        saveButtonContent: '<i class="fas fa-check"></i>',
-        cancelButtonContent: '<i class="fas fa-times"></i>',
-        confirmSave: true
-      },
       delete: {
         deleteButtonContent: '<i class="fas fa-trash-alt"></i>',
         confirmDelete: true
@@ -58,7 +52,7 @@ export class GroupsListComponent implements OnInit {
       actions: {
         columnTitle: '',
         add: false,
-        edit: true,
+        edit: false,
         delete: true,
         position: 'right',
         sort: true,
