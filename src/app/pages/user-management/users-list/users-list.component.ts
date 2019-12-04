@@ -22,9 +22,10 @@ export class UsersListComponent implements OnInit {
 
   // server params
   params = {
-    lang: this.storageService.getMerchant(),
+    lang: this.storageService.getLanguage(),
+    store: this.storageService.getMerchant(),
     length: this.perPage,
-    start: 0
+    start: 0,
   };
 
   settings = {};
