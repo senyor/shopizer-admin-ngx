@@ -18,10 +18,7 @@ export class CatalogService {
   }
 
   getCatalogById(id): Observable<any> {
-    const params = {
-      lang: '_all'
-    };
-    return this.crudService.get(`/v1/private/catalog/${id}`, params);
+    return this.crudService.get(`/v1/private/catalog/${id}`);
   }
 
   createCatalog(category): Observable<any> {
@@ -29,7 +26,7 @@ export class CatalogService {
   }
 
   updateCategory(id, category): Observable<any> {
-    return this.crudService.put(`/v1/private/catalog/${id}`, category);
+    return this.crudService.patch(`/v1/private/catalog/${id}`, category);
   }
 
   // updateCategory(id, category): Observable<any> {

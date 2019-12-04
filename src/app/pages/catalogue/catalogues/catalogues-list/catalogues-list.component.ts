@@ -6,6 +6,7 @@ import { NbDialogService } from '@nebular/theme';
 import { LocalDataSource } from 'ng2-smart-table';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from '../../../shared/services/storage.service';
+import { CatalogService } from '../services/catalog.service';
 
 @Component({
   selector: 'ngx-catalogues-list',
@@ -17,19 +18,6 @@ export class CataloguesListComponent implements OnInit {
   loadingList = false;
   settings = {};
 
-  mockArr = [
-    {
-      code: 'test',
-      creationDate: '12-12-12',
-      defaultCatalog: true,
-      id: 2,
-      store: {
-        code: 'DEFAULT',
-      },
-      visible: true
-    }
-  ];
-
   // paginator
   perPage = 30;
   currentPage = 1;
@@ -37,6 +25,7 @@ export class CataloguesListComponent implements OnInit {
 
   // request params
   params = {
+    store: this.storageService.getMerchant(),
     lang: this.storageService.getLanguage(),
     count: this.perPage,
     page: 0
@@ -48,6 +37,7 @@ export class CataloguesListComponent implements OnInit {
     private dialogService: NbDialogService,
     private translate: TranslateService,
     private storageService: StorageService,
+    private catalogService: CatalogService,
   ) {
   }
 
@@ -61,14 +51,13 @@ export class CataloguesListComponent implements OnInit {
 
   getList() {
     this.params.page = this.currentPage - 1;
-    // this.loadingList = true;
-    this.source.load(this.mockArr);
-    // this.brandService.getListOfBrands(this.params)
-    //   .subscribe(brands => {
-    //     this.totalCount = brands.totalCount;
-    //     this.source.load(brands.manufacturers);
-    //     this.loadingList = false;
-    //   });
+    this.loadingList = true;
+    this.catalogService.getListOfCatalogues(this.params)
+      .subscribe(res => {
+        this.totalCount = res.totalCount;
+        this.source.load(res.catalogs);
+        this.loadingList = false;
+      });
     this.setSettings();
   }
 
@@ -97,7 +86,7 @@ export class CataloguesListComponent implements OnInit {
           type: 'string',
         },
         store: {
-          title: this.translate.instant('BRAND.BRAND_NAME'),
+          title: this.translate.instant('COMPONENTS.STORE'),
           type: 'string',
           valuePrepareFunction: (store) => {
             if (store) {
@@ -112,7 +101,6 @@ export class CataloguesListComponent implements OnInit {
       },
     };
   }
-
 
   // paginator
   changePage(event) {

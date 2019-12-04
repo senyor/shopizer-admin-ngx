@@ -12,8 +12,8 @@
       <nb-select *ngIf="availableList.length" placeholder="{{ 'COMPONENTS.CATALOGUES' | translate}}"
                  outline
                  shape="rectangle">
-        <nb-option *ngFor="let manufacturer of availableList"
-                   [value]="manufacturer.code" (click)="selectGroup(manufacturer.code)">{{ manufacturer.code }}</nb-option>
+        <nb-option *ngFor="let catalog of catalogues"
+                   [value]="catalog.code" (click)="selectGroup(catalog.code)">{{ catalog.code }}</nb-option>
       </nb-select>
     </div>
   </div>
@@ -35,8 +35,9 @@
               (onMoveAllToSource)="moveEvent($event, 'allToSource')"
               filterBy="code">
     <ng-template let-item pTemplate="item">
-      <div class="ui-helper-clearfix">
-        <div style="font-size:14px;margin:15px 5px 0 0">{{item.code}}</div>
+      <div class="ui-helper-clearfix item-picklist">
+        <div>{{item?.id}}</div>
+        <div>{{item?.description?.name}}</div>
       </div>
     </ng-template>
   </p-pickList>

@@ -19,24 +19,11 @@ export class CatalogueFormComponent implements OnInit {
   isCodeUnique = true;
   catalog;
 
-  mockCatalogue = {
-    code: 'test',
-    creationDate: '12-12-12',
-    defaultCatalog: true,
-    id: 2,
-    store: {
-      code: 'DEFAULT',
-    },
-    visible: true
-  };
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private catalogService: CatalogService,
     private dialogService: NbDialogService,
-    // private configService: ConfigService,
-    // private optionService: OptionService,
     private toastr: ToastrService,
     private translate: TranslateService,
     private router: Router,
@@ -45,14 +32,12 @@ export class CatalogueFormComponent implements OnInit {
 
   ngOnInit() {
     const catalogId = this.activatedRoute.snapshot.paramMap.get('catalogId');
-    console.log(catalogId);
     this.createForm();
     if (catalogId) {
-      this.catalog = this.mockCatalogue;
-      this.fillForm();
-      // this.catalogService.getCatalogById(catalogId).subscribe(res => {
-      //   console.log(res);
-      // });
+      this.catalogService.getCatalogById(catalogId).subscribe(res => {
+        this.catalog = res;
+        this.fillForm();
+      });
     }
   }
 

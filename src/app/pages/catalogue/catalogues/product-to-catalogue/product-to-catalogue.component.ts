@@ -1,95 +1,73 @@
 import { Component, OnInit } from '@angular/core';
 
+import { CatalogService } from '../services/catalog.service';
+import { StorageService } from '../../../shared/services/storage.service';
+import { forkJoin } from 'rxjs';
+import { ProductService } from '../../products/services/product.service';
+
 @Component({
   selector: 'ngx-product-to-catalogue',
   templateUrl: './product-to-catalogue.component.html',
   styleUrls: ['./product-to-catalogue.component.scss']
 })
 export class ProductToCatalogueComponent implements OnInit {
-  availableList: any[];
-  selectedList: any[];
+  availableList = [];
+  selectedList = [];
   catalogues = [];
   selectedGroup;
 
   constructor(
-    // private productService: ProductService,
-    // private productGroupsService: ProductGroupsService,
-    // private storageService: StorageService
+    private productService: ProductService,
+    private storageService: StorageService,
+    private catalogService: CatalogService,
   ) {
-    // todo get catalogues list
-    // todo get products
-
-    // const params = {
-    //   store: this.storageService.getMerchant(),
-    //   lang: 'en',
-    //   count: -1,
-    //   start: 0
-    // };
-    // forkJoin(this.productService.getListOfProducts(params), this.productGroupsService.getListOfProductGroups())
-    //   .subscribe(([products, groups]) => {
-    //     this.availableList = [...products.products];
-    //     this.groups = [...groups];
-    //   });
+    const params = {
+      store: this.storageService.getMerchant(),
+      lang: this.storageService.getLanguage(),
+      count: 100,
+      page: 0
+    };
+    forkJoin(this.productService.getListOfProducts(params), this.catalogService.getListOfCatalogues(params))
+      .subscribe(([products, res]) => {
+        this.availableList = [...products.products];
+        this.catalogues = [...res.catalogs];
+      });
   }
 
   ngOnInit() {
-    this.availableList = [{
-      'id': 1,
-      'code': 'DEFAULT1',
-      'descriptions': [
-        {
-          'id': 600,
-          'language': null,
-          'name': 'DEFAULT123',
-          'description': 'DEFAULT',
-          'friendlyUrl': null,
-          'keyWords': null,
-          'highlights': null,
-          'metaDescription': null,
-          'title': null
-        },
-        {
-          'id': 600,
-          'language': null,
-          'name': 'DEFAULT321',
-          'description': 'DEFAULT',
-          'friendlyUrl': null,
-          'keyWords': null,
-          'highlights': null,
-          'metaDescription': null,
-          'title': null
-        }
-      ]
-    }, {
-      'id': 1,
-      'code': 'DEFAULT2',
-      'descriptions': [
-        {
-          'id': 600,
-          'language': null,
-          'name': 'DEFAULT22222222222',
-          'description': 'DEFAULT',
-          'friendlyUrl': null,
-          'keyWords': null,
-          'highlights': null,
-          'metaDescription': null,
-          'title': null
-        },
-        {
-          'id': 600,
-          'language': null,
-          'name': 'DEFAULT3333333333333',
-          'description': 'DEFAULT',
-          'friendlyUrl': null,
-          'keyWords': null,
-          'highlights': null,
-          'metaDescription': null,
-          'title': null
-        }
-      ]
+  }
+
+  moveEvent(e, type) {
+    console.log(e, type);
+    switch (type) {
+      case 'toTarget':
+        // this.addProductToGroup(e.items[0].id, this.selectedGroup);
+        break;
+      case 'toSource':
+        // this.removeProductFromGroup(e.items[0].id, this.selectedGroup);
+        break;
+      case 'allToTarget':
+        const addArray = [];
+        // e.items.forEach((el) => {
+        //   const req = this.productGroupsService.addProductToGroup(el.id, this.selectedGroup);
+        //   addArray.push(req);
+        // });
+        // console.log(addArray);
+        // forkJoin(addArray).subscribe(res => {
+        //   // console.log(res);
+        // });
+        break;
+      case 'allToSource':
+        // const removeArr = [];
+        // e.items.forEach((el) => {
+        //   const req = this.productGroupsService.removeProductFromGroup(el.id, this.selectedGroup);
+        //   removeArr.push(req);
+        // });
+        // forkJoin(removeArr).subscribe(res => {
+        //   // console.log(res);
+        // });
+        break;
     }
-    ];
-    this.selectedList = [];
   }
 
   selectGroup(groupCode) {
@@ -102,39 +80,6 @@ export class ProductToCatalogueComponent implements OnInit {
     //     this.selectedList = [...res.products];
     //     this.availableList = this.availableList.filter(n => !this.selectedList.some(n2 => n.id === n2.id));
     //   });
-  }
-
-  moveEvent(e, type) {
-    console.log(e, type);
-    // switch (type) {
-    //   case 'toTarget':
-    //     this.addProductToGroup(e.items[0].id, this.selectedGroup);
-    //     break;
-    //   case 'toSource':
-    //     this.removeProductFromGroup(e.items[0].id, this.selectedGroup);
-    //     break;
-    //   case 'allToTarget':
-    //     const addArray = [];
-    //     e.items.forEach((el) => {
-    //       const req = this.productGroupsService.addProductToGroup(el.id, this.selectedGroup);
-    //       addArray.push(req);
-    //     });
-    //     console.log(addArray);
-    //     forkJoin(addArray).subscribe(res => {
-    //       // console.log(res);
-    //     });
-    //     break;
-    //   case 'allToSource':
-    //     const removeArr = [];
-    //     e.items.forEach((el) => {
-    //       const req = this.productGroupsService.removeProductFromGroup(el.id, this.selectedGroup);
-    //       removeArr.push(req);
-    //     });
-    //     forkJoin(removeArr).subscribe(res => {
-    //       // console.log(res);
-    //     });
-    //     break;
-    // }
   }
 
 }
