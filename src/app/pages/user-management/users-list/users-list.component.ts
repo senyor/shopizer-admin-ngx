@@ -16,7 +16,7 @@ export class UsersListComponent implements OnInit {
   loadingList = false;
 
   // paginator
-  perPage = 5;
+  perPage = 100;
   currentPage = 1;
   totalCount;
 
@@ -24,7 +24,7 @@ export class UsersListComponent implements OnInit {
   params = {
     lang: this.storageService.getLanguage(),
     store: this.storageService.getMerchant(),
-    length: this.perPage,
+    count: this.perPage,
     start: 0,
   };
 
