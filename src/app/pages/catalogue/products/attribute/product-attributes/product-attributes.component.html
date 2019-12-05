@@ -43,7 +43,7 @@
             <i class="fas fa-trash-alt"></i>
           </td>
         </tr>
-        <tr *ngIf="rowData.parent">
+        <tr *ngIf="rowData.parent && !rowData.empty">
           <td colspan="8">
             <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
             {{rowData.parentName}}

@@ -235,7 +235,11 @@
     "ADDITIONAL_WEIGHT": "Additional weight",
     "OPTION_NAME": "Option name",
     "DISPLAY_ONLY": "Display only",
-    "PRICE": "Price"
+    "PRICE": "Price",
+
+    "PRODUCT_ATTRIBUTES_UPDATED": "Product attribute value updated.",
+    "PRODUCT_ATTRIBUTES_CREATED": "Product attribute value created.",
+    "PRODUCT_ATTRIBUTES_REMOVED": "Product attribute value removed."
   },
   "INVENTORY": {
     "INVENTORY_STORE": "Store",
@@ -319,7 +323,9 @@
     "WIDTH": "Width",
     "LENGTH": "Length",
 
-    "NO_ITEMS": "No items to show"
+    "NO_ITEMS": "No items to show",
+
+    "VALUE_REQUIRED": "Value is required"
   },
   "DESCRIPTION_FORM": {
     "NAME": "Name",

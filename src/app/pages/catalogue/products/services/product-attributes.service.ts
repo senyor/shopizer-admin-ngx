@@ -22,4 +22,12 @@ export class ProductAttributesService {
     return this.crudService.post(`/v1/private/product/${productId}/attribute`, attribute);
   }
 
+  updateAttribute(productId, attributeId, attribute): Observable<any> {
+    return this.crudService.put(`/v1/private/product/${productId}/attribute/${attributeId}`, attribute);
+  }
+
+  // getAttributesById(productId, params): Observable<any> {
+  //   return this.crudService.get(`/v1/private/product/{id}/attributes`, params);
+  // }
+
 }
