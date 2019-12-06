@@ -5,6 +5,9 @@ import { TreeNode } from 'primeng/primeng';
 import { ProductAttributesService } from '../../services/product-attributes.service';
 import { OptionService } from '../../../options/services/option.service';
 import { Attribute } from '../model/attribute';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
+import { StorageService } from '../../../../shared/services/storage.service';
 
 export interface TreeNode {
   data?: Attribute;
@@ -23,11 +26,19 @@ export class ProductAttributesComponent implements OnInit {
   loader = false;
   data: TreeNode[] = [];
   options = [];
+  params = {
+    lang: this.storageService.getLanguage(),
+    count: 1000,
+  };
+  isEmpty = false;
 
   constructor(
     private productAttributesService: ProductAttributesService,
     private optionService: OptionService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private toastr: ToastrService,
+    private translate: TranslateService,
+    private storageService: StorageService,
   ) {
     this.optionService.getListOfOptions({ count: 1000 })
       .subscribe(res => {
@@ -36,10 +47,19 @@ export class ProductAttributesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loader = true;
     this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
-    this.productAttributesService.getListOfProductsAttributes(this.productId, { count: 1000 })
+    this.getList();
+    this.translate.onLangChange.subscribe((lang) => {
+      this.params.lang = this.storageService.getLanguage();
+      this.getList();
+    });
+  }
+
+  getList() {
+    this.loader = true;
+    this.productAttributesService.getListOfProductsAttributes(this.productId, this.params)
       .subscribe(res => {
+        this.isEmpty = res.attributes.length === 0;
         const newArr = this.prepareData(res.attributes);
         this.data = [...newArr];
         this.loader = false;
@@ -83,6 +103,13 @@ export class ProductAttributesComponent implements OnInit {
       }
     });
     return parentArray;
+  }
+
+  removeAttribute(id) {
+    this.productAttributesService.deleteAttribute(this.productId, id).subscribe(res => {
+      this.getList();
+      this.toastr.success(this.translate.instant('PRODUCT_ATTRIBUTES.PRODUCT_ATTRIBUTES_REMOVED'));
+    });
   }
 
 }

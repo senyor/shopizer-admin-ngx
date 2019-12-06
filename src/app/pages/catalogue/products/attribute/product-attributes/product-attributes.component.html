@@ -1,7 +1,7 @@
 <ngx-back-button></ngx-back-button>
 <nb-card>
   <nb-card-header>{{'PRODUCT_ATTRIBUTES.PRODUCT_OPTIONS_ATTRIBUTES' | translate}}</nb-card-header>
-  <nb-card-body *ngIf="data.length; else empty">
+  <nb-card-body *ngIf="data.length">
     <nb-actions size="medium" class="back-button">
       <nb-action>
         <i class="fas fa-plus"></i>&nbsp;
@@ -20,7 +20,7 @@
           <th>{{ 'PRODUCT_ATTRIBUTES.DISPLAY_ONLY' | translate}}</th>
           <th>{{ 'PRODUCT_ATTRIBUTES.PRICE' | translate}}</th>
           <th>{{ 'COMMON.ORDER' | translate}}</th>
-          <th class="short-header">{{ 'COMMON.DETAILS' | translate}}</th>
+          <th class="short-header"></th>
           <th class="short-header"></th>
         </tr>
       </ng-template>
@@ -40,7 +40,7 @@
             </a>
           </td>
           <td class="remove-button">
-            <i class="fas fa-trash-alt"></i>
+            <i class="fas fa-trash-alt pointer" (click)="removeAttribute(rowData.id)"></i>
           </td>
         </tr>
         <tr *ngIf="rowData.parent && !rowData.empty">
@@ -52,9 +52,7 @@
       </ng-template>
     </p-treeTable>
   </nb-card-body>
-  <ng-template #empty>
-    <div class="no-items">
-      {{'COMMON.NO_ITEMS' | translate}}
-    </div>
-  </ng-template>
+  <div class="no-items" *ngIf="isEmpty">
+    {{'COMMON.NO_ITEMS' | translate}}
+  </div>
 </nb-card>

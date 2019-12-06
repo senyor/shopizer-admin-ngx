@@ -54,7 +54,6 @@ export class AttributeFormComponent implements OnInit {
   ngOnInit() {
     this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
     this.attributeId = this.activatedRoute.snapshot.paramMap.get('attributeId');
-    console.log(this.productId, this.attributeId);
     this.createForm();
     if (this.attributeId) {
       // TODO getting by ID
@@ -76,7 +75,7 @@ export class AttributeFormComponent implements OnInit {
       attributeDisplayOnly: [false],
       optionValue: ['', [Validators.required]],
       productAttributePrice: ['', [Validators.required]],
-      sortOrder: ['', [Validators.required, Validators.pattern(validators.number)]],
+      sortOrder: ['', [Validators.pattern(validators.number)]],
       attributeDefault: [false],
       requiredOption: [false],
       productAttributeWeight: ['', [Validators.required]]
@@ -85,10 +84,12 @@ export class AttributeFormComponent implements OnInit {
 
   transformTotal() {
     const value = '' + this.form.controls.productAttributePrice.value;
-    this.form.controls.productAttributePrice.setValue(
-      formatMoney(value.replace(/,/g, '')),
-      { emitEvent: false }
-    );
+    if (value !== '') {
+      this.form.controls.productAttributePrice.setValue(
+        formatMoney(value.replace(/,/g, '')),
+        { emitEvent: false }
+      );
+    }
   }
 
   fillForm() {
