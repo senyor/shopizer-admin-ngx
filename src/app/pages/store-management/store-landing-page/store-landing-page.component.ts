@@ -6,6 +6,7 @@ import { StoreService } from '../services/store.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from '../../shared/services/storage.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'ngx-store-landing-page',
@@ -30,9 +31,8 @@ export class StoreLandingPageComponent implements OnInit {
     ],
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
-  loadingButton = false;
   loading = false;
-  page: any;
+  page;
 
   constructor(
     private fb: FormBuilder,
@@ -42,26 +42,24 @@ export class StoreLandingPageComponent implements OnInit {
     private translate: TranslateService,
     private storageService: StorageService
   ) {
+  }
+
+  ngOnInit() {
     this.createForm();
-    this.configService.getListOfSupportedLanguages()
-      .subscribe(languages => {
+    forkJoin(this.configService.getListOfSupportedLanguages(), this.storeService.getPageContent('LANDING_PAGE'))
+      .subscribe(([languages, res]) => {
         this.languages = [...languages];
         this.createForm();
-      });
-    this.storeService.getPageContent('LANDING_PAGE')
-      .subscribe(res => {
-        this.page = res;
+        // this.page = res;
+        // console.log(this.page);
         // this.fillForm();
       });
   }
 
-  ngOnInit() {
-  }
-
   private createForm() {
     this.form = this.fb.group({
+      selectedLanguage: ['', [Validators.required]],
       descriptions: this.fb.array([]),
-      selectedLanguage: [(this.languages[0] && this.languages[0].code) || '', [Validators.required]],
     });
     this.addFormArray();
   }
@@ -72,14 +70,19 @@ export class StoreLandingPageComponent implements OnInit {
       control.push(
         this.fb.group({
           language: [lang.code, [Validators.required]],
-          name: ['', [Validators.required]],
-          contentType: ['PAGE'],
-          path: [''],
-          slug: [''],
-          code: ['LANDING_PAGE'],
-          metaDetails: [''],
           title: ['', [Validators.required]],
-          pageContent: ['', [Validators.required]],
+          name: ['', [Validators.required]],
+          metaDescription: [''],
+          keyWords: [''],
+          description: [''],
+          // contentType: ['PAGE'],
+          // path: [''],
+          // slug: [''],
+          // code: ['LANDING_PAGE'],
+          // metaDetails: [''],
+          // description: [''],
+          // title: ['', [Validators.required]],
+          // pageContent: ['', [Validators.required]],
           // displayedInMenu: [false]
         })
       );
@@ -100,15 +103,11 @@ export class StoreLandingPageComponent implements OnInit {
         if (desc.language === description.language) {
           (<FormArray>this.form.get('descriptions')).at(index).patchValue({
             language: description.language,
-            name: description.name,
-            contentType: description.contentType,
-            path: description.path,
-            slug: description.slug,
-            code: description.code,
-            metaDetails: description.metaDetails,
             title: description.title,
-            pageContent: description.pageContent,
-            displayedInMenu: description.displayedInMenu
+            name: description.name,
+            metaDetails: description.metaDetails,
+            keyWords: description.keyWords,
+            description: description.description,
           });
         }
       });
@@ -125,16 +124,21 @@ export class StoreLandingPageComponent implements OnInit {
 
   save() {
     console.log(this.form.value);
-    this.loadingButton = true;
     this.form.patchValue({ name: this.storageService.getMerchant() });
-    // this.storeService.updatePageContent(this.page.id, this.form.value)
-    //   .subscribe(res => {
-    //     console.log(res);
-    //     this.loadingButton = false;
-    //     this.toastrService.success(this.translate.instant('STORE_LANDING.PAGE_ADDED'));
-    //   }, error1 => {
-    //     this.loadingButton = false;
-    //   });
+    if (this.page.id) {
+      // this.storeService.updatePageContent(this.page.id, this.form.value)
+      //   .subscribe(res => {
+      //     console.log(res);
+      //     this.toastrService.success(this.translate.instant('STORE_LANDING.PAGE_ADDED'));
+      //   };
+    } else {
+      this.storeService.createPageContent(this.form.value)
+        .subscribe(res => {
+          console.log(res);
+          this.toastrService.success(this.translate.instant('STORE_LANDING.PAGE_ADDED'));
+        });
+    }
+
   }
 
 }

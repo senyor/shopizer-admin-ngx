@@ -57,11 +57,11 @@ export class StoreService {
   }
 
   updatePageContent(id, content: any): Observable<any> {
-    const code = this.storageService.getMerchant();
-    // const params = {
-    //   lang: content.language
-    // };
     return this.crudService.put(`/v1/private/content/${id}`, content);
+  }
+
+  createPageContent(content: any): Observable<any> {
+    return this.crudService.post(`/v1/private/content`, content);
   }
 
   // end PAGE CONTENT
