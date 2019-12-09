@@ -68,7 +68,7 @@ export class ProductsListComponent implements OnInit {
     this.productService.getListOfProducts(this.params)
       .subscribe(res => {
         const products = res.products;
-        this.totalCount = res.totalPages;
+        this.totalCount = res.recordsTotal;
         products.forEach(el => {
           el.name = el.description.name;
         });

@@ -83,7 +83,7 @@ export class ProductFormComponent implements OnInit {
       preOrder: [false],
       dateAvailable: [new Date()],
       manufacturer: ['DEFAULT'],
-      type: [''],
+      type: ['GENERAL'],
       price: [''],
       quantity: ['', [Validators.required, Validators.pattern(validators.number)]],
       sortOrder: ['', [Validators.required, Validators.pattern(validators.number)]],
@@ -126,7 +126,7 @@ export class ProductFormComponent implements OnInit {
       preOrder: this.product.preOrder,
       dateAvailable: this.product.dateAvailable,
       manufacturer: this.product.manufacturer.code,
-      // type: this.product.type.code, // TODO
+      type: this.product.type.code,
       price: this.product.price,
       quantity: this.product.quantity,
       sortOrder: this.product.sortOrder,
