@@ -59,4 +59,12 @@ export class ProductService {
     return this.crudService.get(`/v1/private/product/unique`, params);
   }
 
+  addProductToCategory(productId, categoryId): Observable<any> {
+    return this.crudService.post(`/api/v1/auth/product/${productId}/category/${categoryId}`, {});
+  }
+
+  removeProductFromCategory(productId, categoryId): Observable<any> {
+    return this.crudService.delete(`/api/v1/auth/product/${productId}/category/${categoryId}`);
+  }
+
 }

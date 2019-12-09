@@ -4,7 +4,7 @@
       <nb-select *ngIf="categories.length" placeholder="{{ 'COMPONENTS.CATEGORY' | translate}}"
                  outline
                  shape="rectangle">
-        <nb-option *ngFor="let category of categories" [value]="category.code" (click)="selectGroup(category.code)">
+        <nb-option *ngFor="let category of categories" [value]="category.code" (click)="selectGroup(category.id)">
           {{ category.code }}
         </nb-option>
       </nb-select>
@@ -21,6 +21,7 @@
               targetFilterPlaceholder="Search"
               [showSourceControls]="false"
               [showTargetControls]="false"
+              [disabled]="!selectedCategory"
               (onMoveToTarget)="moveEvent($event, 'toTarget')"
               (onMoveToSource)="moveEvent($event, 'toSource')"
               (onMoveAllToTarget)="moveEvent($event, 'allToTarget')"

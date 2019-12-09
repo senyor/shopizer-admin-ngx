@@ -39,7 +39,8 @@ export class ProductToCategoryComponent implements OnInit {
     private categoryService: CategoryService,
     private productService: ProductService,
     private storageService: StorageService,
-    ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.getList();
@@ -83,9 +84,16 @@ export class ProductToCategoryComponent implements OnInit {
     switch (type) {
       case 'toTarget':
         // this.addProductToGroup(e.items[0].id, this.selectedGroup);
+        this.productService.addProductToCategory(e.items[0].id, this.selectedCategory)
+          .subscribe(res => {
+            console.log(res);
+          });
         break;
       case 'toSource':
-        // this.removeProductFromGroup(e.items[0].id, this.selectedGroup);
+        this.productService.removeProductFromCategory(e.items[0].id, this.selectedCategory)
+          .subscribe(res => {
+            console.log(res);
+          });
         break;
       case 'allToTarget':
         // const addArray = [];
@@ -128,7 +136,6 @@ export class ProductToCategoryComponent implements OnInit {
 
   selectGroup(categoryCode) {
     this.selectedCategory = categoryCode;
-    console.log(this.selectedCategory);
     this.productService.getListOfProducts({ category: this.selectedCategory })
       .subscribe(res => {
         console.log(res);
