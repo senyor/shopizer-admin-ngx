@@ -19,7 +19,7 @@ export class CataloguesListComponent implements OnInit {
   settings = {};
 
   // paginator
-  perPage = 30;
+  perPage = 5;
   currentPage = 1;
   totalCount;
 
@@ -54,7 +54,7 @@ export class CataloguesListComponent implements OnInit {
     this.loadingList = true;
     this.catalogService.getListOfCatalogues(this.params)
       .subscribe(res => {
-        this.totalCount = res.totalCount;
+        this.totalCount = res.recordsTotal;
         this.source.load(res.catalogs);
         this.loadingList = false;
       });
