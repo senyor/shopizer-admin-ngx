@@ -32,6 +32,10 @@ export class CategoryService {
     return this.crudService.put(`/v1/private/category/${id}`, category);
   }
 
+  updateCategoryVisibility(category): Observable<any> {
+    return this.crudService.patch(`/v1/private/category/${category.id}/visible`, category);
+  }
+
   deleteCategory(id): Observable<any> {
     return this.crudService.delete(`/v1/private/category/${ id }`);
   }

@@ -194,7 +194,8 @@
   "CATEGORY": {
     "CATEGORY_NAME": "Category name",
     "PARENT": "Parent",
-    "HIERARCHY_UPDATED": "Hierarchy successfully updated"
+    "HIERARCHY_UPDATED": "Hierarchy successfully updated",
+    "CATEGORY_VISIBILITY": "Category visibility updated"
   },
   "CATEGORY_FORM": {
     "ROOT_CATEGORY": "Root category",
