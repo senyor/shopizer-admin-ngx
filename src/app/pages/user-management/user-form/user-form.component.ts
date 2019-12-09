@@ -187,7 +187,7 @@ export class UserFormComponent implements OnInit, OnChanges {
           }
         } else {
           if (!data.exists) {
-            this.userService.createUser(this.form.value, this.form.value.store)
+            this.userService.createUser(this.form.value)
               .subscribe(res => {
                 this.toastr.success(this.translate.instant('USER_FORM.USER_CREATED'));
                 this.router.navigate(['pages/user-management/users']);
