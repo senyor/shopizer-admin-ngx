@@ -50,9 +50,8 @@ export class StoreLandingPageComponent implements OnInit {
       .subscribe(([languages, res]) => {
         this.languages = [...languages];
         this.createForm();
-        // this.page = res;
-        // console.log(this.page);
-        // this.fillForm();
+        this.page = res;
+        this.fillForm();
       });
   }
 
@@ -70,20 +69,10 @@ export class StoreLandingPageComponent implements OnInit {
       control.push(
         this.fb.group({
           language: [lang.code, [Validators.required]],
-          title: ['', [Validators.required]],
           name: ['', [Validators.required]],
           metaDescription: [''],
           keyWords: [''],
           description: [''],
-          // contentType: ['PAGE'],
-          // path: [''],
-          // slug: [''],
-          // code: ['LANDING_PAGE'],
-          // metaDetails: [''],
-          // description: [''],
-          // title: ['', [Validators.required]],
-          // pageContent: ['', [Validators.required]],
-          // displayedInMenu: [false]
         })
       );
     });
@@ -103,9 +92,8 @@ export class StoreLandingPageComponent implements OnInit {
         if (desc.language === description.language) {
           (<FormArray>this.form.get('descriptions')).at(index).patchValue({
             language: description.language,
-            title: description.title,
             name: description.name,
-            metaDetails: description.metaDetails,
+            metaDescription: description.metaDescription,
             keyWords: description.keyWords,
             description: description.description,
           });
@@ -123,22 +111,18 @@ export class StoreLandingPageComponent implements OnInit {
   }
 
   save() {
-    console.log(this.form.value);
     this.form.patchValue({ name: this.storageService.getMerchant() });
     if (this.page.id) {
-      // this.storeService.updatePageContent(this.page.id, this.form.value)
-      //   .subscribe(res => {
-      //     console.log(res);
-      //     this.toastrService.success(this.translate.instant('STORE_LANDING.PAGE_ADDED'));
-      //   };
+      this.storeService.updatePageContent(this.page.id, this.form.value)
+        .subscribe(res => {
+          this.toastrService.success(this.translate.instant('STORE_LANDING.PAGE_UPDATED'));
+        });
     } else {
       this.storeService.createPageContent(this.form.value)
         .subscribe(res => {
-          console.log(res);
           this.toastrService.success(this.translate.instant('STORE_LANDING.PAGE_ADDED'));
         });
     }
-
   }
 
 }

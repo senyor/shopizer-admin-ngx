@@ -32,10 +32,10 @@
                   {{ 'STORE_LANDING.LANDING_PAGE_TITLE' | translate}} *
                 </label>
                 <div class="col-sm-12">
-                  <input type="text" class="form-control" id="title" formControlName='title'
+                  <input type="text" class="form-control" id="title" formControlName='name'
                          placeholder="Page title" required>
-                  <span *ngIf="(descr.get('title').dirty || descr.get('title').touched) && descr.get('title').invalid
-                  && descr.get('title').errors.required" class="err-message">
+                  <span *ngIf="(descr.get('name').dirty || descr.get('name').touched) && descr.get('name').invalid
+                  && descr.get('name').errors.required" class="err-message">
                     {{ 'STORE_LANDING.LANDING_PAGE_TITLE' | translate}}
                   </span>
                 </div>
@@ -44,8 +44,8 @@
               <div class="form-group">
                 <label class="col-sm-10 col-form-label">{{ 'STORE_LANDING.TAG_DESCRIPTION' | translate}}</label>
                 <div class="col-sm-12">
-                  <input type="text" class="form-control" id="metaDetails" formControlName='metaDetails'
-                         placeholder="{{ 'STORE_LANDING.TAG_DESCRIPTION' | translate}}n" required>
+                  <input type="text" class="form-control" id="metaDetails" formControlName='metaDescription'
+                         placeholder="{{ 'STORE_LANDING.TAG_DESCRIPTION' | translate}}">
                 </div>
               </div>
 
