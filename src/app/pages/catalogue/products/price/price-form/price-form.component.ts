@@ -7,7 +7,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../../../../shared/services/config.service';
 import * as moment from 'moment';
 import { InventoryService } from '../../services/inventory.service';
-import { PriceService } from '../../services/price.service';
 
 @Component({
   selector: 'ngx-price-form',
@@ -212,6 +211,12 @@ export class PriceFormComponent implements OnInit {
       });
 
       this.inventory.store = this.inventory.store.name;
+      this.inventory.prices.forEach((el) => {
+        const originalPriceIndex = el.originalPrice.match(/\d/).index;
+        el.originalPrice = el.originalPrice.slice(originalPriceIndex);
+        const finalPriceIndex = el.finalPrice.match(/\d/).index;
+        el.finalPrice = el.finalPrice.slice(finalPriceIndex);
+      });
       this.inventory.prices = [...this.inventory.prices, priceObject];
       console.log('save', this.inventory);
       // save as inventory updating
