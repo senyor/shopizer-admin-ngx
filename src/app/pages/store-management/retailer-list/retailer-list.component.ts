@@ -16,14 +16,15 @@ export class RetailerListComponent implements OnInit {
   loadingList = false;
 
   // paginator
-  perPage = 5;
+  perPage = 10;
   currentPage = 1;
   totalCount;
 
   // server params
   params = {
-    length: this.perPage,
-    start: 0
+    count: this.perPage,
+    page: 0,
+    retailer: true
   };
 
   settings = {};
@@ -39,20 +40,12 @@ export class RetailerListComponent implements OnInit {
   }
 
   getList() {
-    const startFrom = (this.currentPage - 1) * this.perPage;
-    this.params.start = startFrom;
+    this.params.page = this.currentPage - 1;
     this.loadingList = true;
     this.storeService.getListOfStores(this.params)
       .subscribe(res => {
-        this.totalCount = res.totalPages;
-        const retailers = [];
-        console.log(res.data);
-        res.data.forEach((el) => {
-          if (el.retailer) {
-            retailers.push(el);
-          }
-        });
-        this.source.load(retailers);
+        this.totalCount = res.recordsTotal;
+        this.source.load(res.data);
         this.loadingList = false;
       });
     this.setSettings();
