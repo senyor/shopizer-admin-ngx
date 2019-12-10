@@ -24,7 +24,7 @@ const routes: Routes = [
         component: CataloguesListComponent,
       },
       {
-        path: 'catalogues-products',
+        path: ':catalogId/catalogues-products',
         component: ProductToCatalogueComponent,
       },
     ],

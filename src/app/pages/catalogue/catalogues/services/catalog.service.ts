@@ -44,4 +44,12 @@ export class CatalogService {
     return this.crudService.get(`/v1/private/catalog/unique`, params);
   }
 
+  addCatalogEntry(id, catalogEntry): Observable<any> {
+    return this.crudService.post(`/v1/private/catalog/${id}`, catalogEntry);
+  }
+
+  removeCatalogEntry(id, entryId): Observable<any> {
+    return this.crudService.delete(`/v1/private/catalog/${id}/entry/${entryId}`);
+  }
+
 }

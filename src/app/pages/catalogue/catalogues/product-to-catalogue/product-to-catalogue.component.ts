@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { CatalogService } from '../services/catalog.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { forkJoin } from 'rxjs';
 import { ProductService } from '../../products/services/product.service';
+import { CategoryService } from '../../categories/services/category.service';
 
 @Component({
   selector: 'ngx-product-to-catalogue',
@@ -13,24 +15,32 @@ import { ProductService } from '../../products/services/product.service';
 export class ProductToCatalogueComponent implements OnInit {
   availableList = [];
   selectedList = [];
-  catalogues = [];
-  selectedGroup;
+  categories = [];
+  selectedCategory;
+  catalog;
 
   constructor(
     private productService: ProductService,
     private storageService: StorageService,
     private catalogService: CatalogService,
+    private activatedRoute: ActivatedRoute,
+    private categoryService: CategoryService
   ) {
+    const id = this.activatedRoute.snapshot.paramMap.get('catalogId');
     const params = {
       store: this.storageService.getMerchant(),
       lang: this.storageService.getLanguage(),
       count: 100,
       page: 0
     };
-    forkJoin(this.productService.getListOfProducts(params), this.catalogService.getListOfCatalogues(params))
-      .subscribe(([products, res]) => {
+    const products$ = this.productService.getListOfProducts(params);
+    const catalog$ = this.catalogService.getCatalogById(id);
+    const categories$ = this.categoryService.getListOfCategories({ count: 100, page: 0 });
+    forkJoin(products$, catalog$, categories$)
+      .subscribe(([products, catalog, categories]) => {
         this.availableList = [...products.products];
-        this.catalogues = [...res.catalogs];
+        this.catalog = catalog;
+        this.categories = [...categories.categories];
       });
   }
 
@@ -41,13 +51,24 @@ export class ProductToCatalogueComponent implements OnInit {
     console.log(e, type);
     switch (type) {
       case 'toTarget':
-        // this.addProductToGroup(e.items[0].id, this.selectedGroup);
+        const catalogEntry = {
+          categoryCode: this.selectedCategory,
+          productCode: e.items[0].sku,
+          visible: true
+        };
+        // this.catalogService.addCatalogEntry(this.catalog.id, catalogEntry)
+        //   .subscribe(res => {
+        //     console.log(res);
+        //   });
         break;
       case 'toSource':
-        // this.removeProductFromGroup(e.items[0].id, this.selectedGroup);
+        // this.catalogService.removeCatalogEntry(this.catalog.id, catalogEntry)
+        //   .subscribe(res => {
+        //     console.log(res);
+        //   });
         break;
       case 'allToTarget':
-        const addArray = [];
+        // const addArray = [];
         // e.items.forEach((el) => {
         //   const req = this.productGroupsService.addProductToGroup(el.id, this.selectedGroup);
         //   addArray.push(req);
@@ -71,8 +92,8 @@ export class ProductToCatalogueComponent implements OnInit {
   }
 
   selectGroup(groupCode) {
-    this.selectedGroup = groupCode;
-    console.log(this.selectedGroup);
+    this.selectedCategory = groupCode;
+    console.log(this.selectedCategory);
     // todo get products by catalogue
     // this.productGroupsService.getProductsByGroup(this.selectedGroup)
     //   .subscribe(res => {
