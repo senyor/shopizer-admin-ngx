@@ -10,12 +10,14 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable()
 export class GlobalHttpInterceptorService implements HttpInterceptor {
   constructor(
     private toastr: ToastrService,
     private translate: TranslateService,
+    private authService: AuthService
   ) {
   }
 
@@ -37,6 +39,8 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
             ${this.translate.instant('COMMON.MESSAGE')}: ${ error.message }`;
           }
           this.toastr.error(errorMessage, this.translate.instant('COMMON.ERROR'));
+        } else if (error.status === 401) {
+          this.authService.logout();
         }
         return throwError(error);
       })

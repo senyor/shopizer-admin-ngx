@@ -1,9 +1,9 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, from, Observable, throwError } from 'rxjs';
 import { TokenService } from '../../auth/services/token.service';
-import { catchError, finalize, switchMap, take, filter } from 'rxjs/operators';
+import { catchError, finalize, switchMap, take, filter, map } from 'rxjs/operators';
 import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable()
@@ -18,23 +18,39 @@ export class AuthInterceptor implements HttpInterceptor {
   ) {
   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // todo check this method
+    const token: string = this.tokenService.getToken();
 
-    const token = this.tokenService.getToken();
-    const chechReq = req.url.indexOf('login') === -1 ? this.addTokenToRequest(req, token) : req;
-    return next.handle(chechReq)
-      .pipe(
-        catchError(err => {
+    if (token) {
+      request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
+    }
 
-          if (err.status === 0 || err.status === 401) {
+    return next.handle(request).pipe(
+      map((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
+          if (event.status === 0 || event.status === 401) {
             this.authService.logout();
-            // return this.handle401Error(req, next);
-            return next.handle(chechReq);
-          } else {
-            return throwError(err);
           }
-        })
-      );
+        }
+        return event;
+      }));
+
+    // old version with token refreshing
+    // const token = this.tokenService.getToken();
+    // const chechReq = req.url.indexOf('login') === -1 ? this.addTokenToRequest(req, token) : req;
+    // return next.handle(chechReq)
+    //   .pipe(
+    //     catchError(err => {
+    //
+    //       if (err.status === 0 || err.status === 401) {
+    //         return this.handle401Error(req, next);
+    //       } else {
+    //         console.log();
+    //         return throwError(err);
+    //       }
+    //     })
+    //   );
   }
 
 

@@ -1,10 +1,11 @@
+<div *ngIf="loader" [nbSpinner]="loader" nbSpinnerSize="large" nbSpinnerStatus="primary"></div>
 <form [formGroup]='form'>
 
   <div class="form-group">
     <label for="firstname" class="col-sm-3 col-form-label"> {{ 'USER_FORM.FIRST_NAME' | translate }} *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="firstname" formControlName='firstName'
-             placeholder="{{ 'USER_FORM.FIRST_NAME' | translate }} " required>
+             placeholder="{{ 'USER_FORM.FIRST_NAME' | translate }}" required>
       <span *ngIf="(firstName.dirty || firstName.touched) && firstName.invalid && firstName.errors.required"
             class="err-message">
          {{ 'USER_FORM.FIRST_NAME_ERROR_REQUIRED' | translate }}
@@ -45,7 +46,7 @@
           {{ 'USER_FORM.EMAIL_ADDRESS_ERROR_NOT_VALID' | translate }}
         </span>
       </span>
-      <span *ngIf="!isCodeUnique" class="err-message">
+      <span *ngIf="!isEmailUnique" class="err-message">
           {{ 'USER_FORM.EMAIL_EXISTS' | translate }}
       </span>
     </div>
@@ -95,7 +96,7 @@
 
   <div class="form-group actions-button">
     <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid">{{ 'COMMON.SAVE' | translate }}</button>
-    <button *ngIf="!showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">{{ 'COMMON.REMOVE' | translate }}</button>
+    <button *ngIf="showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">{{ 'COMMON.REMOVE' | translate }}</button>
   </div>
 
 </form>

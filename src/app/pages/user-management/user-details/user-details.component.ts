@@ -9,7 +9,8 @@ import { UserService } from '../../shared/services/user.service';
   styleUrls: ['./user-details.component.scss']
 })
 export class UserDetailsComponent implements OnInit {
-  user;
+  user: any = {};
+  loadingInfo = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -18,10 +19,12 @@ export class UserDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadingInfo = true;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.userService.getUser(id)
       .subscribe(res => {
         this.user = res;
+        this.loadingInfo = false;
       });
   }
 

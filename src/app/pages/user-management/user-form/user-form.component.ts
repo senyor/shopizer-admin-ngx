@@ -1,11 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -15,13 +8,14 @@ import { User } from '../../shared/models/user';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { StoreService } from '../../store-management/services/store.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'ngx-user-form',
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss']
 })
-export class UserFormComponent implements OnInit, OnChanges {
+export class UserFormComponent implements OnInit {
   form: FormGroup;
   @Input() user: User;
   languages = [];
@@ -47,7 +41,8 @@ export class UserFormComponent implements OnInit, OnChanges {
       ]
     }
   };
-  isCodeUnique = true;
+  isEmailUnique = true;
+  loader = false;
 
   constructor(
     private fb: FormBuilder,
@@ -60,56 +55,55 @@ export class UserFormComponent implements OnInit, OnChanges {
     private translate: TranslateService
   ) {
     this.roles = JSON.parse(localStorage.getItem('roles'));
-    this.createForm();
   }
 
   ngOnInit() {
-    this.configService.getListOfSupportedLanguages()
-      .subscribe(languages => {
-        this.languages = [...languages];
+    this.showRemoveButton = this.user && this.user.id !== +this.userService.getUserId();
+    this.loader = true;
+    this.createForm();
+    const languages$ = this.configService.getListOfSupportedLanguages();
+    const groups$ = this.configService.getListOfGroups();
+    const stores$ = this.storeService.getListOfStores({ count: 1000000 });
+    forkJoin(languages$, groups$, stores$).subscribe(([languages, groups, stores]) => {
+      // fill languages
+      this.languages = [...languages];
+      // fill store
+      this.stores = [...stores.data];
+      const uStore = this.stores.find((store) => store.code === this.form.value.store);
+      this.chooseMerchant(uStore);
+      // fill groups
+      groups.forEach((el) => {
+        el.checked = false;
+        el.disabled = false;
       });
-    this.configService.getListOfGroups()
-      .subscribe(groups => {
-        groups.forEach((el) => {
-          el.checked = false;
-          el.disabled = false;
-        });
-        this.groups = [...groups];
-        if (this.user) {
-          this.user.groups.forEach((uGroup) => {
-            this.groups.forEach((group) => {
-              if (uGroup['name'] === group.name) {
-                group.checked = true;
-                group.disabled = false;
-              }
-            });
-          });
-        } else {
-          this.checkRules('ADMIN_RETAIL');
+      this.groups = [...groups];
+      if (this.user) {
+        const roleRetail = this.user.groups.find((el: any) => el.name === 'ADMIN_RETAIL');
+        const roleStore = this.user.groups.find((el: any) => el.name === 'ADMIN_STORE');
+        if (roleRetail) {
+          this.checkRules(roleRetail['name']);
+        } else if (roleStore) {
+          this.checkRules(roleStore['name']);
         }
-      });
-    this.storeService.getListOfStores({})
-      .subscribe(res => {
-        this.stores = [...res.data];
-        const uStore = this.stores.find((store) => store.code === this.form.value.store);
-        this.chooseMerchant(uStore);
-      });
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.user.currentValue && changes.user.currentValue.id) {
-      if (this.user.id && this.user.id !== +this.userService.getUserId()) {
-        this.showRemoveButton = false;
+        this.user.groups.forEach((uGroup) => {
+          this.groups.forEach((group) => {
+            if (uGroup['name'] === group.name) {
+              group.checked = true;
+              group.disabled = false;
+            }
+          });
+        });
+        this.fillForm();
       }
-      this.fillForm();
-    }
+      this.loader = false;
+    });
   }
 
   private createForm() {
     this.form = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      store: ['DEFAULT'],
+      store: [''],
       userName: [''],
       emailAddress: ['', [Validators.required, Validators.email, Validators.pattern(this.emailPattern)]],
       password: ['', [Validators.required, Validators.pattern(this.pwdPattern)]],
@@ -162,6 +156,10 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   save() {
+    if (!this.isEmailUnique) {
+      this.toastr.error(this.translate.instant('USER_FORM.EMAIL_EXISTS'));
+      return;
+    }
     const newGroups = [];
     this.groups.forEach((el) => {
       if (el.checked) {
@@ -171,32 +169,21 @@ export class UserFormComponent implements OnInit, OnChanges {
     this.form.patchValue({ groups: newGroups });
     this.form.patchValue({ userName: this.form.value.emailAddress });
     if (this.form.value.groups.length === 0) {
-      this.toastr.warning( this.translate.instant('COMMON.ADDING_USER_GROUPS_ERROR'));
+      this.toastr.warning(this.translate.instant('COMMON.ADDING_USER_GROUPS_ERROR'));
       return;
     }
-    this.userService.checkIfUserExist({ unique: this.form.value.userName, merchant: this.form.value.store})
-      .subscribe(data => {
-        if (this.user && this.user.id) {
-          if (!data.exists || (data.exists && this.user.userName === this.form.value.userName)) {
-            this.userService.updateUser(+this.user.id, this.form.value)
-              .subscribe(res => {
-                this.toastr.success(this.translate.instant('USER_FORM.USER_UPDATED'));
-              });
-          } else {
-            this.isCodeUnique = false;
-          }
-        } else {
-          if (!data.exists) {
-            this.userService.createUser(this.form.value)
-              .subscribe(res => {
-                this.toastr.success(this.translate.instant('USER_FORM.USER_CREATED'));
-                this.router.navigate(['pages/user-management/users']);
-              });
-          } else {
-            this.isCodeUnique = false;
-          }
-        }
-      });
+    if (this.user && this.user.id) {
+      this.userService.updateUser(+this.user.id, this.form.value)
+        .subscribe(res => {
+          this.toastr.success(this.translate.instant('USER_FORM.USER_UPDATED'));
+        });
+    } else {
+      this.userService.createUser(this.form.value)
+        .subscribe(res => {
+          this.toastr.success(this.translate.instant('USER_FORM.USER_CREATED'));
+          this.router.navigate(['pages/user-management/users']);
+        });
+    }
   }
 
   remove() {
@@ -219,13 +206,13 @@ export class UserFormComponent implements OnInit, OnChanges {
       this.userService.checkIfUserExist({ unique: email, merchant: store })
         .subscribe(res => {
           if (this.user && this.user.emailAddress === email) {
-            this.isCodeUnique = true;
+            this.isEmailUnique = true;
           } else {
-            this.isCodeUnique = !res.exists;
+            this.isEmailUnique = !res.exists;
           }
         });
     } else {
-      this.isCodeUnique = true;
+      this.isEmailUnique = true;
     }
   }
 

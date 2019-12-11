@@ -4,7 +4,8 @@
   <nb-card-header>
     {{ 'COMPONENTS.USER_DETAILS' | translate }}
   </nb-card-header>
-  <nb-card-body>
-    <ngx-user-form [user]="user"></ngx-user-form>
+  <nb-card-body [nbSpinner]="loadingInfo" class="loading-block" nbSpinnerSize="large"
+                 nbSpinnerStatus="primary">
+    <ngx-user-form *ngIf="user.id" [user]="user"></ngx-user-form>
   </nb-card-body>
 </nb-card>

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { TokenService } from './token.service';
 import { CrudService } from '../../shared/services/crud.service';
 import { UserService } from '../../shared/services/user.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class AuthService {
   constructor(
     private tokenService: TokenService,
     private crudService: CrudService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
   ) {
   }
 
@@ -36,6 +38,8 @@ export class AuthService {
       isAdminRetail: false,
     };
     localStorage.removeItem('roles');
+    localStorage.removeItem('merchant');
+    this.router.navigate(['auth']);
   }
 
   refresh(): Observable<any> {
