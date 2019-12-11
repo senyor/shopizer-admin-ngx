@@ -71,6 +71,7 @@ export class PricesListComponent implements OnInit {
           { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
         ],
       },
+      pager: { display: false },
       columns: {
         store: {
           title: this.translate.instant('INVENTORY.INVENTORY_STORE'),

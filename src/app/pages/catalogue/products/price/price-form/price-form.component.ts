@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../../../../shared/services/config.service';
 import * as moment from 'moment';
 import { InventoryService } from '../../services/inventory.service';
+import { formatMoney } from '../../../../shared/validation/price-validation';
 
 @Component({
   selector: 'ngx-price-form',
@@ -71,6 +72,16 @@ export class PriceFormComponent implements OnInit {
             this.loader = false;
           });
       });
+  }
+
+  transformTotal() {
+    const value = '' + this.form.controls.productAttributePrice.value;
+    if (value !== '') {
+      this.form.controls.productAttributePrice.setValue(
+        formatMoney(value.replace(/,/g, '')),
+        { emitEvent: false }
+      );
+    }
   }
 
   private createForm() {
