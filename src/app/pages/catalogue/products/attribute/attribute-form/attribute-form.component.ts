@@ -56,14 +56,8 @@ export class AttributeFormComponent implements OnInit {
     this.attributeId = this.activatedRoute.snapshot.paramMap.get('attributeId');
     this.createForm();
     if (this.attributeId) {
-      // TODO getting by ID
-      // this.optionService.getOptionById(optionId).subscribe(res => {
-      //   this.option = res;
-      //   this.fillForm();
-      // });
-      this.productAttributesService.getListOfProductsAttributes(this.productId, {}).subscribe(res => {
-        const elem = res.attributes.find(el => el.id === +this.attributeId);
-        this.attribute = elem;
+      this.productAttributesService.getAttributesById(this.productId, this.attributeId).subscribe(res => {
+        this.attribute = res;
         this.fillForm();
       });
     }
