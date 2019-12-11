@@ -109,7 +109,7 @@ export class CategoryFormComponent implements OnInit {
       visible: this.category.visible,
       code: this.category.code,
       sortOrder: this.category.sortOrder,
-      selectedLanguage: '',
+      selectedLanguage: 'en',
       descriptions: [],
     });
     this.fillFormArray();
