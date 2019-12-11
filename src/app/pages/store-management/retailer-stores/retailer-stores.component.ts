@@ -37,26 +37,17 @@ export class RetailerStoresComponent implements OnInit {
 
   ngOnInit() {
     this.getList();
-    this.storeService.getListOfMerchantStores({}).subscribe(res => {
-      console.log(res);
-    });
-
   }
 
   getList() {
     const startFrom = (this.currentPage - 1) * this.perPage;
     this.params.start = startFrom;
-    this.source.load([]);
-    // this.loadingList = true;
-    // this.storeService.getListOfMerchantStores('DEFAULT', {}).subscribe(res => {
-    //   console.log(res);
-    // });
-    // this.storeService.getListOfStores(this.params)
-    //   .subscribe(res => {
-    //     this.totalCount = res.totalPages;
-    //     this.source.load(res.data);
-    //     this.loadingList = false;
-    //   });
+    this.loadingList = true;
+    this.storeService.getListOfMerchantStores({count: 10000}).subscribe(res => {
+      this.totalCount = res.totalPages;
+      this.source.load(res.data);
+      this.loadingList = false;
+    });
     this.setSettings();
     this.translate.onLangChange.subscribe((event) => {
       this.setSettings();
@@ -72,13 +63,15 @@ export class RetailerStoresComponent implements OnInit {
         delete: false,
         position: 'right',
         sort: true,
-        custom: [
-          {
-            name: 'activate',
-            title: `${this.translate.instant('COMMON.DETAILS')}`
-          }
-        ],
+        // uncomment if need redirect to store page
+        // custom: [
+        //   {
+        //     name: 'activate',
+        //     title: `${this.translate.instant('COMMON.DETAILS')}`
+        //   }
+        // ],
       },
+      pager: { display: false },
       columns: {
         id: {
           title: this.translate.instant('COMMON.ID'),
@@ -94,6 +87,10 @@ export class RetailerStoresComponent implements OnInit {
         }
       },
     };
+  }
+
+  route(event) {
+    // add logic if need redirect to store page
   }
 
   // paginator

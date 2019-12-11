@@ -1,3 +1,4 @@
+<ngx-back-button></ngx-back-button>
 <nb-card size="small" class="page-card">
   <nb-card-header>
     {{ 'STORE.STORE_INFORMATION' | translate}}
@@ -51,7 +52,7 @@
 
               <div class="form-group">
                 <label class="col-sm-10 col-form-label">{{ 'STORE_LANDING.LANDING_TEXT' | translate}}</label>
-                <div class="col-sm-12">
+                <div class="col-sm-12 summernote">
                   <div formControlName="description"
                        [ngxSummernote]="config">
                   </div>

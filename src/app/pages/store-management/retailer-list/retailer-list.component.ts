@@ -70,6 +70,7 @@ export class RetailerListComponent implements OnInit {
           }
         ],
       },
+      pager: { display: false },
       columns: {
         id: {
           title: this.translate.instant('COMMON.ID'),

@@ -110,7 +110,6 @@ export class StoreBrandingComponent implements OnInit {
     this.loadingButton = true;
     this.storeService.addStoreLogo(this.logoFile)
       .subscribe(res => {
-        console.log(res);
         this.toastr.success(this.translate.instant('STORE_BRANDING.LOGO_SAVED'));
         this.loadingButton = false;
       }, error => {
@@ -130,7 +129,7 @@ export class StoreBrandingComponent implements OnInit {
     }
     this.storeService.removeStoreLogo(this.storeCode)
       .subscribe(res => {
-        console.log(res);
+        this.toastr.success(this.translate.instant('STORE_BRANDING.LOGO_REMOVED'));
       });
   }
 
@@ -168,7 +167,6 @@ export class StoreBrandingComponent implements OnInit {
   saveNetworks() {
     this.storeService.updateSocialNetworks(this.form.value)
       .subscribe(res => {
-        console.log(res);
         this.toastr.success(this.translate.instant('STORE_BRANDING.NETWORKS_UPDATED'));
       });
   }

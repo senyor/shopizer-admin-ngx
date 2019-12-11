@@ -81,3 +81,13 @@ ng2-st-tbody-custom {
   margin-bottom: 10px;
   margin-left: 10px;
 }
+
+// sidemenu
+.main-container {
+  z-index: 1000;
+}
+
+// styles for summernote
+.summernote {
+  max-width: 1145px !important;
+}

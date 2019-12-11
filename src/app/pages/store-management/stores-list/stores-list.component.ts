@@ -72,6 +72,7 @@ export class StoresListComponent implements OnInit {
           }
         ],
       },
+      pager: { display: false },
       columns: {
         id: {
           title: this.translate.instant('COMMON.ID'),
