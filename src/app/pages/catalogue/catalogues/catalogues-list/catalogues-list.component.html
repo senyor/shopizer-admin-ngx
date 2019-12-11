@@ -1,27 +1,28 @@
-<div class="selector-wrap">
-  <div class="selector-element">
-    <nb-select *ngIf="availableList.length" placeholder="{{ 'product.manufacturer' | translate}}" [(ngModel)]="isRed"
-               outline
-               shape="rectangle">
-      <nb-option *ngFor="let manufacturer of availableList" [value]="manufacturer.code">{{ manufacturer.code }}</nb-option>
-    </nb-select>
-  </div>
-</div>
+<nb-card size="small" class="page-card">
+  <nb-card-header>
+    {{ 'COMPONENTS.CATALOGUES_LIST' | translate}}
+  </nb-card-header>
+  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
+    <nb-actions size="medium" class="back-button">
+      <nb-action>
+        <i class="fas fa-plus"></i>&nbsp;
+        <a [routerLink]="['/pages/catalogue/catalogues/create-catalogue']">
+          {{ 'COMPONENTS.CREATE_CATALOGUE' | translate}}
+        </a>
+      </nb-action>
+    </nb-actions>
 
-<p-pickList sourceHeader="Available"
-            targetHeader="Selected"
-            dragdrop="true"
-            [responsive]="true"
-            [source]="availableList"
-            [target]="selectedList"
-            sourceFilterPlaceholder="Search"
-            targetFilterPlaceholder="Search"
-            [showSourceControls]="false"
-            [showTargetControls]="false"
-            filterBy="code">
-  <ng-template let-item pTemplate="item">
-    <div class="ui-helper-clearfix">
-      <div style="font-size:14px;margin:15px 5px 0 0">{{item.code}}</div>
-    </div>
-  </ng-template>
-</p-pickList>
+    <ng2-smart-table [settings]="settings"
+                     [source]="source">
+    </ng2-smart-table>
+
+    <ngx-paginator
+      (changePage)="changePage($event)"
+      [pagesToShow]="5"
+      [currentPage]="currentPage"
+      [perPage]="perPage"
+      [count]="totalCount">
+    </ngx-paginator>
+
+  </nb-card-body>
+</nb-card>

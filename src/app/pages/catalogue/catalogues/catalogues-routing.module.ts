@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CataloguesComponent } from './catalogues.component';
-import { CatalogueCreationComponent } from './catalogue-creation/catalogue-creation.component';
 import { CataloguesListComponent } from './catalogues-list/catalogues-list.component';
+import { CatalogueFormComponent } from './catalogue-form/catalogue-form.component';
+import { ProductToCatalogueComponent } from './product-to-catalogue/product-to-catalogue.component';
 
 const routes: Routes = [
   {
@@ -12,11 +13,19 @@ const routes: Routes = [
     children: [
       {
         path: 'create-catalogue',
-        component: CatalogueCreationComponent,
+        component: CatalogueFormComponent,
+      },
+      {
+        path: 'catalogue/:catalogId',
+        component: CatalogueFormComponent,
       },
       {
         path: 'catalogues-list',
         component: CataloguesListComponent,
+      },
+      {
+        path: ':catalogId/catalogues-products',
+        component: ProductToCatalogueComponent,
       },
     ],
   }

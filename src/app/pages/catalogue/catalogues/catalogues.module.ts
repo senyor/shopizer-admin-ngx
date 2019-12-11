@@ -5,14 +5,16 @@ import { NgxSummernoteModule } from 'ngx-summernote';
 import { NbDialogModule } from '@nebular/theme';
 import { CataloguesComponent } from './catalogues.component';
 import { CataloguesRoutingModule } from './catalogues-routing.module';
-import { CatalogueCreationComponent } from './catalogue-creation/catalogue-creation.component';
 import { CataloguesListComponent } from './catalogues-list/catalogues-list.component';
+import { CatalogueFormComponent } from './catalogue-form/catalogue-form.component';
+import { ProductToCatalogueComponent } from './product-to-catalogue/product-to-catalogue.component';
 
 @NgModule({
   declarations: [
     CataloguesComponent,
-    CatalogueCreationComponent,
-    CataloguesListComponent
+    CataloguesListComponent,
+    CatalogueFormComponent,
+    ProductToCatalogueComponent
   ],
   imports: [
     CataloguesRoutingModule,
@@ -23,4 +25,5 @@ import { CataloguesListComponent } from './catalogues-list/catalogues-list.compo
     NbDialogModule.forChild(),
   ]
 })
-export class CataloguesModule { }
+export class CataloguesModule {
+}

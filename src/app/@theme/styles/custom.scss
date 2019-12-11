@@ -53,14 +53,11 @@ ng2-st-tbody-custom {
 .selector-wrap {
   display: flex;
   flex-direction: row-reverse;
+  justify-content: space-between;
   .selector-element {
     width: 45%;
     margin-bottom: 20px;
   }
-}
-
-.pick-list {
-  padding: 20px;
 }
 
 // styles for breadcrubs
