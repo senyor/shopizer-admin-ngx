@@ -111,7 +111,7 @@ export class OptionsValuesListComponent implements OnInit {
               return el.language === this.storageService.getLanguage();
             });
             const name = description && description.name ? description.name : 'null';
-            return `<a href="#/pages/catalogue/options/option/${parent_id}">${ name }</a>`;
+            return `<a href="#/pages/catalogue/options/option-value/${parent_id}">${ name }</a>`;
           }
         }
       },
