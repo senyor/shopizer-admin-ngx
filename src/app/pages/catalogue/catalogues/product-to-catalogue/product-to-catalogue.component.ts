@@ -15,9 +15,8 @@ import { CategoryService } from '../../categories/services/category.service';
 export class ProductToCatalogueComponent implements OnInit {
   availableList = [];
   selectedList = [];
-  categories = [];
-  selectedCategory;
-  catalog;
+  catalogues = [];
+  selectedGroup;
 
   constructor(
     private productService: ProductService,
@@ -33,14 +32,10 @@ export class ProductToCatalogueComponent implements OnInit {
       count: 100,
       page: 0
     };
-    const products$ = this.productService.getListOfProducts(params);
-    const catalog$ = this.catalogService.getCatalogById(id);
-    const categories$ = this.categoryService.getListOfCategories({ count: 100, page: 0 });
-    forkJoin(products$, catalog$, categories$)
-      .subscribe(([products, catalog, categories]) => {
+    forkJoin(this.productService.getListOfProducts(params), this.catalogService.getListOfCatalogues(params))
+      .subscribe(([products, res]) => {
         this.availableList = [...products.products];
-        this.catalog = catalog;
-        this.categories = [...categories.categories];
+        this.catalogues = [...res.catalogs];
       });
   }
 
@@ -51,11 +46,6 @@ export class ProductToCatalogueComponent implements OnInit {
     console.log(e, type);
     switch (type) {
       case 'toTarget':
-        const catalogEntry = {
-          categoryCode: this.selectedCategory,
-          productCode: e.items[0].sku,
-          visible: true
-        };
         // this.catalogService.addCatalogEntry(this.catalog.id, catalogEntry)
         //   .subscribe(res => {
         //     console.log(res);
@@ -92,8 +82,8 @@ export class ProductToCatalogueComponent implements OnInit {
   }
 
   selectGroup(groupCode) {
-    this.selectedCategory = groupCode;
-    console.log(this.selectedCategory);
+    this.selectedGroup = groupCode;
+    console.log(this.selectedGroup);
     // todo get products by catalogue
     // this.productGroupsService.getProductsByGroup(this.selectedGroup)
     //   .subscribe(res => {
