@@ -210,7 +210,7 @@ export class PriceFormComponent implements OnInit {
         }
       });
 
-      this.inventory.store = this.inventory.store.name;
+      this.inventory.store = this.inventory.store.code;
       this.inventory.prices.forEach((el) => {
         const originalPriceIndex = el.originalPrice.match(/\d/).index;
         el.originalPrice = el.originalPrice.slice(originalPriceIndex);
