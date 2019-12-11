@@ -6,6 +6,7 @@ import { TokenService } from '../services/token.service';
 import { UserService } from '../../shared/services/user.service';
 import { delay } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-login',
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private tokenService: TokenService,
     private userService: UserService,
+    private toastr: ToastrService,
     private translate: TranslateService
   ) {
     this.createForm();
@@ -49,6 +51,8 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('merchant', user.merchant);
             delay(1000);
             this.router.navigate([ 'pages' ]);
+          }, err => {
+            this.toastr.error(err.error.message);
           });
       }, err => {
         this.errorMessage = this.translate.instant('LOGIN.INVALID_DATA');

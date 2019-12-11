@@ -96,6 +96,8 @@
     "LAST_NAME": "Last name",
     "LAST_NAME_ERROR_REQUIRED": "Last name is required",
 
+    "STORE_REQUIRED": "Store is required",
+
     "EMAIL_ADDRESS": "Email",
     "EMAIL_ADDRESS_ERROR_REQUIRED": " Email address is required.",
     "EMAIL_ADDRESS_ERROR_NOT_VALID": "Value has to be a valid email address.",

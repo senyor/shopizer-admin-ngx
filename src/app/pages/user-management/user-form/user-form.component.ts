@@ -156,6 +156,10 @@ export class UserFormComponent implements OnInit {
   }
 
   save() {
+    if (this.form.value.store === '' && (this.roles.isSuperadmin || this.roles.isRetailerAdmin)) {
+      this.toastr.error(this.translate.instant('USER_FORM.STORE_REQUIRED'));
+      return;
+    }
     if (!this.isEmailUnique) {
       this.toastr.error(this.translate.instant('USER_FORM.EMAIL_EXISTS'));
       return;
