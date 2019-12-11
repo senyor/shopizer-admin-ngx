@@ -57,6 +57,7 @@ export class GroupsListComponent implements OnInit {
         position: 'right',
         sort: true,
       },
+      pager: { display: false },
       columns: {
         code: {
           title: this.translate.instant('COMMON.CODE'),
