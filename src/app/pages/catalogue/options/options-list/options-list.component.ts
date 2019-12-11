@@ -27,7 +27,6 @@ export class OptionsListComponent implements OnInit {
 
   // request params
   params = {
-    lang: this.storageService.getLanguage(),
     count: this.perPage,
     page: 0
   };
@@ -44,10 +43,6 @@ export class OptionsListComponent implements OnInit {
 
   ngOnInit() {
     this.getList();
-    this.translate.onLangChange.subscribe((lang) => {
-      this.params.lang = this.storageService.getLanguage();
-      this.getList();
-    });
   }
 
   getList() {
@@ -56,10 +51,18 @@ export class OptionsListComponent implements OnInit {
     this.optionService.getListOfOptions(this.params).subscribe((res) => {
       this.totalCount = res.recordsTotal;
       this.options = [...res.options];
+      this.options.forEach(element => {
+        element.descriptions.forEach(description => {
+          description.parent_id = element.id;
+        });
+      });
       this.source.load(this.options);
       this.loadingList = false;
     });
     this.setSettings();
+    this.translate.onLangChange.subscribe((lang) => {
+      this.setSettings();
+    });
   }
 
   setSettings() {
@@ -91,14 +94,23 @@ export class OptionsListComponent implements OnInit {
           type: 'string',
           editable: false
         },
-        description: {
+        descriptions: {
           title: this.translate.instant('COMMON.NAME'),
           type: 'html',
           editable: false,
-          valuePrepareFunction: (description) => {
-            const name = description.name;
-            const id = this.options.find(el => el.description.name === name).id;
-            return `<a href="#/pages/catalogue/options/option/${id}">${name}</a>`;
+          valuePrepareFunction: (descriptions) => {
+            // parent_id for link
+            let parent_id = -1;
+            // find element with certain language
+            const description = descriptions.find(el => {
+              // set parent_id
+              if (parent_id === -1 && el) {
+                parent_id = el.parent_id;
+              }
+              return el.language === this.storageService.getLanguage();
+            });
+            const name = description && description.name ? description.name : 'null';
+            return `<a href="#/pages/catalogue/options/option/${parent_id}">${ name }</a>`;
           }
         }
       },
