@@ -1,15 +1,11 @@
-<nb-actions size="medium" class="back-button">
-  <nb-action (click)="backToList()">
-    <i class="fas fa-chevron-left"></i>&nbsp;<span>{{ 'COMMON.BACK_TO_LIST' | translate}}</span>
-  </nb-action>
-</nb-actions>
+<ngx-back-button></ngx-back-button>
 <nb-card size="small" class="page-card">
   <nb-card-header>
     {{ 'COMPONENTS.CATEGORY' | translate}}
   </nb-card-header>
-  <nb-card-body [nbSpinner]="loadingInfo" class="loading-block" nbSpinnerSize="large"
-                 nbSpinnerStatus="primary">
-    <ngx-category-form *ngIf="category" [category]="category"></ngx-category-form>
+  <nb-card-body class="loading-block" [nbSpinner]="loadingInfo" nbSpinnerSize="large"
+                nbSpinnerStatus="primary">
+    <ngx-category-form *ngIf="category.id" [category]="category"></ngx-category-form>
   </nb-card-body>
 </nb-card>
 

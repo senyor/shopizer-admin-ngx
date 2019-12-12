@@ -6,6 +6,7 @@ import { ConfigService } from '../../../shared/services/config.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { validators } from '../../../shared/validation/validators';
 
 @Component({
   selector: 'ngx-brand-form',
@@ -61,8 +62,8 @@ export class BrandFormComponent implements OnInit {
 
   createForm() {
     this.form = this.fb.group({
-      code: ['', [Validators.required]],
-      order: ['', [Validators.required]],
+      code: ['', [Validators.required, Validators.pattern(validators.alphanumeric)]],
+      order: ['', [Validators.required, Validators.pattern(validators.number)]],
       selectedLanguage: ['', [Validators.required]],
       descriptions: this.fb.array([]),
     });
@@ -197,42 +198,31 @@ export class BrandFormComponent implements OnInit {
       brandObject.descriptions.forEach(el => {
         for (const elKey in el) {
           if (el.hasOwnProperty(elKey)) {
+            el.name = el.name.trim(); // trim name
             if (typeof el[elKey] === 'undefined') {
               el[elKey] = '';
             }
           }
         }
       });
-      console.log('saving', brandObject);
 
-      this.brandService.checkCategoryCode(brandObject.code)
-        .subscribe(res => {
-          if (this.brand.id) {
-            // if exist, it is updating
-            // if (!res.exists || (res.exists && this.category.code === this.form.value.code)) {
-            //   this.brandService.updateCategory(this.category.id, brandObject)
-            //     .subscribe(result => {
-            //       console.log(result);
-            //       this.toastr.success(this.translate.instant('BRAND.BRAND_UPDATED'));
-            //       this.router.navigate(['pages/catalogue/categories/categories-list']);
-            //     });
-            // } else {
-            //   this.isCodeUnique = false;
-            // }
-          } else {
-            // if doesn't exist, it is creating
-            if (!res.exists) {
-              this.brandService.createBrand(brandObject)
-                .subscribe(result => {
-                  console.log(result);
-                  this.toastr.success(this.translate.instant('BRAND.BRAND_CREATED'));
-                  this.router.navigate(['pages/catalogue/brands/brands-list']);
-                });
-            } else {
-              this.isCodeUnique = false;
-            }
-          }
-        });
+      if (!this.isCodeUnique) {
+        this.toastr.error(this.translate.instant('COMMON.CODE_EXISTS'));
+        return;
+      }
+
+      if (this.brand.id) {
+        this.brandService.updateBrand(this.brand.id, brandObject)
+          .subscribe(result => {
+            this.toastr.success(this.translate.instant('BRAND.BRAND_UPDATED'));
+          });
+      } else {
+        this.brandService.createBrand(brandObject)
+          .subscribe(result => {
+            this.toastr.success(this.translate.instant('BRAND.BRAND_CREATED'));
+            this.router.navigate(['pages/catalogue/brands/brands-list']);
+          });
+      }
     }
   }
 

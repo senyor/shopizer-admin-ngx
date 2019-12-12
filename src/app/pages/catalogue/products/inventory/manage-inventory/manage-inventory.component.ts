@@ -92,7 +92,7 @@ export class ManageInventoryComponent implements OnInit {
           }
         },
         owner: {
-          title: this.translate.instant('PRODUCT.INVENTORY_OWNER'),
+          title: this.translate.instant('INVENTORY.INVENTORY_OWNER'),
           type: 'string',
           editable: false,
           valuePrepareFunction: (owner) => {
@@ -124,7 +124,7 @@ export class ManageInventoryComponent implements OnInit {
   route(event) {
     switch (event.action) {
       case 'details':
-        this.router.navigate([`pages/catalogue/products/${this.product.id}/inventory-details/${event.data.id}`]);
+        this.router.navigate([`pages/catalogue/products/${this.product.id}/inventory/${event.data.id}`]);
         break;
       case 'remove':
         this.dialogService.open(ShowcaseDialogComponent, {})

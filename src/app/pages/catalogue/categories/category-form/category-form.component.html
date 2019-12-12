@@ -4,8 +4,8 @@
   <div class="form-group">
     <label class="col-sm-10 col-form-label">{{ 'CATEGORY_FORM.ROOT_CATEGORY' | translate}}</label>
     <div class="col-sm-12">
-      <nb-select *ngIf="roots.length" placeholder="{{ 'CATEGORY_FORM.ROOT_CATEGORY' | translate}}" formControlName='parent' outline
-                 shape="rectangle">
+      <nb-select *ngIf="roots.length" placeholder="{{ 'CATEGORY_FORM.ROOT_CATEGORY' | translate}}"
+                 formControlName='parent' outline shape="rectangle">
         <nb-option *ngFor="let root of roots" [value]="root.code">{{ root.code }}</nb-option>
       </nb-select>
     </div>
@@ -22,14 +22,18 @@
   <div class="form-group">
     <label for="code" class="col-sm-10 col-form-label">{{ 'COMMON.CODE' | translate}}</label>
     <div class="col-sm-12">
-      <input type="text" class="form-control" id="code" formControlName='code'
+      <input type="text" class="form-control" id="code" formControlName='code' [readOnly]="category.id"
              placeholder="{{ 'COMMON.CODE' | translate}}" (change)="checkCode($event)" required>
-      <span *ngIf="(code.dirty || code.touched) && code.invalid && code.errors.required"
-            class="err-message">
-        {{ 'COMMON.CODE_REQUIRED' | translate}}
-      </span>
+      <div class="err-message" *ngIf="(code.dirty || code.touched) && code.invalid && code">
+            <span *ngIf="code.errors.required">
+            {{ 'COMMON.CODE_REQUIRED' | translate}}
+            </span>
+        <span *ngIf="code.errors.pattern">
+              {{ 'COMMON.ALPHA_DECIMAL_RULE' | translate}}
+            </span>
+      </div>
       <span *ngIf="!isCodeUnique" class="err-message">
-        {{ 'COMMON.CODE_EXISTS' | translate}}
+            {{ 'COMMON.CODE_EXISTS' | translate}}
       </span>
     </div>
   </div>
@@ -37,7 +41,7 @@
   <div class="form-group">
     <label for="order" class="col-sm-10 col-form-label">{{ 'COMMON.ORDER' | translate}}</label>
     <div class="col-sm-12">
-      <input type="number" class="form-control" id="order" formControlName='sortOrder'
+      <input type="text" class="form-control" id="order" formControlName='sortOrder' ngxValidateNumber
              placeholder="{{ 'COMMON.ORDER' | translate}}" required>
     </div>
   </div>
@@ -56,7 +60,7 @@
     <div *ngFor="let descr of descriptions.controls; let j=index">
       <div *ngIf="descr.value.language === selectedLanguage.value">
 
-        <div [formGroupName]="j" class="category-description">
+        <div [formGroupName]="j" class="description-block">
 
           <div class="form-group">
             <label for="name" class="col-sm-10 col-form-label">{{ 'DESCRIPTION_FORM.NAME' | translate}}</label>
@@ -72,7 +76,8 @@
           </div>
 
           <div class="form-group">
-            <label for="highlight" class="col-sm-10 col-form-label">{{ 'DESCRIPTION_FORM.HIGHLIGHT' | translate}}</label>
+            <label for="highlight"
+                   class="col-sm-10 col-form-label">{{ 'DESCRIPTION_FORM.HIGHLIGHT' | translate}}</label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="highlight" formControlName='highlights'
                      placeholder="{{ 'DESCRIPTION_FORM.HIGHLIGHT' | translate}}">
@@ -80,7 +85,8 @@
           </div>
 
           <div class="form-group">
-            <label for="friendlyUrl" class="col-sm-10 col-form-label">{{ 'DESCRIPTION_FORM.FRIENDLY_URL' | translate}}</label>
+            <label for="friendlyUrl"
+                   class="col-sm-10 col-form-label">{{ 'DESCRIPTION_FORM.FRIENDLY_URL' | translate}}</label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="friendlyUrl" formControlName='friendlyUrl'
                      placeholder="{{ 'DESCRIPTION_FORM.FRIENDLY_URL' | translate}}">
@@ -118,7 +124,8 @@
           </div>
 
           <div class="form-group">
-            <label for="metaDescription" class="col-sm-10 col-form-label">{{ 'DESCRIPTION_FORM.META_DESCRIPTION' | translate}}</label>
+            <label for="metaDescription"
+                   class="col-sm-10 col-form-label">{{ 'DESCRIPTION_FORM.META_DESCRIPTION' | translate}}</label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="metaDescription" formControlName='metaDescription'
                      placeholder="{{ 'DESCRIPTION_FORM.META_DESCRIPTION' | translate}}">

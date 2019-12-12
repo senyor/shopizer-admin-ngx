@@ -42,6 +42,7 @@ export class ProductFormComponent implements OnInit {
   isCodeUnique = true;
   loadingButton = false;
   uploadData = new FormData();
+  removedImagesArray = [];
 
   constructor(
     private fb: FormBuilder,
@@ -206,21 +207,23 @@ export class ProductFormComponent implements OnInit {
   onImageChanged(event) {
     switch (event.type) {
       case 'add': {
-        this.uploadData = new FormData();
         this.uploadData.append('file[]', event.data, event.data.name);
-        if (this.product.id) {
-          this.productImageService.createImage(this.product.id, this.uploadData)
-            .subscribe(res1 => {
-              console.log(res1);
-            });
-        }
         break;
       }
       case 'remove': {
-        this.productImageService.removeImage(event.data)
-          .subscribe(res1 => {
-            console.log(res1);
-          });
+        this.removedImagesArray.push(event.data);
+        break;
+      }
+      case 'remove-one': {
+        const fd = new FormData();
+        this.uploadData.delete(event.data.name);
+        this.uploadData.forEach((img) => {
+          if (img['name'] !== event.data.name) {
+            fd.append('file[]', img, img['name']);
+          }
+        });
+        this.uploadData = new FormData();
+        this.uploadData = fd;
         break;
       }
     }
@@ -232,6 +235,17 @@ export class ProductFormComponent implements OnInit {
       .subscribe(res => {
         this.isCodeUnique = !(res.exists && (this.product.sku !== sku));
       });
+  }
+
+  removeImages(array) {
+    array.forEach((el) => {
+      this.productImageService.removeImage(el)
+        .subscribe(res1 => {
+          console.log(res1);
+        }, error => {
+          console.log('Something went wrong');
+        });
+    });
   }
 
   save() {
@@ -290,11 +304,17 @@ export class ProductFormComponent implements OnInit {
       });
 
       if (this.product.id) {
+        this.removeImages(this.removedImagesArray);
         this.productService.updateProduct(this.product.id, productObject)
           .subscribe(res => {
             console.log(res);
             this.loadingButton = false;
-            this.toastr.success(this.translate.instant('PRODUCT.PRODUCT_UPDATED'));
+            this.productImageService.createImage(res.id, this.uploadData)
+              .subscribe(res1 => {
+                console.log(res1);
+                this.loadingButton = false;
+                this.toastr.success(this.translate.instant('PRODUCT.PRODUCT_UPDATED'));
+              });
           });
       } else {
         this.productService.createProduct(productObject)

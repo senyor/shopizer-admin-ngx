@@ -1,11 +1,13 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { CategoryService } from '../services/category.service';
 import { ConfigService } from '../../../shared/services/config.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { validators } from '../../../shared/validation/validators';
+import { slugify } from '../../../shared/utils/slugifying';
 
 @Component({
   selector: 'ngx-category-form',
@@ -32,7 +34,6 @@ export class CategoryFormComponent implements OnInit {
     ],
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
-  showRemoveButton = true;
   loader = false;
   isCodeUnique = true;
 
@@ -50,7 +51,7 @@ export class CategoryFormComponent implements OnInit {
   ngOnInit() {
     this.categoryService.getListOfCategories()
       .subscribe(res => {
-        res.categories.push({id: 0, code: 'root'});
+        res.categories.push({ id: 0, code: 'root' });
         res.categories.sort((a, b) => {
           if (a.code < b.code)
             return -1;
@@ -77,8 +78,8 @@ export class CategoryFormComponent implements OnInit {
     this.form = this.fb.group({
       parent: ['root', [Validators.required]],
       visible: [false],
-      code: ['', [Validators.required]],
-      sortOrder: [0, [Validators.required]],
+      code: ['', [Validators.required, Validators.pattern(validators.alphanumeric)]],
+      sortOrder: [0, [Validators.required, Validators.pattern(validators.number)]],
       selectedLanguage: ['', [Validators.required]],
       descriptions: this.fb.array([]),
     });
@@ -145,23 +146,9 @@ export class CategoryFormComponent implements OnInit {
     return <FormArray>this.form.get('descriptions');
   }
 
-  slugify(string) {
-    const a = 'àáäâãåăæąçćčđèéėëêęǵḧìíïîįłḿǹńňñòóöôœøṕŕřßśšșťțùúüûǘůűūųẃẍÿýźžż·/_,:;';
-    const b = 'aaaaaaaaacccdeeeeeeghiiiiilmnnnnooooooprrssssttuuuuuuuuuwxyyzzz------';
-    const p = new RegExp(a.split('').join('|'), 'g');
-
-    return string.toString().toLowerCase()
-      .replace(/\s+/g, '-') // Replace spaces with -
-      .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
-      .replace(/&/g, '-and-') // Replace & with 'and'
-      .replace(/\-\-+/g, '-') // Replace multiple - with single -
-      .replace(/^-+/, '') // Trim - from start of text
-      .replace(/-+$/, ''); // Trim - from end of text
-  }
-
   changeName(event, index) {
     (<FormArray>this.form.get('descriptions')).at(index).patchValue({
-      friendlyUrl: this.slugify(event)
+      friendlyUrl: slugify(event)
     });
   }
 
@@ -173,12 +160,18 @@ export class CategoryFormComponent implements OnInit {
       });
   }
 
-  save() {
-    const categoryObject = this.form.value;
-    const categoryObj = this.roots.find((el) => el.code === categoryObject.parent);
-    categoryObject.parent = { id: categoryObj.id, code: categoryObj.code };
+  private prepareSaveData() {
+    const data = this.form.value;
+    const category = this.roots.find((el) => el.code === data.parent);
+    data.parent = { id: category.id, code: category.code };
 
-    // save important values for filling empty field in result object
+    return data;
+  }
+
+  save() {
+    const categoryObject = this.prepareSaveData();
+
+    // TODO create method for this functionality
     const tmpObj = {
       name: '',
       friendlyUrl: ''
@@ -217,49 +210,32 @@ export class CategoryFormComponent implements OnInit {
       categoryObject.descriptions.forEach(el => {
         for (const elKey in el) {
           if (el.hasOwnProperty(elKey)) {
+            el.name = el.name.trim(); // trim name
             if (typeof el[elKey] === 'undefined') {
               el[elKey] = '';
             }
           }
         }
       });
-      console.log('saving', categoryObject);
 
-      this.categoryService.checkCategoryCode(categoryObject.code)
-        .subscribe(res => {
-          if (this.category.id) {
-            // if exist, it is updating
-            if (!res.exists || (res.exists && this.category.code === this.form.value.code)) {
-              this.categoryService.updateCategory(this.category.id, categoryObject)
-                .subscribe(result => {
-                  console.log(result);
-                  this.toastr.success(this.translate.instant('CATEGORY_FORM.CATEGORY_UPDATED'));
-                });
-            } else {
-              this.isCodeUnique = false;
-            }
-          } else {
-            // if doesn't exist, it is creating
-            if (!res.exists) {
-              this.categoryService.addCategory(categoryObject)
-                .subscribe(result => {
-                  console.log(result);
-                  this.toastr.success(this.translate.instant('CATEGORY_FORM.CATEGORY_CREATED'));
-                });
-            } else {
-              this.isCodeUnique = false;
-            }
-          }
-        });
+      if (!this.isCodeUnique) {
+        this.toastr.error(this.translate.instant('COMMON.CODE_EXISTS'));
+        return;
+      }
+
+      if (this.category.id) {
+        this.categoryService.updateCategory(this.category.id, categoryObject)
+          .subscribe(result => {
+            this.toastr.success(this.translate.instant('CATEGORY_FORM.CATEGORY_UPDATED'));
+          });
+      } else {
+        this.categoryService.addCategory(categoryObject)
+          .subscribe(result => {
+            this.toastr.success(this.translate.instant('CATEGORY_FORM.CATEGORY_CREATED'));
+            this.router.navigate(['pages/categories/categories-list']);
+          });
+      }
     }
-  }
-
-  remove() {
-    this.categoryService.deleteCategory(this.category.id)
-      .subscribe(res => {
-        this.toastr.success(this.translate.instant('CATEGORY_FORM.CATEGORY_REMOVED'));
-        this.router.navigate(['pages/store-management/stores-list']);
-      });
   }
 
 }

@@ -25,12 +25,12 @@ export class PricesListComponent implements OnInit {
   currentPage = 1;
   totalCount;
 
-  // server params
-  // params = {
-  //   count: this.perPage,
-  //   page: 0
-  // };
   settings = {};
+
+  params = {
+    productId: '',
+    inventoryId: ''
+  };
 
   constructor(
     private productService: ProductService,
@@ -40,31 +40,19 @@ export class PricesListComponent implements OnInit {
     private inventoryService: InventoryService,
     private _sanitizer: DomSanitizer,
     // private priceService: PriceService,
-    // private router: Router,
+    private router: Router,
   ) {
-    // this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
-    // this.productService.getProductById(this.productId).subscribe(product => {
-    //   this.product = product;
-    // });
+    this.params.productId = this.activatedRoute.snapshot.paramMap.get('productId');
+    this.params.inventoryId = this.activatedRoute.snapshot.paramMap.get('inventoryId');
   }
 
   ngOnInit() {
-    console.log(this.prices);
     this.getList();
   }
 
   getList() {
     this.prices = (this.prices && this.prices.length) ? this.prices : [];
     this.source.load(this.prices);
-    // this.loadingList = true;
-    // const id = (this.product && this.product.id) || this.productId;
-    // this.params.page = this.currentPage - 1;
-    // this.inventoryService.getListOfInventories(id, this.params)
-    //   .subscribe(res => {
-    //     this.totalCount = res.recordsTotal;
-    //     this.source.load(res.inventory);
-    //     this.loadingList = false;
-    //   });
     this.setSettings();
     this.translate.onLangChange.subscribe((event) => {
       this.setSettings();
@@ -127,8 +115,9 @@ export class PricesListComponent implements OnInit {
   route(event) {
     switch (event.action) {
       case 'details':
-        // this.priceService.price = event.data;
-        // this.router.navigate([`pages/catalogue/products/price-details`]);
+        const path = `pages/catalogue/products/${this.params.productId}/` +
+          `inventory/${this.params.inventoryId}/price/${event.data.id}`;
+        this.router.navigate([path]);
         break;
       case 'remove':
         this.dialogService.open(ShowcaseDialogComponent, {})

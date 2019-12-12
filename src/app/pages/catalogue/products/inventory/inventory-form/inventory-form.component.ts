@@ -83,7 +83,7 @@ export class InventoryFormComponent implements OnInit {
     inventoryObj.productId = this.productId;
     if (this.inventory.id) {
       inventoryObj.id = this.inventory.id;
-      this.inventoryService.updateInventory(this.inventory.id, inventoryObj).subscribe((res) => {
+      this.inventoryService.updateInventory(this.productId, this.inventory.id, inventoryObj).subscribe((res) => {
         console.log(res);
       });
     } else {

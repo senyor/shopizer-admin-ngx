@@ -31,8 +31,8 @@ export class InventoryService {
     return this.crudService.delete(`/v1/private/product/inventory/${ id }`);
   }
 
-  updateInventory(idInventory, inventory): Observable<any> {
-    return this.crudService.put(`/v1/private/product/inventory/${idInventory}`, inventory);
+  updateInventory(idProduct, idInventory, inventory): Observable<any> {
+    return this.crudService.put(`/v1/private/product/${idProduct}/inventory/${idInventory}`, inventory);
   }
 
 }

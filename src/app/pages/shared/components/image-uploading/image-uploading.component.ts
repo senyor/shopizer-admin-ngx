@@ -1,28 +1,30 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 import { ToastrService } from 'ngx-toastr';
-import { NbDialogService } from '@nebular/theme';
-import { ShowcaseDialogComponent } from '../showcase-dialog/showcase-dialog.component';
 
 @Component({
   selector: 'ngx-image-uploading',
   templateUrl: './image-uploading.component.html',
   styleUrls: ['./image-uploading.component.scss']
 })
-export class ImageUploadingComponent implements OnInit {
+export class ImageUploadingComponent implements OnInit, OnChanges {
   @Input() productImages;
   @Output() imageChanged = new EventEmitter<any>();
   images = [];
   maxSize = 10485760;
 
   constructor(
-    private toastr: ToastrService,
-    private dialogService: NbDialogService,
+    private toastr: ToastrService
   ) {
   }
 
   ngOnInit() {
-    this.images = this.productImages ? [...this.productImages] : [];
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.productImages.previousValue && changes.productImages.currentValue) {
+      this.images = this.productImages ? [...this.productImages] : [];
+    }
   }
 
   onSelectFile(event) {
@@ -45,7 +47,8 @@ export class ImageUploadingComponent implements OnInit {
         id: 'img' + Math.floor(Math.random() * 1000),
         imageUrl: fileReader.result as string,
         newImage: true,
-        bigSize: files.size > this.maxSize
+        bigSize: files.size > this.maxSize,
+        name: files.name
       };
       this.images.push(img);
       this.imageChanged.emit({ type: 'add', data: files });
@@ -54,18 +57,15 @@ export class ImageUploadingComponent implements OnInit {
   }
 
   removeImage(image) {
-    this.dialogService.open(ShowcaseDialogComponent, {})
-      .onClose.subscribe(res => {
-      if (res) {
-        if (!image.hasOwnProperty('newImage')) {
-          this.imageChanged.emit({ type: 'remove', data: image.id });
-        }
-        const index = this.images.findIndex((el) => el.id === image.id);
-        if (index !== -1) {
-          this.images.splice(index, 1);
-        }
-      }
-    });
+    if (!image.hasOwnProperty('newImage')) {
+      this.imageChanged.emit({ type: 'remove', data: image.id });
+    } else {
+      this.imageChanged.emit({ type: 'remove-one', data: image });
+    }
+    const index = this.images.findIndex((el) => el.id === image.id);
+    if (index !== -1) {
+      this.images.splice(index, 1);
+    }
   }
 
 }

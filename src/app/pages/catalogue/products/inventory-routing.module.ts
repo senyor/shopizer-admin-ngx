@@ -16,11 +16,11 @@ const routes: Routes = [
         component: ManageInventoryComponent,
       },
       {
-        path: ':productId/inventory-details/:inventoryId',
+        path: ':productId/inventory/:inventoryId',
         component: InventoryDetailsComponent,
       },
       {
-        path: ':productId/inventory-list/inventory-creation',
+        path: ':productId/inventory-creation',
         component: InventoryCreationComponent,
       },
     ],

@@ -61,6 +61,12 @@
     "LIST_PRODUCTS_GROUPS": "List products groups",
     "PRODUCTS_GROUPS_LIST": "Product groups list",
 
+    "OPTIONS": "Options",
+    "OPTIONS_LIST": "Options list",
+    "CREATE_OPTION": "Create option",
+    "OPTIONS_VALUES_LIST": "Options values list",
+    "CREATE_OPTION_VALUE": "Create option value",
+
     "ORDERS": "Orders"
   },
   "LOGIN": {
@@ -204,7 +210,9 @@
   },
   "CATEGORY": {
     "CATEGORY_NAME": "Category name",
-    "PARENT": "Parent"
+    "PARENT": "Parent",
+    "HIERARCHY_UPDATED": "Hierarchy successfully updated",
+    "CATEGORY_VISIBILITY": "Category visibility updated"
   },
   "CATEGORY_FORM": {
     "ROOT_CATEGORY": "Root category",
@@ -212,6 +220,13 @@
     "CATEGORY_UPDATED": "Category updated.",
     "CATEGORY_CREATED": "Category created.",
     "CATEGORY_REMOVED": "Category removed."
+  },
+  "CATALOG": {
+    "CATALOGUES_PRODUCTS": "Catalogues products",
+
+    "CATALOG_UPDATED": "Catalogue updated.",
+    "CATALOG_CREATED": "Catalogue created.",
+    "CATALOG_REMOVED": "Catalogue removed."
   },
   "PRODUCT": {
     "SKU": "Sku",
@@ -241,6 +256,7 @@
   "PRICE": {
     "FINAL_PRICE": "Final price",
     "ORIGINAL_PRICE": "Original price",
+    "DISCOUNTED_PRICE": "Discounted price",
     "DISCOUNTED": "Discounted"
   },
   "NOT_FOUND": {
@@ -300,7 +316,9 @@
     "WEIGHT": "Weight",
     "HEIGHT": "Height",
     "WIDTH": "Width",
-    "LENGTH": "Length"
+    "LENGTH": "Length",
+
+    "CREATION_DATE": "Creation date"
   },
   "DESCRIPTION_FORM": {
     "NAME": "Name",

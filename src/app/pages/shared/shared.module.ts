@@ -16,6 +16,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import {PickListModule} from 'primeng/picklist';
 import {DropdownModule} from 'primeng/dropdown';
 import { BackButtonComponent } from './components/back-button/back-button.component';
+import { ValidateNumberDirective } from './validation/validate-number.directive';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
     ShowcaseDialogComponent,
     PaginatorComponent,
     BackButtonComponent,
+    ValidateNumberDirective
   ],
   imports: [
     CommonModule,
@@ -54,7 +56,8 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
     BackButtonComponent,
 
     PickListModule,
-    DropdownModule
+    DropdownModule,
+    ValidateNumberDirective
   ],
   entryComponents: [ShowcaseDialogComponent],
 })
