@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
 import { ProductService } from '../services/product.service';
 
@@ -16,8 +15,7 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private location: Location,
-    private productService: ProductService
+    private productService: ProductService,
   ) {
   }
 
@@ -29,10 +27,6 @@ export class ProductDetailsComponent implements OnInit {
         this.product = res;
         this.loadingInfo = false;
       });
-  }
-
-  backToList() {
-    this.location.back();
   }
 
 }

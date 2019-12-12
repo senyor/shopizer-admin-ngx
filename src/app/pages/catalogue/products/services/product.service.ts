@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { CrudService } from '../../../shared/services/crud.service';
 import { Observable } from 'rxjs';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import { Observable } from 'rxjs';
 export class ProductService {
 
   constructor(
-    private crudService: CrudService
+    private crudService: CrudService,
+    private storageService: StorageService,
   ) {
   }
 
@@ -18,26 +20,32 @@ export class ProductService {
   }
 
   updateProductFromTable(id, product): Observable<any> {
-    return this.crudService.patch(`/v1/private/product/${ id }`, product);
+    return this.crudService.patch(`/v1/private/product/${id}`, product);
   }
 
   updateProduct(id, product): Observable<any> {
-    return this.crudService.put(`/v1/private/product/${ id }`, product);
+    const params = {
+      store: this.storageService.getMerchant()
+    };
+    return this.crudService.put(`/v1/private/product/${id}`, product, { params });
   }
 
   getProductById(id): Observable<any> {
     const params = {
       lang: '_all'
     };
-    return this.crudService.get(`/v1/product/${ id }`, params);
+    return this.crudService.get(`/v1/product/${id}`, params);
   }
 
-  createProduct (product): Observable<any> {
-    return this.crudService.post(`/v1/private/product`, product);
+  createProduct(product): Observable<any> {
+    const params = {
+      store: this.storageService.getMerchant()
+    };
+    return this.crudService.post(`/v1/private/product`, product, { params });
   }
 
   deleteProduct(id): Observable<any> {
-    return this.crudService.delete(`/v1/private/product/${ id }`);
+    return this.crudService.delete(`/v1/private/product/${id}`);
   }
 
   getProductTypes(): Observable<any> {
@@ -49,6 +57,14 @@ export class ProductService {
       'code': code,
     };
     return this.crudService.get(`/v1/private/product/unique`, params);
+  }
+
+  addProductToCategory(productId, categoryId): Observable<any> {
+    return this.crudService.post(`/api/v1/auth/product/${productId}/category/${categoryId}`, {});
+  }
+
+  removeProductFromCategory(productId, categoryId): Observable<any> {
+    return this.crudService.delete(`/api/v1/auth/product/${productId}/category/${categoryId}`);
   }
 
 }

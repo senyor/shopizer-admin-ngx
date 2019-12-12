@@ -251,7 +251,11 @@
     "INVENTORY_OWNER": "Owner",
     "ADD_TO_INVENTORY": "Add to inventory",
 
-    "ADD_PRICE": "Add price"
+    "ADD_PRICE": "Add price",
+
+    "INVENTORY_UPDATED": "Inventory updated.",
+    "INVENTORY_CREATED": "Inventory created.",
+    "INVENTORY_REMOVED": "Inventory removed."
   },
   "PRICE": {
     "FINAL_PRICE": "Final price",
@@ -302,6 +306,7 @@
     "CODE": "Code",
     "CODE_REQUIRED": "Сode is required.",
     "CODE_EXISTS": "This code already exists.",
+    "SKU_EXISTS": "This sku already exists.",
 
     "FILL_REQUIRED_FIELDS": "Please, fill required fields.",
     "ALPHA_DECIMAL_RULE": "Only letters and numbers are allowed.",
@@ -318,7 +323,10 @@
     "WIDTH": "Width",
     "LENGTH": "Length",
 
-    "CREATION_DATE": "Creation date"
+    "CREATION_DATE": "Creation date",
+
+    "UNSAVED_DATA": "You have unsaved data. Are you sure you want to leave this page?",
+    "ONLY_TEN_IMAGES": "You can upload max 10 images"
   },
   "DESCRIPTION_FORM": {
     "NAME": "Name",

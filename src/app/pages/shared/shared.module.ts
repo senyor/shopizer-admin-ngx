@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -59,6 +59,7 @@ import { ValidateNumberDirective } from './validation/validate-number.directive'
     DropdownModule,
     ValidateNumberDirective
   ],
+  providers: [CurrencyPipe],
   entryComponents: [ShowcaseDialogComponent],
 })
 export class SharedModule {

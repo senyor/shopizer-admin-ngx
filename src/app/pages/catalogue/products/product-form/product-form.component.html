@@ -5,7 +5,7 @@
     <label for="sku" class="col-sm-10 col-form-label">{{ 'PRODUCT.SKU' | translate}} *</label>
     <div class="col-sm-12">
       <input type="text" class="form-control" id="sku" formControlName='sku'
-             placeholder="{{ 'PRODUCT.SKU' | translate}}" [readOnly]="isReadonlyCode"
+             placeholder="{{ 'PRODUCT.SKU' | translate}}" [readOnly]="product.id"
              (change)="checkSku($event)"  required>
       <span *ngIf="(sku.dirty || sku.touched) && sku.invalid && sku"
             class="err-message">
@@ -17,7 +17,7 @@
         </span>
       </span>
       <span *ngIf="!isCodeUnique" class="err-message">
-        Sku exists
+        {{ 'COMMON.SKU_EXISTS' | translate}}
       </span>
     </div>
   </div>
@@ -42,21 +42,21 @@
     <label class="col-sm-10 col-form-label">{{ 'PRODUCT.DATE_AVAILABLE' | translate}}</label>
     <div class="col-sm-12">
       <input class="form-control has-person-icon" nbInput placeholder="Form Picker" formControlName='dateAvailable'
-             [nbDatepicker]="formpicker">
+             [nbDatepicker]="formpicker" [readOnly]="true" >
       <nb-datepicker #formpicker></nb-datepicker>
     </div>
   </div>
 
-<!--  <div class="form-group">-->
-<!--    <label class="col-sm-10 col-form-label">{{ 'PRODUCT.MANUFACTURER' | translate}}</label>-->
-<!--    <div class="col-sm-12">-->
-<!--      <nb-select *ngIf="manufacturers.length" placeholder="{{ 'PRODUCT.MANUFACTURER' | translate}}" formControlName='manufacturer'-->
-<!--                 outline-->
-<!--                 shape="rectangle">-->
-<!--        <nb-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.code">{{ manufacturer.code }}</nb-option>-->
-<!--      </nb-select>-->
-<!--    </div>-->
-<!--  </div>-->
+  <div class="form-group">
+    <label class="col-sm-10 col-form-label">{{ 'PRODUCT.MANUFACTURER' | translate}}</label>
+    <div class="col-sm-12">
+      <nb-select *ngIf="manufacturers.length" placeholder="{{ 'PRODUCT.MANUFACTURER' | translate}}" formControlName='manufacturer'
+                 outline
+                 shape="rectangle">
+        <nb-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.code">{{ manufacturer.code }}</nb-option>
+      </nb-select>
+    </div>
+  </div>
 
   <div class="form-group">
     <label class="col-sm-10 col-form-label">{{ 'PRODUCT.PRODUCT_TYPE' | translate}}</label>
@@ -72,7 +72,7 @@
   <div class="form-group">
     <label for="price" class="col-sm-10 col-form-label">{{ 'PRODUCT.PRICE' | translate}}</label>
     <div class="col-sm-12">
-      <input type="number" class="form-control" id="price" formControlName='price'
+      <input type="text" class="form-control" id="price" formControlName='price' ngxValidateNumber
              placeholder="{{ 'PRODUCT.PRICE' | translate}}" required>
     </div>
   </div>
@@ -80,7 +80,7 @@
   <div class="form-group">
     <label for="quantity" class="col-sm-10 col-form-label">{{ 'PRODUCT.QUANTITY' | translate}}</label>
     <div class="col-sm-12">
-      <input type="number" class="form-control" id="quantity" formControlName='quantity'
+      <input type="number" class="form-control" id="quantity" formControlName='quantity' ngxValidateNumber
              placeholder="{{ 'PRODUCT.QUANTITY' | translate}}" required>
     </div>
   </div>
@@ -88,7 +88,7 @@
   <div class="form-group">
     <label for="sortOrder" class="col-sm-10 col-form-label">{{ 'COMMON.ORDER' | translate }}</label>
     <div class="col-sm-12">
-      <input type="number" class="form-control" id="sortOrder" formControlName='sortOrder'
+      <input type="number" class="form-control" id="sortOrder" formControlName='sortOrder' ngxValidateNumber
              placeholder="{{ 'COMMON.ORDER' | translate }}" required>
     </div>
   </div>
@@ -106,7 +106,7 @@
     <div class="form-group">
       <label for="weight" class="col-sm-10 col-form-label">{{ 'COMMON.WEIGHT' | translate }}</label>
       <div class="col-sm-12">
-        <input type="number" class="form-control" id="weight" formControlName='weight'
+        <input type="number" class="form-control" id="weight" formControlName='weight' ngxValidateNumber
                placeholder="{{ 'COMMON.WEIGHT' | translate }} " required>
       </div>
     </div>
@@ -114,7 +114,7 @@
     <div class="form-group">
       <label for="height" class="col-sm-10 col-form-label">{{ 'COMMON.HEIGHT' | translate}}</label>
       <div class="col-sm-12">
-        <input type="number" class="form-control" id="height" formControlName='height'
+        <input type="number" class="form-control" id="height" formControlName='height' ngxValidateNumber
                placeholder="{{ 'COMMON.HEIGHT' | translate }}" required>
       </div>
     </div>
@@ -122,7 +122,7 @@
     <div class="form-group">
       <label for="width" class="col-sm-10 col-form-label">{{ 'COMMON.WIDTH' | translate}}</label>
       <div class="col-sm-12">
-        <input type="number" class="form-control" id="width" formControlName='width'
+        <input type="number" class="form-control" id="width" formControlName='width' ngxValidateNumber
                placeholder="{{ 'COMMON.WIDTH' | translate }}" required>
       </div>
     </div>
@@ -130,7 +130,7 @@
     <div class="form-group">
       <label for="length" class="col-sm-10 col-form-label">{{ 'COMMON.LENGTH' | translate}}</label>
       <div class="col-sm-12">
-        <input type="number" class="form-control" id="length" formControlName='length'
+        <input type="number" class="form-control" id="length" formControlName='length' ngxValidateNumber
                placeholder="{{ 'COMMON.LENGTH' | translate }}" required>
       </div>
     </div>
@@ -151,7 +151,7 @@
     <div *ngFor="let descr of descriptions.controls; let j=index">
       <div *ngIf="descr.value.language === selectedLanguage.value">
 
-        <div [formGroupName]="j" class="category-description">
+        <div [formGroupName]="j" class="description-block">
 
           <div class="form-group">
             <label for="name" class="col-sm-10 col-form-label">{{ 'DESCRIPTION_FORM.NAME' | translate }} *</label>
@@ -238,7 +238,7 @@
   <hr/>
 
   <div class="form-group actions-button">
-    <button type="submit" class="btn btn-primary" (click)="save()" [nbSpinner]="loadingButton">{{ 'COMMON.SAVE' | translate }}</button>
+    <button type="submit" class="btn btn-primary" (click)="save()">{{ 'COMMON.SAVE' | translate }}</button>
   </div>
 
 

@@ -19,7 +19,7 @@
       <div class="form-group">
         <label for="finalPrice" class="col-sm-10 col-form-label">{{ 'PRICE.FINAL_PRICE' | translate}}</label>
         <div class="col-sm-12">
-          <input type="number" class="form-control" id="finalPrice" formControlName='finalPrice'
+          <input type="number" class="form-control" id="finalPrice" formControlName='finalPrice' (blur)="transformTotal()"
                  placeholder="{{ 'PRICE.FINAL_PRICE' | translate}}" required>
         </div>
       </div>
@@ -27,7 +27,7 @@
       <div class="form-group">
         <label for="originalPrice" class="col-sm-10 col-form-label">{{ 'PRICE.ORIGINAL_PRICE' | translate}}</label>
         <div class="col-sm-12">
-          <input type="number" class="form-control" id="originalPrice" formControlName='originalPrice'
+          <input type="number" class="form-control" id="originalPrice" formControlName='originalPrice' (blur)="transformTotal()"
                  placeholder="{{ 'PRICE.ORIGINAL_PRICE' | translate}}" required>
         </div>
       </div>
@@ -35,7 +35,7 @@
       <div class="form-group">
         <label for="discountedPrice" class="col-sm-10 col-form-label">{{ 'PRICE.DISCOUNTED_PRICE' | translate}}</label>
         <div class="col-sm-12">
-          <input type="number" class="form-control" id="discountedPrice" formControlName='discountedPrice'
+          <input type="number" class="form-control" id="discountedPrice" formControlName='discountedPrice' (blur)="transformTotal()"
                  placeholder="{{ 'PRICE.DISCOUNTED_PRICE' | translate}}" required>
         </div>
       </div>

@@ -8,7 +8,6 @@ import { NbDialogService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import { InventoryService } from '../../services/inventory.service';
 import { ShowcaseDialogComponent } from '../../../../shared/components/showcase-dialog/showcase-dialog.component';
-// import { PriceService } from '../../services/price.service';
 
 @Component({
   selector: 'ngx-prices-list',
@@ -39,7 +38,6 @@ export class PricesListComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private inventoryService: InventoryService,
     private _sanitizer: DomSanitizer,
-    // private priceService: PriceService,
     private router: Router,
   ) {
     this.params.productId = this.activatedRoute.snapshot.paramMap.get('productId');
@@ -73,6 +71,7 @@ export class PricesListComponent implements OnInit {
           { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
         ],
       },
+      pager: { display: false },
       columns: {
         store: {
           title: this.translate.instant('INVENTORY.INVENTORY_STORE'),
@@ -124,11 +123,12 @@ export class PricesListComponent implements OnInit {
           .onClose.subscribe(res => {
           if (res) {
             console.log('remove');
-            this.inventoryService.deleteProduct(event.data.id)
-              .subscribe((data) => {
-                console.log(data);
-                this.getList();
-              });
+            // todo remove here item from list
+            // this.inventoryService.deleteProduct(event.data.id)
+            //   .subscribe((data) => {
+            //     console.log(data);
+            //     this.getList();
+            //   });
           }
         });
     }

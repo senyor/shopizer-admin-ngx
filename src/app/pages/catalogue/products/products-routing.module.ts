@@ -14,6 +14,7 @@ const routes: Routes = [
     children: [
       {
         path: 'create-product',
+        // canDeactivate: [ExitGuard],
         component: ProductCreationComponent,
       },
       {
@@ -22,6 +23,7 @@ const routes: Routes = [
       },
       {
         path: 'product/:id',
+        // canDeactivate: [ExitGuard],
         component: ProductDetailsComponent,
       },
       {

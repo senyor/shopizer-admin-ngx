@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class ProductCreationComponent implements OnInit {
   product = {};
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

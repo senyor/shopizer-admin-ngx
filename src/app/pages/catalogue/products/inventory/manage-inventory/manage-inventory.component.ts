@@ -8,6 +8,8 @@ import { NbDialogService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import { InventoryService } from '../../services/inventory.service';
 import { ShowcaseDialogComponent } from '../../../../shared/components/showcase-dialog/showcase-dialog.component';
+import { StorageService } from '../../../../shared/services/storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ngx-manage-inventory',
@@ -22,14 +24,15 @@ export class ManageInventoryComponent implements OnInit {
   productId;
 
   // paginator
-  perPage = 10;
+  perPage = 3;
   currentPage = 1;
   totalCount;
 
   // server params
   params = {
     count: this.perPage,
-    page: 0
+    page: 0,
+    lang: this.storageService.getLanguage(),
   };
   settings = {};
 
@@ -41,6 +44,8 @@ export class ManageInventoryComponent implements OnInit {
     private inventoryService: InventoryService,
     private _sanitizer: DomSanitizer,
     private router: Router,
+    private storageService: StorageService,
+    private toastr: ToastrService,
   ) {
     this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
     this.productService.getProductById(this.productId).subscribe(product => {
@@ -50,6 +55,10 @@ export class ManageInventoryComponent implements OnInit {
 
   ngOnInit() {
     this.getList();
+    this.translate.onLangChange.subscribe((lang) => {
+      this.params.lang = this.storageService.getLanguage();
+      this.getList();
+    });
   }
 
   getList() {
@@ -63,9 +72,6 @@ export class ManageInventoryComponent implements OnInit {
         this.loadingList = false;
       });
     this.setSettings();
-    this.translate.onLangChange.subscribe((event) => {
-      this.setSettings();
-    });
   }
 
   setSettings() {
@@ -82,6 +88,7 @@ export class ManageInventoryComponent implements OnInit {
           { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
         ],
       },
+      pager: { display: false },
       columns: {
         store: {
           title: this.translate.instant('INVENTORY.INVENTORY_STORE'),
@@ -130,10 +137,9 @@ export class ManageInventoryComponent implements OnInit {
         this.dialogService.open(ShowcaseDialogComponent, {})
           .onClose.subscribe(res => {
           if (res) {
-            console.log('remove');
             this.inventoryService.deleteProduct(event.data.id)
               .subscribe((data) => {
-                console.log(data);
+                this.toastr.success(this.translate.instant('INVENTORY.INVENTORY_REMOVED'));
                 this.getList();
               });
           }

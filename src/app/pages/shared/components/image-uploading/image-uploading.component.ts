@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-image-uploading',
@@ -14,7 +15,8 @@ export class ImageUploadingComponent implements OnInit, OnChanges {
   maxSize = 10485760;
 
   constructor(
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private translate: TranslateService
   ) {
   }
 
@@ -35,7 +37,7 @@ export class ImageUploadingComponent implements OnInit, OnChanges {
         this.readfiles(event.target.files[i]);
       }
     } else {
-      this.toastr.error('You can upload max 10 images');
+      this.toastr.error(this.translate.instant('COMMON.ONLY_TEN_IMAGES'));
     }
   }
 

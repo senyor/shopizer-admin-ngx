@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../../../../shared/services/config.service';
 import * as moment from 'moment';
 import { InventoryService } from '../../services/inventory.service';
-import { PriceService } from '../../services/price.service';
+import { formatMoney } from '../../../../shared/validation/price-validation';
 
 @Component({
   selector: 'ngx-price-form',
@@ -72,6 +72,16 @@ export class PriceFormComponent implements OnInit {
             this.loader = false;
           });
       });
+  }
+
+  transformTotal() {
+    const value = '' + this.form.controls.productAttributePrice.value;
+    if (value !== '') {
+      this.form.controls.productAttributePrice.setValue(
+        formatMoney(value.replace(/,/g, '')),
+        { emitEvent: false }
+      );
+    }
   }
 
   private createForm() {
@@ -211,7 +221,13 @@ export class PriceFormComponent implements OnInit {
         }
       });
 
-      this.inventory.store = this.inventory.store.name;
+      this.inventory.store = this.inventory.store.code;
+      this.inventory.prices.forEach((el) => {
+        const originalPriceIndex = el.originalPrice.match(/\d/).index;
+        el.originalPrice = el.originalPrice.slice(originalPriceIndex);
+        const finalPriceIndex = el.finalPrice.match(/\d/).index;
+        el.finalPrice = el.finalPrice.slice(finalPriceIndex);
+      });
       this.inventory.prices = [...this.inventory.prices, priceObject];
       console.log('save', this.inventory);
       // save as inventory updating

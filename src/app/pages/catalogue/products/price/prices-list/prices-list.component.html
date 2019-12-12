@@ -1,4 +1,4 @@
-<nb-card size="small" class="page-card" *ngIf="prices && prices.length">
+<nb-card size="small" class="page-card">
   <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
 
     <nb-actions size="medium" class="back-button">
@@ -10,19 +10,21 @@
       </nb-action>
     </nb-actions>
 
-    <ng2-smart-table
-      [settings]="settings"
-      [source]="source"
-      (custom)="route($event)">
-    </ng2-smart-table>
+    <div *ngIf="prices && prices.length">
+      <ng2-smart-table
+        [settings]="settings"
+        [source]="source"
+        (custom)="route($event)">
+      </ng2-smart-table>
 
-    <ngx-paginator
-      (changePage)="changePage($event)"
-      [pagesToShow]="5"
-      [currentPage]="currentPage"
-      [perPage]="perPage"
-      [count]="totalCount">
-    </ngx-paginator>
+      <ngx-paginator
+        (changePage)="changePage($event)"
+        [pagesToShow]="5"
+        [currentPage]="currentPage"
+        [perPage]="perPage"
+        [count]="totalCount">
+      </ngx-paginator>
+    </div>
 
   </nb-card-body>
 </nb-card>
