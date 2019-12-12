@@ -77,7 +77,7 @@ export class StoreFormComponent implements OnInit {
         this.weightList = [...measures.weights];
         this.sizeList = [...measures.measures];
         this.supportedLanguages = [...languages];
-        // todo use method for getting only retailer store
+        // use method for getting only retailer store
         stores.data.forEach(el => {
           if (el.retailer) {
             this.retailerArray.push(el);

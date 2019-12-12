@@ -8,7 +8,6 @@ import { OrderListComponent } from '../orders/order-list/order-list.component';
 import { NbSpinnerModule, NbTreeGridComponent, NbTreeGridModule } from '@nebular/theme';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { RightSidemenuComponent } from './components/right-sidemenu/right-sidemenu.component';
 import { ImageUploadingComponent } from './components/image-uploading/image-uploading.component';
 import { ShowcaseDialogComponent } from './components/showcase-dialog/showcase-dialog.component';
@@ -23,7 +22,6 @@ import { ValidateNumberDirective } from './validation/validate-number.directive'
 @NgModule({
   declarations: [
     OrderListComponent,
-    BreadcrumbComponent,
     RightSidemenuComponent,
     NotFoundComponent,
     ImageUploadingComponent,
@@ -53,7 +51,6 @@ import { ValidateNumberDirective } from './validation/validate-number.directive'
     TreeTableModule,
 
     OrderListComponent,
-    BreadcrumbComponent,
     RightSidemenuComponent,
     NotFoundComponent,
     ImageUploadingComponent,

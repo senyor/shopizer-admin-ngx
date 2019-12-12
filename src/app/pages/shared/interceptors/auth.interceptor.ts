@@ -19,7 +19,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // todo check this method
     const token: string = this.tokenService.getToken();
 
     if (token) {

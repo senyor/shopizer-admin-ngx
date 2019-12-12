@@ -122,13 +122,7 @@ export class PricesListComponent implements OnInit {
         this.dialogService.open(ShowcaseDialogComponent, {})
           .onClose.subscribe(res => {
           if (res) {
-            console.log('remove');
-            // todo remove here item from list
-            // this.inventoryService.deleteProduct(event.data.id)
-            //   .subscribe((data) => {
-            //     console.log(data);
-            //     this.getList();
-            //   });
+            // todo remove price item from list
           }
         });
     }

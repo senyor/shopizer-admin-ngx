@@ -13,9 +13,15 @@ export class StorageService {
   ) {
   }
 
-  // TODO getting userID from localstorage or server
   getUserId() {
-    const userId = localStorage.getItem('userId');
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+      this.userService.getUserProfile()
+        .subscribe(res => {
+          userId = res.id;
+          localStorage.setItem('userId', userId);
+        });
+    }
     return userId;
   }
 

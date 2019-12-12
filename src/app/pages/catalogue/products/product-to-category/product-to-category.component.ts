@@ -80,7 +80,6 @@ export class ProductToCategoryComponent implements OnInit {
   }
 
   moveEvent(e, type) {
-    console.log(e.items[0].id, type);
     switch (type) {
       case 'toTarget':
         // this.addProductToGroup(e.items[0].id, this.selectedGroup);

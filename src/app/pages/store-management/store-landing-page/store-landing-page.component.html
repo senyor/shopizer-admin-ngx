@@ -26,7 +26,7 @@
         <div *ngFor="let descr of descriptions.controls; let j=index">
           <div *ngIf="descr.value.language === selectedLanguage.value">
 
-            <div [formGroupName]="j" class="category-description">
+            <div [formGroupName]="j" class="description-block">
 
               <div class="form-group">
                 <label for="title" class="col-sm-10 col-form-label">

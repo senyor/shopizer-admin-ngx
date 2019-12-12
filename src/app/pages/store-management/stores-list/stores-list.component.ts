@@ -16,7 +16,7 @@ export class StoresListComponent implements OnInit {
   loadingList = false;
 
   // paginator
-  perPage = 5;
+  perPage = 10;
   currentPage = 1;
   totalCount;
 

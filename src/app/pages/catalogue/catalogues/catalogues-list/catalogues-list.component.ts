@@ -19,7 +19,7 @@ export class CataloguesListComponent implements OnInit {
   settings = {};
 
   // paginator
-  perPage = 5;
+  perPage = 10;
   currentPage = 1;
   totalCount;
 

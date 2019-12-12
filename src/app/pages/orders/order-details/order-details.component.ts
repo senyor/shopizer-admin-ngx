@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { OrdersService } from '../services/orders.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { OrdersService } from '../services/orders.service';
 
 @Component({
   selector: 'ngx-order-details',
@@ -26,7 +27,7 @@ export class OrderDetailsComponent implements OnInit {
       // this.ordersService.getOrder(+paramMap.get('id')).subscribe(order => {
       //   console.log(order);
       // });
-      // todo temporary
+      // temporary
       this.ordersService.getOrders()
         .subscribe(orders => {
           this.order = orders.orders[0];

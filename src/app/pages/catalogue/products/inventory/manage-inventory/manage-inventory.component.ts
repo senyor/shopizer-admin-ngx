@@ -24,7 +24,7 @@ export class ManageInventoryComponent implements OnInit {
   productId;
 
   // paginator
-  perPage = 3;
+  perPage = 10;
   currentPage = 1;
   totalCount;
 

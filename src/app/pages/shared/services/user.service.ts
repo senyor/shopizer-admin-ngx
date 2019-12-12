@@ -80,7 +80,6 @@ export class UserService {
     });
   }
 
-  // TODO CHECK STORE PARAM
   getUsersList(store, params): Observable<any> {
     return this.crudService.get(`/v1/private/users`, params);
   }

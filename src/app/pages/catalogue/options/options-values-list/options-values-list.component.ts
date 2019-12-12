@@ -20,7 +20,7 @@ export class OptionsValuesListComponent implements OnInit {
   loadingList = false;
 
   // paginator
-  perPage = 20;
+  perPage = 10;
   currentPage = 1;
   totalCount;
 

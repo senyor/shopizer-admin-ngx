@@ -43,7 +43,6 @@ export class ProductToCatalogueComponent implements OnInit {
   }
 
   moveEvent(e, type) {
-    console.log(e, type);
     switch (type) {
       case 'toTarget':
         // this.catalogService.addCatalogEntry(this.catalog.id, catalogEntry)
@@ -83,7 +82,6 @@ export class ProductToCatalogueComponent implements OnInit {
 
   selectGroup(groupCode) {
     this.selectedGroup = groupCode;
-    console.log(this.selectedGroup);
     // todo get products by catalogue
     // this.productGroupsService.getProductsByGroup(this.selectedGroup)
     //   .subscribe(res => {

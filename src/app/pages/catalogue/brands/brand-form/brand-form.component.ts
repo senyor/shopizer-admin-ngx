@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { validators } from '../../../shared/validation/validators';
+import { slugify } from '../../../shared/utils/slugifying';
 
 @Component({
   selector: 'ngx-brand-form',
@@ -129,23 +130,9 @@ export class BrandFormComponent implements OnInit {
     return <FormArray>this.form.get('descriptions');
   }
 
-  slugify(string) {
-    const a = 'àáäâãåăæąçćčđèéėëêęǵḧìíïîįłḿǹńňñòóöôœøṕŕřßśšșťțùúüûǘůűūųẃẍÿýźžż·/_,:;';
-    const b = 'aaaaaaaaacccdeeeeeeghiiiiilmnnnnooooooprrssssttuuuuuuuuuwxyyzzz------';
-    const p = new RegExp(a.split('').join('|'), 'g');
-
-    return string.toString().toLowerCase()
-      .replace(/\s+/g, '-') // Replace spaces with -
-      .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
-      .replace(/&/g, '-and-') // Replace & with 'and'
-      .replace(/\-\-+/g, '-') // Replace multiple - with single -
-      .replace(/^-+/, '') // Trim - from start of text
-      .replace(/-+$/, ''); // Trim - from end of text
-  }
-
   changeName(event, index) {
     (<FormArray>this.form.get('descriptions')).at(index).patchValue({
-      friendlyUrl: this.slugify(event)
+      friendlyUrl: slugify(event)
     });
   }
 

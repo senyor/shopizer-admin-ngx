@@ -32,7 +32,6 @@ export class GroupsListComponent implements OnInit {
   getList() {
     this.loadingList = true;
     this.productGroupsService.getListOfProductGroups().subscribe(res => {
-      console.log(res);
       this.source.load(res);
       this.loadingList = false;
     });

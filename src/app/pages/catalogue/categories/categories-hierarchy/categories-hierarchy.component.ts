@@ -26,11 +26,6 @@ export class CategoriesHierarchyComponent implements OnInit {
     },
   };
 
-  // TODO what the aim?
-  // options2 = {
-  //   allowDrag: true,
-  //   allowDrop: true
-  // };
   loader = false;
 
   constructor(

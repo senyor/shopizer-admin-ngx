@@ -51,7 +51,6 @@ export class ProductsGroupsListComponent implements OnInit {
           const req = this.productGroupsService.addProductToGroup(el.id, this.selectedGroup);
           addArray.push(req);
         });
-        console.log(addArray);
         forkJoin(addArray).subscribe(res => {
           // console.log(res);
         });
@@ -85,10 +84,8 @@ export class ProductsGroupsListComponent implements OnInit {
 
   selectGroup(groupCode) {
     this.selectedGroup = groupCode;
-    console.log(this.selectedGroup);
     this.productGroupsService.getProductsByGroup(this.selectedGroup)
       .subscribe(res => {
-        console.log(res);
         this.selectedList = [...res.products];
         this.availableList = this.availableList.filter(n => !this.selectedList.some(n2 => n.id === n2.id));
       });

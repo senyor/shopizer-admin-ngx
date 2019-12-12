@@ -1,6 +1,7 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
+import { StorageService } from '../shared/services/storage.service';
 
 @Component({
   selector: 'ngx-store-management',
@@ -10,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class StoreManagementComponent implements OnInit, DoCheck {
   path = 'Store';
   sidemenuTitle = 'Merchant store';
-  sidemenuValue = 'DEFAULT'; //  todo value
+  sidemenuValue = 'DEFAULT';
   sidemenuLinks = [
     {
       title: 'Store branding',
@@ -31,8 +32,10 @@ export class StoreManagementComponent implements OnInit, DoCheck {
   showSide = true;
 
   constructor(
-    private translate: TranslateService
+    private translate: TranslateService,
+    private storageService: StorageService
   ) {
+    this.sidemenuValue = this.storageService.getMerchant();
     this.translateArray(this.sidemenuLinks);
     this.translate.onLangChange.subscribe((event) => {
       this.translateArray(this.sidemenuLinks);

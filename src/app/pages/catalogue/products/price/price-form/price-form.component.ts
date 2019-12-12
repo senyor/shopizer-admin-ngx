@@ -8,6 +8,7 @@ import { ConfigService } from '../../../../shared/services/config.service';
 import * as moment from 'moment';
 import { InventoryService } from '../../services/inventory.service';
 import { formatMoney } from '../../../../shared/validation/price-validation';
+import { slugify } from '../../../../shared/utils/slugifying';
 
 @Component({
   selector: 'ngx-price-form',
@@ -152,28 +153,13 @@ export class PriceFormComponent implements OnInit {
     return <FormArray>this.form.get('descriptions');
   }
 
-  slugify(string) {
-    const a = 'àáäâãåăæąçćčđèéėëêęǵḧìíïîįłḿǹńňñòóöôœøṕŕřßśšșťțùúüûǘůűūųẃẍÿýźžż·/_,:;';
-    const b = 'aaaaaaaaacccdeeeeeeghiiiiilmnnnnooooooprrssssttuuuuuuuuuwxyyzzz------';
-    const p = new RegExp(a.split('').join('|'), 'g');
-
-    return string.toString().toLowerCase()
-      .replace(/\s+/g, '-') // Replace spaces with -
-      .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
-      .replace(/&/g, '-and-') // Replace & with 'and'
-      .replace(/\-\-+/g, '-') // Replace multiple - with single -
-      .replace(/^-+/, '') // Trim - from start of text
-      .replace(/-+$/, ''); // Trim - from end of text
-  }
-
   changeName(event, index) {
     (<FormArray>this.form.get('descriptions')).at(index).patchValue({
-      friendlyUrl: this.slugify(event)
+      friendlyUrl: slugify(event)
     });
   }
 
   save() {
-    // todo create output method
     const priceObject = this.form.value;
     priceObject.dateAvailable = moment(priceObject.dateAvailable).format('YYYY-MM-DD');
     // save important values for filling empty field in result object
@@ -229,11 +215,9 @@ export class PriceFormComponent implements OnInit {
         el.finalPrice = el.finalPrice.slice(finalPriceIndex);
       });
       this.inventory.prices = [...this.inventory.prices, priceObject];
-      console.log('save', this.inventory);
       // save as inventory updating
       this.inventoryService.updateInventory(this.params.productId, this.inventory.id, this.inventory)
         .subscribe((res) => {
-        console.log(res);
       });
     }
   }

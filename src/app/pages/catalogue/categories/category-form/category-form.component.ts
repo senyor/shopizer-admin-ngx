@@ -171,7 +171,6 @@ export class CategoryFormComponent implements OnInit {
   save() {
     const categoryObject = this.prepareSaveData();
 
-    // TODO create method for this functionality
     const tmpObj = {
       name: '',
       friendlyUrl: ''

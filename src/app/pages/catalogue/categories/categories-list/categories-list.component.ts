@@ -52,7 +52,6 @@ export class CategoriesListComponent implements OnInit {
 
   ngOnInit() {
     this.getList();
-    // TODO what the aim of getting products?
     this.productService.getListOfProducts({})
       .subscribe(res => {
         this.availableList = [...res.products];
