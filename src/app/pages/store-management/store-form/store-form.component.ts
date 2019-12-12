@@ -1,16 +1,6 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  Input,
-  NgZone,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  ViewChild
-} from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ConfigService } from '../../shared/services/config.service';
 import { MapsAPILoader } from '@agm/core';
@@ -20,13 +10,15 @@ import { UserService } from '../../shared/services/user.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { validators } from '../../shared/validation/validators';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'ngx-store-form',
   templateUrl: './store-form.component.html',
   styleUrls: ['./store-form.component.scss']
 })
-export class StoreFormComponent implements OnInit, OnChanges {
+export class StoreFormComponent implements OnInit {
   @Input() store: any;
   @ViewChild('search')
   searchElementRef: ElementRef;
@@ -49,7 +41,6 @@ export class StoreFormComponent implements OnInit, OnChanges {
     postal_code: 'short_name',
     sublocality_level_1: 'long_name'
   };
-  emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
   loading = false;
   showRemoveButton = true;
   isReadonlyCode = false;
@@ -57,6 +48,8 @@ export class StoreFormComponent implements OnInit, OnChanges {
   retailerArray = [];
   roles: any = {};
   isCodeUnique = true;
+  establishmentType = 'STORE';
+  merchant = '';
 
   constructor(
     private fb: FormBuilder,
@@ -68,57 +61,39 @@ export class StoreFormComponent implements OnInit, OnChanges {
     private userService: UserService,
     private router: Router,
     private toastr: ToastrService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private activatedRoute: ActivatedRoute,
   ) {
-    this.createForm();
+    this.establishmentType = window.location.hash.indexOf('retailer') !== -1 ? 'RETAILER' : 'STORE';
+    this.merchant = localStorage.getItem('merchant');
     this.roles = JSON.parse(localStorage.getItem('roles'));
-  }
-
-  ngOnInit() {
-    this.configService.getListOfCountries()
-      .subscribe(countries => {
+    this.loading = true;
+    forkJoin(this.configService.getListOfCountries(), this.configService.getListOfSupportedCurrency(),
+      this.configService.getWeightAndSizes(), this.storeService.getListOfStores({start: 0, length: 1000}),
+      this.configService.getListOfSupportedLanguages())
+      .subscribe(([countries, currencies, measures, stores, languages ]) => {
         this.countries = [...countries];
-      });
-
-    this.configService.getListOfSupportedLanguages()
-      .subscribe(languages => {
-        this.supportedLanguages = [...languages];
-      });
-
-    this.configService.getListOfSupportedCurrency()
-      .subscribe(currencies => {
         this.supportedCurrency = [...currencies];
-      });
-
-    this.configService.getWeightAndSizes()
-      .subscribe(measures => {
         this.weightList = [...measures.weights];
         this.sizeList = [...measures.measures];
-      });
-    this.storeService.getListOfStores({start: 0, length: 1000})
-      .subscribe(res => {
-        res.data.forEach(el => {
+        this.supportedLanguages = [...languages];
+        // todo use method for getting only retailer store
+        stores.data.forEach(el => {
           if (el.retailer) {
             this.retailerArray.push(el);
           }
         });
-        this.retailerArray = res.data;
+        this.retailerArray = stores.data;
+        this.loading = false;
       });
     if (this.env.googleApiKey) {
       this.addressAutocomplete();
     }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.store.currentValue && changes.store.currentValue.id) {
-      if (this.store.id && this.userService.roles.isSuperadmin && this.store.code !== 'DEFAULT') {
-        this.showRemoveButton = false;
-      }
-      this.loading = true;
-      this.fillForm();
-    }
+  ngOnInit() {
+    this.createForm();
   }
-
 
   addressAutocomplete() {
     // load Places Autocomplete
@@ -170,9 +145,9 @@ export class StoreFormComponent implements OnInit, OnChanges {
   private createForm() {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
-      code: [{ value: '', disabled: false }, [Validators.required]],
+      code: [{ value: '', disabled: false }, [Validators.required, Validators.pattern(validators.alphanumeric)]],
       phone: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
+      email: ['', [Validators.required, Validators.pattern(validators.emailPattern)]],
       address: this.fb.group({
         searchControl: [''],
         stateProvince: [{ value: '', disabled: true }],
@@ -187,11 +162,20 @@ export class StoreFormComponent implements OnInit, OnChanges {
       currencyFormatNational: [true],
       weight: ['', [Validators.required]],
       dimension: ['', [Validators.required]],
-      inBusinessSince: [''],
+      inBusinessSince: [new Date()],
       useCache: [false],
       retailer: [false],
       retailerStore: [''],
     });
+    if (!this.store.id && this.roles.isAdminRetail) {
+      this.form.patchValue({ retailer: false });
+      this.form.patchValue({ retailerStore: this.merchant });
+      this.form.controls['retailer'].disable();
+      this.form.controls['retailerStore'].disable();
+    }
+    if (this.store.id) {
+      this.fillForm();
+    }
   }
 
   fillForm() {
@@ -208,6 +192,8 @@ export class StoreFormComponent implements OnInit, OnChanges {
       dimension: this.store.dimension,
       inBusinessSince: new Date(this.store.inBusinessSince),
       useCache: this.store.useCache,
+      retailer: [false],
+      retailerStore: [''],
     });
     this.form.controls['address'].patchValue({ searchControl: '' });
     this.form.controls['address'].patchValue({ stateProvince: this.store.address.stateProvince }, { disabled: false });
@@ -220,7 +206,6 @@ export class StoreFormComponent implements OnInit, OnChanges {
     }
     this.isReadonlyCode = true;
     this.cdr.markForCheck();
-    this.loading = false;
   }
 
   get name() {
@@ -274,14 +259,16 @@ export class StoreFormComponent implements OnInit, OnChanges {
   save() {
     this.form.controls['address'].patchValue({ country: this.form.value.address.country });
     this.form.patchValue({ inBusinessSince: moment(this.form.value.inBusinessSince).format('YYYY-MM-DD') });
-    this.saveStore();
-  }
-
-  saveStore() {
+    const storeObj = this.form.value;
+    storeObj.inBusinessSince = moment(this.form.value.inBusinessSince).format('YYYY-MM-DD');
+    if (!this.store.id && this.roles.isAdminRetail) {
+      storeObj.retailer = false;
+      storeObj.retailerStore = this.merchant;
+    }
     if (this.store.id) {
-      this.storeService.updateStore(this.form.value)
+      this.storeService.updateStore(storeObj)
         .subscribe(store => {
-          this.toastr.success(this.translate.instant('STORE_FORM.STORE_UPDATED'));
+          this.toastr.success(this.translate.instant('STORE_FORM.' + this.establishmentType + '_UPDATED'));
           this.router.navigate(['pages/store-management/stores-list']);
         });
     } else {
@@ -290,9 +277,9 @@ export class StoreFormComponent implements OnInit, OnChanges {
           if (res.exist) {
             this.toastr.success(this.translate.instant('COMMON.CODE_EXISTS'));
           } else {
-            this.storeService.createStore(this.form.value)
+            this.storeService.createStore(storeObj)
               .subscribe(store => {
-                this.toastr.success(this.translate.instant('STORE_FORM.STORE_CREATED'));
+                this.toastr.success(this.translate.instant('STORE_FORM.' + this.establishmentType + '_CREATED'));
                 this.router.navigate(['pages/store-management/stores-list']);
               });
           }
@@ -303,7 +290,7 @@ export class StoreFormComponent implements OnInit, OnChanges {
   remove() {
     this.storeService.deleteStore(this.store.code)
       .subscribe(res => {
-        this.toastr.success(this.translate.instant('STORE_FORM.STORE_REMOVED'));
+        this.toastr.success(this.translate.instant('STORE_FORM.' + this.establishmentType + '_REMOVED'));
         this.router.navigate(['pages/store-management/stores-list']);
       });
   }
@@ -350,5 +337,10 @@ export class StoreFormComponent implements OnInit, OnChanges {
       .subscribe(res => {
         this.isCodeUnique = !(res.exists && (this.store.code !== code));
       });
+  }
+
+  canRemove() {
+    return this.store.id && ((this.roles.isSuperadmin && this.establishmentType === 'RETAILER')
+      || (this.roles.isSuperadmin && this.establishmentType === 'STORE')) && this.store.code !== 'DEFAULT';
   }
 }

@@ -19,9 +19,11 @@
     "STORES_LIST": "Stores list",
     "STORE_BRANDING": "Store branding",
     "STORE_LANDING": "Store home page",
+    "ADD_STORE": "Add store",
 
     "RETAILER": "Retailer",
     "RETAILER_LIST": "Retailer list",
+    "RETAILER_STORE_LIST": "Retailer stores list",
     "CREATE_RETAILER": "Create retailer",
 
     "CATALOGUE": "Catalogue",
@@ -115,6 +117,7 @@
     "GROUPS": "Groups"
   },
   "STORE": {
+    "RETAILER_INFORMATION": "Retailer information",
     "STORE_INFORMATION": "Store information",
     "INFORMATION_TEXT": "Shop settings used for various functionality such us and store address. Various details also used for shipping costs and displayed in product details.",
     "MERCHANT_STORE": "Merchant store"
@@ -123,7 +126,8 @@
     "LANDING_PAGE_TITLE": "Landing page title",
     "TAG_DESCRIPTION": "Meta tags description",
     "LANDING_TEXT": "Landing page main text",
-    "PAGE_ADDED": "Page added"
+    "PAGE_ADDED": "Page added",
+    "PAGE_UPDATED": "Page updated"
   },
   "STORE_BRANDING": {
     "STORE_LOGO": "Store logo",
@@ -132,6 +136,7 @@
     "NOT_AN_IMAGE": "Not an image",
     "ONLY_ONE_IMAGE": "Only one image/time",
     "LOGO_SAVED": "Logo saved.",
+    "LOGO_REMOVED": "Logo removed.",
     "NETWORKS_UPDATED": "Social networks updated."
   },
   "STORE_FORM": {
@@ -176,7 +181,19 @@
 
     "STORE_UPDATED": "Store updated.",
     "STORE_CREATED": "Store created.",
-    "STORE_REMOVED": "Store removed."
+    "STORE_REMOVED": "Store removed.",
+
+    "RETAILER_NAME": "Retailer name",
+    "RETAILER_NAME_REQUIRED": "Retailer name is required.",
+
+    "RETAILER_CODE": "Unique Retailer Code",
+    "RETAILER_PHONE": "Retailer Phone",
+    "RETAILER_EMAIL": "Retailer email address",
+
+    "RETAILER_UPDATED": "Retailer updated.",
+    "RETAILER_CREATED": "Retailer created.",
+    "RETAILER_REMOVED": "Retailer removed."
+
   },
   "BRAND": {
     "BRAND_NAME": "Brand name",

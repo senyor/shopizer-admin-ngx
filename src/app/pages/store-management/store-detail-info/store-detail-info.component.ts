@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {Location} from '@angular/common';
 
 import { StoreService } from '../services/store.service';
 
@@ -16,8 +15,8 @@ export class StoreDetailInfoComponent implements OnInit {
   constructor(
     private storeService: StoreService,
     private activatedRoute: ActivatedRoute,
-    private location: Location,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.loadingInfo = true;
@@ -27,10 +26,6 @@ export class StoreDetailInfoComponent implements OnInit {
         this.store = res;
         this.loadingInfo = false;
       });
-  }
-
-  backToList() {
-    this.location.back();
   }
 
 }

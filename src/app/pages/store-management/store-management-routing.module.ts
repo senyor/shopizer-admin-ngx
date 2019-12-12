@@ -19,12 +19,7 @@ const routes: Routes = [
   {
     path: '', component: StoreManagementComponent, children: [
       {
-        path: '',
-        redirectTo: 'store-details',
-        pathMatch: 'full',
-      },
-      {
-        path: 'store-details',
+        path: 'store',
         component: StoreDetailsComponent,
         canActivate: [SuperuserAdminRetailStoreGuard]
       },
@@ -44,7 +39,7 @@ const routes: Routes = [
         canActivate: [SuperuserAdminRetailStoreGuard]
       },
       {
-        path: 'store-information/:code',
+        path: 'store/:code',
         component: StoreDetailInfoComponent,
         canActivate: [SuperuserAdminRetailStoreGuard]
       },
@@ -66,7 +61,7 @@ const routes: Routes = [
       {
         path: 'retailer-stores',
         component: RetailerStoresComponent,
-        canActivate: [SuperuserAdminGuard]
+        canActivate: [SuperuserAdminRetailGuard]
       },
     ],
   }

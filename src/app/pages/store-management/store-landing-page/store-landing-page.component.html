@@ -1,3 +1,4 @@
+<ngx-back-button></ngx-back-button>
 <nb-card size="small" class="page-card">
   <nb-card-header>
     {{ 'STORE.STORE_INFORMATION' | translate}}
@@ -12,8 +13,8 @@
       <div class="form-group">
         <label class="col-sm-10 col-form-label">{{ 'COMMON.LANGUAGE' | translate}}</label>
         <div class="col-sm-12">
-          <nb-select *ngIf="languages.length" placeholder="{{ 'COMMON.SELECT_LANGUAGE' | translate}}" formControlName='language' outline
-                     shape="rectangle">
+          <nb-select *ngIf="languages.length" placeholder="{{ 'COMMON.SELECT_LANGUAGE' | translate}}"
+                     formControlName='selectedLanguage' outline shape="rectangle">
             <nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>
           </nb-select>
         </div>
@@ -21,30 +22,45 @@
 
       <hr/>
 
-      <div class="form-group">
-        <label for="title" class="col-sm-10 col-form-label">{{ 'STORE_LANDING.LANDING_PAGE_TITLE' | translate}}*</label>
-        <div class="col-sm-12">
-          <input type="text" class="form-control" id="title" formControlName='title'
-                 placeholder="Page title" required>
-          <span *ngIf="(title.dirty || title.touched) && title.invalid && title.errors.required" class="err-message">
-            {{ 'STORE_LANDING.LANDING_PAGE_TITLE' | translate}}
-          </span>
-        </div>
-      </div>
+      <div *ngIf="selectedLanguage.value !== ''" formArrayName='descriptions'>
+        <div *ngFor="let descr of descriptions.controls; let j=index">
+          <div *ngIf="descr.value.language === selectedLanguage.value">
 
-      <div class="form-group">
-        <label for="metaDetails" class="col-sm-10 col-form-label">{{ 'STORE_LANDING.TAG_DESCRIPTION' | translate}}</label>
-        <div class="col-sm-12">
-          <input type="text" class="form-control" id="metaDetails" formControlName='metaDetails'
-                 placeholder="{{ 'STORE_LANDING.TAG_DESCRIPTION' | translate}}n" required>
-        </div>
-      </div>
+            <div [formGroupName]="j" class="category-description">
 
-      <div class="form-group">
-        <label for="metaDetails" class="col-sm-10 col-form-label">{{ 'STORE_LANDING.LANDING_TEXT' | translate}}</label>
-        <div class="col-sm-12">
-          <div formControlName="pageContent"
-               [ngxSummernote]="config">
+              <div class="form-group">
+                <label for="title" class="col-sm-10 col-form-label">
+                  {{ 'STORE_LANDING.LANDING_PAGE_TITLE' | translate}} *
+                </label>
+                <div class="col-sm-12">
+                  <input type="text" class="form-control" id="title" formControlName='name'
+                         placeholder="Page title" required>
+                  <span *ngIf="(descr.get('name').dirty || descr.get('name').touched) && descr.get('name').invalid
+                  && descr.get('name').errors.required" class="err-message">
+                    {{ 'STORE_LANDING.LANDING_PAGE_TITLE' | translate}}
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-10 col-form-label">{{ 'STORE_LANDING.TAG_DESCRIPTION' | translate}}</label>
+                <div class="col-sm-12">
+                  <input type="text" class="form-control" id="metaDetails" formControlName='metaDescription'
+                         placeholder="{{ 'STORE_LANDING.TAG_DESCRIPTION' | translate}}">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-10 col-form-label">{{ 'STORE_LANDING.LANDING_TEXT' | translate}}</label>
+                <div class="col-sm-12 summernote">
+                  <div formControlName="description"
+                       [ngxSummernote]="config">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
           </div>
         </div>
       </div>
@@ -55,9 +71,7 @@
         <button type="submit" class="btn btn-primary"
                 (click)="save()"
                 [disabled]="!form.valid"
-                nbButton [nbSpinner]="loadingButton"
-                nbSpinnerSize="large"
-                nbSpinnerMessage="">{{ 'COMMON.SAVE' | translate}}
+                nbButton>{{ 'COMMON.SAVE' | translate}}
         </button>
       </div>
 

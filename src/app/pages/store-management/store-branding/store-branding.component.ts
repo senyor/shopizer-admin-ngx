@@ -12,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./store-branding.component.scss']
 })
 export class StoreBrandingComponent implements OnInit {
-  storeCode = 'DEFAULT';
+  storeCode = '';
   loading = false;
   loadingButton = false;
 
@@ -24,6 +24,7 @@ export class StoreBrandingComponent implements OnInit {
   logoFile: any;
   logo: Logo;
   form: FormGroup;
+  showRemoveButton = false;
 
 
   constructor(
@@ -37,9 +38,13 @@ export class StoreBrandingComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+    this.storeCode = localStorage.getItem('merchant');
     this.storeService.getBrandingDetails(this.storeCode)
       .subscribe(res => {
         this.logo = res.logo;
+        if (this.logo) {
+          this.showRemoveButton = true;
+        }
         this.fillForm(res.socialNetworks);
         this.loading = false;
       });
@@ -63,6 +68,7 @@ export class StoreBrandingComponent implements OnInit {
   // readfiles
   readfiles(files) {
     this.logoFile = files[0];
+    this.showRemoveButton = true;
     const reader = new FileReader();
     const image = new Image();
     reader.onload = (event) => {
@@ -104,7 +110,6 @@ export class StoreBrandingComponent implements OnInit {
     this.loadingButton = true;
     this.storeService.addStoreLogo(this.logoFile)
       .subscribe(res => {
-        console.log(res);
         this.toastr.success(this.translate.instant('STORE_BRANDING.LOGO_SAVED'));
         this.loadingButton = false;
       }, error => {
@@ -113,6 +118,7 @@ export class StoreBrandingComponent implements OnInit {
   }
 
   removeLogo() {
+    this.showRemoveButton = false;
     this.logoFile = null;
     const image = document.getElementsByClassName('appendedImage')[0];
     const node = document.getElementById('imageDrop');
@@ -123,7 +129,7 @@ export class StoreBrandingComponent implements OnInit {
     }
     this.storeService.removeStoreLogo(this.storeCode)
       .subscribe(res => {
-        console.log(res);
+        this.toastr.success(this.translate.instant('STORE_BRANDING.LOGO_REMOVED'));
       });
   }
 
@@ -161,7 +167,6 @@ export class StoreBrandingComponent implements OnInit {
   saveNetworks() {
     this.storeService.updateSocialNetworks(this.form.value)
       .subscribe(res => {
-        console.log(res);
         this.toastr.success(this.translate.instant('STORE_BRANDING.NETWORKS_UPDATED'));
       });
   }

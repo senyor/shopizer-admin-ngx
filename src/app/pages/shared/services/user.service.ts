@@ -28,7 +28,7 @@ export class UserService {
   }
 
   getUser(id: any): Observable<any> {
-    return this.crudService.get(`/v1/private/users/${ id }`);
+    return this.crudService.get(`/v1/private/user/profile`);
   }
 
   getUserProfile(): Observable<any> {

@@ -1,11 +1,7 @@
-<nb-actions size="medium" class="back-button">
-  <nb-action (click)="backToList()">
-    <i class="fas fa-chevron-left"></i>&nbsp;<span>{{ 'common.backToList' | translate}}</span>
-  </nb-action>
-</nb-actions>
+<ngx-back-button></ngx-back-button>
 <nb-card size="small" class="page-card">
   <nb-card-header>
-    {{ 'sideNav.storeDetails' | translate}}
+    {{ 'STORE.STORE_INFORMATION' | translate}}
   </nb-card-header>
   <div *ngIf="loadingInfo" [nbSpinner]="loadingInfo" class="loading-block" nbSpinnerSize="large"
        nbSpinnerStatus="primary"></div>

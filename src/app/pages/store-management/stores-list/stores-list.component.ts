@@ -72,6 +72,7 @@ export class StoresListComponent implements OnInit {
           }
         ],
       },
+      pager: { display: false },
       columns: {
         id: {
           title: this.translate.instant('COMMON.ID'),
@@ -90,7 +91,7 @@ export class StoresListComponent implements OnInit {
   }
 
   route(event) {
-    this.router.navigate(['pages/store-management/store-information/', event.data.code]);
+    this.router.navigate(['pages/store-management/store/', event.data.code]);
   }
 
   // paginator
