@@ -38,4 +38,5 @@ export class StorageService {
   getUserRoles () {
     return JSON.parse(localStorage.getItem('roles'));
   }
+
 }

@@ -97,3 +97,11 @@ ng2-st-tbody-custom {
 .summernote {
   max-width: 1145px !important;
 }
+
+//styles for pick-list
+.item-picklist {
+  display: flex;
+  div {
+    width: 50%;
+  }
+}
