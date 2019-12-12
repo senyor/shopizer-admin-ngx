@@ -46,6 +46,7 @@
     "LIST_INVENTORY": "List inventory",
     "PRODUCT_TO_CATEGORY": "Product to category",
     "PRODUCT_ATTRIBUTES": "Product attributes",
+    "CREATE_PRODUCT_ATTRIBUTES": "Create product option / attribute",
     "MANAGE_INVENTORY": "Manage inventory",
 
     "INVENTORY": "Inventory",
@@ -64,6 +65,7 @@
     "OPTIONS": "Options",
     "OPTIONS_LIST": "Options list",
     "CREATE_OPTION": "Create option",
+    "OPTIONS_VALUE": "Option value",
     "OPTIONS_VALUES_LIST": "Options values list",
     "CREATE_OPTION_VALUE": "Create option value",
 
@@ -246,6 +248,25 @@
     "PRODUCT_CREATED": "Product created.",
     "PRODUCT_REMOVED": "Product removed."
   },
+  "PRODUCT_ATTRIBUTES": {
+    "PRODUCT_OPTIONS_ATTRIBUTES": "Product options / attributes",
+    "OPTIONS_ATTRIBUTES": "Options / attributes",
+
+    "ATTRIBUTE_NAME": "Option/attribute name",
+    "DISPLAY_ONLY_TEXT": "Use attribute for display only",
+    "PRODUCT_OPTION": "Product option value",
+    "OPTION_PRICE": "Option price",
+    "DEFAULT_OPTION": "Default option",
+    "REQUIRED_OPTION": "Required option",
+    "ADDITIONAL_WEIGHT": "Additional weight",
+    "OPTION_NAME": "Option name",
+    "DISPLAY_ONLY": "Display only",
+    "PRICE": "Price",
+
+    "PRODUCT_ATTRIBUTES_UPDATED": "Product attribute value updated.",
+    "PRODUCT_ATTRIBUTES_CREATED": "Product attribute value created.",
+    "PRODUCT_ATTRIBUTES_REMOVED": "Product attribute value removed."
+  },
   "INVENTORY": {
     "INVENTORY_STORE": "Store",
     "INVENTORY_OWNER": "Owner",
@@ -266,6 +287,16 @@
   "PRODUCT_GROUP": {
     "CREATE_PRODUCT_GROUP": "Create group",
     "SELECT_PRODUCT_GROUP": "Select group"
+  },
+  "OPTION": {
+    "OPTION_UPDATED": "Option updated.",
+    "OPTION_CREATED": "Option created.",
+    "OPTION_REMOVED": "Option removed."
+  },
+  "OPTION_VALUE": {
+    "OPTION_VALUE_UPDATED": "Option value updated.",
+    "OPTION_VALUE_CREATED": "Option value created.",
+    "OPTION_VALUE_REMOVED": "Option value removed."
   },
   "NOT_FOUND": {
     "PAGE_NOT_FOUND": "Page Not Found",
@@ -294,10 +325,13 @@
     "EMAIL_ADDRESS": "Email",
     "STATUS": "Status",
     "DETAILS": "Details",
+    "LAST_MODIFIED": "Last modified",
+    "TYPE": "Type",
 
     "BACK_TO_LIST": "Back to list",
 
     "ADD_IMAGES": "Add images",
+    "ADD_IMAGE": "Add image",
     "PAGINATOR_OF": "of",
 
     "ERROR": "Error",
@@ -331,7 +365,11 @@
     "CREATION_DATE": "Creation date",
 
     "UNSAVED_DATA": "You have unsaved data. Are you sure you want to leave this page?",
-    "ONLY_TEN_IMAGES": "You can upload max 10 images"
+    "ONLY_TEN_IMAGES": "You can upload max 10 images",
+
+    "NO_ITEMS": "No items to show",
+
+    "VALUE_REQUIRED": "Value is required"
   },
   "DESCRIPTION_FORM": {
     "NAME": "Name",

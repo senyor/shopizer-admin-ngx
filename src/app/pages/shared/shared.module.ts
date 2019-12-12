@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ThemeModule } from '../../@theme/theme.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { OrderListComponent } from '../orders/order-list/order-list.component';
-import { NbInputModule, NbSpinnerModule } from '@nebular/theme';
+import { NbSpinnerModule, NbTreeGridComponent, NbTreeGridModule } from '@nebular/theme';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
@@ -13,9 +13,10 @@ import { RightSidemenuComponent } from './components/right-sidemenu/right-sideme
 import { ImageUploadingComponent } from './components/image-uploading/image-uploading.component';
 import { ShowcaseDialogComponent } from './components/showcase-dialog/showcase-dialog.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
-import {PickListModule} from 'primeng/picklist';
-import {DropdownModule} from 'primeng/dropdown';
+import { PickListModule } from 'primeng/picklist';
+import { DropdownModule } from 'primeng/dropdown';
 import { BackButtonComponent } from './components/back-button/back-button.component';
+import { TreeModule, TreeTableModule } from 'primeng/primeng';
 import { ValidateNumberDirective } from './validation/validate-number.directive';
 
 
@@ -29,22 +30,27 @@ import { ValidateNumberDirective } from './validation/validate-number.directive'
     ShowcaseDialogComponent,
     PaginatorComponent,
     BackButtonComponent,
-    ValidateNumberDirective
+    ValidateNumberDirective,
   ],
   imports: [
     CommonModule,
     RouterModule,
 
+    NbTreeGridModule,
     Ng2SmartTableModule,
     ThemeModule,
     NbSpinnerModule,
-    TranslateModule
+    TranslateModule,
+    TreeModule,
+    TreeTableModule
   ],
   exports: [
     Ng2SmartTableModule,
     ThemeModule,
     NbSpinnerModule,
     TranslateModule,
+    TreeModule,
+    TreeTableModule,
 
     OrderListComponent,
     BreadcrumbComponent,
@@ -55,6 +61,8 @@ import { ValidateNumberDirective } from './validation/validate-number.directive'
     PaginatorComponent,
     BackButtonComponent,
 
+    NbTreeGridModule,
+    NbTreeGridComponent,
     PickListModule,
     DropdownModule,
     ValidateNumberDirective

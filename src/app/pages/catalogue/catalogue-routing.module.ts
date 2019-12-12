@@ -30,6 +30,10 @@ const routes: Routes = [{
       path: 'products-groups',
       loadChildren: 'app/pages/catalogue/products-groups/products-groups.module#ProductsGroupsModule'
     },
+    {
+      path: 'options',
+      loadChildren: 'app/pages/catalogue/options/options.module#OptionsModule'
+    },
   ]
 }];
 

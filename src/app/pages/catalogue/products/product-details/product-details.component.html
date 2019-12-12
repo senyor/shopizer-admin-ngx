@@ -13,7 +13,7 @@
       <nb-option value="2" [routerLink]="['/pages/catalogue/products/association']">
         {{'COMPONENTS.PRODUCT_TO_CATEGORY' | translate}}
       </nb-option>
-      <nb-option value="3">
+      <nb-option value="3" [routerLink]="['/pages/catalogue/products/' + this.product.id + '/product-attributes']">
         {{'COMPONENTS.PRODUCT_ATTRIBUTES' | translate}}
       </nb-option>
     </nb-select>
