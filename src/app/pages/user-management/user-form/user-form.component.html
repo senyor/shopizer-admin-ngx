@@ -95,8 +95,8 @@
   <hr/>
 
   <div class="form-group actions-button">
-    <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid">{{ 'COMMON.SAVE' | translate }}</button>
-    <button *ngIf="showRemoveButton" type="submit" class="btn btn-danger" (click)="remove()">{{ 'COMMON.REMOVE' | translate }}</button>
+    <button *ngIf="canEdit" type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid">{{ 'COMMON.SAVE' | translate }}</button>
+    <button *ngIf="canRemove" type="submit" class="btn btn-danger" (click)="remove()">{{ 'COMMON.REMOVE' | translate }}</button>
   </div>
 
 </form>

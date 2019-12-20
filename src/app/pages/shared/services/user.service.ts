@@ -88,19 +88,22 @@ export class UserService {
     return this.crudService.post(`/v1/private/user/`, user);
   }
 
-  updateUser(id: any, user: any): Observable<any> {
+  updateUser(id: any, user: any, store: any): Observable<any> {
     const params = {
-      'store': user.store
+      'store': store
     };
     return this.crudService.put(`/v1/private/user/${ id }`, user, { params });
   }
 
-  deleteUser(id: any): Observable<any> {
-    return this.crudService.delete(`/v1/private/user/${ id }`);
+  deleteUser(id: any, store: any): Observable<any> {
+    const params = {
+      'store': store
+    };
+    return this.crudService.delete(`/v1/private/user/${ id }`, { params });
   }
 
   updatePassword(id: any, passwords: any): Observable<any> {
-    return this.crudService.put(`/v1/private/user/${ id }/password`, passwords);
+    return this.crudService.patch(`/v1/private/user/${ id }/password`, passwords);
   }
 
   getUserId(): string {

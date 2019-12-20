@@ -43,7 +43,9 @@ export class RetailerStoresComponent implements OnInit {
     const startFrom = (this.currentPage - 1) * this.perPage;
     this.params.start = startFrom;
     this.loadingList = true;
-    this.storeService.getListOfMerchantStores({count: 10000}).subscribe(res => {
+    
+    //this.storeService.getListOfMerchantStores({count: 10000}).subscribe(res => {
+    this.storeService.getListOfMerchantStoreNames().subscribe(res => {
       this.totalCount = res.totalPages;
       this.source.load(res.data);
       this.loadingList = false;

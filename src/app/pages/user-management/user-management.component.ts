@@ -23,7 +23,7 @@ export class UserManagementComponent implements OnInit, DoCheck {
       link: 'change-password'
     }
   ];
-  showSide = true;
+  showSide = false;
 
   constructor(
     private translate: TranslateService

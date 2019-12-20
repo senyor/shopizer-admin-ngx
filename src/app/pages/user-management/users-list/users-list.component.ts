@@ -19,6 +19,7 @@ export class UsersListComponent implements OnInit {
   perPage = 10;
   currentPage = 1;
   totalCount;
+  totalPages;
 
   // server params
   params = {
@@ -46,6 +47,7 @@ export class UsersListComponent implements OnInit {
       .subscribe(res => {
         const usersArray = [...res.data];
         this.totalCount = res.recordsTotal;
+        this.totalPages = res.totalPages;
 
         // remove current user from list
         // const index = usersArray.findIndex(el => el.id === +this.userService.getUserId());
@@ -124,6 +126,14 @@ export class UsersListComponent implements OnInit {
       }
       case 'onNext': {
         this.currentPage++;
+        break;
+      }
+      case 'onLast': {
+        this.currentPage = this.totalPages;
+        break;
+      }
+      case 'onFirst': {
+        this.currentPage = 1;
         break;
       }
     }
