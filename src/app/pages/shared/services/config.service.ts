@@ -17,6 +17,10 @@ export class ConfigService {
     return this.crudService.get(`/v1/languages`);
   }
 
+  getMerchantListOfSupportedLanguages() {
+    return JSON.parse(localStorage.getItem('supportedLanguages'));
+  }
+
   getListOfSupportedLanguages1() {
     return this.crudService.get(`/v1/languages`).subscribe((languages) => {
       this.languages = [...languages];
@@ -29,6 +33,13 @@ export class ConfigService {
 
   getListOfCountries() {
     return this.crudService.get(`/v1/country`);
+  }
+
+  getListOfCountriesByLanguage(lang) {
+    const params = {
+      'lang': lang,
+    };
+    return this.crudService.get(`/v1/country`, params);
   }
 
   getListOfZonesProvincesByCountry(countryCode) {

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, UrlTree, UrlSegment, UrlSegmentGroup, PRIMARY_OUTLET} from '@angular/router';
 
 import { ConfigService } from '../../shared/services/config.service';
 import { UserService } from '../../shared/services/user.service';
@@ -8,6 +8,7 @@ import { User } from '../../shared/models/user';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { StoreService } from '../../store-management/services/store.service';
+import { StorageService } from '../../shared/services/storage.service';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -17,13 +18,24 @@ import { forkJoin } from 'rxjs';
 })
 export class UserFormComponent implements OnInit {
   form: FormGroup;
-  @Input() user: User;
+
+  private _user: User;
+
+  @Input()
+  set user(user: User) {
+    this._user = user;
+  }
+
+  get user(): User { return this._user; }
+
+  //@Input() user: User;
   languages = [];
   groups = [];
   showRemoveButton = true;
   pwdPattern = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$';
   emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
   stores = [];
+  tree: UrlTree;
   // user's roles
   roles;
   // rules for user's group
@@ -49,6 +61,7 @@ export class UserFormComponent implements OnInit {
     private configService: ConfigService,
     private userService: UserService,
     private storeService: StoreService,
+    private storageService: StorageService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
@@ -58,17 +71,28 @@ export class UserFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showRemoveButton = this.user && this.user.id !== +this.userService.getUserId();
+
+    this.showRemoveButton = this._user && this._user.id !== +this.userService.getUserId();
     this.loader = true;
     this.createForm();
-    const languages$ = this.configService.getListOfSupportedLanguages();
+    //path analysis
+    console.log(this.router.url);
+    //this.tree = this.router.parseUrl(this.router.url);
+    //const g: UrlSegmentGroup = this.tree.root.children[PRIMARY_OUTLET];
+    //const s: UrlSegment[] = g.segments;
+    //s.forEach(segment => {
+    //  console.log(segment.path);
+    //});
+    this.storageService.getMerchant();
+    const languages = this.configService.getMerchantListOfSupportedLanguages();
+    //const languages$ = this.configService.getListOfSupportedLanguages();
     const groups$ = this.configService.getListOfGroups();
-    const stores$ = this.storeService.getListOfStores({ count: 1000000 });
-    forkJoin(languages$, groups$, stores$).subscribe(([languages, groups, stores]) => {
+    const stores$ = this.storeService.getListOfMerchantStoreNames();
+    forkJoin(groups$, stores$).subscribe(([groups, stores]) => {
       // fill languages
       this.languages = [...languages];
       // fill store
-      this.stores = [...stores.data];
+      this.stores = [...stores];
       const uStore = this.stores.find((store) => store.code === this.form.value.store);
       this.chooseMerchant(uStore);
       // fill groups
@@ -77,16 +101,20 @@ export class UserFormComponent implements OnInit {
         el.disabled = false;
       });
       this.groups = [...groups];
-      if (this.user) {
-        const roleRetail = this.user.groups.find((el: any) => el.name === 'ADMIN_RETAIL');
-        const roleStore = this.user.groups.find((el: any) => el.name === 'ADMIN_STORE');
+      if (this._user) {
+        const roleRetail = this._user.groups.find((el: any) => el.name === 'ADMIN_RETAIL');
+        const roleStore = this._user.groups.find((el: any) => el.name === 'ADMIN_STORE');
         if (roleRetail) {
           this.checkRules(roleRetail['name']);
         } else if (roleStore) {
           this.checkRules(roleStore['name']);
         }
-        this.user.groups.forEach((uGroup) => {
+        this._user.groups.forEach((uGroup) => {
           this.groups.forEach((group) => {
+            //console.log('Looking at group ' + group.name);
+            if(group.name === 'SUPERADMIN') {
+              group.disabled = true;
+            }
             if (uGroup['name'] === group.name) {
               group.checked = true;
               group.disabled = false;
@@ -140,15 +168,15 @@ export class UserFormComponent implements OnInit {
   fillForm() {
     this.form.get('password').clearValidators();
     this.form.patchValue({
-      firstName: this.user.firstName,
-      lastName: this.user.lastName,
-      store: this.user.merchant,
+      firstName: this._user.firstName,
+      lastName: this._user.lastName,
+      store: this._user.merchant,
       userName: '',
       password: '',
-      emailAddress: this.user.emailAddress,
-      active: this.user.active,
-      defaultLanguage: this.user.defaultLanguage,
-      groups: [...this.user.groups],
+      emailAddress: this._user.emailAddress,
+      active: this._user.active,
+      defaultLanguage: this._user.defaultLanguage,
+      groups: [...this._user.groups],
     });
     (this.roles.isSuperadmin || this.roles.isRetailerAdmin) ?
       this.form.controls['store'].enable() : this.form.controls['store'].disable();
@@ -176,8 +204,8 @@ export class UserFormComponent implements OnInit {
       this.toastr.warning(this.translate.instant('COMMON.ADDING_USER_GROUPS_ERROR'));
       return;
     }
-    if (this.user && this.user.id) {
-      this.userService.updateUser(+this.user.id, this.form.value)
+    if (this._user && this._user.id) {
+      this.userService.updateUser(+this._user.id, this.form.value)
         .subscribe(res => {
           this.toastr.success(this.translate.instant('USER_FORM.USER_UPDATED'));
         });
@@ -191,7 +219,7 @@ export class UserFormComponent implements OnInit {
   }
 
   remove() {
-    this.userService.deleteUser(this.user.id)
+    this.userService.deleteUser(this._user.id)
       .subscribe(res => {
         this.toastr.success(this.translate.instant('USER_FORM.USER_REMOVED'));
         this.router.navigate(['pages/user-management/users']);
@@ -205,11 +233,11 @@ export class UserFormComponent implements OnInit {
 
   checkEmail(event) {
     const email = event.target.value;
-    const store = (this.form.value && this.form.value.store) || (this.user && this.user.merchant);
+    const store = (this.form.value && this.form.value.store) || (this._user && this._user.merchant);
     if (email !== '') {
       this.userService.checkIfUserExist({ unique: email, merchant: store })
         .subscribe(res => {
-          if (this.user && this.user.emailAddress === email) {
+          if (this._user && this._user.emailAddress === email) {
             this.isEmailUnique = true;
           } else {
             this.isEmailUnique = !res.exists;
@@ -221,6 +249,7 @@ export class UserFormComponent implements OnInit {
   }
 
   checkRules(role) {
+    console.log('Role name ' + role);
     if (this.rules[role].rules.length !== 0) {
       this.rules[role].rules.forEach((el) => {
         this.groups.forEach((group) => {

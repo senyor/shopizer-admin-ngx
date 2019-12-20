@@ -73,6 +73,9 @@
   },
   "LOGIN": {
     "INVALID_DATA": "Invalid username or password",
+    "INVALID_EMPTY_USERNAME": "Username is required",
+    "INVALID_FORMAT_USERNAME": "Username format must be an email",
+    "INVALID_EMPTY_PASSWORD": "Password is required",
     "USERNAME": "Username",
     "PASSWORD": "Password",
     "REMEMBER_USERNAME": "Remember my user name",
@@ -383,5 +386,10 @@
     "KEYWORDS_PLACEHOLDER": "Keywords",
     "META_DESCRIPTION": "(Meta tags) Description",
     "IMAGE": "Image"
+  }, 
+  "LANG" : {
+    "en": "English",
+    "fr": "French",
+    "ru": "Russian"
   }
 }

@@ -110,3 +110,16 @@ ng2-st-tbody-custom {
 .no-items {
   margin: 20px;
 }
+
+.nb-theme-corporate nb-checkbox:hover .customised-control-input:enabled + .customised-control-indicator, .nb-theme-corporate nb-checkbox .customised-control-input:focus:enabled + .customised-control-indicator {
+  border-color: #0059b3 !important;
+}
+.nb-theme-corporate nb-checkbox .customised-control-input:checked + .customised-control-indicator {
+  border-color: #0059b3 !important;
+}
+.nb-theme-corporate nb-checkbox .customised-control-input:checked + .customised-control-indicator {
+  background-color: transparent;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #0059b3 !important;
+}

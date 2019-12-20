@@ -27,6 +27,8 @@ export class HeaderComponent implements OnInit {
 
   languages = [];
 
+  langMap = {};
+
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private userService: UserService,
@@ -46,7 +48,10 @@ export class HeaderComponent implements OnInit {
       }
       // language events
       if (el.tag === 'language') {
-        this.setLanguage(el.item.title);
+        let lang = el.item.title
+        let langCode = this.langMap[el.item.title];
+        //console.log(langCode);
+        this.setLanguage(langCode);
       }
     });
     this.localedMenu = [...this.localedMenu];
@@ -57,7 +62,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.localedMenu = this.translateMenu(this.localedMenu);
-    this.userService.getUser(this.userService.getUserId())
+    //this.userService.getUser(this.userService.getUserId())
+    this.userService.getUserProfile()
       .subscribe((user: any) => {
         this.user = user.firstName + ' ' + user.lastName;
       });
@@ -70,9 +76,16 @@ export class HeaderComponent implements OnInit {
     }));
   }
 
+  translateLang(key) {
+    let translated =  this.translate.instant("LANG." + key);
+    return translated;
+  }
+
   getLanguageArray () {
     environment.client.language.array.forEach(lg => {
-      this.languages = [...this.languages, {title: lg}];
+      this.langMap[this.translateLang(lg)] = lg;
+      //this.languages = [...this.languages, {title: lg}];
+      this.languages = [...this.languages, {title: this.translateLang(lg)}];
     });
   }
 
@@ -80,6 +93,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem('lang', lang);
     this.translate.setDefaultLang(lang);
     this.translate.use(lang);
+    //get reference data
   }
 
   toggleSidebar(): boolean {

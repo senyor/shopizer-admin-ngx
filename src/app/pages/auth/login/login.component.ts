@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, ValidationErrors} from '@angular/forms';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import { TokenService } from '../services/token.service';
@@ -16,6 +16,8 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit {
   form: FormGroup;
   errorMessage = '';
+  showPass = 0;
+  isSubmitted  =  false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,17 +28,47 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     private translate: TranslateService
   ) {
-    this.createForm();
+    //this.createForm();
   }
 
   ngOnInit() {
     document.getElementsByTagName('body')[0].className += ' nb-theme-corporate';
+    this.form = this.fb.group({
+      username: [ '', [ Validators.required, Validators.email ] ],
+      password: [ '', Validators.required ]
+    });
+  }
+
+  passwordType() {
+    return this.showPass;
+  }
+
+  showPassword() {
+    if(this.showPass == 0) {
+      this.showPass = 1;
+    }
+    else {
+      this.showPass = 0;
+    }
+  }
+  
+  get formControls() { 
+    return this.form.controls; 
   }
 
   onSubmit() {
+    //console.log(this.form.value);
+    this.isSubmitted = true;
     if (this.form.invalid) {
+      //this.getFormValidationErrors();
       return;
     }
+
+
+
+    //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.form.value))
+    //return;
+
     this.errorMessage = '';
     const formData = this.form.value;
 
@@ -59,11 +91,19 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  private createForm() {
-    this.form = this.fb.group({
-      username: [ '', [ Validators.required ] ],
-      password: [ '', Validators.required ]
-    });
-  }
+
+  getFormValidationErrors() {
+    Object.keys(this.form.controls).forEach(key => {
+  
+    const controlErrors: ValidationErrors = this.form.get(key).errors;
+    if (controlErrors != null) {
+          Object.keys(controlErrors).forEach(keyError => {
+            console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
+          });
+        }
+      });
+    }
+
+
 
 }

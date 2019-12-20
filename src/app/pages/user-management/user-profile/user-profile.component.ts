@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { UserService } from '../../shared/services/user.service';
-import { User } from 'app/pages/shared/models/user';
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'ngx-user-profile',
@@ -20,9 +20,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    const id = this.userService.getUserId();
+    //const id = this.userService.getUserId();
     this.loading = true;
-    this.userService.getUser(this.userService.getUserId())
+    //this.userService.getUser(this.userService.getUserId())
+    this.userService.getUserProfile()
       .subscribe(user => {
         this.user = user;
         this.loading = false;

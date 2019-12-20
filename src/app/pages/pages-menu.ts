@@ -65,13 +65,15 @@ export const MENU_ITEMS: MenuItem[] = [
         title: 'COMPONENTS.CREATE_USER',
         key: 'COMPONENTS.CREATE_USER',
         link: '/pages/user-management/create-user',
-        hidden: false
+        hidden: false,
+        guards: [IsSuperadmin, IsAdmin]
       },
       {
         title: 'COMPONENTS.USER_LIST',
         key: 'COMPONENTS.USER_LIST',
         link: '/pages/user-management/users',
-        hidden: false
+        hidden: false,
+        guards: [IsSuperadmin, IsAdmin]
       },
     ],
   },
