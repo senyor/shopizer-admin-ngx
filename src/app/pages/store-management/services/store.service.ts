@@ -3,17 +3,21 @@ import { Injectable } from '@angular/core';
 import { CrudService } from '../../shared/services/crud.service';
 import { Observable } from 'rxjs';
 import { StorageService } from '../../shared/services/storage.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Store } from '../models/store';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
 
+
   constructor(
     private crudService: CrudService,
     private storageService: StorageService
   ) {
   }
+
 
   getStore(code): Observable<any> {
     return this.crudService.get(`/v1/store/${code}`);
@@ -48,19 +52,21 @@ export class StoreService {
 
   // PAGE CONTENT
 
-  getPageContent(pageCode: string): Observable<any> {
+  getPageContent(pageCode: string, storeCode: string): Observable<any> {
     const params = {
-      lang: '_all'
+      lang: '_all',
+      store: storeCode
     };
-    return this.crudService.get(`/v1/private/content/any/${pageCode}`, params);
+    return this.crudService.getWithEmpty(`/v1/private/content/any/${pageCode}`, params);
   }
 
   updatePageContent(id, content: any): Observable<any> {
     return this.crudService.put(`/v1/private/content/${id}`, content);
   }
 
-  createPageContent(content: any): Observable<any> {
-    return this.crudService.post(`/v1/private/content`, content);
+  createPageContent(content: any, storeCode: string) : Observable<any> {
+
+    return this.crudService.postWithStorParam(`/v1/private/content`, content, storeCode);
   }
 
   // end PAGE CONTENT

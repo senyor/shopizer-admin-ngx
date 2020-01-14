@@ -86,6 +86,28 @@ export const MENU_ITEMS: MenuItem[] = [
     guards: [IsSuperadmin, IsAdmin, IsAdminRetail, IsAdminStore],
     children: [
       {
+        title: 'COMPONENTS.STORE',
+        key: 'COMPONENTS.STORE',
+        link: '/pages/store-management/store',
+        hidden: false,
+        guards: [IsSuperadmin, IsAdmin, IsAdminRetail, IsAdminStore]
+      },
+      {
+        title: 'COMPONENTS.STORES_LIST',
+        key: 'COMPONENTS.STORES_LIST',
+        link: '/pages/store-management/stores-list',
+        hidden: false,
+        guards: [IsSuperadmin, IsAdmin]
+      },
+      {
+        title: 'COMPONENTS.CREATE_STORE',
+        key: 'COMPONENTS.CREATE_STORE',
+        link: '/pages/store-management/create-store',
+        hidden: false,
+        guards: [IsSuperadmin, IsAdmin, IsAdminRetail]
+      },
+      /**
+      {
         title: 'COMPONENTS.RETAILER',
         key: 'COMPONENTS.RETAILER',
         link: '/pages/store-management/retailer',
@@ -120,6 +142,7 @@ export const MENU_ITEMS: MenuItem[] = [
         hidden: false,
         guards: [IsSuperadmin, IsAdmin, IsAdminRetail]
       },
+      **/
     ],
   },
   {

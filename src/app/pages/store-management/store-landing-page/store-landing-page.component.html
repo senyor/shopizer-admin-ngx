@@ -1,4 +1,4 @@
-<ngx-back-button></ngx-back-button>
+<!--<ngx-back-button></ngx-back-button>-->
 <nb-card size="small" class="page-card">
   <nb-card-header>
     {{ 'STORE.STORE_INFORMATION' | translate}}
@@ -9,13 +9,19 @@
     </span>
     <div *ngIf="loading" class="loading-block" [nbSpinner]="loading" nbSpinnerSize="large"
          nbSpinnerStatus="primary"></div>
+    <div style="margin-top:10px;">
+        <nb-select [(selected)]="selectedItem" outline shape="rectangle" class="right-card-select" style="margin-left: 0px !important;">
+            <nb-option *ngFor="let item of sidemenuLinks" [value]="item.id" (click)="route(item.link)">{{ item.title }}</nb-option>
+         </nb-select>
+    </div>
     <form *ngIf="!loading" [formGroup]='form'>
+      <input type="hidden" class="form-control" id="code" formControlName='code'>
       <div class="form-group">
         <label class="col-sm-10 col-form-label">{{ 'COMMON.LANGUAGE' | translate}}</label>
         <div class="col-sm-12">
           <nb-select *ngIf="languages.length" placeholder="{{ 'COMMON.SELECT_LANGUAGE' | translate}}"
                      formControlName='selectedLanguage' outline shape="rectangle">
-            <nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>
+            <nb-option *ngFor="let language of languages" [value]="language.code">{{ ('LANG.'+language.code) | translate }}</nb-option>
           </nb-select>
         </div>
       </div>

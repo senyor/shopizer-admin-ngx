@@ -8,6 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { ErrorHandler} from '@angular/core';
 
 import { CoreModule } from './@core/core.module';
 import { AppComponent } from './app.component';
@@ -21,6 +22,7 @@ import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { NbMomentDateModule } from '@nebular/moment';
 import { GlobalHttpInterceptorService } from './pages/shared/interceptors/globalError.interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { ErrorsHandler } from './pages/shared/classes/error-handler/errors-handler';
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,7 +46,7 @@ import { ToastrModule } from 'ngx-toastr';
         deps: [HttpClient]
       }
     }),
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   bootstrap: [AppComponent],
   providers: [
@@ -53,6 +55,10 @@ import { ToastrModule } from 'ngx-toastr';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
+    },
+    {
+      provide: ErrorHandler,
+      useClass: ErrorsHandler,
     },
     {
       provide: HTTP_INTERCEPTORS,
@@ -64,6 +70,8 @@ import { ToastrModule } from 'ngx-toastr';
 })
 export class AppModule {
 }
+
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

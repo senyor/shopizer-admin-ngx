@@ -28,6 +28,7 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
       retry(1),
       catchError((error) => {
         let errorMessage = '';
+
         if (error.status === 404 && req.url.search(/login/gi) !== -1) {
         } else if (error.status !== 401) {
           if (error.error instanceof ErrorEvent) {
@@ -38,7 +39,9 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
             errorMessage = this.translate.instant('COMMON.ERROR_CODE') + `: ${ error.status }\n
             ${this.translate.instant('COMMON.MESSAGE')}: ${ error.message }`;
           }
-          this.toastr.error(errorMessage, this.translate.instant('COMMON.ERROR'));
+          if (error.status !== 404) {
+            this.toastr.error(errorMessage, this.translate.instant('COMMON.ERROR'));
+          }
         } else if (error.status === 401) {
           this.authService.logout();
         }

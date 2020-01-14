@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import {catchError} from 'rxjs/operators';
 import {environment} from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Country } from '../models/country';
@@ -17,7 +18,18 @@ export class CrudService {
     return this.http.get(`${this.url}${path}`, { responseType: 'json', params });
   }
 
+  getWithEmpty(path, params?: { [ param: string ]: string | string[]; }): Observable<any> {
+    return this.http.get(`${this.url}${path}`, { responseType: 'json', params }).pipe(catchError(error => of(error)))
+  }
+
   post(path, body: any | null, options?: any): Observable<any> {
+    return this.http.post(`${this.url}${path}`, body, options);
+  }
+
+  postWithStorParam(path, body: any | null, storeCode, options?: any): Observable<any> {
+    if(storeCode) {
+      path = path + '?store=' + storeCode;
+    }
     return this.http.post(`${this.url}${path}`, body, options);
   }
 
@@ -35,7 +47,6 @@ export class CrudService {
 
   listCountriesByLanguage(lang : string) : Observable<Country[]> {
     let countryUrl = this.url + `/v1/country?lang=` + lang;
-    //console.log(countryUrl);
 
     return this.http.get<Country[]>(countryUrl);
         //.publishReplay(1) // this tells Rx to cache the latest emitted value

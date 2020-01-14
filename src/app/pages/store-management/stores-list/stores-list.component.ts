@@ -19,11 +19,12 @@ export class StoresListComponent implements OnInit {
   perPage = 10;
   currentPage = 1;
   totalCount;
+  totalPages;
 
   // server params
   params = {
-    length: this.perPage,
-    start: 0
+    count: this.perPage,
+    page: 0,
   };
 
   settings = {};
@@ -40,12 +41,13 @@ export class StoresListComponent implements OnInit {
   }
 
   getList() {
-    const startFrom = (this.currentPage - 1) * this.perPage;
-    this.params.start = startFrom;
+    const startFrom = this.currentPage - 1;
+    this.params.page = startFrom;
     this.loadingList = true;
     this.storeService.getListOfStores(this.params)
       .subscribe(res => {
-        this.totalCount = res.totalPages;
+        this.totalCount = res.recordsTotal;
+        this.totalPages = res.totalPages;
         this.source.load(res.data);
         this.loadingList = false;
       });
@@ -95,7 +97,9 @@ export class StoresListComponent implements OnInit {
   }
 
   // paginator
+
   changePage(event) {
+    console.log('Current page now' + this.currentPage);
     switch (event.action) {
       case 'onPage': {
         this.currentPage = event.data;
@@ -107,6 +111,14 @@ export class StoresListComponent implements OnInit {
       }
       case 'onNext': {
         this.currentPage++;
+        break;
+      }
+      case 'onLast': {
+        this.currentPage = this.totalPages;
+        break;
+      }
+      case 'onFirst': {
+        this.currentPage = 1;
         break;
       }
     }

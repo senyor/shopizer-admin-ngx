@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
 import { StoreService } from '../services/store.service';
 import { Logo } from '../models/logo';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { forkJoin } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-store-branding',
@@ -13,8 +15,30 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class StoreBrandingComponent implements OnInit {
   storeCode = '';
+  store;
   loading = false;
   loadingButton = false;
+  selectedItem = '0';
+  sidemenuLinks = [
+    {
+      id: '0',
+      title: 'Store branding',
+      key: 'COMPONENTS.STORE_BRANDING',
+      link: 'store-branding'
+    },
+    {
+      id: '1',
+      title: 'Store home page',
+      key: 'COMPONENTS.STORE_LANDING',
+      link: 'store-landing'
+    },
+    {
+      id: '2',
+      title: 'Store details',
+      key: 'COMPONENTS.STORE_DETAILS',
+      link: 'store'
+    }
+  ];
 
   @ViewChild('imageDrop') imageDrop;
   acceptedImageTypes = { 'image/png': true, 'image/jpeg': true, 'image/gif': true };
@@ -31,23 +55,38 @@ export class StoreBrandingComponent implements OnInit {
     private storeService: StoreService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
     this.createForm();
   }
 
   ngOnInit() {
     this.loading = true;
-    this.storeCode = localStorage.getItem('merchant');
-    this.storeService.getBrandingDetails(this.storeCode)
-      .subscribe(res => {
-        this.logo = res.logo;
-        if (this.logo) {
-          this.showRemoveButton = true;
-        }
-        this.fillForm(res.socialNetworks);
-        this.loading = false;
-      });
+    //this.storeCode = localStorage.getItem('merchant');
+    const code = this.activatedRoute.snapshot.paramMap.get('code');
+    
+    forkJoin(
+      //this.storeService.getBrandingDetails(code),
+      this.storeService.getStore(code)
+    )
+    .subscribe(([st]) => {
+      this.store = st;
+      /**
+      this.logo = res.logo;
+      if (this.logo) {
+        this.showRemoveButton = true;
+      }
+      this.fillForm(res.socialNetworks);
+      **/
+      this.loading = false;
+    });
+
+  }
+
+  route(link) {
+    this.router.navigate(['pages/store-management/' + link + "/", this.store.code]);
   }
 
   // start WORK WITH IMAGE

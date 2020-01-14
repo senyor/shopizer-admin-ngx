@@ -23,6 +23,7 @@ export class StoreFormComponent implements OnInit {
   @ViewChild('search')
   searchElementRef: ElementRef;
   supportedLanguages = [];
+  supportedLanguagesSelected = [];
   supportedCurrency = [];
   weightList = [];
   sizeList = [];
@@ -48,6 +49,7 @@ export class StoreFormComponent implements OnInit {
   retailerArray = [];
   roles: any = {};
   isCodeUnique = true;
+  isRetailer = true;
   establishmentType = 'STORE';
   merchant = '';
 
@@ -69,7 +71,7 @@ export class StoreFormComponent implements OnInit {
     this.roles = JSON.parse(localStorage.getItem('roles'));
     this.loading = true;
     forkJoin(this.configService.getListOfCountries(), this.configService.getListOfSupportedCurrency(),
-      this.configService.getWeightAndSizes(), this.storeService.getListOfStores({start: 0, length: 1000}),
+      this.configService.getWeightAndSizes(), this.storeService.getListOfStores({start: 0, length: 1000, retailers: true}),
       this.configService.getListOfSupportedLanguages())
       .subscribe(([countries, currencies, measures, stores, languages ]) => {
         this.countries = [...countries];
@@ -84,7 +86,6 @@ export class StoreFormComponent implements OnInit {
           }
         });
         this.retailerArray = stores.data;
-        this.loading = false;
       });
     if (this.env.googleApiKey) {
       this.addressAutocomplete();
@@ -143,6 +144,7 @@ export class StoreFormComponent implements OnInit {
   }
 
   private createForm() {
+    this.isRetailer = false;
     this.form = this.fb.group({
       name: ['', [Validators.required]],
       code: [{ value: '', disabled: false }, [Validators.required, Validators.pattern(validators.alphanumeric)]],
@@ -165,7 +167,7 @@ export class StoreFormComponent implements OnInit {
       inBusinessSince: [new Date()],
       useCache: [false],
       retailer: [false],
-      retailerStore: [''],
+      retailerStore: '',
     });
     if (!this.store.id && this.roles.isAdminRetail) {
       this.form.patchValue({ retailer: false });
@@ -176,9 +178,14 @@ export class StoreFormComponent implements OnInit {
     if (this.store.id) {
       this.fillForm();
     }
+    this.loading = false;
   }
 
   fillForm() {
+    this.isRetailer = this.store.retailer;
+    this.store.supportedLanguages.forEach(lang => {
+      this.supportedLanguagesSelected.push(lang.code);
+    });
     this.form.patchValue({
       name: this.store.name,
       code: this.store.code,
@@ -192,8 +199,8 @@ export class StoreFormComponent implements OnInit {
       dimension: this.store.dimension,
       inBusinessSince: new Date(this.store.inBusinessSince),
       useCache: this.store.useCache,
-      retailer: [false],
-      retailerStore: [''],
+      retailer: this.isRetailer,
+      retailerStore: '',
     });
     this.form.controls['address'].patchValue({ searchControl: '' });
     this.form.controls['address'].patchValue({ stateProvince: this.store.address.stateProvince }, { disabled: false });
@@ -206,6 +213,7 @@ export class StoreFormComponent implements OnInit {
     }
     this.isReadonlyCode = true;
     this.cdr.markForCheck();
+    //console.log('store ' + JSON.stringify(this.store));
   }
 
   get name() {
@@ -257,14 +265,18 @@ export class StoreFormComponent implements OnInit {
   }
 
   save() {
+    //this.findInvalidControls();
     this.form.controls['address'].patchValue({ country: this.form.value.address.country });
-    this.form.patchValue({ inBusinessSince: moment(this.form.value.inBusinessSince).format('YYYY-MM-DD') });
+    //this.form.patchValue({ inBusinessSince: moment(this.form.value.inBusinessSince).format('YYYY-MM-DD') });
     const storeObj = this.form.value;
-    storeObj.inBusinessSince = moment(this.form.value.inBusinessSince).format('YYYY-MM-DD');
+    //storeObj.inBusinessSince = moment(this.form.value.inBusinessSince).format('YYYY-MM-DD');
     if (!this.store.id && this.roles.isAdminRetail) {
       storeObj.retailer = false;
       storeObj.retailerStore = this.merchant;
     }
+    storeObj.supportedLanguages = this.supportedLanguagesSelected;
+    //console.log(storeObj);
+
     if (this.store.id) {
       this.storeService.updateStore(storeObj)
         .subscribe(store => {
@@ -313,22 +325,54 @@ export class StoreFormComponent implements OnInit {
     let newLanguages = this.form.value.supportedLanguages ? [...this.form.value.supportedLanguages] : [];
     // check if element is exist in array
     const index = newLanguages.indexOf(languageCode);
+    const selectedIndex = this.supportedLanguagesSelected.indexOf(languageCode);
+
     // if exist
+    if (selectedIndex !== -1) {//already exist, remove element at index
+      this.supportedLanguagesSelected.splice(selectedIndex, 1);
+    } else {//add language
+      this.supportedLanguagesSelected.push(languageCode);
+    }
+
+    this.form.patchValue({ 'supportedLanguages': this.supportedLanguagesSelected }); // rewrite form
+
+    /**
     if (index === -1) {
       newLanguages = [...newLanguages, languageCode]; // add
     } else {
       newLanguages.splice(index, 1); // remove
     }
-    this.form.patchValue({ 'supportedLanguages': newLanguages }); // rewrite form
+    **/
+
+    //this.form.patchValue({ 'supportedLanguages': newLanguages }); // rewrite form
+  }
+
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.form.controls;
+    for (const name in controls) {
+        if (controls[name].invalid) {
+            invalid.push(name);
+        }
+    }
+    //console.log('Invalid fields ' + invalid);
   }
 
   userHasSupportedLanguage(language) {
-    if (!this.store || !this.store.supportedLanguages) return false;
-    return this.store.supportedLanguages.find((l: any) => l === language.code);
+    if (!this.store || !this.store.supportedLanguages) 
+      return false;
+    return this.store.supportedLanguages.find((l: any) => l.code === language.code);
   }
 
   showRetailers(event) {
-    event ? this.form.controls['retailerStore'].disable() : this.form.controls['retailerStore'].enable();
+    if ( !event.target.checked ) {
+      this.isRetailer = false;
+      this.form.controls['retailerStore'].enable();
+    } else {
+      this.isRetailer = true;
+      this.form.controls['retailerStore'].disable() 
+    }
+    //event ? this.form.controls['retailerStore'].disable() : this.form.controls['retailerStore'].enable();
   }
 
   checkCode(event) {

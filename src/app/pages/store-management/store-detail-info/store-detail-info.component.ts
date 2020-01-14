@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { StoreService } from '../services/store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-store-detail-info',
@@ -11,10 +11,32 @@ import { StoreService } from '../services/store.service';
 export class StoreDetailInfoComponent implements OnInit {
   store;
   loadingInfo = false;
+  selectedItem = '2';
+  sidemenuLinks = [
+    {
+      id: '0',
+      title: 'Store branding',
+      key: 'COMPONENTS.STORE_BRANDING',
+      link: 'store-branding'
+    },
+    {
+      id: '1',
+      title: 'Store home page',
+      key: 'COMPONENTS.STORE_LANDING',
+      link: 'store-landing'
+    },
+    {
+      id: '2',
+      title: 'Store details',
+      key: 'COMPONENTS.STORE_DETAILS',
+      link: 'store'
+    }
+  ];
 
   constructor(
     private storeService: StoreService,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) {
   }
 
@@ -26,6 +48,10 @@ export class StoreDetailInfoComponent implements OnInit {
         this.store = res;
         this.loadingInfo = false;
       });
+  }
+
+  route(link) {
+    this.router.navigate(['pages/store-management/' + link + "/", this.store.code]);
   }
 
 }

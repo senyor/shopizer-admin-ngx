@@ -8,6 +8,11 @@
     <span>
        {{ 'STORE.INFORMATION_TEXT' | translate}}
     </span>
+    <div style="margin-top:10px;">
+      <nb-select [(selected)]="selectedItem" outline shape="rectangle" class="right-card-select" style="margin-left: 0px !important;">
+        <nb-option *ngFor="let item of sidemenuLinks" [value]="item.id" (click)="route(item.link)">{{ item.title }}</nb-option>
+      </nb-select>
+    </div>
     <ngx-store-form [store]="store"></ngx-store-form>
   </nb-card-body>
 </nb-card>

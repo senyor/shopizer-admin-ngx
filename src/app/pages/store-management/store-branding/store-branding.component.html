@@ -1,4 +1,4 @@
-<ngx-back-button></ngx-back-button>
+<!--<ngx-back-button></ngx-back-button>-->
 <nb-card size="small" class="page-card">
   <nb-card-header>
     {{ 'STORE_BRANDING.STORE_LOGO' | translate}}
@@ -10,6 +10,11 @@
   </div>
 
   <nb-card-body *ngIf="!loading">
+      <div style="margin-top:10px;">
+          <nb-select [(selected)]="selectedItem" outline shape="rectangle" class="right-card-select" style="margin-left: 0px !important;">
+            <nb-option *ngFor="let item of sidemenuLinks" [value]="item.id" (click)="route(item.link)">{{ item.title }}</nb-option>
+          </nb-select>
+      </div>
     <form [formGroup]="imageUpload">
       <div class="wrapper" (click)='imageInput.click()' (drop)="drop($event)" (dragover)="allowDrop($event)">
         <div id="imageDrop" #imageDrop>
@@ -40,6 +45,7 @@
   </nb-card-body>
 </nb-card>
 
+<!--
 <nb-card size="small" class="page-card">
   <nb-card-header>
     {{ 'STORE_BRANDING.NETWORKS_MARKETING' | translate}}
@@ -49,6 +55,7 @@
   <nb-card-body *ngIf="!loading">
     <form [formGroup]='form'>
 
+      
       <div formArrayName="socialNetworks">
         <div *ngFor="let sn of socialNetworks.controls; let i=index">
           <div [formGroupName]="i">
@@ -56,7 +63,7 @@
               <i ngClass="fab fa-{{socialNetworks.controls[i].value.key.split('_')[0]}}"></i>
               {{socialNetworks.controls[i].value.key.split('_')[0][0].toUpperCase() + socialNetworks.controls[i].value.key.split('_')[0].slice(1)}}
             </nb-checkbox>
-            <input type="text" class="form-control" id="city" fullWidth fieldSize="small" formControlName="value"
+            <input type="text" class="form-control" fullWidth fieldSize="small" formControlName="value"
                    required>
           </div>
         </div>
@@ -65,7 +72,9 @@
       <div class="form-group actions-button">
         <button type="submit" class="btn btn-primary" (click)="saveNetworks()">{{ 'COMMON.SAVE' | translate}}</button>
       </div>
+    
 
     </form>
   </nb-card-body>
 </nb-card>
+-->

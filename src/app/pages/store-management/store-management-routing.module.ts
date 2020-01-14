@@ -34,7 +34,7 @@ const routes: Routes = [
         canActivate: [SuperuserAdminGuard]
       },
       {
-        path: 'store-landing',
+        path: 'store-landing/:code',
         component: StoreLandingPageComponent,
         canActivate: [SuperuserAdminRetailStoreGuard]
       },
@@ -44,7 +44,7 @@ const routes: Routes = [
         canActivate: [SuperuserAdminRetailStoreGuard]
       },
       {
-        path: 'store-branding',
+        path: 'store-branding/:code',
         component: StoreBrandingComponent,
         canActivate: [SuperuserAdminRetailStoreGuard]
       },

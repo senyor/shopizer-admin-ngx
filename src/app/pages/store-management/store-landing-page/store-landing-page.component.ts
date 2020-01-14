@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
 import { ConfigService } from '../../shared/services/config.service';
 import { StoreService } from '../services/store.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from '../../shared/services/storage.service';
 import { forkJoin } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'ngx-store-landing-page',
@@ -15,7 +17,29 @@ import { forkJoin } from 'rxjs';
 })
 export class StoreLandingPageComponent implements OnInit {
   form: FormGroup;
+  store;
   languages = [];
+  selectedItem = '1';
+  sidemenuLinks = [
+    {
+      id: '0',
+      title: 'Store branding',
+      key: 'COMPONENTS.STORE_BRANDING',
+      link: 'store-branding'
+    },
+    {
+      id: '1',
+      title: 'Store home page',
+      key: 'COMPONENTS.STORE_LANDING',
+      link: 'store-landing'
+    },
+    {
+      id: '2',
+      title: 'Store details',
+      key: 'COMPONENTS.STORE_DETAILS',
+      link: 'store'
+    }
+  ];
   config = {
     placeholder: '',
     tabsize: 2,
@@ -40,24 +64,40 @@ export class StoreLandingPageComponent implements OnInit {
     private storeService: StoreService,
     private toastrService: ToastrService,
     private translate: TranslateService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
   }
 
   ngOnInit() {
     this.createForm();
-    forkJoin(this.configService.getListOfSupportedLanguages(), this.storeService.getPageContent('LANDING_PAGE'))
-      .subscribe(([languages, res]) => {
-        this.languages = [...languages];
+    const code = this.activatedRoute.snapshot.paramMap.get('code');
+
+    forkJoin(
+        this.storeService.getPageContent('LANDING_PAGE', code),
+        this.storeService.getStore(code)
+      )
+      .subscribe(([res, st]) => {
+        if(!res.status) {//404 should not rais an error
+          this.page = res;
+        }
+        this.store = st;
+        this.languages = this.store.supportedLanguages;
         this.createForm();
-        this.page = res;
         this.fillForm();
-      });
+    });
+  }
+
+  route(link) {
+    this.router.navigate(['pages/store-management/' + link + "/", this.store.code]);
   }
 
   private createForm() {
     this.form = this.fb.group({
       selectedLanguage: ['', [Validators.required]],
+      code: [''],
+      id: '',
       descriptions: this.fb.array([]),
     });
     this.addFormArray();
@@ -71,6 +111,7 @@ export class StoreLandingPageComponent implements OnInit {
           language: [lang.code, [Validators.required]],
           name: ['', [Validators.required]],
           metaDescription: [''],
+          id: '',
           keyWords: [''],
           description: [''],
         })
@@ -83,10 +124,15 @@ export class StoreLandingPageComponent implements OnInit {
       descriptions: [],
       selectedLanguage: 'en',
     });
-    this.fillFormArray();
+    if(this.page) {
+      this.fillFormArray();
+    }
   }
 
   fillFormArray() {
+    this.form.patchValue({
+      id: this.page.id
+    });
     this.form.value.descriptions.forEach((desc, index) => {
       this.page.descriptions.forEach((description) => {
         if (desc.language === description.language) {
@@ -112,15 +158,20 @@ export class StoreLandingPageComponent implements OnInit {
 
   save() {
     this.form.patchValue({ name: this.storageService.getMerchant() });
-    if (this.page.id) {
+    this.form.patchValue({ code: 'LANDING_PAGE' });
+    console.log(JSON.stringify(this.form.value));
+    return;
+    if (this.page && this.page.id) {
       this.storeService.updatePageContent(this.page.id, this.form.value)
         .subscribe(res => {
           this.toastrService.success(this.translate.instant('STORE_LANDING.PAGE_UPDATED'));
         });
     } else {
-      this.storeService.createPageContent(this.form.value)
+      JSON.stringify(this.form.value);
+      this.storeService.createPageContent(this.form.value, this.store.code)
         .subscribe(res => {
           this.toastrService.success(this.translate.instant('STORE_LANDING.PAGE_ADDED'));
+          this.router.navigate(['pages/store-management/store/', this.store.code]);
         });
     }
   }

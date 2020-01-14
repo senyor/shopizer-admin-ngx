@@ -28,7 +28,7 @@ import { ValidateNumberDirective } from './validation/validate-number.directive'
     ShowcaseDialogComponent,
     PaginatorComponent,
     BackButtonComponent,
-    ValidateNumberDirective,
+    ValidateNumberDirective
   ],
   imports: [
     CommonModule,

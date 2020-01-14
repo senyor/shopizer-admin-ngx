@@ -1,9 +1,11 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AuthGuard } from './pages/shared/guards/auth.guard';
+import {ErrorComponent} from '../app/@theme/components/error/error.component'
 
 const routes: Routes = [
   { path: 'auth', loadChildren: 'app/pages/auth/auth.module#AuthModule' },
+  { path: 'errorPage', component:  ErrorComponent },
   {
     path: 'pages',
     loadChildren: 'app/pages/pages.module#PagesModule',

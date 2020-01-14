@@ -85,7 +85,7 @@ export class UserFormComponent implements OnInit {
       this._user.groups.forEach((uGroup) => {
         if (uGroup['name'] === 'SUPERADMIN') {
           this.canRemove = false;
-          this.canEdit = false;
+          this.canEdit = true;
         }
       });
     }
@@ -162,6 +162,7 @@ export class UserFormComponent implements OnInit {
       userName: [''],
       emailAddress: ['', [Validators.required, Validators.email, Validators.pattern(this.emailPattern)]],
       password: ['', [Validators.required, Validators.pattern(this.pwdPattern)]],
+      //password: [''],
       active: [false],
       defaultLanguage: ['', [Validators.required]],
       groups: [[]],
@@ -208,17 +209,11 @@ export class UserFormComponent implements OnInit {
     (this.roles.isSuperadmin || this.roles.isRetailerAdmin) ?
       this.form.controls['store'].enable() : this.form.controls['store'].disable();
     this.cdr.detectChanges();
+    this.findInvalidControls();
   }
 
   save() {
-
-    //console.log("Current store " + this.form.value.store );
-    //if(this.user) {
-      //console.log("Current user store " + this.user.merchant );
-    //}
-
     var store = this.form.value.store;
-
     if (this.form.value.store === '' && (this.roles.isSuperadmin || this.roles.isRetailerAdmin)) {
       this.toastr.error(this.translate.instant('USER_FORM.STORE_REQUIRED'));
       return;
@@ -250,6 +245,7 @@ export class UserFormComponent implements OnInit {
           this.toastr.success(this.translate.instant('USER_FORM.USER_UPDATED'));
         });
     } else {
+      console.log(this.form.value);
       this.userService.createUser(this.form.value)
         .subscribe(res => {
           this.toastr.success(this.translate.instant('USER_FORM.USER_CREATED'));
@@ -260,7 +256,6 @@ export class UserFormComponent implements OnInit {
 
   remove() {
 
-
     var store = this.user.merchant;
 
     this.userService.deleteUser(this._user.id, store)
@@ -268,6 +263,18 @@ export class UserFormComponent implements OnInit {
         this.toastr.success(this.translate.instant('USER_FORM.USER_REMOVED'));
         this.router.navigate(['pages/user-management/users']);
       });
+  }
+
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.form.controls;
+    for (const name in controls) {
+        if (controls[name].invalid) {
+            invalid.push(name);
+        }
+    }
+    console.log('Invalid fields ' + invalid);
+    console.log('Form valid ' + this.form.invalid);
   }
 
   chooseMerchant(merchant) {

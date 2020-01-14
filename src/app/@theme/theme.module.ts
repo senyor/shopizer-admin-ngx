@@ -66,6 +66,7 @@ import {
 import { DEFAULT_THEME } from './styles/theme.default';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { TranslateModule } from '@ngx-translate/core';
+import { ErrorComponent } from './components/error/error.component';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -149,7 +150,7 @@ const NB_THEME_PROVIDERS = [
 @NgModule({
   imports: [...BASE_MODULES, ...NB_MODULES, TranslateModule],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
-  declarations: [...COMPONENTS, ...PIPES]
+  declarations: [...COMPONENTS, ...PIPES, ErrorComponent]
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders {
