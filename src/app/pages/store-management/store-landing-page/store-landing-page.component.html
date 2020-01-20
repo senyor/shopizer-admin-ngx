@@ -1,4 +1,5 @@
 <!--<ngx-back-button></ngx-back-button>-->
+<!--
 <nb-card size="small" class="page-card">
   <nb-card-header>
     {{ 'STORE.STORE_INFORMATION' | translate}}
@@ -7,6 +8,8 @@
     <span>
       {{ 'STORE.INFORMATION_TEXT' | translate}}
     </span>
+  -->
+  <!--
     <div *ngIf="loading" class="loading-block" [nbSpinner]="loading" nbSpinnerSize="large"
          nbSpinnerStatus="primary"></div>
     <div style="margin-top:10px;">
@@ -14,6 +17,25 @@
             <nb-option *ngFor="let item of sidemenuLinks" [value]="item.id" (click)="route(item.link)">{{ item.title }}</nb-option>
          </nb-select>
     </div>
+  -->
+  <nb-card size="small" class="page-card">
+      <div *ngIf="loading" class="loading-block" [nbSpinner]="loading" nbSpinnerSize="large" nbSpinnerStatus="primary"></div>
+      <nb-card-body *ngIf="!loading">
+      <div class="inner_pages_legacy">
+          <nb-card-header class="main_header">
+            <h1 class="page_title">{{ 'STORE.STORE_INFORMATION' | translate}}</h1>
+            <div class="content_spacing">
+                <nb-select [(selected)]="selectedItem" outline shape="rectangle">
+                  <nb-option *ngFor="let item of sidemenuLinks" [value]="item.id" (click)="route(item.link)">{{ item.title }}</nb-option>
+                </nb-select>
+            </div>
+  
+            <div class="content_spacing">
+  
+            </div>
+          
+          </nb-card-header>
+  
     <form *ngIf="!loading" [formGroup]='form'>
       <input type="hidden" class="form-control" id="code" formControlName='code'>
       <div class="form-group">
@@ -82,6 +104,7 @@
       </div>
 
     </form>
+  </div>
   </nb-card-body>
 </nb-card>
 

@@ -69,6 +69,12 @@
     "OPTIONS_VALUES_LIST": "Options values list",
     "CREATE_OPTION_VALUE": "Create option value",
 
+    "CONTENT": "Content",
+    "CONTENT_PAGES": "Pages",
+    "CONTENT_BOXES": "Boxes",
+    "CONTENT_IMAGES": "Images",
+    "CONTENT_FILES": "Files",
+
     "ORDERS": "Orders"
   },
   "LOGIN": {

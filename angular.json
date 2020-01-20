@@ -41,7 +41,9 @@
               "node_modules/summernote/dist/summernote-lite.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/nova-light/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css",
+              "node_modules/ngx-lightbox/lightbox.css"
             ],
             "scripts": [
               "node_modules/pace-js/pace.min.js",
@@ -54,7 +56,8 @@
               "node_modules/echarts/dist/extension/bmap.min.js",
               "node_modules/chart.js/dist/Chart.min.js",
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/summernote/dist/summernote-lite.js"
+              "node_modules/summernote/dist/summernote-lite.js",
+              "node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"
             ]
           },
           "configurations": {

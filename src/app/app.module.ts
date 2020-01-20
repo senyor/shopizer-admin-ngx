@@ -22,10 +22,11 @@ import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { NbMomentDateModule } from '@nebular/moment';
 import { GlobalHttpInterceptorService } from './pages/shared/interceptors/globalError.interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { ImageBrowserComponent } from './@theme/components/image-browser/image-browser.component';
 import { ErrorsHandler } from './pages/shared/classes/error-handler/errors-handler';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ImageBrowserComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

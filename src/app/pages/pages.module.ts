@@ -7,7 +7,6 @@ import { SharedModule } from './shared/shared.module';
 @NgModule({
   imports: [
     PagesRoutingModule,
-
     SharedModule
   ],
   declarations: [

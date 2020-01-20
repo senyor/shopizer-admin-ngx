@@ -299,6 +299,103 @@ export const MENU_ITEMS: MenuItem[] = [
       },
     ],
   },
+  {
+    title: 'COMPONENTS.CONTENT',
+    key: 'COMPONENTS.CONTENT',
+    icon: 'fas fa-edit',
+    children: [
+      {
+        title: 'COMPONENTS.CONTENT_PAGES',
+        key: 'COMPONENTS.CONTENT_PAGES',
+        link: '/pages/content/pages/list',
+      },
+      {
+        title: 'COMPONENTS.CONTENT_BOXES',
+        key: 'COMPONENTS.CONTENT_BOXES',
+        link: '/pages/content/boxes/list',
+      },
+      {
+        title: 'COMPONENTS.CONTENT_IMAGES',
+        key: 'COMPONENTS.CONTENT_IMAGES',
+        link: '/pages/content/images/list',
+      },
+      {
+        title: 'COMPONENTS.CONTENT_FILES',
+        key: 'COMPONENTS.CONTENT_FILES',
+        link: '/pages/content/files/list',
+      },
+      // {
+      //   title: 'Promotion',
+      //   key: 'sideNav.managecontent',
+      //   link: '/pages/content/promotion',
+      //   // link: '/pages/forms/datepicker',
+      // },
+    ],
+  },
+  {
+    title: 'Shipping',
+    key: 'sideNav.shipping',
+    icon: 'fas fa-truck',
+    children: [
+      {
+        title: 'Configuration',
+        key: 'sideNav.configuration',
+        link: '/pages/shipping/config',
+      },
+      {
+        title: 'Methods',
+        key: 'sideNav.methods',
+        link: '/pages/content/promotion',
+      },
+      {
+        title: 'Origin',
+        key: 'sideNav.origin',
+        link: '/pages/shipping/config',
+      },
+      // {
+      //   title: 'Options',
+      //   key: 'sideNav.options',
+      //   link: '/pages/shipping/config',
+      // },
+      // {
+      //   title: 'Packaging',
+      //   key: 'sideNav.packaging',
+      //   link: '/pages/shipping/config',
+      // }
+    ]
+  },
+  // {
+  //   title: 'Payment',
+  //   // icon: 'fas fa-shopping-cart',
+  //   link: '',
+  // },
+  {
+    title: 'Customers',
+    key: 'sideNav.customers',
+    icon: 'fas fa-users',
+    children: [
+      {
+        title: 'Customer List',
+        key: 'sideNav.customerList',
+        link: '/pages/customer/list',
+      },
+      {
+        title: 'Options',
+        key: 'sideNav.options',
+        link: '/pages/customer/option/list',
+      },
+      {
+        title: 'Options Value',
+        key: 'sideNav.optionValue',
+        link: '/pages/customer/value/list',
+      },
+      {
+        title: 'Manage Options',
+        key: 'sideNav.manageoptions',
+        link: '/pages/customer/manage/list',
+      }
+    ]
+  },
   // {
   //   title: 'Shipping',
   //   // icon: 'fas fa-shopping-cart',
