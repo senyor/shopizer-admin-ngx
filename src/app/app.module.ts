@@ -23,7 +23,7 @@ import { NbMomentDateModule } from '@nebular/moment';
 import { GlobalHttpInterceptorService } from './pages/shared/interceptors/globalError.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { ImageBrowserComponent } from './@theme/components/image-browser/image-browser.component';
-import { ErrorsHandler } from './pages/shared/classes/error-handler/errors-handler';
+import { GlobalErrorHandler } from './pages/shared/classes/error-handler/global-error-handler';
 
 @NgModule({
   declarations: [AppComponent, ImageBrowserComponent],
@@ -59,7 +59,7 @@ import { ErrorsHandler } from './pages/shared/classes/error-handler/errors-handl
     },
     {
       provide: ErrorHandler,
-      useClass: ErrorsHandler,
+      useClass: GlobalErrorHandler,
     },
     {
       provide: HTTP_INTERCEPTORS,

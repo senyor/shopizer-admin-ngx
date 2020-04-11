@@ -1,7 +1,5 @@
 /**
  * @license
- * Copyright Akveo. All Rights Reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 // The file contents for the current environment will overwrite these during build.
 // The build system defaults to the dev environment which uses `environment.ts`, but if you do
@@ -18,6 +16,7 @@ export const environment = {
       default: 'en',
       array: [
         'en',
+        'es',
         'fr',
         'ru'
       ],

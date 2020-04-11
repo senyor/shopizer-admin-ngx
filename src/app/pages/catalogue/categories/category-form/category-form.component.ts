@@ -6,6 +6,8 @@ import { CategoryService } from '../services/category.service';
 import { ConfigService } from '../../../shared/services/config.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { StoreService } from '../../../store-management/services/store.service';
+import { StorageService } from '../../../shared/services/storage.service';
 import { validators } from '../../../shared/validation/validators';
 import { slugify } from '../../../shared/utils/slugifying';
 
@@ -19,6 +21,10 @@ export class CategoryFormComponent implements OnInit {
   form: FormGroup;
   roots = [];
   languages = [];
+  stores = [];
+  isSuperAdmin = false;
+  roles;
+  merchant;
   config = {
     placeholder: '',
     tabsize: 2,
@@ -41,14 +47,29 @@ export class CategoryFormComponent implements OnInit {
     private fb: FormBuilder,
     private categoryService: CategoryService,
     private configService: ConfigService,
+    private storeService: StoreService,
+    private storageService: StorageService,
     private cdr: ChangeDetectorRef,
     private router: Router,
     private toastr: ToastrService,
     private translate: TranslateService
   ) {
+    this.roles = JSON.parse(localStorage.getItem('roles'));
   }
 
   ngOnInit() {
+
+    this.isSuperAdmin = this.roles.isSuperadmin;
+    //console.log('Is superAdmin ' + this.isSuperAdmin);
+
+
+    this.merchant = this.storageService.getMerchant();
+    this.storeService.getListOfMerchantStoreNames()
+    .subscribe(res => {
+       this.stores = res;
+    });
+
+
     this.categoryService.getListOfCategories()
       .subscribe(res => {
         res.categories.push({ id: 0, code: 'root' });
@@ -72,17 +93,22 @@ export class CategoryFormComponent implements OnInit {
         }
         this.loader = false;
       });
+
   }
 
   private createForm() {
     this.form = this.fb.group({
       parent: ['root', [Validators.required]],
+      store: [this.merchant],
       visible: [false],
       code: ['', [Validators.required, Validators.pattern(validators.alphanumeric)]],
       sortOrder: [0, [Validators.required, Validators.pattern(validators.number)]],
       selectedLanguage: ['', [Validators.required]],
       descriptions: this.fb.array([]),
     });
+    if(!this.isSuperAdmin) {
+      this.form.get("store").disable();
+    }
   }
 
   addFormArray() {
@@ -106,6 +132,7 @@ export class CategoryFormComponent implements OnInit {
   fillForm() {
     this.form.patchValue({
       parent: this.category.parent === null ? 'root' : this.category.parent.code,
+      store: this.category.store,
       visible: this.category.visible,
       code: this.category.code,
       sortOrder: this.category.sortOrder,
@@ -170,6 +197,10 @@ export class CategoryFormComponent implements OnInit {
 
   save() {
     const categoryObject = this.prepareSaveData();
+
+    if(!this.isSuperAdmin) {
+      this.form.patchValue({ store: this.merchant });
+    }
 
     const tmpObj = {
       name: '',

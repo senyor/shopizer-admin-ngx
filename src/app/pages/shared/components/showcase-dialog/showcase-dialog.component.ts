@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-showcase-dialog',
@@ -9,8 +10,11 @@ import { NbDialogRef } from '@nebular/theme';
 export class ShowcaseDialogComponent {
 
   @Input() title: string;
+  @Input() text: string;
+  @Input() actionText: string = this.translate.instant('COMMON.REMOVE_GEN_QUESTION');
 
-  constructor(protected ref: NbDialogRef<ShowcaseDialogComponent>) {}
+  constructor(protected ref: NbDialogRef<ShowcaseDialogComponent>, private translate: TranslateService,) {}
+
 
   dismiss() {
     this.ref.close();

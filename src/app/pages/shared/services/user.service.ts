@@ -43,6 +43,10 @@ export class UserService {
     return this.crudService.get(`/v1/store/${storeCode}`);
   }
 
+  updateUserEnabled(user): Observable<any> {
+    return this.crudService.patch(`/v1/private/user/${user.id}/enabled`, user);
+  }
+
   // check roles for access to order page
   checkForAccess(array) {
     roles.forEach(role => {

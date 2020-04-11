@@ -5,8 +5,4 @@ export class Country {
       public name: string,
       public zones: []
     ) { }
-   //id: number;
-   //code: string;
-   //name: string;
-   //zones: [];
 }

@@ -38,7 +38,6 @@ export class CountryService {
     **/
 
    let countryUrl = this.url+`/v1/country?lang=` + lang;
-   console.log(countryUrl);
 
    return this.http.get(countryUrl) 
    .map(res => res.json())

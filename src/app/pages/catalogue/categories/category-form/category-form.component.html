@@ -11,6 +11,18 @@
     </div>
   </div>
 
+  
+  <div class="form-group">
+      <label class="col-sm-3 col-form-label">{{ 'STORE.MERCHANT_STORE' | translate }} *</label>
+      <div class="col-sm-12">
+        <nb-select *ngIf="stores.length" placeholder="{{ 'STORE.MERCHANT_STORE' | translate }}" formControlName='store' outline
+                   shape="rectangle">
+          <nb-option *ngFor="let store of stores" [value]="store.code">{{ store.code }}</nb-option>
+        </nb-select>
+      </div>
+  </div>
+
+
   <div class="form-group">
     <div class="col-sm-12 group-block">
       <nb-checkbox status="success" formControlName='visible'>
@@ -51,7 +63,7 @@
     <div class="col-sm-12">
       <nb-select *ngIf="languages.length" placeholder="{{ 'COMMON.LANGUAGE' | translate}}" outline shape="rectangle"
                  formControlName='selectedLanguage'>
-        <nb-option *ngFor="let language of languages" [value]="language.code">{{ language.code }}</nb-option>
+        <nb-option *ngFor="let language of languages" [value]="language.code">{{ ('LANG.'+language.code) | translate }}</nb-option>
       </nb-select>
     </div>
   </div>

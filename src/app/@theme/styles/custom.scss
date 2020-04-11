@@ -400,6 +400,10 @@ nb-menu {
       }
     }
 
+    .content_spacing_empty {
+      height:60px;
+    }
+
   }
 }  
 
@@ -743,4 +747,13 @@ nb-menu {
 .nb-theme-corporate nb-card.select.primary nb-option.selected,
 .nb-theme-corporate nb-card.select.primary nb-option:hover {
   background-color: #0088cc;
+}
+
+/** category hierarchy **/
+.node-content-wrapper {
+ font-size:20px !important;
+}
+
+.pointer {
+  cursor: pointer;
 }

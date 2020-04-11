@@ -150,7 +150,7 @@ export const MENU_ITEMS: MenuItem[] = [
     key: 'COMPONENTS.CATALOGUE',
     icon: 'fas fa-tags',
     hidden: false,
-    guards: [IsSuperadmin, IsAdminRetail, IsAdminStore, IsAdminCatalogue],
+    guards: [IsSuperadmin, IsAdmin, IsAdminRetail, IsAdminStore, IsAdminCatalogue],
     children: [
       {
         title: 'COMPONENTS.CATEGORIES',
@@ -159,15 +159,15 @@ export const MENU_ITEMS: MenuItem[] = [
         guards: [IsSuperadmin, IsAdmin, IsAdminCatalogue],
         children: [
           {
-            title: 'COMPONENTS.CREATE_CATEGORY',
-            key: 'COMPONENTS.CREATE_CATEGORY',
-            link: '/pages/catalogue/categories/create-category',
-            hidden: false
-          },
-          {
             title: 'COMPONENTS.CATEGORIES_LIST',
             key: 'COMPONENTS.CATEGORIES_LIST',
             link: '/pages/catalogue/categories/categories-list',
+            hidden: false
+          },
+          {
+            title: 'COMPONENTS.CREATE_CATEGORY',
+            key: 'COMPONENTS.CREATE_CATEGORY',
+            link: '/pages/catalogue/categories/create-category',
             hidden: false
           },
           {

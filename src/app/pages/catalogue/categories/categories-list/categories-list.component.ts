@@ -27,6 +27,7 @@ export class CategoriesListComponent implements OnInit {
   perPage = 10;
   currentPage = 1;
   totalCount;
+  roles;
 
   // request params
   params = {
@@ -48,6 +49,7 @@ export class CategoriesListComponent implements OnInit {
     private productService: ProductService,
     private storageService: StorageService
   ) {
+    this.roles = JSON.parse(localStorage.getItem('roles'));
   }
 
   ngOnInit() {
@@ -77,6 +79,7 @@ export class CategoriesListComponent implements OnInit {
 
   getList() {
     this.categories = [];
+
     this.params.page = this.currentPage - 1;
     this.loadingList = true;
     this.categoryService.getListOfCategories(this.params)
@@ -101,7 +104,7 @@ export class CategoriesListComponent implements OnInit {
         position: 'right',
         sort: true,
         custom: [
-          { name: 'details', title: `${this.translate.instant('COMMON.EDIT')}` },
+          { name: 'details', title: '<i class="nb-edit"></i>' },
           { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
         ],
       },
@@ -113,6 +116,10 @@ export class CategoriesListComponent implements OnInit {
           filter: false,
           title: this.translate.instant('COMMON.ID'),
           type: 'number',
+        },
+        store: {
+          title: this.translate.instant('STORE.MERCHANT_STORE'),
+          type: 'string',
         },
         description: {
           title: this.translate.instant('CATEGORY.CATEGORY_NAME'),

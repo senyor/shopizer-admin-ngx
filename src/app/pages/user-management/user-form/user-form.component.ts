@@ -36,6 +36,8 @@ export class UserFormComponent implements OnInit {
   emailPattern = '^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$';
   stores = [];
   tree: UrlTree;
+  store = null;
+
   // user's roles
   roles;
   // rules for user's group
@@ -53,7 +55,7 @@ export class UserFormComponent implements OnInit {
       ]
     }
   };
-  isEmailUnique = true;
+  isEmaillUnique = true;
   loader = false;
 
   constructor(
@@ -96,15 +98,8 @@ export class UserFormComponent implements OnInit {
     
     this.loader = true;
     this.createForm();
-    //path analysis
-    //console.log(this.router.url);
-    //this.tree = this.router.parseUrl(this.router.url);
-    //const g: UrlSegmentGroup = this.tree.root.children[PRIMARY_OUTLET];
-    //const s: UrlSegment[] = g.segments;
-    //s.forEach(segment => {
-    //  console.log(segment.path);
-    //});
-    this.storageService.getMerchant();
+
+    this.store = this.storageService.getMerchant();
     const languages = this.configService.getMerchantListOfSupportedLanguages();
     const groups$ = this.configService.getListOfGroups();
     const stores$ = this.storeService.getListOfMerchantStoreNames();
@@ -113,8 +108,8 @@ export class UserFormComponent implements OnInit {
       this.languages = [...languages];
       // fill store
       this.stores = [...stores];
-      const uStore = this.stores.find((store) => store.code === this.form.value.store);
-      this.chooseMerchant(uStore);
+      //const uStore = this.stores.find((this.store) => store.code === this.form.value.store);
+      this.chooseMerchant(this.store);
       // fill groups
       groups.forEach((el) => {
         el.checked = false;
@@ -139,10 +134,12 @@ export class UserFormComponent implements OnInit {
             if(group.name === 'SUPERADMIN') {
               group.disabled = true;
             }
+            //check this group if usr has it
             if (uGroup['name'] === group.name) {
               group.checked = true;
               group.disabled = false;
             }
+            //self can't edit its groups
             if(this.selfEdit) {//self cannot edit its own group
               group.disabled = true;
             }
@@ -162,7 +159,6 @@ export class UserFormComponent implements OnInit {
       userName: [''],
       emailAddress: ['', [Validators.required, Validators.email, Validators.pattern(this.emailPattern)]],
       password: ['', [Validators.required, Validators.pattern(this.pwdPattern)]],
-      //password: [''],
       active: [false],
       defaultLanguage: ['', [Validators.required]],
       groups: [[]],
@@ -223,7 +219,7 @@ export class UserFormComponent implements OnInit {
       store = this.user.merchant;
     }
 
-    if (!this.isEmailUnique) {
+    if (!this.isEmaillUnique) {
       this.toastr.error(this.translate.instant('USER_FORM.EMAIL_EXISTS'));
       return;
     }
@@ -273,13 +269,16 @@ export class UserFormComponent implements OnInit {
             invalid.push(name);
         }
     }
-    console.log('Invalid fields ' + invalid);
-    console.log('Form valid ' + this.form.invalid);
+    //console.log('Invalid fields ' + invalid);
+    //console.log('Form valid ' + this.form.invalid);
   }
 
   chooseMerchant(merchant) {
-    const role = (merchant && merchant.retailer) ? 'ADMIN_RETAIL' : 'ADMIN_STORE';
-    this.checkRules(role);
+    this.store = merchant;
+    //console.log('Selected merchant ' + merchant.code);
+    //console.log('Is merchant retailer ? ' + merchant.retailer);
+    //const role = (merchant && merchant.retailer) ? 'ADMIN_RETAIL' : 'ADMIN_STORE';
+    //this.checkRules(role);
   }
 
   checkEmail(event) {
@@ -289,18 +288,18 @@ export class UserFormComponent implements OnInit {
       this.userService.checkIfUserExist({ unique: email, merchant: store })
         .subscribe(res => {
           if (this._user && this._user.emailAddress === email) {
-            this.isEmailUnique = true;
+            this.isEmaillUnique = true;
           } else {
-            this.isEmailUnique = !res.exists;
+            this.isEmaillUnique = !res.exists;
           }
         });
     } else {
-      this.isEmailUnique = true;
+      this.isEmaillUnique = true;
     }
   }
 
   checkRules(role) {
-    //console.log('Role name ' + role);
+    console.log('Role name ' + role);
     if (this.rules[role].rules.length !== 0) {
       this.rules[role].rules.forEach((el) => {
         this.groups.forEach((group) => {

@@ -1,21 +1,27 @@
-import { ErrorHandler, Injectable, Injector} from '@angular/core';
+import { ErrorHandler, Injectable, Injector, NgZone} from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 
 @Injectable()
-export class ErrorsHandler implements ErrorHandler {
+export class GlobalErrorHandler implements ErrorHandler {
 
     constructor(
         private injector: Injector,
-        private authService: AuthService
+        private authService: AuthService,
+        private zone: NgZone
         ) { }
 
     handleError(error: Error) {
         // Do whatever you like with the error (send it to the server?)
         // And log it to the console
 
-        const router = this.injector.get(Router);
+        //let router = this.injector.get(Router);
+        //console.log('URL: ' + this.router.url);
+
+        //this.router.navigate(['/rerrorPage'], { relativeTo: this.route });
+        //this.zone.run(() => router.navigateByUrl('/errorPage'));
+        //router.navigate(['/errorPage'])
         
 
         if (error instanceof HttpErrorResponse) {
@@ -28,7 +34,12 @@ export class ErrorsHandler implements ErrorHandler {
               console.log('Error status ' + error.status);
               if(error.status === 401) {
                 this.authService.logout();
-                router.navigate(['/auth']);
+                //router.navigate(['/auth']);
+                //this.zone.run(() => router.navigate(['/auth']));
+              } else if(error.status === 404) {
+
+              } else if(error.status === 0) {
+                  window.location.href = '/assets/static/error.html';
               }
             }
          } else {
@@ -36,8 +47,8 @@ export class ErrorsHandler implements ErrorHandler {
          }
 
 
-        console.log('Error occured: ', error);
-        //router.navigate(['/error']);
+
+        //console.log('Error occured: ', error);
         //router.navigate(['/errorPage']);
      }
 }

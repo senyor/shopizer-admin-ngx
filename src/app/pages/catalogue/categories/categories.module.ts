@@ -26,9 +26,7 @@ import { TreeModule } from 'angular-tree-component';
   ],
   imports: [
     CategoriesRoutingModule,
-
     SharedModule,
-
     NgxSummernoteModule,
     NbDialogModule.forChild(),
     TreeModule

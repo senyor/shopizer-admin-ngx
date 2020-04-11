@@ -47,7 +47,7 @@
       <div class="wrapper" (click)='imageInput.click()' (drop)="drop($event)" (dragover)="allowDrop($event)">
         <div id="imageDrop" #imageDrop>
 
-          <img *ngIf="logo" [src]="logo?.path" height="200"/>
+          <img *ngIf="logo" [src]="logo?.path" style="max-height:200;"/>
 
         </div>
         <div class="uploadingPhrase">{{ 'STORE_BRANDING.DROP_FILE' | translate}}</div>

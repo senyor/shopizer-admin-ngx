@@ -64,7 +64,6 @@ export class StoreBrandingComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    //this.storeCode = localStorage.getItem('merchant');
     const code = this.activatedRoute.snapshot.paramMap.get('code');
     
     forkJoin(
@@ -73,13 +72,13 @@ export class StoreBrandingComponent implements OnInit {
     )
     .subscribe(([st]) => {
       this.store = st;
-      /**
-      this.logo = res.logo;
+
+      this.logo = this.store.logo;
       if (this.logo) {
         this.showRemoveButton = true;
       }
-      this.fillForm(res.socialNetworks);
-      **/
+      //this.fillForm(res.socialNetworks);
+      
       this.loading = false;
     });
 

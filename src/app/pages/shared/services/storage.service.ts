@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { UserService } from './user.service';
 import { environment } from '../../../../environments/environment';
-import {Language} from '../models/Language';
+import { Language } from '../models/Language';
 
 @Injectable({
   providedIn: 'root'

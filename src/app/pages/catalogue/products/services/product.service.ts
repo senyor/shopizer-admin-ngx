@@ -34,7 +34,7 @@ export class ProductService {
     const params = {
       lang: '_all'
     };
-    return this.crudService.get(`/v1/product/${id}`, params);
+    return this.crudService.get(`/v1/products/${id}`, params);
   }
 
   createProduct(product): Observable<any> {
