@@ -16,6 +16,7 @@ import { StoreBrandingComponent } from './store-branding/store-branding.componen
 import { RetailerComponent } from './retailer/retailer.component';
 import { RetailerListComponent } from './retailer-list/retailer-list.component';
 import { RetailerStoresComponent } from './retailer-stores/retailer-stores.component';
+import { NbDialogModule } from '@nebular/theme';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { RetailerStoresComponent } from './retailer-stores/retailer-stores.compo
     }),
 
     SharedModule,
-
+    NbDialogModule.forChild(),
     NgxSummernoteModule
   ]
 })

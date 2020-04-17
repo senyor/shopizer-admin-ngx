@@ -8,6 +8,7 @@ import { User } from '../../shared/models/user';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { StoreService } from '../../store-management/services/store.service';
+import { SecurityService } from '../../shared/services/security.service';
 import { StorageService } from '../../shared/services/storage.service';
 import { forkJoin } from 'rxjs';
 
@@ -18,6 +19,7 @@ import { forkJoin } from 'rxjs';
 })
 export class UserFormComponent implements OnInit {
   form: FormGroup;
+  
   private _user: User;
 
   @Input()
@@ -37,6 +39,7 @@ export class UserFormComponent implements OnInit {
   stores = [];
   tree: UrlTree;
   store = null;
+  isEmailUnique = true;
 
   // user's roles
   roles;
@@ -64,6 +67,7 @@ export class UserFormComponent implements OnInit {
     private userService: UserService,
     private storeService: StoreService,
     private storageService: StorageService,
+    private securityService: SecurityService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
@@ -102,20 +106,52 @@ export class UserFormComponent implements OnInit {
     this.store = this.storageService.getMerchant();
     const languages = this.configService.getMerchantListOfSupportedLanguages();
     const groups$ = this.configService.getListOfGroups();
-    const stores$ = this.storeService.getListOfMerchantStoreNames();
+    const stores$ = this.storeService.getListOfMerchantStoreNames({'store':this.store});
     forkJoin(groups$, stores$).subscribe(([groups, stores]) => {
       // fill languages
       this.languages = [...languages];
-      // fill store
+
+      //current store
+      //console.log('Current store -> ' + this.store);
+      //*br1* only superadmin and retailer admin can see all stores
+      //*br2* if store has child, can view childs also when not superadmin
+
+      // fill stores
       this.stores = [...stores];
+
+      //console.log('List stores -> ' + JSON.stringify(this.stores));
+
+      //from the list select current store
+      let uStore = this.stores.find(s => s.code === this.store);
+      //console.log('Selected store -> ' + uStore.code);
+
       //const uStore = this.stores.find((this.store) => store.code === this.form.value.store);
       this.chooseMerchant(this.store);
+      //*br2* not activated
+
+      //console.log(this.roles);
+      
+      (this.roles.isSuperadmin || this.roles.isAdminRetail) ?
+      this.form.controls['store'].enable() : this.form.controls['store'].disable();
+      
+      
       // fill groups
       groups.forEach((el) => {
         el.checked = false;
         el.disabled = false;
         if(el.name === 'SUPERADMIN') {
           el.disabled = true;
+        }
+        if(el.name === 'ADMIN_RETAIL') {
+          if(!this.securityService.isRetailAdmin()) {
+            el.disabled = true;
+          }
+        }
+
+        if(el.name === 'ADMIN') {
+          if(!this.securityService.isAnAdmin) {
+            el.disabled = true;
+          }
         }
 
       });
@@ -210,6 +246,9 @@ export class UserFormComponent implements OnInit {
 
   save() {
     var store = this.form.value.store;
+    if(!store) {
+      store = this.store;
+    }
     if (this.form.value.store === '' && (this.roles.isSuperadmin || this.roles.isRetailerAdmin)) {
       this.toastr.error(this.translate.instant('USER_FORM.STORE_REQUIRED'));
       return;
@@ -242,7 +281,7 @@ export class UserFormComponent implements OnInit {
         });
     } else {
       console.log(this.form.value);
-      this.userService.createUser(this.form.value)
+      this.userService.createUser(this.form.value, store)
         .subscribe(res => {
           this.toastr.success(this.translate.instant('USER_FORM.USER_CREATED'));
           this.router.navigate(['pages/user-management/users']);
@@ -275,9 +314,6 @@ export class UserFormComponent implements OnInit {
 
   chooseMerchant(merchant) {
     this.store = merchant;
-    //console.log('Selected merchant ' + merchant.code);
-    //console.log('Is merchant retailer ? ' + merchant.retailer);
-    //const role = (merchant && merchant.retailer) ? 'ADMIN_RETAIL' : 'ADMIN_STORE';
     //this.checkRules(role);
   }
 

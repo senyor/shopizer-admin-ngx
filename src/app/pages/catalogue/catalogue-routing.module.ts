@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CatalogueComponent } from './catalogue.component';
-import { SuperAdminCatalogueGuard } from '../shared/guards/super-admin-catalogue.guard';
+import { MarketplaceGuard } from '../shared/guards/marketplace.guard';
 
 const routes: Routes = [{
   path: '',
@@ -10,7 +10,7 @@ const routes: Routes = [{
   children: [
     {
       path: 'categories',
-      canActivate: [SuperAdminCatalogueGuard],
+      //canActivate: [MarketplaceGuard],
       loadChildren: 'app/pages/catalogue/categories/categories.module#CategoriesModule'
     },
     {
@@ -19,7 +19,6 @@ const routes: Routes = [{
     },
     {
       path: 'brands',
-      canActivate: [SuperAdminCatalogueGuard],
       loadChildren: 'app/pages/catalogue/brands/brands.module#BrandsModule'
     },
     {

@@ -58,7 +58,7 @@ export class UsersListComponent implements OnInit {
   }
 
   getList() {
-
+    console.log('Getting list');
     this.params.page = this.currentPage - 1;
     this.loadingList = true;
     this.userService.getUsersList(this.storageService.getMerchant(), this.params)
@@ -237,9 +237,6 @@ export class UsersListComponent implements OnInit {
     **/
 
     this.searchValue = query;
-
-
-
 
   }
 

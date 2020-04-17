@@ -88,8 +88,11 @@ export class UserService {
     return this.crudService.get(`/v1/private/users`, params);
   }
 
-  createUser(user): Observable<any> {
-    return this.crudService.post(`/v1/private/user/`, user);
+  createUser(user : any, store: any): Observable<any> {
+    const params = {
+      'store': store
+    };
+    return this.crudService.post(`/v1/private/user/`, user, { params });
   }
 
   updateUser(id: any, user: any, store: any): Observable<any> {

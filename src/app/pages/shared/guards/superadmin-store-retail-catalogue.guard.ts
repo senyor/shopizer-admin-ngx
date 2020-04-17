@@ -18,7 +18,7 @@ export class SuperadminStoreRetailCatalogueGuard implements CanActivate {
     Observable<boolean> | Promise<boolean> | boolean {
 
     const roles = JSON.parse(localStorage.getItem('roles'));
-
+    console.log('7');
     if (roles.isSuperadmin ||
       roles.isAdminCatalogue ||
       roles.isAdminRetail ||

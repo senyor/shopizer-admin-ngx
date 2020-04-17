@@ -64,7 +64,7 @@ export class CategoryFormComponent implements OnInit {
 
 
     this.merchant = this.storageService.getMerchant();
-    this.storeService.getListOfMerchantStoreNames()
+    this.storeService.getListOfMerchantStoreNames({'store':''})
     .subscribe(res => {
        this.stores = res;
     });

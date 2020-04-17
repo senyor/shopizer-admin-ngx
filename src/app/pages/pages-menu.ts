@@ -1,5 +1,13 @@
 import { MenuItem } from './menu-item';
 
+/**
+ * Security
+ * superadmin
+ * adminretail
+ * admin
+ * other admins
+ */
+
 const IsAccessToOrder = () => {
   return (JSON.parse(localStorage.getItem('roles'))).canAccessToOrder;
 };
@@ -9,7 +17,16 @@ const IsSuperadmin = () => {
 };
 
 const IsAdmin = () => {
-  return (JSON.parse(localStorage.getItem('roles'))).isAdmin;
+  //return (JSON.parse(localStorage.getItem('roles'))).isAdmin;
+  if(
+    (JSON.parse(localStorage.getItem('roles'))).isSuperadmin ||
+    (JSON.parse(localStorage.getItem('roles'))).isAdmin ||
+    (JSON.parse(localStorage.getItem('roles'))).isAdminRetail
+  ) {
+    return true;
+  } else  {
+    return false;
+  }
 };
 
 const IsAdminCatalogue = () => {
@@ -33,7 +50,15 @@ const IsCustomer = () => {
 };
 
 const IsAdminRetail = () => {
-  return (JSON.parse(localStorage.getItem('roles'))).isAdminRetail;
+  //return (JSON.parse(localStorage.getItem('roles'))).isAdminRetail;
+  if(
+    (JSON.parse(localStorage.getItem('roles'))).isSuperadmin ||
+    (JSON.parse(localStorage.getItem('roles'))).isAdminRetail
+  ) {
+    return true;
+  } else  {
+    return false;
+  }
 };
 
 export const MENU_ITEMS: MenuItem[] = [
@@ -73,7 +98,7 @@ export const MENU_ITEMS: MenuItem[] = [
         key: 'COMPONENTS.USER_LIST',
         link: '/pages/user-management/users',
         hidden: false,
-        guards: [IsSuperadmin, IsAdmin]
+        guards: [IsSuperadmin, IsAdminRetail]
       },
     ],
   },
@@ -97,52 +122,15 @@ export const MENU_ITEMS: MenuItem[] = [
         key: 'COMPONENTS.STORES_LIST',
         link: '/pages/store-management/stores-list',
         hidden: false,
-        guards: [IsSuperadmin, IsAdmin]
+        guards: [IsSuperadmin, IsAdminRetail]
       },
       {
         title: 'COMPONENTS.CREATE_STORE',
         key: 'COMPONENTS.CREATE_STORE',
         link: '/pages/store-management/create-store',
         hidden: false,
-        guards: [IsSuperadmin, IsAdmin, IsAdminRetail]
-      },
-      /**
-      {
-        title: 'COMPONENTS.RETAILER',
-        key: 'COMPONENTS.RETAILER',
-        link: '/pages/store-management/retailer',
-        hidden: false,
-        guards: [IsSuperadmin, IsAdmin, IsAdminRetail]
-      },
-      {
-        title: 'COMPONENTS.STORE',
-        key: 'COMPONENTS.STORE',
-        link: '/pages/store-management/store',
-        hidden: false,
-        guards: [IsSuperadmin, IsAdmin, IsAdminRetail, IsAdminStore]
-      },
-      {
-        title: 'COMPONENTS.RETAILER_LIST',
-        key: 'COMPONENTS.RETAILER_LIST',
-        link: '/pages/store-management/retailer-list',
-        hidden: false,
-        guards: [IsSuperadmin, IsAdmin]
-      },
-      {
-        title: 'COMPONENTS.STORES_LIST',
-        key: 'COMPONENTS.STORES_LIST',
-        link: '/pages/store-management/stores-list',
-        hidden: false,
-        guards: [IsSuperadmin, IsAdmin]
-      },
-      {
-        title: 'COMPONENTS.CREATE_STORE',
-        key: 'COMPONENTS.CREATE_STORE',
-        link: '/pages/store-management/create-store',
-        hidden: false,
-        guards: [IsSuperadmin, IsAdmin, IsAdminRetail]
-      },
-      **/
+        guards: [IsSuperadmin, IsAdminRetail]
+      }
     ],
   },
   {
@@ -156,25 +144,28 @@ export const MENU_ITEMS: MenuItem[] = [
         title: 'COMPONENTS.CATEGORIES',
         key: 'COMPONENTS.CATEGORIES',
         hidden: false,
-        guards: [IsSuperadmin, IsAdmin, IsAdminCatalogue],
+        guards: [IsAdminRetail],
         children: [
           {
             title: 'COMPONENTS.CATEGORIES_LIST',
             key: 'COMPONENTS.CATEGORIES_LIST',
             link: '/pages/catalogue/categories/categories-list',
-            hidden: false
+            hidden: false,
+            guards: [IsAdminRetail],
           },
           {
             title: 'COMPONENTS.CREATE_CATEGORY',
             key: 'COMPONENTS.CREATE_CATEGORY',
             link: '/pages/catalogue/categories/create-category',
-            hidden: false
+            hidden: false,
+            guards: [IsAdminRetail],
           },
           {
             title: 'COMPONENTS.CATEGORIES_HIERARCHY',
             key: 'COMPONENTS.CATEGORIES_HIERARCHY',
             link: '/pages/catalogue/categories/categories-hierarchy',
-            hidden: false
+            hidden: false,
+            guards: [IsAdminRetail],
           },
         ],
       },
@@ -182,6 +173,7 @@ export const MENU_ITEMS: MenuItem[] = [
         title: 'COMPONENTS.PRODUCTS',
         key: 'COMPONENTS.PRODUCTS',
         hidden: false,
+        guards: [IsSuperadmin, IsAdmin, IsAdminRetail, IsAdminCatalogue],
         children: [
           {
             title: 'COMPONENTS.CREATE_PRODUCT',
@@ -195,12 +187,12 @@ export const MENU_ITEMS: MenuItem[] = [
             link: '/pages/catalogue/products/products-list',
             hidden: false
           },
-          // {
-          //   title: 'COMPONENTS.MANAGE_INVENTORY',
-          //   key: 'COMPONENTS.MANAGE_INVENTORY',
-          //   link: '/pages/catalogue/products/manage-inventory',
-          //   hidden: false
-          // },
+          {
+             title: 'COMPONENTS.MANAGE_INVENTORY',
+             key: 'COMPONENTS.MANAGE_INVENTORY',
+             link: '/pages/catalogue/products/manage-inventory',
+             hidden: false
+           },
         ],
       },
       {

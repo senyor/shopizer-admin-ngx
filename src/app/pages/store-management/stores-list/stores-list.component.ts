@@ -4,6 +4,12 @@ import { Router } from '@angular/router';
 import { StoreService } from '../services/store.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { TranslateService } from '@ngx-translate/core';
+import { SecurityService } from '../../shared/services/security.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { StorageService } from '../../shared/services/storage.service';
+import { NbDialogService } from '@nebular/theme';
+import { ToastrService } from 'ngx-toastr';
+import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
 
 @Component({
   selector: 'ngx-stores-list',
@@ -20,30 +26,47 @@ export class StoresListComponent implements OnInit {
   currentPage = 1;
   totalCount;
   totalPages;
+  merchant = '';
+  searchValue: string = '';
+  
+  params = this.loadParams();
 
-  // server params
-  params = {
-    count: this.perPage,
-    page: 0,
-  };
 
   settings = {};
 
   constructor(
     private storeService: StoreService,
+    private storageService: StorageService,
     private router: Router,
+    private toastr: ToastrService,
+    private dialogService: NbDialogService,
     private translate: TranslateService,
+    private securityService : SecurityService,
+    private _sanitizer: DomSanitizer,
   ) {
   }
+
+
 
   ngOnInit() {
     this.getList();
   }
 
+  loadParams() {
+    return {
+      count: this.perPage,
+      page: 0,
+      store: ''
+    };
+  }
+
   getList() {
     const startFrom = this.currentPage - 1;
+    this.merchant = localStorage.getItem('merchant');
     this.params.page = startFrom;
+    this.params.store = this.merchant;
     this.loadingList = true;
+    console.log(JSON.stringify(this.params));
     this.storeService.getListOfStores(this.params)
       .subscribe(res => {
         this.totalCount = res.recordsTotal;
@@ -59,6 +82,15 @@ export class StoresListComponent implements OnInit {
 
 
   setSettings() {
+
+    let customs = [];
+    if(this.securityService.isAnAdmin()) {
+      customs = [
+        { name: 'details', title: '<i class="nb-edit"></i>' },
+        { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="fas fa-trash-alt"></i>') }
+      ]
+    }
+
     this.settings = {
       actions: {
         columnTitle: '',
@@ -67,18 +99,24 @@ export class StoresListComponent implements OnInit {
         delete: false,
         position: 'right',
         sort: true,
-        custom: [
-          {
-            name: 'activate',
-            title: `${this.translate.instant('COMMON.DETAILS')}`
-          }
-        ],
+        custom: customs
       },
       pager: { display: false },
       columns: {
         id: {
+          filter: false,
           title: this.translate.instant('COMMON.ID'),
           type: 'number',
+        },
+        code: {
+          filter: false,
+          title: this.translate.instant('COMMON.CODE'),
+          type: 'string',
+        },
+        retailer: {
+          filter: false,
+          title: this.translate.instant('COMPONENTS.RETAILER'),
+          type: 'boolean',
         },
         name: {
           title: this.translate.instant('COMMON.STORE_NAME'),
@@ -92,14 +130,51 @@ export class StoresListComponent implements OnInit {
     };
   }
 
+
+
   route(event) {
-    this.router.navigate(['pages/store-management/store/', event.data.code]);
+    switch (event.action) {
+      case 'details'://must be super admin or admin retail or admin
+        if(!this.securityService.isAnAdmin()) {
+        } else {
+          this.router.navigate(['pages/store-management/store/', event.data.code]);
+          break;
+        }
+      case 'remove':
+        var code = event.data.code;
+        var storeCode= this.storageService.getMerchant();
+        if(code ===  storeCode) {
+          this.dialogService.open(ShowcaseDialogComponent, {
+            context: {
+              title: '',
+              text: '',
+              actionText : this.translate.instant('USER_FORM.CANT_DELETE_YOUR_PROFILE')
+              }
+            })
+        } else {
+          this.dialogService.open(ShowcaseDialogComponent, {
+            context: {
+              title: '',
+              text: event.data.name + ' ? '
+              }
+            })
+            .onClose.subscribe(res => {
+            if (res) {
+              this.storeService.deleteStore(event.data.code)
+                .subscribe(data => {
+                  this.toastr.success(this.translate.instant('USER_FORM.USER_REMOVED'));
+                  this.getList();
+                });
+            }
+          });
+        }
+    }
   }
 
   // paginator
 
   changePage(event) {
-    console.log('Current page now' + this.currentPage);
+    //console.log('Current page now' + this.currentPage);
     switch (event.action) {
       case 'onPage': {
         this.currentPage = event.data;
@@ -123,6 +198,26 @@ export class StoresListComponent implements OnInit {
       }
     }
     this.getList();
+  }
+
+  resetSearch() {
+    this.searchValue = null;
+    this.params = this.loadParams();
+    this.getList();
+  }
+
+  onSearch(query: string = '') {
+
+    if(query.length == 0) {
+      this.searchValue = null;
+      return;
+    }
+
+    //server side search
+    this.params["name"] = query;
+    this.getList();
+    this.searchValue = query;
+
   }
 
 }

@@ -11,6 +11,17 @@ export class SecurityService {
     return (JSON.parse(localStorage.getItem('roles'))).isSuperadmin;
   }
 
+  isRetailAdmin(): boolean {
+    //console.log(JSON.stringify(localStorage.getItem('roles')));
+    if(
+      (JSON.parse(localStorage.getItem('roles'))).isSuperadmin || (JSON.parse(localStorage.getItem('roles'))).isAdminRetail
+    ) {
+      return true;
+    } else  {
+      return false;
+    }
+  }
+
   editAdctions(): [] {
     return null;
   }
