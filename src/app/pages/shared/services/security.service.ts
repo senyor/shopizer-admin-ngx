@@ -22,6 +22,28 @@ export class SecurityService {
     }
   }
 
+  hasRetailAdminRole(): boolean {
+    //console.log(JSON.stringify(localStorage.getItem('roles')));
+    if(
+      (JSON.parse(localStorage.getItem('roles'))).isAdminRetail
+    ) {
+      return true;
+    } else  {
+      return false;
+    }
+  }
+
+  hasAdminRole(): boolean {
+    //console.log(JSON.stringify(localStorage.getItem('roles')));
+    if(
+      (JSON.parse(localStorage.getItem('roles'))).isAdmin
+    ) {
+      return true;
+    } else  {
+      return false;
+    }
+  }
+
   editAdctions(): [] {
     return null;
   }

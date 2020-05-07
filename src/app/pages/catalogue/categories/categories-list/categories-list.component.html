@@ -8,6 +8,12 @@
         
         </nb-card-header>
 
+    <form class="form-inline">
+        <input #search class="search form-control ng-pristine ng-valid ng-touched" value="{{ searchValue }}" type="text" placeholder="{{ 'COMPONENTS.SEARCH' | translate }}" (keydown.enter)="onSearch(search.value)" style="width:25%">
+        <img class="pointer" src="../../../../assets/img/magnifier.jpg" width="32" height="32" (click)="onSearch(search.value)">
+        <img class="pointer" src="../../../../assets/img/reset.jpg" width="32" height="32" (click)="resetSearch()">
+    </form>
+
 
     <ng2-smart-table [settings]="settings"
                      [source]="source"

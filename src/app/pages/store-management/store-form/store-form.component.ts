@@ -116,6 +116,8 @@ export class StoreFormComponent implements OnInit {
 
         this.adjustForm();
 
+        this.loading = false;
+
       });
     if (this.env.googleApiKey) {
       this.addressAutocomplete();
@@ -206,10 +208,13 @@ export class StoreFormComponent implements OnInit {
       this.form.controls['retailer'].disable();
       this.form.controls['retailerStore'].disable();
     }
-    if (this.store.id) {
+
+    console.log('Creating form 3 ');
+    console.log('Store id' + this.store.id);
+    if (this.store && this.store.id >0) {
       this.fillForm();
     }
-    this.loading = false;
+    
   }
 
   adjustForm() {
@@ -230,27 +235,33 @@ export class StoreFormComponent implements OnInit {
         dimension: this.parent.dimension,
       });
 
+
       this.form.controls['address'].patchValue({ country: this.parent.address.country });
       this.countryIsSelected(this.parent.address.country);
       this.form.controls['address'].patchValue({ stateProvince: this.parent.address.stateProvince }, { disabled: false });
       
+
       /** can't assign parent to root */
       if(this.roles.isSuperadmin) {
         this.form.controls['retailerStore'].disable();
       }
+
       
     }
 
   }
 
   fillForm() {
+
     this.isRetailer = this.store.retailer;
-    console.log(JSON.stringify(this.store));
-    if(this.store.parent != null) {
+    console.log('Fill form store ' + JSON.stringify(this.store));
+    if(this.store.parent && this.store.parent != null) {
       this.parentRetailer = this.store.parent ;
     }
 
-    console.log('Parent code ' + this.parentRetailer.code);
+    console.log('No parents');
+
+    //console.log('Parent code ' + this.parentRetailer.code);
 
     this.store.supportedLanguages.forEach(lang => {
       this.supportedLanguagesSelected.push(lang.code);
@@ -416,15 +427,6 @@ export class StoreFormComponent implements OnInit {
 
     this.form.patchValue({ 'supportedLanguages': this.supportedLanguagesSelected }); // rewrite form
 
-    /**
-    if (index === -1) {
-      newLanguages = [...newLanguages, languageCode]; // add
-    } else {
-      newLanguages.splice(index, 1); // remove
-    }
-    **/
-
-    //this.form.patchValue({ 'supportedLanguages': newLanguages }); // rewrite form
   }
 
   public findInvalidControls() {

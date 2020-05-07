@@ -10,7 +10,7 @@ const routes: Routes = [{
   children: [
     {
       path: 'categories',
-      //canActivate: [MarketplaceGuard],
+      canActivate: [MarketplaceGuard],
       loadChildren: 'app/pages/catalogue/categories/categories.module#CategoriesModule'
     },
     {

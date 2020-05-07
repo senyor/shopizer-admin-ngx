@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
         //console.log("Supported languages " + JSON.stringify(merchant.supportedLanguages));
         
         
-        
+        localStorage.setItem('merchantLanguage',JSON.stringify(merchant.defaultLanguage));
         localStorage.setItem('supportedLanguages',JSON.stringify(merchant.supportedLanguages));
 
         //require merchant country

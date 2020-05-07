@@ -1,7 +1,9 @@
 
 
 <div *ngIf="loading" class="loading-block" [nbSpinner]="loading" nbSpinnerSize="large" nbSpinnerStatus="primary"></div>
-  <nb-card size="small" class="page-card">
+<ngx-category-form *ngIf="category.id" [category]="category"></ngx-category-form>  
+<!--
+<nb-card size="small" class="page-card">
     <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
     <div class="inner_pages_legacy">
         <nb-card-header class="main_header">
@@ -15,4 +17,5 @@
     </div>
     </nb-card-body>
 </nb-card>
+-->
 

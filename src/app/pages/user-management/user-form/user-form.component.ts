@@ -96,9 +96,6 @@ export class UserFormComponent implements OnInit {
       });
     }
 
-    //console.log("I am " + this.userService.getUserId());
-    //console.log("Editing " + this._user.id);
-    //console.log("Self edit ? " + this.selfEdit);
     
     this.loader = true;
     this.createForm();
@@ -133,6 +130,8 @@ export class UserFormComponent implements OnInit {
       
       (this.roles.isSuperadmin || this.roles.isAdminRetail) ?
       this.form.controls['store'].enable() : this.form.controls['store'].disable();
+
+      console.log('User is admin retail ' + this.securityService.isRetailAdmin());
       
       
       // fill groups
@@ -143,13 +142,12 @@ export class UserFormComponent implements OnInit {
           el.disabled = true;
         }
         if(el.name === 'ADMIN_RETAIL') {
-          if(!this.securityService.isRetailAdmin()) {
+          if(this.securityService.hasRetailAdminRole()) {
             el.disabled = true;
           }
         }
-
         if(el.name === 'ADMIN') {
-          if(!this.securityService.isAnAdmin) {
+          if(this.securityService.hasAdminRole()) {
             el.disabled = true;
           }
         }

@@ -1,4 +1,5 @@
 import { MenuItem } from './menu-item';
+import { environment } from '../../environments/environment';
 
 /**
  * Security
@@ -49,8 +50,21 @@ const IsCustomer = () => {
   return (JSON.parse(localStorage.getItem('roles'))).isCustomer;
 };
 
+const isCategoryManagementVisible = () => {
+
+  if('MARKETPLACE' === environment.mode) {
+    if(IsSuperadmin()) {
+      return true;
+    }
+  } else {//B2C
+    if(IsAdminRetail()) {
+      return true;
+    }
+ }
+
+}
+
 const IsAdminRetail = () => {
-  //return (JSON.parse(localStorage.getItem('roles'))).isAdminRetail;
   if(
     (JSON.parse(localStorage.getItem('roles'))).isSuperadmin ||
     (JSON.parse(localStorage.getItem('roles'))).isAdminRetail
@@ -91,14 +105,14 @@ export const MENU_ITEMS: MenuItem[] = [
         key: 'COMPONENTS.CREATE_USER',
         link: '/pages/user-management/create-user',
         hidden: false,
-        guards: [IsSuperadmin, IsAdmin]
+        guards: [IsAdmin]
       },
       {
         title: 'COMPONENTS.USER_LIST',
         key: 'COMPONENTS.USER_LIST',
         link: '/pages/user-management/users',
         hidden: false,
-        guards: [IsSuperadmin, IsAdminRetail]
+        guards: [IsAdmin]
       },
     ],
   },
@@ -122,7 +136,7 @@ export const MENU_ITEMS: MenuItem[] = [
         key: 'COMPONENTS.STORES_LIST',
         link: '/pages/store-management/stores-list',
         hidden: false,
-        guards: [IsSuperadmin, IsAdminRetail]
+        guards: [IsAdmin]
       },
       {
         title: 'COMPONENTS.CREATE_STORE',
@@ -138,34 +152,34 @@ export const MENU_ITEMS: MenuItem[] = [
     key: 'COMPONENTS.CATALOGUE',
     icon: 'fas fa-tags',
     hidden: false,
-    guards: [IsSuperadmin, IsAdmin, IsAdminRetail, IsAdminStore, IsAdminCatalogue],
+    guards: [IsAdminRetail],
     children: [
       {
         title: 'COMPONENTS.CATEGORIES',
         key: 'COMPONENTS.CATEGORIES',
         hidden: false,
-        guards: [IsAdminRetail],
+        guards: [isCategoryManagementVisible],
         children: [
           {
             title: 'COMPONENTS.CATEGORIES_LIST',
             key: 'COMPONENTS.CATEGORIES_LIST',
             link: '/pages/catalogue/categories/categories-list',
+            guards: [isCategoryManagementVisible],
             hidden: false,
-            guards: [IsAdminRetail],
           },
           {
             title: 'COMPONENTS.CREATE_CATEGORY',
             key: 'COMPONENTS.CREATE_CATEGORY',
             link: '/pages/catalogue/categories/create-category',
             hidden: false,
-            guards: [IsAdminRetail],
+            guards: [isCategoryManagementVisible],
           },
           {
             title: 'COMPONENTS.CATEGORIES_HIERARCHY',
             key: 'COMPONENTS.CATEGORIES_HIERARCHY',
             link: '/pages/catalogue/categories/categories-hierarchy',
             hidden: false,
-            guards: [IsAdminRetail],
+            guards: [isCategoryManagementVisible],
           },
         ],
       },

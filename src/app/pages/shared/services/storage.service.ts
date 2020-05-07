@@ -38,10 +38,10 @@ export class StorageService {
     return merchant;
   }
 
-  getMerchantLanguages(): Language[] {
+  //getMerchantLanguages(): Language[] {
     //return localStorage.getItem('supportedLanguages')
-    return null;
-  }
+    //return null;
+  //}
 
   getMerchantCountry() {
     return localStorage.getItem('defaultCountry');

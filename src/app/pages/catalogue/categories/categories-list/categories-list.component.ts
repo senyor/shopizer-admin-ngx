@@ -24,17 +24,14 @@ export class CategoriesListComponent implements OnInit {
   settings = {};
 
   // paginator
-  perPage = 10;
+  perPage = 15;
   currentPage = 1;
   totalCount;
   roles;
+  searchValue: string = '';
 
   // request params
-  params = {
-    lang: this.storageService.getLanguage(),
-    count: this.perPage,
-    page: 0
-  };
+  params = this.loadParams();
 
   availableList: any[];
   selectedList: any[];
@@ -47,9 +44,18 @@ export class CategoriesListComponent implements OnInit {
     private translate: TranslateService,
     private toastr: ToastrService,
     private productService: ProductService,
-    private storageService: StorageService
+    private storageService: StorageService,
+
   ) {
     this.roles = JSON.parse(localStorage.getItem('roles'));
+  }
+
+  loadParams() {
+    return {
+      lang: this.storageService.getLanguage(),
+      count: this.perPage,
+      page: 0
+    };
   }
 
   ngOnInit() {
@@ -120,6 +126,11 @@ export class CategoriesListComponent implements OnInit {
         store: {
           title: this.translate.instant('STORE.MERCHANT_STORE'),
           type: 'string',
+          filterFunction(cell: any, search?: string): boolean {
+            console.log('Cell ' + cell);
+            console.log('Search ' + search);
+            return true;
+          }
         },
         description: {
           title: this.translate.instant('CATEGORY.CATEGORY_NAME'),
@@ -137,6 +148,7 @@ export class CategoriesListComponent implements OnInit {
         parent: {
           title: this.translate.instant('CATEGORY.PARENT'),
           type: 'string',
+          filter: false,
           valuePrepareFunction: (parent) => {
             return parent ? parent.code : 'root';
           }
@@ -196,6 +208,27 @@ export class CategoriesListComponent implements OnInit {
       }
     }
     this.getList();
+  }
+
+  resetSearch() {
+    this.searchValue = null;
+    this.params = this.loadParams();
+    this.getList();
+  }
+
+  onSearch(query: string = '') {
+
+    console.log('...Search...');
+
+    if(query.length == 0) {
+      this.searchValue = null;
+      return;
+    }
+
+    this.params["name"] = query;
+    this.getList();
+    this.searchValue = query;
+
   }
 
 }

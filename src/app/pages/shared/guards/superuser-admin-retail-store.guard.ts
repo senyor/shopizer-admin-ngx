@@ -20,8 +20,6 @@ export class SuperuserAdminRetailStoreGuard implements CanActivate {
     if (roles.isSuperadmin || roles.isAdmin || roles.isAdminRetail || roles.isAdminStore) {
       return true;
     }
-    console.log('8.1');
-
     this.router.navigate(['home']);
     return false;
   }

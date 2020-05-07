@@ -14,8 +14,16 @@ export class ConfigService {
   }
 
   getListOfSupportedLanguages() {
-    return this.crudService.get(`/v1/languages`);
+
+    return this.crudService.get(`/v1/store/languages`);
   }
+
+  //getListOfSupportedLanguages(store: string) {
+  //  const params = {
+  //    'store': store
+  //  };
+  //  return this.crudService.get(`/v1/store/languages`, params );
+  //}
 
   getMerchantListOfSupportedLanguages() {
     return JSON.parse(localStorage.getItem('supportedLanguages'));

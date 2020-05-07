@@ -10,6 +10,7 @@ import { StoreService } from '../../../store-management/services/store.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { validators } from '../../../shared/validation/validators';
 import { slugify } from '../../../shared/utils/slugifying';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'ngx-category-form',
@@ -19,13 +20,22 @@ import { slugify } from '../../../shared/utils/slugifying';
 export class CategoryFormComponent implements OnInit {
   @Input() category: any;
   form: FormGroup;
+  //category
   roots = [];
+  //supported languages
   languages = [];
+  //default language
+  defaultLanguage = environment.client.language.default;
+
+  //select store
   stores = [];
   isSuperAdmin = false;
   roles;
+  //current user associated merchant
   merchant;
-  config = {
+
+  //inline editor
+  editorConfig = {
     placeholder: '',
     tabsize: 2,
     height: 300,
@@ -40,7 +50,10 @@ export class CategoryFormComponent implements OnInit {
     ],
     fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
   };
+  //loader image
   loader = false;
+
+  //category code must be unique
   isCodeUnique = true;
 
   constructor(
@@ -60,16 +73,14 @@ export class CategoryFormComponent implements OnInit {
   ngOnInit() {
 
     this.isSuperAdmin = this.roles.isSuperadmin;
-    //console.log('Is superAdmin ' + this.isSuperAdmin);
-
-
     this.merchant = this.storageService.getMerchant();
+    //for populating stores dropdown list
     this.storeService.getListOfMerchantStoreNames({'store':''})
     .subscribe(res => {
        this.stores = res;
     });
 
-
+    //for selecting parent category - root or child of a parent
     this.categoryService.getListOfCategories()
       .subscribe(res => {
         res.categories.push({ id: 0, code: 'root' });
@@ -83,6 +94,8 @@ export class CategoryFormComponent implements OnInit {
         this.roots = [...res.categories];
       });
     this.loader = true;
+
+    //determines how many languages should be supported
     this.configService.getListOfSupportedLanguages()
       .subscribe(res => {
         this.languages = [...res];
@@ -93,7 +106,6 @@ export class CategoryFormComponent implements OnInit {
         }
         this.loader = false;
       });
-
   }
 
   private createForm() {
@@ -122,7 +134,6 @@ export class CategoryFormComponent implements OnInit {
           friendlyUrl: ['', [Validators.required]],
           description: [''],
           title: [''],
-          keyWords: [''],
           metaDescription: [''],
         })
       );
@@ -136,16 +147,18 @@ export class CategoryFormComponent implements OnInit {
       visible: this.category.visible,
       code: this.category.code,
       sortOrder: this.category.sortOrder,
-      selectedLanguage: 'en',
+      selectedLanguage: this.defaultLanguage,
       descriptions: [],
     });
     this.fillFormArray();
   }
 
   fillFormArray() {
+    //each supported language
     this.form.value.descriptions.forEach((desc, index) => {
       this.category.descriptions.forEach((description) => {
         if (desc.language === description.language) {
+          //6 fields + language
           (<FormArray>this.form.get('descriptions')).at(index).patchValue({
             language: description.language,
             name: description.name,
@@ -153,7 +166,6 @@ export class CategoryFormComponent implements OnInit {
             friendlyUrl: description.friendlyUrl,
             description: description.description,
             title: description.title,
-            keyWords: description.keyWords,
             metaDescription: description.metaDescription,
           });
         }
@@ -173,12 +185,21 @@ export class CategoryFormComponent implements OnInit {
     return <FormArray>this.form.get('descriptions');
   }
 
+  get titles(): FormArray {
+    return <FormArray>this.form.get('titles');
+  }
+
+  get names(): FormArray {
+    return <FormArray>this.form.get('names');
+  }
+
   changeName(event, index) {
     (<FormArray>this.form.get('descriptions')).at(index).patchValue({
       friendlyUrl: slugify(event)
     });
   }
 
+  //determines if category code is unique
   checkCode(event) {
     const code = event.target.value;
     this.categoryService.checkCategoryCode(code)
@@ -252,6 +273,10 @@ export class CategoryFormComponent implements OnInit {
         this.toastr.error(this.translate.instant('COMMON.CODE_EXISTS'));
         return;
       }
+
+      //for debugging
+      console.log(JSON.stringify(categoryObject));
+      return;
 
       if (this.category.id) {
         this.categoryService.updateCategory(this.category.id, categoryObject)
